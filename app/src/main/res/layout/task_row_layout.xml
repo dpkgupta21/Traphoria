@@ -1,0 +1,82 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="0dp">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/status_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_20dp"
+            android:src="@drawable/pin_icon" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_25dp"
+            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_toRightOf="@+id/status_pin"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/margin_20dp">
+
+            <TextView
+                android:id="@+id/task"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Go to market to buy grocery for Dinner."
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_20sp" />
+
+            <TextView
+                android:id="@+id/task_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/task"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="left"
+                android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_16sp" />
+
+            <TextView
+                android:id="@+id/shared"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/task_description"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="left"
+                android:text="@string/shared_with"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_size_16sp" />
+
+            <TextView
+                android:id="@+id/shared_with"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/task_description"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_toRightOf="@+id/shared"
+                android:gravity="left"
+                android:text="ibtissam,abdul Nasir"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_size_16sp" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/grey" />
+</android.support.v7.widget.CardView>

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AddPassportVisaScreen">
+
+    <LinearLayout
+        android:id="@+id/toolbar_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_ll"
+        android:layout_below="@+id/toolbar_ll">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:orientation="horizontal"
+                android:weightSum="2.1">
+
+                <TextView
+                    android:id="@+id/passport_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_background"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp"
+                    android:text="@string/passport"
+                    android:textColor="@color/text_color_selector"
+                    android:textSize="@dimen/text_size_18sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1" />
+
+                <TextView
+                    android:id="@+id/visa_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_background"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:paddingBottom="@dimen/margin_15dp"
+
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp"
+                    android:text="@string/visa"
+                    android:textColor="@color/text_color_selector"
+                    android:textSize="@dimen/text_size_18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/passport_form"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_20dp"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/select_country"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/grey_background"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp">
+
+                    <Spinner
+                        android:id="@+id/passport_country_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:prompt="@string/gender"
+                        android:spinnerMode="dialog"></Spinner>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/pasport_type"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/grey_background"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp">
+
+                    <Spinner
+                        android:id="@+id/passport_type_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:prompt="@string/gender"
+                        android:spinnerMode="dialog"></Spinner>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/pasport_no"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+                <EditText
+                    android:id="@+id/passport_no_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/grey_background"
+                    android:gravity="center_vertical"
+                    android:hint="000 000 0000"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp"></EditText>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/expire_on"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/calender_btn"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp"
+                    android:text="@string/dd_mm_yyyy"
+                    android:textColor="@color/text_color_selector" />
+
+            </LinearLayout>
+
+            <!-- skjksjkssds-->
+
+
+            <LinearLayout
+                android:id="@+id/visa_form"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_20dp"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/select_country"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/grey_background"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp">
+
+                    <Spinner
+                        android:id="@+id/visa_country_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:prompt="@string/gender"
+                        android:spinnerMode="dialog"></Spinner>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/visa_type"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/grey_background"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp">
+
+                    <Spinner
+                        android:id="@+id/visa_type_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:prompt="@string/gender"
+                        android:spinnerMode="dialog"></Spinner>
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/entry_type"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/grey_background"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp">
+
+                    <Spinner
+                        android:id="@+id/entry_type_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:prompt="@string/gender"
+                        android:spinnerMode="dialog"></Spinner>
+                </RelativeLayout>
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/expire_on"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:id="@+id/visa_expire_on_tv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/calender_btn"
+                    android:gravity="center_vertical"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp"
+                    android:text="@string/passport"
+                    android:textColor="@color/text_color_selector" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/purple"
+        android:weightSum="2.1">
+
+        <TextView
+            android:id="@+id/save_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/margin_10dp"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18sp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="@color/dark_purple" />
+
+        <TextView
+            android:id="@+id/add_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="@dimen/margin_10dp"
+            android:text="@string/add_more"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18sp" />
+    </LinearLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/toolbar_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_ll"
+        android:layout_below="@+id/toolbar_ll"
+        android:layout_marginBottom="@dimen/margin_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/alone_radio_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/traveling_alone"
+                    android:textColor="@color/radio_button_text_color_selector"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <RadioButton
+                    android:id="@+id/group_radio_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_20dp"
+                    android:text="@string/traveling_group"
+                    android:textColor="@color/radio_button_text_color_selector"
+                    android:textSize="@dimen/text_size_16sp" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:id="@+id/travelling_alone_form"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/select_country"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+                <TextView
+                    android:id="@+id/select_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/down_btn"
+                    android:padding="@dimen/margin_15dp"
+                    android:text="@string/select"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/trip_start_date"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <EditText
+                    android:id="@+id/start_date_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/calender_btn"
+                    android:hint="DD-MM-YYYY"
+                    android:padding="@dimen/margin_15dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/dark_grey"
+                    android:textSize="@dimen/text_size_18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/trip_end_date"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <EditText
+                    android:id="@+id/end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/calender_btn"
+                    android:hint="DD-MM-YYYY"
+                    android:padding="@dimen/margin_15dp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/dark_grey"
+                    android:textSize="@dimen/text_size_18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/select_passport"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+                <TextView
+                    android:id="@+id/select_passport"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/down_btn"
+                    android:padding="@dimen/margin_15dp"
+                    android:text="@string/select"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/select_visa"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+                <TextView
+                    android:id="@+id/select_visa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/down_btn"
+                    android:padding="@dimen/margin_15dp"
+                    android:text="@string/select"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18sp" />
+
+                <TextView
+                    android:id="@+id/add_member_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:padding="@dimen/margin_10dp"
+                    android:text="@string/add_member"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp"
+                    android:visibility="gone" />
+
+
+                <TextView
+                    android:id="@+id/add_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/down_btn"
+                    android:padding="@dimen/margin_15dp"
+                    android:text="@string/select"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_18sp"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/purple">
+
+        <TextView
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/margin_10dp"
+            android:text="@string/save"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18sp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

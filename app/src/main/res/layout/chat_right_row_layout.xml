@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <RelativeLayout
+            android:id="@+id/msg_rl"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:layout_toLeftOf="@id/img_user_image">
+
+
+            <TextView
+                android:id="@+id/msg_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+
+                android:layout_marginLeft="@dimen/margin_30dp"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:background="@drawable/right_chat_grey_bg"
+                android:padding="@dimen/margin_20dp"
+                android:text="Hello"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_16sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/right_chat_corner" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/msg_tv"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_toLeftOf="@+id/view"
+                android:gravity="left"
+                android:text="15 Jun"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_size_10sp" />
+
+            <TextView
+                android:id="@+id/view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/msg_tv"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_toLeftOf="@+id/time"
+                android:text="|"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_size_10sp" />
+
+            <TextView
+                android:id="@+id/time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/msg_tv"
+                android:layout_marginRight="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="left"
+                android:text="05:00 PM"
+                android:textColor="@color/dark_grey"
+                android:textSize="@dimen/text_size_10sp" />
+
+
+        </RelativeLayout>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/back_btn"
+            android:layout_marginRight="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:src="@drawable/avtar_icon"
+            app:civ_border_color="@color/grey"
+            app:civ_border_width="1dp" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

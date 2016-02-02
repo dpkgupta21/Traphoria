@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/toolbar_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/chat_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_msg_rl"
+        android:layout_below="@+id/toolbar_ll"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:paddingBottom="@dimen/margin_10dp" />
+
+    <LinearLayout
+        android:id="@+id/bottom_msg_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        android:paddingBottom="@dimen/margin_10dp"
+        android:paddingLeft="@dimen/margin_15dp"
+        android:paddingRight="@dimen/margin_15dp"
+        android:paddingTop="@dimen/margin_10dp">
+
+        <EditText
+            android:id="@+id/msg_et"
+            style="@style/width_match_parent_max_100"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_5dp"
+            android:layout_toLeftOf="@+id/send_msg_btn"
+            android:layout_weight="1"
+            android:background="@color/white"
+            android:hint="@string/your_msg"
+            android:maxHeight="100dp"
+            android:paddingBottom="@dimen/margin_20dp"
+            android:paddingLeft="@dimen/margin_10dp"
+            android:paddingRight="@dimen/margin_10dp"
+            android:paddingTop="@dimen/margin_20dp"
+            android:textColorHint="@color/dark_grey" />
+
+        <ImageView
+            android:id="@+id/send_msg_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/msj_send_icon" />
+
+    </LinearLayout>
+</RelativeLayout>

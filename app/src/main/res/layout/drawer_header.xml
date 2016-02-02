@@ -1,0 +1,129 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/nav_header_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimary">
+
+
+        <ImageView
+            android:id="@+id/back_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_20dp"
+            android:src="@drawable/arrow_up" />
+
+        <ImageView
+            android:id="@+id/logout_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/margin_20dp"
+            android:src="@drawable/logout_icon" />
+
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/img_user_image"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_below="@+id/back_btn"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:src="@drawable/avtar_icon"
+            app:civ_border_color="@color/grey"
+            app:civ_border_width="1dp" />
+
+        <RelativeLayout
+            android:id="@+id/user_details_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/img_user_image">
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:text="Md. Alnasir"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_24sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/txt_age_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_name"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:text="25 | M"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16sp"
+                android:textStyle="normal" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/call_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_user_image"
+            android:layout_marginLeft="@dimen/margin_5dp"
+            android:padding="@dimen/margin_15dp">
+
+
+            <ImageView
+                android:id="@+id/call_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/green_phone_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_toRightOf="@+id/call_btn"
+                android:text="@string/family_helpline"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/call_cancel_rl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_user_image"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginRight="@dimen/margin_5dp"
+            android:layout_toRightOf="@+id/call_rl"
+            android:padding="@dimen/margin_15dp">
+
+            <ImageView
+                android:id="@+id/call_cancel_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/red_phone_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_toRightOf="@+id/call_cancel_btn"
+                android:text="@string/local_helpline"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16sp" />
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</FrameLayout>

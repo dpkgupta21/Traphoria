@@ -1,0 +1,177 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="240dp"
+    card_view:cardCornerRadius="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/slide_img" />
+
+
+        <TextView
+            android:id="@+id/type_tv"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:background="@drawable/black_transparent_circle"
+            android:gravity="center"
+            android:text="@string/V"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_20sp"
+            android:textStyle="normal" />
+
+
+        <RelativeLayout
+            android:id="@+id/passport_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/edit_btn"
+            android:layout_toRightOf="@+id/type_tv"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/country_name_psprt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:padding="@dimen/margin_15dp"
+                android:singleLine="true"
+                android:text="United States of America"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/pasprt_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/country_name_psprt"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Diplomatic Passports"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/pasprt_no"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pasprt_type"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Passport No: 000 000 000 000"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/expires_date"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pasprt_no"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Expires On: 28 Jan 2016"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/visa_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/edit_btn"
+            android:layout_toRightOf="@+id/type_tv">
+
+            <TextView
+                android:id="@+id/country_name_visa"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:padding="@dimen/margin_15dp"
+                android:singleLine="true"
+                android:text="United Kingdom"
+
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_20sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/visa_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/country_name_visa"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Long Stay Visa"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/visa_entry_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/visa_type"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Double Entry (1 left)"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/_visa_expires_date"
+                android:layout_width="wrap_content"
+
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/visa_entry_type"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:gravity="center"
+                android:singleLine="true"
+                android:text="Expires On: 28 Jan 2016"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="normal" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="bottom"
+        android:background="@color/faded_white" />
+</android.support.v7.widget.CardView>

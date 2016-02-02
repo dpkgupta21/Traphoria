@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.AddNewTaskScreen">
+
+
+    <LinearLayout
+        android:id="@+id/toolbar_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom_ll"
+        android:layout_below="@+id/toolbar_ll"
+        android:layout_marginBottom="@dimen/margin_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:layout_marginLeft="@dimen/margin_10dp"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_10dp"
+                android:text="@string/meber_name"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_16sp" />
+
+            <EditText
+                android:id="@+id/member_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_background"
+                android:maxLines="1"
+                android:padding="@dimen/margin_20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/dark_grey" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_10dp"
+                android:text="@string/task_description"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_16sp" />
+
+
+            <TextView
+                android:id="@+id/relation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_background"
+                android:drawableRight="@drawable/down_btn"
+                android:padding="@dimen/margin_20dp"
+                android:text="@string/relation"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/dark_grey"
+                android:textSize="@dimen/text_size_18sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_10dp"
+                android:text="@string/register_mbl"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_16sp" />
+
+            <EditText
+                android:id="@+id/register_mbl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_background"
+                android:hint="000 000 000 000"
+                android:maxLines="2"
+                android:padding="@dimen/margin_20dp"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/dark_grey" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/bottom_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/purple">
+
+        <TextView
+            android:id="@+id/save_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/margin_10dp"
+            android:text="@string/send_request"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_18sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

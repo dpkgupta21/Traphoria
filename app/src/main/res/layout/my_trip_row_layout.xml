@@ -1,0 +1,75 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    card_view:cardCornerRadius="0dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/india"
+            android:scaleType="centerCrop" />
+
+        <ImageView
+            android:id="@+id/trip_type_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:layout_marginTop="@dimen/margin_5dp"
+            android:src="@drawable/single_group_icon" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/dest_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:padding="@dimen/margin_10dp"
+                android:singleLine="true"
+                android:text="India"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_22sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20dp"
+                android:singleLine="true"
+                android:text="28 Oct 2015 - 15 Nov 2015"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/expiry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_20dp"
+                android:singleLine="true"
+                android:text="Visa Expires on:28 Jan 2016"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_18sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_gravity="bottom"
+            android:background="@color/faded_white" />
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -1,0 +1,101 @@
+<resources>
+    <string name="app_name">Traphoria</string>
+
+    <string name="fb_login">login via Facebook</string>
+    <string name="email_login">login via Email</string>
+    <string name="signup_detail">if you don\u0027t have any account</string>
+    <string name="sign_up"><b>Sign Up\u0021</b></string>
+    <string name="email_add">Your Email Address</string>
+    <string name="pwd">Password</string>
+    <string name="login">Login</string>
+    <string name="mobile_num">Your Mobile No.</string>
+    <string name="send_code">Send Verification Code</string>
+    <string name="enter_verification">Enter Verification No.</string>
+    <string name="verify">Verify</string>
+    <string name="verify_alert">A verification code has send to your mobile no.</string>
+    <string name="signup">Sign Up</string>
+    <string name="signup_alert">By signup you agree with our</string>
+    <string name="terms_policy">terms &amp; policy</string>
+    <string name="terms_condtns">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui.  Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia.</string>
+    <string name="terms">Terms &amp; Conditions</string>
+    <string name="family_helpline">Family \nHelpline</string>
+    <string name="local_helpline">Local \nHelpline</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="profile_info">PROFILE INFORMATION</string>
+    <string name="your_name">Your Name</string>
+    <string name="gender">Gender</string>
+    <string name="dob">DOB</string>
+    <string name="genrl_sttngs">GENERAL SETTINGS</string>
+    <string name="location_services">Location Services</string>
+    <string name="trip_tracker">Trip Tracker</string>
+    <string name="notification">Notification</string>
+    <string name="save">Save</string>
+    <string name="enter_contact">Add your Family Contact No.</string>
+    <string name="no_record_found">No Record Found</string>
+    <string name="add_passport_visa"><![CDATA[Add Your Passport & Visa]]></string>
+    <string name="passport">Passport</string>
+    <string name="visa">Visa</string>
+    <string name="pasport_visa"><![CDATA[Passport & Visa]]></string>
+    <string name="select_country">Select Country</string>
+    <string name="pasport_type">Passport Type</string>
+    <string name="pasport_no">Passport No.</string>
+    <string name="expire_on">Expire on</string>
+    <string name="visa_type">Visa Type</string>
+    <string name="entry_type">Entry Type</string>
+    <string name="dd_mm_yyyy">DD-MM-YYYY</string>
+    <string name="add_more">Add More</string>
+    <string name="V">V</string>
+    <string name="visa_free_dest">VISA FREE DESTINATIONS</string>
+    <string name="explore_free">EXPLORE FREE PASSAGE</string>
+    <string name="P">P</string>
+    <string name="search">Search</string>
+    <string name="search_txt">Where do you want to go?</string>
+    <string name="no_trip_found">No Trip Found</string>
+    <string name="add_trip">Add Trip</string>
+    <string name="create_trip">Create Trip</string>
+    <string name="traveling_alone">Travelling Alone</string>
+    <string name="traveling_group">Group Travelling</string>
+    <string name="select">Select</string>
+    <string name="trip_start_date">Trip Start Date</string>
+    <string name="trip_end_date">Trip End Date</string>
+    <string name="select_passport">Select Passport</string>
+    <string name="select_visa">Select Visa</string>
+    <string name="add_member">Add Member</string>
+    <string name="add_new_trip">Add New Trip</string>
+    <string name="my_trips">My Trips</string>
+    <string name="shared_with">Shared With:</string>
+    <string name="task_title">Task Title</string>
+    <string name="write_here">Write here...</string>
+    <string name="task_description">Task Description</string>
+    <string name="share_task">Share Task With</string>
+    <string name="add_new_task">Add New Task</string>
+    <string name="notifications">Notifications</string>
+    <string name="messages">Messages</string>
+    <string name="track">Track</string>
+    <string name="task">Task</string>
+    <string name="message">Message</string>
+    <string name="send_request">Send Request</string>
+    <string name="register_mbl">Register Mobile No.</string>
+    <string name="relation">Relation</string>
+    <string name="meber_name">Member Name</string>
+    <string name="your_msg">Your Message</string>
+    <string name="chat">Chat</string>
+    <string name="embassy">Embassy</string>
+    <string name="hospital">Hospital</string>
+    <string name="bank_atm">Bank/ATM</string>
+    <string name="police_stn">Police Stn</string>
+    <string name="top_dest">Top Destinations</string>
+    <string name="culture_dest">Culture &amp; Tradition</string>
+    <string name="festival_events"><![CDATA[Festival & Events]]></string>
+    <string-array name="menu_list">
+        <item>Search</item>
+        <item>Alert</item>
+        <item>@string/pasport_visa</item>
+        <item>My Trips</item>
+        <item>Task</item>
+        <item>Members</item>
+        <item>Location Services</item>
+        <item>Settings</item>
+    </string-array>
+</resources>

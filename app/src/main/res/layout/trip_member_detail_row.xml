@@ -1,0 +1,155 @@
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    card_view:cardCornerRadius="0dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/margin_10dp"
+            android:paddingLeft="@dimen/margin_20dp"
+            android:paddingRight="@dimen/margin_20dp"
+            android:paddingTop="@dimen/margin_10dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/img_user_image"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_below="@+id/back_btn"
+                android:layout_centerVertical="true"
+                android:src="@drawable/avtar_icon"
+                app:civ_border_color="@color/grey"
+                app:civ_border_width="1dp" />
+
+            <TextView
+                android:id="@+id/member_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/margin_15dp"
+                android:layout_toRightOf="@+id/img_user_image"
+                android:text="Ibtisaam"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_20sp" />
+
+            <TextView
+                android:id="@+id/gender_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:text="26 | F"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_size_20sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/grey"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingLeft="@dimen/margin_20dp"
+                android:paddingRight="@dimen/margin_20dp"
+                android:paddingTop="@dimen/margin_10dp">
+
+                <TextView
+                    android:id="@+id/pasport_et"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="Passport:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+                <TextView
+                    android:id="@+id/pasport_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_toRightOf="@+id/pasport_et"
+                    android:text="000 0000 000 000"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+                <TextView
+                    android:id="@+id/passport_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:drawableLeft="@drawable/calender_btn"
+                    android:drawablePadding="@dimen/margin_10dp"
+                    android:text="2Y 4M 22D"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingLeft="@dimen/margin_20dp"
+                android:paddingRight="@dimen/margin_20dp">
+
+                <TextView
+                    android:id="@+id/visa_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Travel Visa:"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+                <TextView
+                    android:id="@+id/visa"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/pasprt_no"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:layout_toRightOf="@+id/visa_tv"
+                    android:text="Singe Entry(1 left) "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+
+
+                <TextView
+                    android:id="@+id/visa_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/margin_5dp"
+                    android:drawableLeft="@drawable/calender_btn"
+                    android:drawablePadding="@dimen/margin_10dp"
+                    android:text="5M 26D"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_size_16sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/purple" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>
