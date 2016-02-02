@@ -8,7 +8,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 import com.app.traphoria.adapter.SelectMemberAdapter;
 
 public class AddNewTaskScreen extends AppCompatActivity {

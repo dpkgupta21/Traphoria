@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 
 public class LandingScreen extends AppCompatActivity implements View.OnClickListener {
     private TextView sigup;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 
 public class ChatScreen extends AppCompatActivity implements View.OnClickListener {
 

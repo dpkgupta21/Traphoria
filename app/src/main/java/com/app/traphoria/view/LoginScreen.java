@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 
 public class LoginScreen extends AppCompatActivity implements View.OnClickListener {

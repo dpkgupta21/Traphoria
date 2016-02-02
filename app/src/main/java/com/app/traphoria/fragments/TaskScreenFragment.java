@@ -14,7 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 import com.app.traphoria.adapter.TaskAdapter;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.view.AddNewTaskScreen;

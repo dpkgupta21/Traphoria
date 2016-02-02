@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 
 public class MobileNumberVerificationScreen extends AppCompatActivity implements View.OnClickListener {
 

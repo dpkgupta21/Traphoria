@@ -10,18 +10,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 import com.app.traphoria.view.DestinationDetailScreen;
 
 /**
  * Created by Harish on 1/26/2016.
  */
-public class SearchDetinationAdapter extends RecyclerView.Adapter<SearchDetinationAdapter.DetailsViewHolder> {
+public class SearchDestinationAdapter extends RecyclerView.Adapter<SearchDestinationAdapter.DetailsViewHolder> {
 
 
     static Activity mActivity;
 
-    public SearchDetinationAdapter(Activity mActivity) {
+    public SearchDestinationAdapter(Activity mActivity) {
         this.mActivity = mActivity;
     }
 

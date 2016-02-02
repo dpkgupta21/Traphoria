@@ -7,7 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 
 public class TermsAndConditionScreen extends AppCompatActivity {
 

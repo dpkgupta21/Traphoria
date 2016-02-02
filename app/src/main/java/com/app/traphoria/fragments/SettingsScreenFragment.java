@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 
 /**

@@ -22,7 +22,7 @@ import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 import com.app.traphoria.adapter.MessagesAdapter;
 import com.app.traphoria.adapter.NotificationAdapter;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;

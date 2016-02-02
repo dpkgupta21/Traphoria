@@ -11,8 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import traphoria.com.app.traphoria.R;
-import com.app.traphoria.adapter.SearchDetinationAdapter;
+import com.app.traphoria.R;
+import com.app.traphoria.adapter.SearchDestinationAdapter;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 
 /**
@@ -26,7 +26,7 @@ public class SearchDestinationFragment extends Fragment implements View.OnClickL
     private Activity mActivity;
     private Toolbar mToolbar;
     private TextView toolbar_right_tv;
-    private SearchDetinationAdapter mSearchDetinationAdapter;
+    private SearchDestinationAdapter mSearchDestinationAdapter;
 
     private RecyclerView recyclerView;
 
@@ -46,8 +46,8 @@ public class SearchDestinationFragment extends Fragment implements View.OnClickL
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
 
-        mSearchDetinationAdapter = new SearchDetinationAdapter();
-        recyclerView.setAdapter(mSearchDetinationAdapter);
+        mSearchDestinationAdapter = new SearchDestinationAdapter(getActivity());
+        recyclerView.setAdapter(mSearchDestinationAdapter);
         return view;
 
     }

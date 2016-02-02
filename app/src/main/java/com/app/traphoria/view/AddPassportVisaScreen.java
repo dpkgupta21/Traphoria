@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 
 public class AddPassportVisaScreen extends AppCompatActivity implements View.OnClickListener {
 

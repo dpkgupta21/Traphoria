@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.Arrays;
 import java.util.List;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 
 
 /**

@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 import com.app.traphoria.adapter.ViewTripGroupDetailsAdapter;
 
 public class ViewTripGroupDetailsScreen extends AppCompatActivity implements View.OnClickListener {

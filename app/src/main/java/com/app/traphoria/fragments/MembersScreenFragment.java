@@ -16,7 +16,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 import com.app.traphoria.adapter.MembersAdapter;
 import com.app.traphoria.chat.ChatScreen;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;

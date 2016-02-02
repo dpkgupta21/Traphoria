@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import traphoria.com.app.traphoria.R;
+import com.app.traphoria.R;
 
 /**
  * Created by Harish on 1/26/2016.
