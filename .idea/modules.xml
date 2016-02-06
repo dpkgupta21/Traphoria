@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Traphoria_3Feb.iml" filepath="$PROJECT_DIR$/Traphoria_3Feb.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Traphoria.iml" filepath="$PROJECT_DIR$/Traphoria.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

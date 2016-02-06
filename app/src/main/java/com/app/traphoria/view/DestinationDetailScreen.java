@@ -1,5 +1,6 @@
 package com.app.traphoria.view;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -34,11 +35,28 @@ public class DestinationDetailScreen extends AppCompatActivity implements View.O
         top_dest_tv.setOnClickListener(this);
         culture_dest_tv.setOnClickListener(this);
         festival_tv.setOnClickListener(this);
-
+        back_btn.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.back_btn:
+                finish();
+                break;
+            case R.id.top_dest_tv:
+                startActivity(new Intent(this, TopDestinationsScreen.class));
+                break;
+
+            case R.id.culture_dest_tv:
+                break;
+
+            case R.id.festival_tv:
+                startActivity(new Intent(this, FestivalEventsScreen.class));
+
+                break;
+        }
 
     }
 }

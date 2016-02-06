@@ -75,7 +75,9 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".view.DestinationDetailScreen"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".view.TopDestinationsScreen" />
+        <activity android:name=".view.FestivalEventsScreen"></activity>
     </application>
 
 </manifest>
