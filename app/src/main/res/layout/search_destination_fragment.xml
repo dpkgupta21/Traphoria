@@ -22,7 +22,7 @@
             android:padding="@dimen/margin_10dp"
             android:src="@drawable/search_icon" />
 
-        <EditText
+        <com.app.traphoria.customViews.MyEditTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"

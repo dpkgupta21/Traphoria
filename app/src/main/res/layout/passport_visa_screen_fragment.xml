@@ -17,14 +17,13 @@
         android:layout_centerInParent="true">
 
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/no_record_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/no_record_found"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_18sp"
             android:textStyle="normal" />
 
         <ImageView
@@ -34,18 +33,17 @@
             android:layout_below="@+id/no_record_tv"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_20dp"
-            android:padding="@dimen/margin_20dp"
+            android:padding="@dimen/margin_10dp"
             android:src="@drawable/croos_circle_icon" />
 
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/add_passport_visa"
             android:layout_centerHorizontal="true"
             android:text="@string/add_passport_visa"
             android:textColor="@color/purple"
-            android:textSize="@dimen/text_size_20sp"
             android:textStyle="normal" />
     </RelativeLayout>
 

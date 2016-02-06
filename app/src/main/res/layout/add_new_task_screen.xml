@@ -29,16 +29,16 @@
         android:layout_marginRight="@dimen/margin_10dp"
         android:orientation="vertical">
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView16
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/margin_10dp"
             android:paddingTop="@dimen/margin_10dp"
             android:text="@string/task_title"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_16sp" />
+            />
 
-        <EditText
+        <com.app.traphoria.customViews.MyEditTextView
             android:id="@+id/task_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -53,16 +53,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/margin_10dp"
                 android:paddingTop="@dimen/margin_10dp"
                 android:text="@string/task_description"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_16sp" />
+               />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -70,7 +70,7 @@
                 android:paddingTop="@dimen/margin_10dp"
                 android:text="0/150"
                 android:textColor="@color/dark_grey"
-                android:textSize="@dimen/text_size_16sp" />
+                 />
         </RelativeLayout>
 
         <RelativeLayout
@@ -78,7 +78,7 @@
             android:layout_height="100dp"
             android:background="@drawable/grey_background">
 
-            <EditText
+            <com.app.traphoria.customViews.MyEditTextView
                 android:id="@+id/task_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -89,14 +89,14 @@
                 android:textColorHighlight="@color/dark_grey" />
         </RelativeLayout>
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView16
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/margin_10dp"
             android:paddingTop="@dimen/margin_10dp"
             android:text="@string/share_task"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_16sp" />
+             />
 
         <ListView
             android:id="@+id/members_lv"
@@ -113,7 +113,7 @@
         android:layout_alignParentBottom="true"
         android:background="@color/purple">
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -121,7 +121,7 @@
             android:padding="@dimen/margin_10dp"
             android:text="@string/save"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_18sp" />
+            />
 
     </RelativeLayout>
 </RelativeLayout>

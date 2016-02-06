@@ -46,7 +46,7 @@
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:background="@drawable/grey_background">
 
-                <EditText
+                <com.app.traphoria.customViews.MyEditTextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -69,7 +69,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2.1">
 
-                <EditText
+                <com.app.traphoria.customViews.MyEditTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -107,7 +107,7 @@
 
             </LinearLayout>
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_15dp"
@@ -147,7 +147,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.1" />
 
-                <EditText
+                <com.app.traphoria.customViews.MyEditTextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.40"
@@ -183,13 +183,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_15dp"
                     android:text="@string/location_services"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_18sp"
                     android:textStyle="normal" />
 
 
@@ -215,13 +214,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_15dp"
                     android:text="@string/trip_tracker"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_18sp"
                     android:textStyle="normal" />
 
 
@@ -248,13 +246,12 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/margin_15dp"
                     android:text="@string/notification"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_18sp"
                     android:textStyle="normal" />
 
                 <RelativeLayout
@@ -293,13 +290,12 @@
         android:background="@color/purple"
         android:padding="@dimen/margin_10dp">
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="@string/save"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_18sp"
             android:textStyle="normal" />
 
     </RelativeLayout>

@@ -34,37 +34,36 @@
             android:layout_marginRight="@dimen/margin_10dp"
             android:orientation="vertical">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/margin_10dp"
                 android:paddingTop="@dimen/margin_10dp"
                 android:text="@string/meber_name"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textColor="@color/black" />
 
-            <EditText
+            <com.app.traphoria.customViews.MyEditTextView
                 android:id="@+id/member_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/grey_background"
+                android:hint="Member Name"
                 android:maxLines="1"
                 android:padding="@dimen/margin_20dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/dark_grey" />
 
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/margin_10dp"
                 android:paddingTop="@dimen/margin_10dp"
                 android:text="@string/task_description"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textColor="@color/black" />
 
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/relation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,10 +72,9 @@
                 android:padding="@dimen/margin_20dp"
                 android:text="@string/relation"
                 android:textColor="@color/black"
-                android:textColorHighlight="@color/dark_grey"
-                android:textSize="@dimen/text_size_18sp" />
+                android:textColorHighlight="@color/dark_grey" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/margin_10dp"
@@ -85,7 +83,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_16sp" />
 
-            <EditText
+            <com.app.traphoria.customViews.MyEditTextView
                 android:id="@+id/register_mbl"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -106,15 +104,14 @@
         android:layout_alignParentBottom="true"
         android:background="@color/purple">
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="@dimen/margin_10dp"
             android:text="@string/send_request"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_18sp" />
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 </RelativeLayout>

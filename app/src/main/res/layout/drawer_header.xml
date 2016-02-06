@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/nav_header_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary">
 
@@ -29,12 +29,10 @@
 
         <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/img_user_image"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_below="@+id/back_btn"
-            android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/margin_20dp"
-            android:layout_marginTop="@dimen/margin_10dp"
             android:src="@drawable/avtar_icon"
             app:civ_border_color="@color/grey"
             app:civ_border_width="1dp" />
@@ -42,11 +40,12 @@
         <RelativeLayout
             android:id="@+id/user_details_rl"
             android:layout_width="wrap_content"
+            android:layout_below="@+id/back_btn"
+android:layout_marginTop="@dimen/margin_10dp"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/img_user_image">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView20
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,12 +55,13 @@
                 android:textSize="@dimen/text_size_24sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/txt_age_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_name"
                 android:paddingLeft="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_5dp"
                 android:text="25 | M"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_16sp"
@@ -79,19 +79,18 @@
 
             <ImageView
                 android:id="@+id/call_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/margin_40dp"
+                android:layout_height="@dimen/margin_40dp"
                 android:background="@drawable/green_phone_icon" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10dp"
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:layout_toRightOf="@+id/call_btn"
                 android:text="@string/family_helpline"
-                android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textColor="@color/white" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -106,15 +105,14 @@
 
             <ImageView
                 android:id="@+id/call_cancel_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/margin_40dp"
+                android:layout_height="@dimen/margin_40dp"
                 android:src="@drawable/red_phone_icon" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10dp"
-
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:layout_toRightOf="@+id/call_cancel_btn"
                 android:text="@string/local_helpline"

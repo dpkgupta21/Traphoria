@@ -16,7 +16,7 @@
             android:background="@drawable/festival"
             android:scaleType="centerCrop" />
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView14
             android:id="@+id/date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -26,10 +26,9 @@
             android:singleLine="true"
             android:text="3rd November 2015 to 9th April,2016"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_14sp"
             android:textStyle="normal" />
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/event_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +38,6 @@
             android:singleLine="true"
             android:text="Global Village 2015-2016"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_18sp"
             android:textStyle="normal" />
 
 

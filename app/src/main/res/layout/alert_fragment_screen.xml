@@ -29,7 +29,7 @@
                 android:layout_gravity="center"
                 android:src="@drawable/purple_notificaion" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/notification_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -37,7 +37,6 @@
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:text="@string/notifications"
                 android:textColor="@color/purple"
-                android:textSize="@dimen/text_size_16sp"
                 android:textStyle="normal" />
         </LinearLayout>
 
@@ -62,15 +61,14 @@
                 android:layout_gravity="center"
                 android:src="@drawable/black_msj_icon" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/message_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:text="@string/messages"
-                android:textColor="@color/grey_purple_color_selector"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textColor="@color/grey_purple_color_selector" />
         </LinearLayout>
     </LinearLayout>
 

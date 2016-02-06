@@ -42,16 +42,15 @@
             android:orientation="vertical"
             android:paddingBottom="@dimen/margin_20dp">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
                 android:text="Md. Alnasir"
-                android:textColor="@color/purple"
-                android:textSize="@dimen/text_size_20sp" />
+                android:textColor="@color/purple" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/message_detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -59,10 +58,9 @@
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="left"
                 android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textColor="@color/black" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -70,10 +68,9 @@
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="left"
                 android:text="15 June 2015"
-                android:textColor="@color/dark_grey"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textColor="@color/dark_grey" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -82,10 +79,9 @@
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_toRightOf="@+id/date"
                 android:text="|"
-                android:textColor="@color/dark_grey"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textColor="@color/dark_grey" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -95,8 +91,7 @@
                 android:layout_toRightOf="@+id/view"
                 android:gravity="left"
                 android:text="05:00 PM"
-                android:textColor="@color/dark_grey"
-                android:textSize="@dimen/text_size_16sp" />
+                android:textColor="@color/dark_grey" />
 
         </RelativeLayout>
     </RelativeLayout>

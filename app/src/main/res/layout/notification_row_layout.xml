@@ -5,8 +5,8 @@
 
 
     <RelativeLayout
+        android:id="@+id/top_rl"
         android:layout_width="match_parent"
-
         android:layout_height="wrap_content">
 
         <ImageView
@@ -17,20 +17,18 @@
             android:src="@drawable/alert_icon" />
 
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/notification"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_30dp"
             android:layout_marginTop="@dimen/margin_10dp"
             android:layout_toRightOf="@+id/alert_pin"
-
             android:gravity="left"
             android:paddingBottom="@dimen/margin_10dp"
             android:paddingTop="@dimen/margin_10dp"
             android:text="Your UK Visa will be expired in next 10 days."
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_size_20sp" />
+            android:textColor="@color/black" />
 
         <ImageView
             android:id="@+id/more_icon"
@@ -41,13 +39,13 @@
             android:padding="@dimen/margin_20dp"
             android:src="@drawable/more_icon" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_below="@+id/notification"
-            android:layout_marginTop="@dimen/margin_10dp"
-            android:background="@color/grey" />
+
     </RelativeLayout>
 
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/top_rl"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:background="@color/grey" />
 </RelativeLayout>

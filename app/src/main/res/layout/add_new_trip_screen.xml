@@ -64,17 +64,16 @@
                 android:layout_marginRight="@dimen/margin_10dp"
                 android:orientation="vertical">
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/select_country"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:textColor="@color/black" />
 
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView18
                     android:id="@+id/select_country"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -83,20 +82,17 @@
                     android:drawableRight="@drawable/down_btn"
                     android:padding="@dimen/margin_15dp"
                     android:text="@string/select"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_18sp" />
+                    android:textColor="@color/black" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/trip_start_date"
+                    android:textColor="@color/black" />
 
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_16sp" />
-
-                <EditText
+                <com.app.traphoria.customViews.MyEditTextView
                     android:id="@+id/start_date_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -109,17 +105,15 @@
                     android:textColorHint="@color/dark_grey"
                     android:textSize="@dimen/text_size_18sp" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/trip_end_date"
+                    android:textColor="@color/black" />
 
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_16sp" />
-
-                <EditText
+                <com.app.traphoria.customViews.MyEditTextView
                     android:id="@+id/end_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -132,17 +126,16 @@
                     android:textColorHint="@color/dark_grey"
                     android:textSize="@dimen/text_size_18sp" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/select_passport"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:textColor="@color/black" />
 
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView18
                     android:id="@+id/select_passport"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -151,20 +144,18 @@
                     android:drawableRight="@drawable/down_btn"
                     android:padding="@dimen/margin_15dp"
                     android:text="@string/select"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_18sp" />
+                    android:textColor="@color/black" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_10dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/select_visa"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_16sp" />
+                    android:textColor="@color/black" />
 
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView18
                     android:id="@+id/select_visa"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -173,10 +164,9 @@
                     android:drawableRight="@drawable/down_btn"
                     android:padding="@dimen/margin_15dp"
                     android:text="@string/select"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_18sp" />
+                    android:textColor="@color/black" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:id="@+id/add_member_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -184,11 +174,10 @@
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/add_member"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_16sp"
                     android:visibility="gone" />
 
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView18
                     android:id="@+id/add_member"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -198,7 +187,6 @@
                     android:padding="@dimen/margin_15dp"
                     android:text="@string/select"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_18sp"
                     android:visibility="gone" />
 
             </LinearLayout>
@@ -213,15 +201,14 @@
         android:layout_alignParentBottom="true"
         android:background="@color/purple">
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/save_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:padding="@dimen/margin_10dp"
             android:text="@string/save"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_size_18sp" />
+            android:textColor="@color/white" />
 
 
     </RelativeLayout>

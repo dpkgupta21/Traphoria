@@ -8,6 +8,7 @@
         android:id="@+id/top_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:weightSum="4">
 
         <LinearLayout
@@ -35,13 +36,12 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/embassy_icon" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView14
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/embassy"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_14sp" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <View
@@ -82,13 +82,12 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/embassy_icon" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView14
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/hospital"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_14sp" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <View
@@ -129,13 +128,12 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/bank_icon" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView14
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/bank_atm"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_14sp" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <View
@@ -176,13 +174,12 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@drawable/police_icon" />
 
-                <TextView
+                <com.app.traphoria.customViews.MyTextView14
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/police_stn"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_size_14sp" />
+                    android:textColor="@color/black" />
             </LinearLayout>
 
             <View
@@ -192,8 +189,6 @@
                 android:background="@color/grey" />
 
         </LinearLayout>
-
-
 
 
     </LinearLayout>

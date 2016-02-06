@@ -1,5 +1,6 @@
 package com.app.traphoria.view;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -27,6 +28,7 @@ public class AddMemberScreen extends AppCompatActivity implements View.OnClickLi
         initView();
         assignClick();
     }
+
 
     private void assignClick() {
 

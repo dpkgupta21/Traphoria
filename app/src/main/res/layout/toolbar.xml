@@ -8,14 +8,13 @@
     local:popupTheme="@style/ThemeOverlay.AppCompat.Light"
     local:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-    <TextView
+    <com.app.traphoria.customViews.MyTextView20
         android:id="@+id/toolbar_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="hhjj"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_20sp"
         android:textStyle="bold"
         android:visibility="visible" />
 
@@ -28,7 +27,7 @@
         android:src="@drawable/down_btn"
         android:visibility="gone" />
 
-    <TextView
+    <com.app.traphoria.customViews.MyTextView14
         android:id="@+id/toolbar_right_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +38,6 @@
         android:padding="@dimen/margin_10dp"
         android:text="08"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_size_14sp"
         android:textStyle="normal"
         android:visibility="gone" />
 </android.support.v7.widget.Toolbar>

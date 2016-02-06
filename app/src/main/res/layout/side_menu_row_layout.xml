@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="50dp"
     android:background="@drawable/list_item_selector">
 
 
-    <TextView
+    <com.app.traphoria.customViews.MyTextView18
         android:id="@+id/menu_item"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/margin_20dp"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/margin_10dp"
+        android:padding="@dimen/margin_10dp"
         android:textColor="@color/list_text_color_selector"
-        android:textSize="@dimen/text_size_20sp"
         android:textStyle="normal" />
 
-    <TextView
+    <com.app.traphoria.customViews.MyTextView16
 
         android:id="@+id/alert_count"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+
         android:layout_alignParentRight="true"
-        android:padding="@dimen/margin_20dp"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin_10dp"
+        android:padding="@dimen/margin_10dp"
         android:textColor="@color/list_text_color_selector"
         android:textSize="@dimen/text_size_16sp"
         android:textStyle="normal" />

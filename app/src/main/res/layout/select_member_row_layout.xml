@@ -16,13 +16,13 @@
             android:src="@drawable/unactive_circle" />
 
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/member_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="Md. Alnasir (You)"
             android:textColor="@color/dark_grey"
-            android:textSize="@dimen/text_size_18sp" />
+           />
     </LinearLayout>
 </RelativeLayout>

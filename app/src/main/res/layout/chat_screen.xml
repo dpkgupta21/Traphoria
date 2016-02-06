@@ -38,7 +38,7 @@
         android:paddingRight="@dimen/margin_15dp"
         android:paddingTop="@dimen/margin_10dp">
 
-        <EditText
+        <com.app.traphoria.customViews.MyEditTextView
             android:id="@+id/msg_et"
             style="@style/width_match_parent_max_100"
             android:layout_width="0dp"

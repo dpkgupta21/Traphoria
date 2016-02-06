@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView20
                 android:id="@+id/dest_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,10 +39,9 @@
                 android:singleLine="true"
                 android:text="India"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_22sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -50,10 +49,9 @@
                 android:singleLine="true"
                 android:text="28 Oct 2015 - 15 Nov 2015"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_18sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/expiry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,7 +59,6 @@
                 android:singleLine="true"
                 android:text="Visa Expires on:28 Jan 2016"
                 android:textColor="@color/black"
-                android:textSize="@dimen/text_size_18sp"
                 android:textStyle="normal" />
         </LinearLayout>
 

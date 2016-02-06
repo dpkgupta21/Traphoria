@@ -36,7 +36,7 @@
             android:layout_marginRight="@dimen/margin_20dp"
             android:background="@drawable/dark_blue_button_selector">
 
-            <EditText
+            <com.app.traphoria.customViews.MyEditTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -60,7 +60,7 @@
             android:layout_marginTop="@dimen/margin_10dp"
             android:background="@drawable/dark_blue_button_selector">
 
-            <EditText
+            <com.app.traphoria.customViews.MyEditTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -85,7 +85,7 @@
             android:background="@drawable/purple_button_selector"
             android:clickable="true">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView18
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -93,8 +93,7 @@
                 android:padding="@dimen/round_btn_padding"
                 android:text="@string/signup"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/text_size_18sp" />
+                android:textColorHint="@color/white" />
         </RelativeLayout>
 
 
@@ -105,15 +104,14 @@
             android:layout_marginTop="@dimen/margin_15dp"
             android:gravity="center">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/signup_alert"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/signup_alert"
-                android:textColor="@color/dark_blue_alpha"
-                android:textSize="@dimen/text_size_14sp" />
+                android:textColor="@color/dark_blue_alpha" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/terms_policy"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,7 +119,6 @@
                 android:layout_toRightOf="@id/signup_alert"
                 android:text="@string/terms_policy"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_14sp"
                 android:textStyle="bold" />
         </RelativeLayout>
 

@@ -25,14 +25,13 @@
         android:background="@color/white"
         android:scrollbars="none">
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView16
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_20dp"
             android:layout_marginRight="@dimen/margin_20dp"
             android:text="@string/terms_condtns"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_size_18sp"
             android:textStyle="normal" />
     </ScrollView>
 </RelativeLayout>

@@ -2,7 +2,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="240dp"
+    android:layout_height="220dp"
     card_view:cardCornerRadius="0dp">
 
     <RelativeLayout
@@ -17,7 +17,7 @@
             android:src="@drawable/slide_img" />
 
 
-        <TextView
+        <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/type_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -27,7 +27,6 @@
             android:gravity="center"
             android:text="@string/V"
             android:textColor="@color/white"
-            android:textSize="@dimen/text_size_20sp"
             android:textStyle="normal" />
 
         <ImageView
@@ -47,7 +46,7 @@
             android:layout_toRightOf="@+id/type_tv"
             android:visibility="gone">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/country_name_psprt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -56,12 +55,10 @@
                 android:padding="@dimen/margin_15dp"
                 android:singleLine="true"
                 android:text="United States of America"
-
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_20sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/pasprt_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -71,10 +68,9 @@
                 android:singleLine="true"
                 android:text="Diplomatic Passports"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/pasprt_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -85,13 +81,11 @@
                 android:singleLine="true"
                 android:text="Passport No: 000 000 000 000"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/expires_date"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pasprt_no"
                 android:layout_centerHorizontal="true"
@@ -100,10 +94,9 @@
                 android:singleLine="true"
                 android:text="Expires On: 28 Jan 2016"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/explore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -119,7 +112,6 @@
                 android:singleLine="true"
                 android:text="@string/visa_free_dest"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16sp"
                 android:textStyle="normal" />
         </RelativeLayout>
 
@@ -131,7 +123,7 @@
             android:layout_toLeftOf="@+id/edit_btn"
             android:layout_toRightOf="@+id/type_tv">
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/country_name_visa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -142,10 +134,9 @@
                 android:text="United Kingdom"
 
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_20sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/visa_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,10 +146,9 @@
                 android:singleLine="true"
                 android:text="Long Stay Visa"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/visa_entry_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -169,10 +159,9 @@
                 android:singleLine="true"
                 android:text="Double Entry (1 left)"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/_visa_expires_date"
                 android:layout_width="wrap_content"
 
@@ -184,10 +173,9 @@
                 android:singleLine="true"
                 android:text="Expires On: 28 Jan 2016"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_18sp"
                 android:textStyle="normal" />
 
-            <TextView
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/explore_visa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -203,7 +191,6 @@
                 android:singleLine="true"
                 android:text="@string/explore_free"
                 android:textColor="@color/white"
-                android:textSize="@dimen/text_size_16sp"
                 android:textStyle="normal" />
         </RelativeLayout>
     </RelativeLayout>
