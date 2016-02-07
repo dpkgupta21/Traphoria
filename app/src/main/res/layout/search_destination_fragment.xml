@@ -10,9 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_5dp"
-        android:background="@drawable/grey_background"
+        android:background="@drawable/faded_grey_background"
         android:orientation="horizontal"
-        android:padding="@dimen/margin_10dp">
+        android:padding="@dimen/margin_5dp">
 
         <ImageView
             android:id="@+id/search_btn"
@@ -25,9 +25,11 @@
         <com.app.traphoria.customViews.MyEditTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/search_btn"
             android:background="@null"
+            android:gravity="center_vertical"
             android:hint="@string/search_txt"
             android:padding="@dimen/margin_10dp"
             android:singleLine="true"

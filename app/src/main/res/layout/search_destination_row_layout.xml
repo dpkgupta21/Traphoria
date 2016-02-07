@@ -27,7 +27,7 @@
                 android:layout_marginRight="@dimen/margin_10dp"
                 android:layout_toLeftOf="@+id/type">
 
-                <com.app.traphoria.customViews.MyTextView18
+                <com.app.traphoria.customViews.MyTextView16
                     android:id="@+id/dest_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

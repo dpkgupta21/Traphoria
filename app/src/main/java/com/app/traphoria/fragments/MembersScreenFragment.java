@@ -22,6 +22,7 @@ import com.app.traphoria.chat.ChatScreen;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.view.AddMemberScreen;
 import com.app.traphoria.view.AddNewTaskScreen;
+import com.app.traphoria.view.TrackScreen;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -126,6 +127,7 @@ public class MembersScreenFragment extends Fragment implements View.OnClickListe
 
                 break;
             case R.id.track_btn:
+                startActivity(new Intent(mActivity, TrackScreen.class));
                 break;
             case R.id.task_btn:
                 startActivity(new Intent(mActivity, AddNewTaskScreen.class));

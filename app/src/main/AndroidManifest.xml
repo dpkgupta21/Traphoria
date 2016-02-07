@@ -76,8 +76,15 @@
         <activity
             android:name=".view.DestinationDetailScreen"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.TopDestinationsScreen" />
-        <activity android:name=".view.FestivalEventsScreen"></activity>
+        <activity
+            android:name=".view.TopDestinationsScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.FestivalEventsScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".view.TrackScreen"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

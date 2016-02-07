@@ -49,7 +49,11 @@
                 android:background="@drawable/grey_background"
                 android:hint="Member Name"
                 android:maxLines="1"
-                android:padding="@dimen/margin_20dp"
+                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingLeft="@dimen/margin_20dp"
+                android:paddingRight="@dimen/margin_20dp"
+                android:paddingTop="@dimen/margin_15dp"
+
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/dark_grey" />
 
@@ -69,7 +73,10 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/grey_background"
                 android:drawableRight="@drawable/down_btn"
-                android:padding="@dimen/margin_20dp"
+                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingLeft="@dimen/margin_20dp"
+                android:paddingRight="@dimen/margin_20dp"
+                android:paddingTop="@dimen/margin_15dp"
                 android:text="@string/relation"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/dark_grey" />
@@ -90,7 +97,10 @@
                 android:background="@drawable/grey_background"
                 android:hint="000 000 000 000"
                 android:maxLines="2"
-                android:padding="@dimen/margin_20dp"
+                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingLeft="@dimen/margin_20dp"
+                android:paddingRight="@dimen/margin_20dp"
+                android:paddingTop="@dimen/margin_15dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/dark_grey" />
 

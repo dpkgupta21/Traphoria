@@ -95,14 +95,19 @@
                     android:layout_weight="1"
                     android:background="@drawable/grey_background">
 
-                    <Spinner
-                        android:id="@+id/gender_spinner"
-                        android:layout_width="wrap_content"
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/gender"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/margin_10dp"
-                        android:prompt="@string/gender"
-                        android:spinnerMode="dialog"></Spinner>
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:paddingBottom="@dimen/margin_15dp"
+                        android:paddingLeft="@dimen/margin_20dp"
+                        android:paddingRight="@dimen/margin_20dp"
+                        android:paddingTop="@dimen/margin_15dp"
+                        android:text="@string/gender"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
 
             </LinearLayout>
@@ -131,15 +136,19 @@
                     android:layout_weight="0.50"
                     android:background="@drawable/grey_background">
 
-                    <Spinner
-                        android:id="@+id/dob_spinner"
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/dob"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin_10dp"
-                        android:layout_marginRight="@dimen/margin_10dp"
-                        android:prompt="@string/gender"
-                        android:spinnerMode="dialog"></Spinner>
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:paddingBottom="@dimen/margin_15dp"
+                        android:paddingLeft="@dimen/margin_20dp"
+                        android:paddingRight="@dimen/margin_20dp"
+                        android:paddingTop="@dimen/margin_15dp"
+                        android:text="@string/select"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
 
                 <View
@@ -262,14 +271,19 @@
                     android:layout_weight="1"
                     android:background="@drawable/grey_background">
 
-                    <Spinner
-                        android:id="@+id/notification_spinner"
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/notification"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin_10dp"
-                        android:layout_marginRight="@dimen/margin_10dp"
-                        android:spinnerMode="dialog"></Spinner>
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:paddingBottom="@dimen/margin_15dp"
+                        android:paddingLeft="@dimen/margin_20dp"
+                        android:paddingRight="@dimen/margin_20dp"
+                        android:paddingTop="@dimen/margin_15dp"
+                        android:text="@string/select"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
 
 

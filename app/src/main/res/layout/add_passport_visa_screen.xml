@@ -103,13 +103,15 @@
                     android:paddingRight="@dimen/margin_10dp"
                     android:paddingTop="@dimen/margin_15dp">
 
-                    <Spinner
-                        android:id="@+id/passport_country_spinner"
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/passprt_country"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:prompt="@string/gender"
-                        android:spinnerMode="dialog"></Spinner>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:text="@string/select"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -131,13 +133,15 @@
                     android:paddingRight="@dimen/margin_10dp"
                     android:paddingTop="@dimen/margin_15dp">
 
-                    <Spinner
-                        android:id="@+id/passport_type_spinner"
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/passprt_type"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:prompt="@string/gender"
-                        android:spinnerMode="dialog"></Spinner>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:text="@string/select"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -220,13 +224,15 @@
                     android:paddingRight="@dimen/margin_10dp"
                     android:paddingTop="@dimen/margin_15dp">
 
-                    <Spinner
-                        android:id="@+id/visa_country_spinner"
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/visa_country"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:prompt="@string/gender"
-                        android:spinnerMode="dialog"></Spinner>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:text="@string/select"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -246,13 +252,15 @@
                     android:paddingRight="@dimen/margin_10dp"
                     android:paddingTop="@dimen/margin_15dp">
 
-                    <Spinner
-                        android:id="@+id/visa_type_spinner"
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/visa_type"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:prompt="@string/gender"
-                        android:spinnerMode="dialog"></Spinner>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:text="@string/select"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -273,13 +281,15 @@
                     android:paddingRight="@dimen/margin_10dp"
                     android:paddingTop="@dimen/margin_15dp">
 
-                    <Spinner
-                        android:id="@+id/entry_type_spinner"
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/visa_entry_country"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:prompt="@string/gender"
-                        android:spinnerMode="dialog"></Spinner>
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:text="@string/select"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
 
 
