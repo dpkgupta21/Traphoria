@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
+import com.app.traphoria.login.LoginScreen;
+import com.app.traphoria.login.MobileNumberVerificationScreen;
 
 public class LandingScreen extends AppCompatActivity implements View.OnClickListener {
     private TextView sigup;

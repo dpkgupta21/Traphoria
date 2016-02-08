@@ -14,6 +14,7 @@ import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
 
@@ -33,7 +34,7 @@ public class LoginWebService {
     private String lng;
     private String address;
 
-    public LoginWebService(Context context, String email, String password, String device, String device_id, String lat, String lng) {
+    public LoginWebService(Context context, String email, String password, String device, String device_id, String lat, String lng,String address) {
 
         this.context = context;
         this.email = email;
@@ -43,71 +44,56 @@ public class LoginWebService {
         this.device_id = device_id;
         this.lat = lat;
         this.lng = lng;
+        this.address =address;
     }
 
 
-    public void doLogin() {
-        Utils.hideKeyboard((Activity)context);
-        if (validateForm()) {
-            if (Utils.isOnline(context)){
-                Map<String, String> params = new HashMap<>();
-                params.put("action", WebserviceConstant.DO_LOGIN);
-                params.put("email", email);
-                params.put("password", password);
-                params.put("device", device);
-                params.put("device_id", device_id);
-                params.put("lat", "" + lat);
-                params.put("lng", "" + lng);
-                params.put("address", "");
+    public JSONObject doLogin() {
+        Utils.hideKeyboard((Activity) context);
+        final JSONObject[] responseResult = new JSONObject[1];
+        Map<String, String> params = new HashMap<>();
+        params.put("action", WebserviceConstant.DO_LOGIN);
+        params.put("email", email);
+        params.put("password", password);
+        params.put("device", device);
+        params.put("device_id", device_id);
+        params.put("lat", "" + lat);
+        params.put("lng", "" + lng);
+        params.put("address", "");
 
-                final ProgressDialog pdialog = Utils.createProgressDialog(context, null, false);
-                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
-                        new Response.Listener<JSONObject>() {
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                Utils.ShowLog(TAG, "Response -> " + response.toString());
-                                pdialog.dismiss();
-                                try {
-                                    if (Utils.getWebServiceStatus(response)) {
-
-                                    } else {
-                                        Utils.showDialog(context, "Error", Utils.getWebServiceMessage(response));
-                                    }
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-
+        final ProgressDialog pdialog = Utils.createProgressDialog(context, null, false);
+        CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onErrorResponse(VolleyError error) {
+                    public void onResponse(JSONObject response) {
+                        Utils.ShowLog(TAG, "Response -> " + response.toString());
                         pdialog.dismiss();
-                        Utils.showExceptionDialog(context);
+                        try {
+                            responseResult[0] = response;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                });
-                pdialog.show();
-                AppController.getInstance().getRequestQueue().add(postReq);
-                postReq.setRetryPolicy(new DefaultRetryPolicy(
-                        30000, 0,
-                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            }else{
-                Utils.showNoNetworkDialog(context);
+                }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                pdialog.dismiss();
+                Utils.showExceptionDialog(context);
             }
-        }
+        });
+        pdialog.show();
+        AppController.getInstance().getRequestQueue().add(postReq);
+        postReq.setRetryPolicy(new DefaultRetryPolicy(
+                30000, 0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
+        return responseResult[0];
     }
 
 
-    public boolean validateForm() {
 
-        if (email.equals("")) {
-            Utils.showDialog(context, "Message", "Please enter username");
-            return false;
-        } else if (password.equals("")) {
-            Utils.showDialog(context, "Message", "Please enter password");
-            return false;
-        }
-        return true;
-    }
 
 
 }

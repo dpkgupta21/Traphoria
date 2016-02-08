@@ -24,11 +24,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.LoginScreen"
+            android:name=".login.LoginScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".view.MobileNumberVerificationScreen"
+            android:name=".login.MobileNumberVerificationScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity

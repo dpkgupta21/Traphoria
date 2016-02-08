@@ -1,4 +1,4 @@
-package com.app.traphoria.view;
+package com.app.traphoria.login;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.app.traphoria.R;
+import com.app.traphoria.view.SignUpScreen;
 
 public class MobileNumberVerificationScreen extends AppCompatActivity implements View.OnClickListener {
 

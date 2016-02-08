@@ -8,25 +8,28 @@ import android.widget.ImageView;
 
 import com.app.traphoria.R;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
+import com.app.traphoria.utility.BaseActivity;
+import com.app.traphoria.utility.Utils;
+import com.app.traphoria.webservice.LoginWebService;
 
-public class LoginScreen extends AppCompatActivity implements View.OnClickListener {
+import org.json.JSONObject;
 
-    private ImageView back_btn;
+public class LoginScreen extends BaseActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_screen);
         initViews();
-        assignClicks();
+
     }
 
-    private void assignClicks() {
-        back_btn.setOnClickListener(this);
-    }
 
     private void initViews() {
-        back_btn = (ImageView) findViewById(R.id.back_btn);
+
+        setClick(R.id.btn_login);
+        setClick(R.id.back_btn);
     }
 
     @Override
@@ -35,10 +38,49 @@ public class LoginScreen extends AppCompatActivity implements View.OnClickListen
             case R.id.back_btn:
                 finish();
                 break;
+            case R.id.btn_login:
+                performLogin();
+                break;
         }
     }
 
-    public void performLogin(View view) {
-        startActivity(new Intent(this, NavigationDrawerActivity.class));
+    public void performLogin() {
+
+        try {
+
+            if (Utils.isOnline(LoginScreen.this)) {
+
+                if (validateForm()) {
+                    LoginWebService loginWebService = new LoginWebService(LoginScreen.this, getEditTextText(R.id.edt_email), getEditTextText(R.id.edt_pwd), "android", "fdfdfd", "", "", "");
+                    JSONObject response = loginWebService.doLogin();
+                    if (Utils.getWebServiceStatus(response)) {
+                        startActivity(new Intent(this, NavigationDrawerActivity.class));
+                    } else {
+                        Utils.showDialog(this, "Error", Utils.getWebServiceMessage(response));
+                    }
+                }
+            } else {
+                Utils.showNoNetworkDialog(LoginScreen.this);
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
     }
+
+
+    public boolean validateForm() {
+
+        if (getEditTextText(R.id.edt_email).equals("")) {
+            Utils.showDialog(this, "Message", "Please enter username");
+            return false;
+        } else if (getEditTextText(R.id.edt_pwd).equals("")) {
+            Utils.showDialog(this, "Message", "Please enter password");
+            return false;
+        }
+        return true;
+    }
+
 }
