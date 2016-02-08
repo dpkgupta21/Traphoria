@@ -23,7 +23,7 @@ public class MyButtonViewSemi extends Button {
     }
 
     private void init() {
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato-Semibold.ttf");
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/arcon_regular.otf");
         setTypeface(tf);
 
     }

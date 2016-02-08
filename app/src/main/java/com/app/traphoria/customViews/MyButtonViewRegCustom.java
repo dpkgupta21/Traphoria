@@ -23,7 +23,7 @@ public class MyButtonViewRegCustom extends Button {
     }
 
     private void init() {
-        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/Lato-Regular.ttf");
+        Typeface tf = Typeface.createFromAsset(getContext().getAssets(), "fonts/arcon_regular.otf");
         setTypeface(tf);
        
     }
