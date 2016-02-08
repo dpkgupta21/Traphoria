@@ -34,7 +34,9 @@ public class LoginWebService {
     private String lng;
     private String address;
 
-    public LoginWebService(Context context, String email, String password, String device, String device_id, String lat, String lng,String address) {
+    public LoginWebService(Context context, String email, String password,
+                           String device, String device_id, String lat,
+                           String lng,String address) {
 
         this.context = context;
         this.email = email;
