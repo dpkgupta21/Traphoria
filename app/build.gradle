@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    dexOptions {
-        jumboMode = true
-
-        // Avoid the OutOfMemoryError: GC overhead limit exceeded:
-        incremental true
-        javaMaxHeapSize "4g"
-    }
+//    dexOptions {
+//        jumboMode = true
+//
+//        // Avoid the OutOfMemoryError: GC overhead limit exceeded:
+//        incremental true
+//        javaMaxHeapSize "4g"
+//    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 

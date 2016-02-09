@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <com.app.traphoria.customViews.MyTextView20
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/dest_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,7 +41,7 @@
                 android:textColor="@color/black"
                 android:textStyle="normal" />
 
-            <com.app.traphoria.customViews.MyTextView18
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -51,7 +51,7 @@
                 android:textColor="@color/black"
                 android:textStyle="normal" />
 
-            <com.app.traphoria.customViews.MyTextView18
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/expiry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

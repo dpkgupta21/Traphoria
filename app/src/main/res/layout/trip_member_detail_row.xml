@@ -14,22 +14,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:paddingBottom="@dimen/margin_10dp"
+            android:paddingBottom="@dimen/margin_5dp"
             android:paddingLeft="@dimen/margin_20dp"
             android:paddingRight="@dimen/margin_20dp"
-            android:paddingTop="@dimen/margin_10dp">
+            android:paddingTop="@dimen/margin_5dp">
 
             <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/img_user_image"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_below="@+id/back_btn"
                 android:layout_centerVertical="true"
                 android:src="@drawable/avtar_icon"
                 app:civ_border_color="@color/grey"
                 app:civ_border_width="1dp" />
 
-            <com.app.traphoria.customViews.MyTextView20
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/member_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:text="Ibtisaam"
                 android:textColor="@color/black" />
 
-            <com.app.traphoria.customViews.MyTextView20
+            <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/gender_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,12 +60,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingBottom="@dimen/margin_5dp"
                 android:paddingLeft="@dimen/margin_20dp"
                 android:paddingRight="@dimen/margin_20dp"
-                android:paddingTop="@dimen/margin_10dp">
+                android:paddingTop="@dimen/margin_5dp">
 
-                <com.app.traphoria.customViews.MyTextView16
+                <com.app.traphoria.customViews.MyTextView14
                     android:id="@+id/pasport_et"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                     android:text="Passport:"
                     android:textColor="@color/black" />
 
-                <com.app.traphoria.customViews.MyTextView16
+                <com.app.traphoria.customViews.MyTextView14
                     android:id="@+id/pasport_no"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -84,7 +84,7 @@
                     android:textColor="@color/black" />
 
 
-                <com.app.traphoria.customViews.MyTextView18
+                <com.app.traphoria.customViews.MyTextView14
                     android:id="@+id/passport_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,11 +102,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
-                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingBottom="@dimen/margin_5dp"
                 android:paddingLeft="@dimen/margin_20dp"
                 android:paddingRight="@dimen/margin_20dp">
 
-                <com.app.traphoria.customViews.MyTextView16
+                <com.app.traphoria.customViews.MyTextView14
                     android:id="@+id/visa_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -114,7 +114,7 @@
                     android:textColor="@color/black" />
 
 
-                <com.app.traphoria.customViews.MyTextView16
+                <com.app.traphoria.customViews.MyTextView14
                     android:id="@+id/visa"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -125,7 +125,7 @@
                     android:textColor="@color/black" />
 
 
-                <com.app.traphoria.customViews.MyTextView16
+                <com.app.traphoria.customViews.MyTextView14
                     android:id="@+id/visa_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
