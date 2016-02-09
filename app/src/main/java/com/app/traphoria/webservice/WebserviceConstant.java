@@ -7,4 +7,10 @@ public class WebserviceConstant {
 
     public static String DO_LOGIN = "login";
     public static String DO_SIGNUP = "register";
+    public static String ADD_MEMBER = "addmember";
+    public static String GET_PASSPORT_VISA_DETAILS = "getUserPassportVisa";
+    public static String GET_NOTIFICATION_LIST = "notifications";
+    public static String GET_RELATION_LIST = "relations";
+
+    public static String DO_APPROVE_DECLINE_MEMBER = "adddeclinemember";
 }

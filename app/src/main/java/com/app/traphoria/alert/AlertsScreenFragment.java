@@ -1,4 +1,4 @@
-package com.app.traphoria.fragments;
+package com.app.traphoria.alert;
 
 import android.app.Activity;
 import android.graphics.Color;
@@ -16,7 +16,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.model.NotificationDTO;
+import com.app.traphoria.model.PassportVisaDetailsDTO;
+import com.app.traphoria.preference.PreferenceHelp;
+import com.app.traphoria.utility.Utils;
+import com.app.traphoria.volley.AppController;
+import com.app.traphoria.volley.CustomJsonRequest;
+import com.app.traphoria.webservice.WebserviceConstant;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
@@ -26,6 +39,16 @@ import com.app.traphoria.R;
 import com.app.traphoria.adapter.MessagesAdapter;
 import com.app.traphoria.adapter.NotificationAdapter;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONObject;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -34,6 +57,7 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
 
 
     private View view;
+    private String TAG = "Alert Screen";
 
     private Activity mActivity;
     private Toolbar mToolbar;
@@ -45,6 +69,9 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
     private RecyclerView recyclerView;
     private MessagesAdapter messagesAdapter;
     private NotificationAdapter notificationAdapter;
+
+
+    private List<NotificationDTO> notificationList;
 
     public AlertsScreenFragment() {
     }
@@ -67,13 +94,8 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(messagesAdapter);
-
         notification_lv = (SwipeMenuListView) view.findViewById(R.id.notification_lv);
-        notificationAdapter = new NotificationAdapter(mActivity);
-        createSwipeMenu();
-        notification_lv.setAdapter(notificationAdapter);
-
-        notification_lv.setOnMenuItemClickListener(this);
+        getNotificationList();
         assignClicks();
         return view;
 
@@ -84,8 +106,6 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
 
             @Override
             public void create(SwipeMenu menu) {
-
-
                 switch (menu.getViewType()) {
                     case 0:
                         // create "check" item
@@ -171,6 +191,7 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
                 recyclerView.setVisibility(View.INVISIBLE);
                 notification_lv.setVisibility(View.VISIBLE);
 
+                getNotificationList();
                 break;
 
         }
@@ -194,11 +215,11 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
                 switch (index) {
                     case 0:
                         Snackbar.make(view, "Check Clicked", Snackbar.LENGTH_SHORT).show();
-
+                        doMemberAction(position, 1);
                         break;
                     case 1:
                         Snackbar.make(view, "Cross Clicked", Snackbar.LENGTH_SHORT).show();
-
+                        doMemberAction(position, 0);
                         break;
                 }
                 break;
@@ -206,4 +227,112 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
 
         return false;
     }
+
+
+    private void getNotificationList() {
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.GET_NOTIFICATION_LIST);
+            params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Type type = new TypeToken<ArrayList<NotificationDTO>>() {
+                                    }.getType();
+                                    notificationList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
+                                    setNotificationValues();
+                                } else {
+                                    CustomProgressDialog.hideProgressDialog();
+                                    Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            CustomProgressDialog.hideProgressDialog();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    CustomProgressDialog.hideProgressDialog();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+    }
+
+
+    private void setNotificationValues() {
+
+
+        notificationAdapter = new NotificationAdapter(mActivity, notificationList);
+        createSwipeMenu();
+        notification_lv.setAdapter(notificationAdapter);
+        notification_lv.setOnMenuItemClickListener(this);
+
+    }
+
+
+    private void doMemberAction(int position, int status) {
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.DO_APPROVE_DECLINE_MEMBER);
+            params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+            params.put("notification_id", notificationList.get(position).getNotification_id());
+            params.put("sender_id", notificationList.get(position).getSender_id());
+            params.put("status", "" + status);
+
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Toast.makeText(getActivity(), "Action done", Toast.LENGTH_LONG).show();
+                                } else {
+                                    CustomProgressDialog.hideProgressDialog();
+                                    Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            CustomProgressDialog.hideProgressDialog();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    CustomProgressDialog.hideProgressDialog();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+
+    }
+
 }

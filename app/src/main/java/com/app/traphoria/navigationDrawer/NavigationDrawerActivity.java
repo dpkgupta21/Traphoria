@@ -21,9 +21,9 @@ import android.widget.TextView;
 
 import com.app.traphoria.R;
 import com.app.traphoria.adapter.SideMenuListAdapter;
-import com.app.traphoria.fragments.AlertsScreenFragment;
+import com.app.traphoria.alert.AlertsScreenFragment;
 import com.app.traphoria.fragments.LocationScreenFragment;
-import com.app.traphoria.fragments.MembersScreenFragment;
+import com.app.traphoria.member.MembersScreenFragment;
 import com.app.traphoria.fragments.MytripScreenFragment;
 import com.app.traphoria.fragments.SearchDestinationFragment;
 import com.app.traphoria.fragments.SettingsScreenFragment;

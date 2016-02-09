@@ -9,33 +9,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.app.traphoria.R;
+import com.app.traphoria.model.NotificationDTO;
 
-
-/**
- * Created by Harish on 12/16/2015.
- */
 public class NotificationAdapter extends BaseAdapter {
 
 
-    Activity mActivity;
-    LayoutInflater mLayoutInflater;
+    private Activity mActivity;
+    private LayoutInflater mLayoutInflater;
+    private List<NotificationDTO> notificationList;
 
-    ArrayList<String> menuItemList;
-
-
-    public NotificationAdapter(Activity mActivity) {
+    public NotificationAdapter(Activity mActivity, List<NotificationDTO> notificationList) {
         this.mActivity = mActivity;
-
+        this.notificationList = notificationList;
         try {
             mLayoutInflater = (LayoutInflater) mActivity
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-            menuItemList = new ArrayList<String>();
-            menuItemList.add("Abdul Nasseer (Son)");
-            menuItemList.add("Habib (Cook)");
-            menuItemList.add("Ibtissaam (Wife)");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,21 +36,17 @@ public class NotificationAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (menuItemList != null) {
-            return menuItemList.size();
-        } else {
-            return 0;
-        }
+
+        return notificationList.size();
+
     }
 
     @Override
     public Object getItem(int position) {
 
-        if (menuItemList != null) {
-            return menuItemList.get(position);
-        } else {
-            return null;
-        }
+
+        return notificationList.get(position);
+
     }
 
 
@@ -77,7 +65,7 @@ public class NotificationAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
 
-        return position % 2;
+        return 0;
     }
 
     @Override
@@ -87,7 +75,6 @@ public class NotificationAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = mLayoutInflater.inflate(R.layout.notification_row_layout, parent, false);
             holder = new ViewHolder();
-
             holder.notification = (TextView) convertView.findViewById(R.id.member_name);
             holder.more_icon = (ImageView) convertView.findViewById(R.id.select_img);
             convertView.setTag(holder);
@@ -96,6 +83,8 @@ public class NotificationAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
+
+        holder.notification.setText(notificationList.get(position).getMessage());
 
         return convertView;
     }

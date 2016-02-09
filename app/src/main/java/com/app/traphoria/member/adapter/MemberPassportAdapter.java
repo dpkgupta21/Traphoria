@@ -1,33 +1,36 @@
-package com.app.traphoria.adapter;
+package com.app.traphoria.member.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
+import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportVisaDetailsDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
-public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.DetailsViewHolder> {
+import java.util.List;
+
+
+public class MemberPassportAdapter extends RecyclerView.Adapter<MemberPassportAdapter.DetailsViewHolder> {
 
 
     private static Context context;
     private DisplayImageOptions options;
-    private PassportVisaDetailsDTO passportVisaDetails;
+    private List<PassportDTO> pasportList;
 
 
-    public MembersAdapter(PassportVisaDetailsDTO passportVisaDetails, Context context) {
+    public MemberPassportAdapter(List<PassportDTO> pasportList, Context context) {
 
-        this.passportVisaDetails = passportVisaDetails;
+        this.pasportList = pasportList;
         this.context = context;
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -44,7 +47,7 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.DetailsV
 
     @Override
     public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.members_row_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.member_passport_row_layout, parent, false);
 
         DetailsViewHolder detailsViewHolder = new DetailsViewHolder(v);
         return detailsViewHolder;
@@ -53,14 +56,19 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.DetailsV
     @Override
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
-        holder.type_tv.setText(R.string.V);
+        holder.type_tv.setText(R.string.P);
+        holder.country_name_psprt.setText(pasportList.get(position).getCountry());
+        holder.expires_date.setText(pasportList.get(position).getExpire_date());
+        holder.pasprt_no.setText(pasportList.get(position).getPassport_no());
+        holder.pasprt_type.setText(pasportList.get(position).getPassport_type());
 
-
+        ImageLoader.getInstance().displayImage(pasportList.get(position).getCountry_image(), holder.thumbnail,
+                options);
     }
 
     @Override
     public int getItemCount() {
-        return passportVisaDetails.getPassport().size() + passportVisaDetails.getVisa().size();
+        return pasportList.size();
     }
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder {
@@ -88,3 +96,4 @@ public class MembersAdapter extends RecyclerView.Adapter<MembersAdapter.DetailsV
     }
 
 }
+

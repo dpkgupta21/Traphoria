@@ -30,9 +30,8 @@
             android:textStyle="normal" />
 
 
-
         <RelativeLayout
-            android:id="@+id/visa_details"
+            android:id="@+id/passport_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -41,48 +40,48 @@
             android:layout_toRightOf="@+id/type_tv">
 
             <com.app.traphoria.customViews.MyTextView18
-                android:id="@+id/country_name_visa"
+                android:id="@+id/country_name_psprt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:padding="@dimen/margin_15dp"
                 android:singleLine="true"
-                android:text="United Kingdom"
-
+                android:text="United States of America"
                 android:textColor="@color/white"
                 android:textStyle="normal" />
 
             <com.app.traphoria.customViews.MyTextView16
-                android:id="@+id/visa_type"
+                android:id="@+id/pasprt_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/country_name_visa"
+                android:layout_below="@+id/country_name_psprt"
                 android:layout_centerHorizontal="true"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="Long Stay Visa"
+                android:text="Diplomatic Passports"
                 android:textColor="@color/white"
                 android:textStyle="normal" />
 
             <com.app.traphoria.customViews.MyTextView16
-                android:id="@+id/visa_entry_type"
+                android:id="@+id/pasprt_no"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/visa_type"
+                android:layout_below="@+id/pasprt_type"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="center"
                 android:singleLine="true"
-                android:text="Double Entry (1 left)"
+                android:text="Passport No: 000 000 000 000"
                 android:textColor="@color/white"
                 android:textStyle="normal" />
 
             <com.app.traphoria.customViews.MyTextView16
-                android:id="@+id/visa_expires_date"
+                android:id="@+id/expires_date"
                 android:layout_width="wrap_content"
+
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/visa_entry_type"
+                android:layout_below="@+id/pasprt_no"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="center"
@@ -93,6 +92,8 @@
 
 
         </RelativeLayout>
+
+
     </RelativeLayout>
 
     <View
