@@ -1,16 +1,24 @@
 package com.app.traphoria.settings;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ToggleButton;
 
 import com.app.traphoria.R;
+import com.app.traphoria.adapter.DialogAdapter;
 import com.app.traphoria.model.UserDTO;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.preference.PreferenceConstant;
@@ -31,6 +39,7 @@ public class SettingsScreenFragment extends BaseFragment {
     private DisplayImageOptions options;
     private UserDTO userDTO;
     private ToggleButton tgl_location, tgl_trip;
+    private static Activity mActivity;
 
     public SettingsScreenFragment() {
     }
@@ -55,6 +64,7 @@ public class SettingsScreenFragment extends BaseFragment {
     }
 
     private void init() {
+        mActivity = NavigationDrawerActivity.mActivity;
         tgl_location = (ToggleButton) view.findViewById(R.id.tgl_location);
         tgl_trip = (ToggleButton) view.findViewById(R.id.tgl_trip);
         options = new DisplayImageOptions.Builder()
@@ -70,6 +80,8 @@ public class SettingsScreenFragment extends BaseFragment {
                 .build();
 
         userDTO = TraphoriaPreference.getObjectFromPref(getActivity(), PreferenceConstant.USER_INFO);
+
+        showDialog();
 
     }
 
@@ -95,4 +107,59 @@ public class SettingsScreenFragment extends BaseFragment {
             tgl_trip.setChecked(false);
         }
     }
+
+    public void showDialog() {
+        Dialog mDialog = null;
+        try {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (mActivity != null) {
+            mDialog = new Dialog(mActivity, R.style.DialogSlideAnim);
+            // hide to default title for Dialog
+            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            // mDialog.getWindow().setGravity(Gravity.BOTTOM);
+
+            // inflate the layout dialog_layout.xml and set it as
+            // contentView
+            LayoutInflater inflater = (LayoutInflater) mActivity
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View view = inflater.inflate(R.layout.sliding_dialog, null,
+                    false);
+            mDialog.setContentView(view);
+            mDialog.setCancelable(true);
+            mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
+            lp.dimAmount = 0.8f;
+            lp.gravity = Gravity.BOTTOM;
+            mDialog.getWindow().setAttributes(lp);
+
+
+            final ListView listView = (ListView) mDialog
+                    .findViewById(R.id.listview);
+
+            final DialogAdapter adapter = new DialogAdapter(
+                    mActivity);
+
+
+            listView.setAdapter(adapter);
+
+
+            try {
+                // Display the dialog
+                mDialog.show();
+            } catch (WindowManager.BadTokenException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+
 }

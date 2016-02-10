@@ -102,6 +102,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
                         android:drawableRight="@drawable/down_btn"
+                        android:onClick="showDialog"
                         android:paddingBottom="@dimen/margin_15dp"
                         android:paddingLeft="@dimen/margin_20dp"
                         android:paddingRight="@dimen/margin_20dp"

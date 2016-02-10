@@ -14,7 +14,9 @@
             android:id="@+id/status_pin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_20dp"
+            android:layout_marginRight="@dimen/margin_10dp"
+            android:paddingLeft="@dimen/margin_20dp"
+            android:paddingTop="@dimen/margin_10dp"
             android:src="@drawable/pin_icon" />
 
 
@@ -22,12 +24,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_25dp"
-            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_10dp"
             android:layout_toRightOf="@+id/status_pin"
             android:orientation="vertical"
-            android:paddingBottom="@dimen/margin_20dp">
+            android:paddingBottom="@dimen/margin_10dp">
 
-            <com.app.traphoria.customViews.MyTextView18
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/task"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -35,12 +37,11 @@
                 android:text="Go to market to buy grocery for Dinner."
                 android:textColor="@color/black" />
 
-            <com.app.traphoria.customViews.MyTextView16
+            <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/task_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/task"
-                android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="left"
                 android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
                 android:textColor="@color/black" />
@@ -50,18 +51,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/task_description"
-                android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="left"
                 android:text="@string/shared_with"
                 android:textColor="@color/dark_grey" />
 
-            <com.app.traphoria.customViews.MyTextView16
+            <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/shared_with"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/task_description"
                 android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_toRightOf="@+id/shared"
                 android:gravity="left"
                 android:text="ibtissam,abdul Nasir"
