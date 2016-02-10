@@ -24,7 +24,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.NotificationDTO;
-import com.app.traphoria.model.PassportVisaDetailsDTO;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -36,8 +35,8 @@ import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import com.app.traphoria.R;
-import com.app.traphoria.adapter.MessagesAdapter;
-import com.app.traphoria.adapter.NotificationAdapter;
+import com.app.traphoria.alert.adapter.MessagesAdapter;
+import com.app.traphoria.alert.adapter.NotificationAdapter;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -332,6 +331,14 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
             Utils.showNoNetworkDialog(getActivity());
         }
 
+
+    }
+
+
+
+
+    private  void getMessageList()
+    {
 
     }
 

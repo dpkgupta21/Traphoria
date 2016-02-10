@@ -1,4 +1,4 @@
-package com.app.traphoria.adapter;
+package com.app.traphoria.task.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -7,35 +7,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
-
+import java.util.List;
 import com.app.traphoria.R;
+import com.app.traphoria.model.MemberDTO;
 
 
-/**
- * Created by Harish on 12/16/2015.
- */
 public class SelectMemberAdapter extends BaseAdapter {
 
 
-    Activity mActivity;
-    LayoutInflater mLayoutInflater;
+    private Activity mActivity;
+    private LayoutInflater mLayoutInflater;
+    private List<MemberDTO> memberList;
 
-    ArrayList<String> menuItemList;
 
-
-    public SelectMemberAdapter(Activity mActivity) {
+    public SelectMemberAdapter(Activity mActivity, List<MemberDTO> memberList) {
         this.mActivity = mActivity;
+        this.memberList = memberList;
 
         try {
             mLayoutInflater = (LayoutInflater) mActivity
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-
-            menuItemList = new ArrayList<String>();
-            menuItemList.add("Abdul Nasseer (Son)");
-            menuItemList.add("Habib (Cook)");
-            menuItemList.add("Ibtissaam (Wife)");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -44,21 +35,17 @@ public class SelectMemberAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        if (menuItemList != null) {
-            return menuItemList.size();
-        } else {
-            return 0;
-        }
+
+        return memberList.size();
+
     }
 
     @Override
     public Object getItem(int position) {
 
-        if (menuItemList != null) {
-            return menuItemList.get(position);
-        } else {
-            return null;
-        }
+
+        return memberList.get(position);
+
     }
 
 
@@ -96,17 +83,7 @@ public class SelectMemberAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-        if (menuItemList != null) {
-            holder.member_name.setText(menuItemList.get(position));
-        }
-
-        holder.select_img.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-            }
-        });
+        holder.member_name.setText(memberList.get(position).getName());
 
         return convertView;
     }

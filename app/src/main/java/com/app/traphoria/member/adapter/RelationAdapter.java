@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.MyTextView12;
+import com.app.traphoria.customViews.MyTextView14;
 import com.app.traphoria.model.RelationDTO;
 
 import java.util.List;
@@ -51,7 +52,7 @@ public class RelationAdapter extends BaseAdapter {
             mView = (View) mInflater.inflate(R.layout.relation_row_layout,
                     parent, false);
             holder = new ViewHolder();
-            holder.txtCountryCode = (MyTextView12) mView.findViewById(R.id.txt_relation_name);
+            holder.txtCountryCode = (MyTextView14) mView.findViewById(R.id.txt_relation_name);
             mView.setTag(holder);
         } else {
             holder = (ViewHolder) mView.getTag();
@@ -63,7 +64,7 @@ public class RelationAdapter extends BaseAdapter {
     }
 
     private static class ViewHolder {
-        private MyTextView12 txtCountryCode;
+        private MyTextView14 txtCountryCode;
     }
 
 

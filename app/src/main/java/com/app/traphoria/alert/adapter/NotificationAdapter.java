@@ -1,4 +1,4 @@
-package com.app.traphoria.adapter;
+package com.app.traphoria.alert.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;

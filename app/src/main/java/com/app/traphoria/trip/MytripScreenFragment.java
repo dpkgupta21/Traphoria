@@ -1,4 +1,4 @@
-package com.app.traphoria.fragments;
+package com.app.traphoria.trip;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import com.app.traphoria.R;
 import com.app.traphoria.adapter.MyTripAdapter;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
-import com.app.traphoria.view.AddNewTripScreen;
 
 /**
  * A placeholder fragment containing a simple view.

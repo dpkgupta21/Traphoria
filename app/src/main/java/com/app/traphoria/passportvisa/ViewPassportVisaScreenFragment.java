@@ -1,4 +1,4 @@
-package com.app.traphoria.fragments;
+package com.app.traphoria.passportvisa;
 
 import android.app.Activity;
 import android.content.Intent;

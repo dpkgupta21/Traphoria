@@ -47,6 +47,7 @@
                 android:background="@drawable/grey_background">
 
                 <com.app.traphoria.customViews.MyEditTextView
+                    android:id="@+id/edt_user_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
@@ -70,6 +71,7 @@
                 android:weightSum="2.1">
 
                 <com.app.traphoria.customViews.MyEditTextView
+                    android:id="@+id/edt_dob"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -78,7 +80,6 @@
                     android:paddingBottom="@dimen/margin_15dp"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
-
                     android:paddingTop="@dimen/margin_15dp"
                     android:singleLine="true"
                     android:textColor="@color/black"
@@ -137,7 +138,7 @@
                     android:background="@drawable/grey_background">
 
                     <com.app.traphoria.customViews.MyTextView18
-                        android:id="@+id/dob"
+                        android:id="@+id/sel"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
@@ -202,6 +203,7 @@
 
 
                 <ToggleButton
+                    android:id="@+id/tgl_location"
                     android:layout_width="@dimen/toggle_btn_width"
                     android:layout_height="@dimen/toggle_btn_height"
                     android:layout_alignParentRight="true"
@@ -233,6 +235,7 @@
 
 
                 <ToggleButton
+                    android:id="@+id/tgl_trip"
                     android:layout_width="@dimen/toggle_btn_width"
                     android:layout_height="@dimen/toggle_btn_height"
                     android:layout_alignParentRight="true"

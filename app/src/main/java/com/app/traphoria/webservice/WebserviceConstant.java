@@ -13,4 +13,9 @@ public class WebserviceConstant {
     public static String GET_RELATION_LIST = "relations";
 
     public static String DO_APPROVE_DECLINE_MEMBER = "adddeclinemember";
+    public static String GET_TASK_LIST = "tasklist";
+
+    public static String GET_MEMBER_LIST = "mymemberlist";
+
+    public static String ADD_TASK ="addtask";
 }

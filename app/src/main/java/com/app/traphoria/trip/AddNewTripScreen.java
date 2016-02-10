@@ -1,4 +1,4 @@
-package com.app.traphoria.view;
+package com.app.traphoria.trip;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

@@ -24,11 +24,11 @@ import com.app.traphoria.adapter.SideMenuListAdapter;
 import com.app.traphoria.alert.AlertsScreenFragment;
 import com.app.traphoria.fragments.LocationScreenFragment;
 import com.app.traphoria.member.MembersScreenFragment;
-import com.app.traphoria.fragments.MytripScreenFragment;
+import com.app.traphoria.trip.MytripScreenFragment;
 import com.app.traphoria.fragments.SearchDestinationFragment;
-import com.app.traphoria.fragments.SettingsScreenFragment;
-import com.app.traphoria.fragments.TaskScreenFragment;
-import com.app.traphoria.fragments.ViewPassportVisaScreenFragment;
+import com.app.traphoria.settings.SettingsScreenFragment;
+import com.app.traphoria.task.TaskScreenFragment;
+import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
 
 
 public class NavigationDrawerActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {

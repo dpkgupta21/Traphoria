@@ -1,5 +1,6 @@
-package com.app.traphoria.adapter;
+package com.app.traphoria.task.adapter;
 
+import android.content.Context;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,11 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
+import com.app.traphoria.model.TaskDTO;
 
-/**
- * Created by Harish on 1/26/2016.
- */
+import java.util.List;
+
+
 public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.DetailsViewHolder> {
+
+    private Context context;
+    private List<TaskDTO> taskList;
+
+    public TaskAdapter(Context context, List<TaskDTO> taskList) {
+        this.context = context;
+        this.taskList = taskList;
+    }
 
 
     @Override
@@ -28,16 +38,19 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.DetailsViewHol
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
 
+        holder.shared_with.setText(taskList.get(position).getShared_with());
+        holder.task.setText(taskList.get(position).getTitle());
+        holder.task_description.setText(taskList.get(position).getDescription());
+
     }
 
     @Override
     public int getItemCount() {
-        return 4;
+        return taskList.size();
     }
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cardView;
         ImageView status_pin;
         TextView task, task_description, shared_with;
 
@@ -46,7 +59,6 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.DetailsViewHol
 
             super(itemView);
 
-            cardView = (CardView) itemView.findViewById(R.id.card_view);
             status_pin = (ImageView) itemView.findViewById(R.id.status_pin);
             task = (TextView) itemView.findViewById(R.id.task);
             task_description = (TextView) itemView.findViewById(R.id.task_description);
