@@ -1,7 +1,6 @@
 package com.app.traphoria.adapter;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
-import com.app.traphoria.view.DestinationDetailScreen;
 
 /**
  * Created by Harish on 1/26/2016.

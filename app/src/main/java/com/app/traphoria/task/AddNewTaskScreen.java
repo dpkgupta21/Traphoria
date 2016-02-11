@@ -14,6 +14,11 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
+import com.app.traphoria.database.DatabaseHelper;
+import com.app.traphoria.database.DatabaseManager;
+import com.app.traphoria.lacaldabase.MemberDataSource;
+import com.app.traphoria.lacaldabase.RelationDataSource;
+import com.app.traphoria.model.RelationDTO;
 import com.app.traphoria.task.adapter.SelectMemberAdapter;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.MemberDTO;
@@ -25,6 +30,7 @@ import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.j256.ormlite.dao.Dao;
 
 import org.json.JSONObject;
 
@@ -68,6 +74,7 @@ public class AddNewTaskScreen extends BaseActivity {
 
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -101,46 +108,12 @@ public class AddNewTaskScreen extends BaseActivity {
 
 
     private void getMembersList() {
-
-        if (Utils.isOnline(AddNewTaskScreen.this)) {
-            Map<String, String> params = new HashMap<>();
-            params.put("action", WebserviceConstant.GET_MEMBER_LIST);
-            params.put("user_id", PreferenceHelp.getUserId(AddNewTaskScreen.this));
-
-            CustomProgressDialog.showProgDialog(AddNewTaskScreen.this, null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
-                    new Response.Listener<JSONObject>() {
-                        @Override
-                        public void onResponse(JSONObject response) {
-                            try {
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<MemberDTO>>() {
-                                }.getType();
-                                memberList = new Gson().fromJson(response.getJSONArray("memberlist").toString(), type);
-                                setMemberList();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                            CustomProgressDialog.hideProgressDialog();
-                        }
-                    }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(AddNewTaskScreen.this);
-                    //       CustomProgressDialog.hideProgressDialog();
-                }
-            });
-            AppController.getInstance().getRequestQueue().add(postReq);
-            postReq.setRetryPolicy(new DefaultRetryPolicy(
-                    30000, 0,
-                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            CustomProgressDialog.showProgDialog(AddNewTaskScreen.this, null);
-        } else {
-            Utils.showNoNetworkDialog(AddNewTaskScreen.this);
+        try {
+            memberList = new MemberDataSource(AddNewTaskScreen.this).getMember();
+            setMemberList();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
 
     }
 

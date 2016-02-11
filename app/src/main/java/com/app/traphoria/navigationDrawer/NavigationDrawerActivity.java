@@ -23,9 +23,10 @@ import com.app.traphoria.R;
 import com.app.traphoria.adapter.SideMenuListAdapter;
 import com.app.traphoria.alert.AlertsScreenFragment;
 import com.app.traphoria.fragments.LocationScreenFragment;
+import com.app.traphoria.lacaldabase.Handler;
 import com.app.traphoria.member.MembersScreenFragment;
 import com.app.traphoria.trip.MytripScreenFragment;
-import com.app.traphoria.fragments.SearchDestinationFragment;
+import com.app.traphoria.search.SearchDestinationFragment;
 import com.app.traphoria.settings.SettingsScreenFragment;
 import com.app.traphoria.task.TaskScreenFragment;
 import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
@@ -59,6 +60,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
 
     private void initViews() {
+
+        new Thread(new Handler(getApplicationContext())).start();
         context = this;
         mActivity = this;
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);

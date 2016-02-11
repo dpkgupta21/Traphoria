@@ -21,9 +21,7 @@ import com.app.traphoria.adapter.PassportVisaAdapter;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.view.AddPassportVisaScreen;
 
-/**
- * A placeholder fragment containing a simple view.
- */
+
 public class ViewPassportVisaScreenFragment extends Fragment implements View.OnClickListener {
 
 

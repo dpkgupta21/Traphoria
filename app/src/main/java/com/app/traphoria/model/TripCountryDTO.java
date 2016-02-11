@@ -5,8 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 
 import java.io.Serializable;
 
-public class RelationDTO implements Serializable {
-
+public class TripCountryDTO implements Serializable{
     @DatabaseField
     private String id;
     @DatabaseField

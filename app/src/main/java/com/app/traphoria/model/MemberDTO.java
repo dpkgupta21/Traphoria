@@ -1,11 +1,16 @@
 package com.app.traphoria.model;
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 public class MemberDTO implements Serializable {
 
+    @DatabaseField
     private String name;
+    @DatabaseField
     private String id;
+    @DatabaseField
     private String selected ="N";
 
     public String getName() {

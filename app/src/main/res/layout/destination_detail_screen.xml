@@ -3,13 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.DestinationDetailScreen">
+    tools:context=".search.DestinationDetailScreen">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/uae_building">
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
 
         <ImageView
@@ -52,8 +57,7 @@
                 android:paddingRight="@dimen/margin_20dp"
                 android:paddingTop="@dimen/margin_10dp"
                 android:text="@string/top_dest"
-                android:textColor="@color/white"
-                 />
+                android:textColor="@color/white" />
 
             <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/culture_dest_tv"
@@ -69,8 +73,7 @@
                 android:paddingTop="@dimen/margin_10dp"
 
                 android:text="@string/culture_dest"
-                android:textColor="@color/white"
-                 />
+                android:textColor="@color/white" />
 
             <com.app.traphoria.customViews.MyTextView18
                 android:id="@+id/festival_tv"
@@ -85,8 +88,7 @@
                 android:paddingRight="@dimen/margin_20dp"
                 android:paddingTop="@dimen/margin_10dp"
                 android:text="@string/festival_events"
-                android:textColor="@color/white"
-               />
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </RelativeLayout>

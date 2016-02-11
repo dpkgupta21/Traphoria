@@ -101,4 +101,10 @@
         <item>Location Services</item>
         <item>Settings</item>
     </string-array>
+
+
+
+   <!-- For database-->
+
+    <string name="open_helper_classname">com.app.traphoria.database.DatabaseHelper</string>
 </resources>

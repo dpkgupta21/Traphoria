@@ -1,4 +1,4 @@
-package com.app.traphoria.trip;
+package com.app.traphoria.search;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,22 +6,22 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
+import com.app.traphoria.search.adapter.SearchDestinationAdapter;
 import com.app.traphoria.customViews.CustomProgressDialog;
-import com.app.traphoria.model.TripDTO;
+import com.app.traphoria.model.SerachDTO;
 import com.app.traphoria.preference.PreferenceHelp;
-import com.app.traphoria.trip.adapter.MyTripAdapter;
 import com.app.traphoria.utility.BaseFragment;
+import com.app.traphoria.utility.MyOnClickListener;
+import com.app.traphoria.utility.RecyclerTouchListener;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
@@ -40,92 +40,66 @@ import java.util.Map;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MytripScreenFragment extends BaseFragment {
+public class SearchDestinationFragment extends BaseFragment {
 
 
+    private String TAG = "SEARCH";
     private View view;
     private Toolbar mToolbar;
-    private String TAG = "TRIP SCREEN";
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
-    private List<TripDTO> tripList;
+    private TextView toolbar_right_tv;
+    private SearchDestinationAdapter mSearchDestinationAdapter;
+    private RecyclerView recyclerView;
+    private List<SerachDTO> searchList;
 
-    public MytripScreenFragment() {
+    public SearchDestinationFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.my_trips_fragment, container, false);
+        view = inflater.inflate(R.layout.search_destination_fragment, container, false);
         mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
+
 
         return view;
 
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.passport_visa_menu, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        recyclerView = (RecyclerView) view.findViewById(R.id.destination_list);
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(llm);
 
 
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.trip_list);
-        mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+//        toolbar_right_tv = (TextView) view.findViewById(R.id.toolbar_right_tv);
+//        toolbar_right_tv.setVisibility(View.VISIBLE);
 
-        getTripList();
-        setClick(R.id.create_trip, view);
+        getSearchList();
+
+
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_add:
-                addNewTrip();
-                return false;
-
-            default:
-                break;
-        }
-
-        return false;
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.create_trip:
-                addNewTrip();
+            case R.id.toolbar_right_tv:
                 break;
         }
     }
 
-    private void addNewTrip() {
-        startActivity(new Intent(getActivity(), AddNewTripScreen.class));
-    }
 
-
-    private void getTripList() {
+    private void getSearchList() {
 
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
-            params.put("action", WebserviceConstant.GET_TRIP_LIST);
+            params.put("action", WebserviceConstant.GET_SEARCH);
             params.put("user_id", PreferenceHelp.getUserId(getActivity()));
-
+            params.put("keyword", "");
             CustomProgressDialog.showProgDialog(getActivity(), null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
@@ -133,10 +107,10 @@ public class MytripScreenFragment extends BaseFragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<TripDTO>>() {
+                                Type type = new TypeToken<ArrayList<SerachDTO>>() {
                                 }.getType();
-                                tripList = new Gson().fromJson(response.getJSONArray("trip_list").toString(), type);
-                                setTripData();
+                                searchList = new Gson().fromJson(response.getJSONArray("countries").toString(), type);
+                                setSearchData();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -164,22 +138,29 @@ public class MytripScreenFragment extends BaseFragment {
     }
 
 
-    private void setTripData() {
+    private void setSearchData() {
+        mSearchDestinationAdapter = new SearchDestinationAdapter(getActivity(), searchList);
+        recyclerView.setAdapter(mSearchDestinationAdapter);
 
-        if (tripList != null && tripList.size() != 0) {
-            setViewVisibility(R.id.no_trip_rl, view, View.GONE);
-            mAdapter = new MyTripAdapter(tripList, getActivity());
-            mRecyclerView.setAdapter(mAdapter);
 
-        }
-        else
-        {
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new MyOnClickListener() {
+            @Override
+            public void onRecyclerClick(View view, int position) {
+                Intent intent = new Intent(getActivity(), DestinationDetailScreen.class);
+                intent.putExtra("countryId", searchList.get(position).getCountry_id());
+                startActivity(intent);
+            }
 
-            setViewVisibility(R.id.trip_list, view, View.GONE);
-            setViewVisibility(R.id.no_trip_rl, view, View.VISIBLE);
-        }
+            @Override
+            public void onRecyclerLongClick(View view, int position) {
+
+            }
+
+            @Override
+            public void onItemClick(View view, int position) {
+
+            }
+        }));
 
     }
-
-
 }

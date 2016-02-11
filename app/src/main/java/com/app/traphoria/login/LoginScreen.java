@@ -11,6 +11,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
+import com.app.traphoria.lacaldabase.Handler;
 import com.app.traphoria.model.UserDTO;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.preference.PreferenceConstant;
@@ -86,6 +87,7 @@ public class LoginScreen extends BaseActivity {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         TraphoriaPreference.putObjectIntoPref(LoginScreen.this, userDTO, PreferenceConstant.USER_INFO);
                                         startActivity(new Intent(LoginScreen.this, NavigationDrawerActivity.class));
+
                                     } else {
                                         Utils.showDialog(LoginScreen.this, "Error", Utils.getWebServiceMessage(response));
                                     }

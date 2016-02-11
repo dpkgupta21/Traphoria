@@ -1,4 +1,4 @@
-package com.app.traphoria.view;
+package com.app.traphoria.search;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,21 +9,21 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
-import com.app.traphoria.adapter.FestivalEventsAdapter;
 import com.app.traphoria.adapter.TopDestinationAdapter;
 
-public class FestivalEventsScreen extends AppCompatActivity {
+public class TopDestinationsScreen extends AppCompatActivity {
 
 
-    private RecyclerView recyclerView;
+    private RecyclerView destinations_rv;
+    private TopDestinationAdapter mTopDestinationAdapter;
     private Toolbar mToolbar;
     private TextView mTitle;
-    private FestivalEventsAdapter mFestivalEventsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.festival_events_screen);
+        setContentView(R.layout.top_destinations_screen);
+
         initViews();
     }
 
@@ -35,25 +35,24 @@ public class FestivalEventsScreen extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mToolbar.setNavigationIcon(R.drawable.back_btn);
         mTitle = (TextView) findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.festival_events);
+        mTitle.setText(R.string.top_dest);
 
-        recyclerView = (RecyclerView) findViewById(R.id.events_rv);
+        destinations_rv = (RecyclerView) findViewById(R.id.destinations_rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
+        destinations_rv.setLayoutManager(llm);
 
-        mFestivalEventsAdapter = new FestivalEventsAdapter(this);
-        recyclerView.setAdapter(mFestivalEventsAdapter);
-
+        mTopDestinationAdapter = new TopDestinationAdapter(this);
+        destinations_rv.setAdapter(mTopDestinationAdapter);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
+
     }
 }
