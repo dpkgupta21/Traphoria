@@ -88,6 +88,9 @@
     <string name="top_dest">Top Destinations</string>
     <string name="culture_dest">Culture &amp; Tradition</string>
     <string name="festival_events"><![CDATA[Festival & Events]]></string>
+    <string name="your_email">Your Email</string>
+    <string name="passwrd">Password</string>
+    <string name="cnfrm_passwrd">Confirm Password</string>
     <string-array name="menu_list">
         <item>Search</item>
         <item>Alert</item>

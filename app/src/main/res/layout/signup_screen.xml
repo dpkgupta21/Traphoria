@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/save_btn"
+        android:layout_marginBottom="@dimen/margin_10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/img_user_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:src="@drawable/avtar_icon"
+                app:civ_border_color="@color/grey"
+                app:civ_border_width="1dp" />
+
+
+            <com.app.traphoria.customViews.MyEditTextView
+                android:id="@+id/edt_user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@drawable/grey_background"
+                android:hint="@string/your_name"
+                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:paddingRight="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_15dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_grey" />
+
+            <com.app.traphoria.customViews.MyEditTextView
+                android:id="@+id/edt_user_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@drawable/grey_background"
+                android:hint="@string/your_email"
+                android:inputType="textEmailAddress"
+                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:paddingRight="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_15dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_grey" />
+
+            <com.app.traphoria.customViews.MyEditTextView
+                android:id="@+id/edt_user_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@drawable/grey_background"
+                android:hint="@string/passwrd"
+                android:inputType="textPassword"
+                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:paddingRight="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_15dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_grey" />
+
+            <com.app.traphoria.customViews.MyEditTextView
+                android:id="@+id/edt_user_cnfrm_pwd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_10dp"
+                android:background="@drawable/grey_background"
+                android:hint="@string/cnfrm_passwrd"
+                android:inputType="textPassword"
+                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:paddingRight="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_15dp"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="@color/dark_grey" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_20dp"
+                android:orientation="horizontal"
+                android:weightSum="2.1">
+
+                <com.app.traphoria.customViews.MyEditTextView
+                    android:id="@+id/edt_dob"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_background"
+                    android:drawableRight="@drawable/calender_btn"
+                    android:hint="@string/dob"
+                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_15dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/dark_grey" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/grey_background">
+
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:onClick="showDialog"
+                        android:paddingBottom="@dimen/margin_15dp"
+                        android:paddingLeft="@dimen/margin_20dp"
+                        android:paddingRight="@dimen/margin_20dp"
+                        android:paddingTop="@dimen/margin_15dp"
+                        android:text="@string/gender"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
+                </RelativeLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+    <RelativeLayout
+        android:id="@+id/save_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/purple"
+        android:padding="@dimen/margin_10dp">
+
+        <com.app.traphoria.customViews.MyTextView18
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/signup"
+            android:textColor="@color/white"
+            android:textStyle="normal" />
+
+    </RelativeLayout>
+</RelativeLayout>
