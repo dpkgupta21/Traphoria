@@ -31,6 +31,7 @@ public class RelationDataSource {
 
     public void insertRelation(List<RelationDTO> relationList) {
         try {
+            delete();
             for (RelationDTO dto : relationList) {
                 relationDao.create(dto);
             }

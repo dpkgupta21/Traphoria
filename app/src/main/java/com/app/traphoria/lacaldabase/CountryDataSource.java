@@ -31,6 +31,7 @@ public class CountryDataSource {
 
     public void insertCountry(List<TripCountryDTO> countryList) {
         try {
+            delete();
             for (TripCountryDTO dto : countryList) {
                 countryDao.create(dto);
             }
