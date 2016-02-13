@@ -83,4 +83,9 @@ public class SearchDestinationAdapter extends RecyclerView.Adapter<SearchDestina
         }
     }
 
+
+    public void setSeachList(List<SerachDTO> seachList) {
+        this.searchList = seachList;
+    }
+
 }

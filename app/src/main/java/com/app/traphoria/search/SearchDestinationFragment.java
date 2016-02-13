@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -34,6 +37,7 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +54,8 @@ public class SearchDestinationFragment extends BaseFragment {
     private SearchDestinationAdapter mSearchDestinationAdapter;
     private RecyclerView recyclerView;
     private List<SerachDTO> searchList;
+    private List<SerachDTO> visibleSearchList;
+    private EditText searchText;
 
     public SearchDestinationFragment() {
     }
@@ -73,6 +79,46 @@ public class SearchDestinationFragment extends BaseFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.destination_list);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
+
+        searchText = (EditText) view.findViewById(R.id.edtsearch);
+        searchText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                try {
+
+                    Iterator<SerachDTO> iterator = visibleSearchList.iterator();
+                    ArrayList<SerachDTO> temp = new ArrayList<SerachDTO>();
+
+                    while (iterator.hasNext()) {
+                        while (iterator.hasNext()) {
+                            SerachDTO serachDTOtBean = iterator.next();
+                            String countryTitle = serachDTOtBean.getName();
+                            if (countryTitle.toUpperCase().contains(s.toString().toUpperCase())) {
+                                temp.add(serachDTOtBean);
+                            }
+                        }
+                        if (mSearchDestinationAdapter != null) {
+                            mSearchDestinationAdapter.setSeachList(temp);
+                            mSearchDestinationAdapter.notifyDataSetChanged();
+                        }
+                    }
+
+                } catch (Exception e) {
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         getSearchList();
 
 
@@ -105,6 +151,7 @@ public class SearchDestinationFragment extends BaseFragment {
                                 Type type = new TypeToken<ArrayList<SerachDTO>>() {
                                 }.getType();
                                 searchList = new Gson().fromJson(response.getJSONArray("countries").toString(), type);
+                                visibleSearchList = searchList;
                                 setSearchData();
                             } catch (Exception e) {
                                 e.printStackTrace();
