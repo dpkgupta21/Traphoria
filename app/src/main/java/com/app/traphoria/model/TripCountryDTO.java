@@ -6,6 +6,8 @@ import com.j256.ormlite.field.DatabaseField;
 import java.io.Serializable;
 
 public class TripCountryDTO implements Serializable{
+    @DatabaseField(generatedId = true)
+    private int localID;
     @DatabaseField
     private String id;
     @DatabaseField

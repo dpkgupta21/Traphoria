@@ -25,6 +25,7 @@ import com.app.traphoria.alert.AlertsScreenFragment;
 import com.app.traphoria.fragments.LocationScreenFragment;
 import com.app.traphoria.lacaldabase.Handler;
 import com.app.traphoria.member.MembersScreenFragment;
+import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.trip.MytripScreenFragment;
 import com.app.traphoria.search.SearchDestinationFragment;
 import com.app.traphoria.settings.SettingsScreenFragment;
@@ -106,7 +107,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
             case 0:
                 fragment = new SearchDestinationFragment();
-                title = "Alnasir";
+                title = PreferenceHelp.getUserName(NavigationDrawerActivity.this);
                 break;
             case 1:
                 fragment = new AlertsScreenFragment();
@@ -194,4 +195,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                 break;
         }
     }
+
+
+
+
 }

@@ -89,7 +89,8 @@ public class LoginScreen extends BaseActivity {
                                         startActivity(new Intent(LoginScreen.this, NavigationDrawerActivity.class));
 
                                     } else {
-                                        Utils.showDialog(LoginScreen.this, "Error", Utils.getWebServiceMessage(response));
+                                        Utils.custumDialog(Utils.getWebServiceMessage(response), LoginScreen.this);
+                                        // Utils.showDialog(LoginScreen.this, "Error", Utils.getWebServiceMessage(response));
                                     }
 
 
@@ -124,10 +125,13 @@ public class LoginScreen extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.edt_email).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter username");
+
+            Utils.custumDialog("Please enter username.", this);
+            //Utils.showDialog(this, "Message", "Please enter username");
             return false;
         } else if (getEditTextText(R.id.edt_pwd).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter password");
+            Utils.custumDialog("Please enter password.", this);
+            // Utils.showDialog(this, "Message", "Please enter password");
             return false;
         }
         return true;

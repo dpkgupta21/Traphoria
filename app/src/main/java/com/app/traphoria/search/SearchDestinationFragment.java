@@ -73,11 +73,6 @@ public class SearchDestinationFragment extends BaseFragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.destination_list);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
-
-
-//        toolbar_right_tv = (TextView) view.findViewById(R.id.toolbar_right_tv);
-//        toolbar_right_tv.setVisibility(View.VISIBLE);
-
         getSearchList();
 
 
@@ -122,7 +117,6 @@ public class SearchDestinationFragment extends BaseFragment {
                 public void onErrorResponse(VolleyError error) {
                     CustomProgressDialog.hideProgressDialog();
                     Utils.showExceptionDialog(getActivity());
-                    //       CustomProgressDialog.hideProgressDialog();
                 }
             });
             AppController.getInstance().getRequestQueue().add(postReq);

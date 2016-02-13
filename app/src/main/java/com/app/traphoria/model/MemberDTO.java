@@ -6,6 +6,9 @@ import java.io.Serializable;
 
 public class MemberDTO implements Serializable {
 
+
+    @DatabaseField(generatedId = true)
+    private int localID;
     @DatabaseField
     private String name;
     @DatabaseField

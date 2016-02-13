@@ -9,6 +9,8 @@ import android.net.ConnectivityManager;
 import android.util.Log;
 import android.view.inputmethod.InputMethodManager;
 
+import com.app.traphoria.customViews.CustomAlert;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -53,16 +55,21 @@ public class Utils {
 
     public static void showNoNetworkDialog(Context ctx) {
 
-        showDialog(ctx, "No Network Connection",
-                "Internet is not available. Please check your network connection.")
-                .show();
+//        showDialog(ctx, "No Network Connection",
+//                "Internet is not available. Please check your network connection.")
+//                .show();
+
+        custumDialog("Internet is not available. Please check your network connection.", ctx);
     }
 
     public static void showExceptionDialog(Context ctx) {
 
-        showDialog(ctx, "Error",
-                "Some Error occured. Please try later.")
-                .show();
+//        showDialog(ctx, "Error",
+//                "Some Error occured. Please try later.")
+//                .show();
+
+        custumDialog("Some Error occured. Please try later.", ctx);
+
     }
 
 
@@ -142,6 +149,12 @@ public class Utils {
             e.printStackTrace();
         }
         return "Error";
+    }
+
+
+    public static void custumDialog(String msg, Context context) {
+        new CustomAlert(context).singleButtonAlertDialog(msg, "Ok", null, 0);
+
     }
 
 }

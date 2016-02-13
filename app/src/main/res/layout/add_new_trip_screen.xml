@@ -92,7 +92,7 @@
                     android:text="@string/trip_start_date"
                     android:textColor="@color/black" />
 
-                <com.app.traphoria.customViews.MyEditTextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:id="@+id/start_date_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -113,7 +113,7 @@
                     android:text="@string/trip_end_date"
                     android:textColor="@color/black" />
 
-                <com.app.traphoria.customViews.MyEditTextView
+                <com.app.traphoria.customViews.MyTextView16
                     android:id="@+id/end_date"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

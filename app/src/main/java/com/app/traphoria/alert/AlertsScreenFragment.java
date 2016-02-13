@@ -61,7 +61,7 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
     private Activity mActivity;
     private Toolbar mToolbar;
     private LinearLayout notification_ll, message_ll;
-    private TextView message_tv, notification_tv;
+    private TextView message_tv, notification_tv, no_trip_tv;
     private ImageView notification_icon, message_icon;
     private SwipeMenuListView notification_lv;
 
@@ -89,6 +89,7 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
         notification_icon = (ImageView) view.findViewById(R.id.notification_icon);
         message_tv = (TextView) view.findViewById(R.id.message_tv);
         notification_tv = (TextView) view.findViewById(R.id.notification_tv);
+        no_trip_tv = (TextView) view.findViewById(R.id.no_trip_tv);
         messagesAdapter = new MessagesAdapter(mActivity);
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
@@ -241,16 +242,14 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                if (Utils.getWebServiceStatus(response)) {
-                                    Type type = new TypeToken<ArrayList<NotificationDTO>>() {
-                                    }.getType();
-                                    notificationList = new Gson().fromJson(response.getJSONArray("deal").toString(), type);
-                                    setNotificationValues();
-                                } else {
-                                    CustomProgressDialog.hideProgressDialog();
-                                    Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
-                                }
+                                Type type = new TypeToken<ArrayList<NotificationDTO>>() {
+                                }.getType();
+                                notificationList = new Gson().fromJson(response.getJSONArray("notifications").toString(), type);
+                                setNotificationValues();
+
                             } catch (Exception e) {
+                                CustomProgressDialog.hideProgressDialog();
+                                setNotificationValues();
                                 e.printStackTrace();
                             }
                             CustomProgressDialog.hideProgressDialog();
@@ -278,10 +277,16 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
     private void setNotificationValues() {
 
 
-        notificationAdapter = new NotificationAdapter(mActivity, notificationList);
-        createSwipeMenu();
-        notification_lv.setAdapter(notificationAdapter);
-        notification_lv.setOnMenuItemClickListener(this);
+        if (notificationList != null && notificationList.size() > 0) {
+            no_trip_tv.setVisibility(View.GONE);
+            notificationAdapter = new NotificationAdapter(mActivity, notificationList);
+            createSwipeMenu();
+            notification_lv.setAdapter(notificationAdapter);
+            notification_lv.setOnMenuItemClickListener(this);
+        } else {
+            notification_lv.setVisibility(View.GONE);
+            no_trip_tv.setVisibility(View.VISIBLE);
+        }
 
     }
 
@@ -335,10 +340,7 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
     }
 
 
-
-
-    private  void getMessageList()
-    {
+    private void getMessageList() {
 
     }
 

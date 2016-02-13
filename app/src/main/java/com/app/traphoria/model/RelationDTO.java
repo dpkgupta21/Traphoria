@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 public class RelationDTO implements Serializable {
 
+    @DatabaseField(generatedId = true)
+    private int localID;
     @DatabaseField
     private String id;
     @DatabaseField
