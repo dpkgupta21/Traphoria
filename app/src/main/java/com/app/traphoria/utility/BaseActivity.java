@@ -210,12 +210,14 @@ public class BaseActivity extends AppCompatActivity implements OnClickListener,
 
 	}
 
-//	public void setHeader(String header){
-//		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-//		setSupportActionBar(toolbar);
-//		TextView tvHeader = (TextView) toolbar.findViewById(R.id.tv_header);
-//		tvHeader.setText(header);
-//	}
+	public void setHeader(String header){
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+		TextView tvHeader = (TextView) toolbar.findViewById(R.id.toolbar_title);
+		tvHeader.setText(header);
+	}
+
+
 //	public void setRightClick(){
 //		Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
 //		ImageView ivRight = (ImageView) toolbar.findViewById(R.id.iv_close);

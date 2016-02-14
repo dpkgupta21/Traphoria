@@ -1,13 +1,28 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
+
+repositories {
+    maven { url 'https://maven.fabric.io/public' }
+}
+
 
 android {
-//    dexOptions {
-//        jumboMode = true
-//
-//        // Avoid the OutOfMemoryError: GC overhead limit exceeded:
-//        incremental true
-//        javaMaxHeapSize "4g"
-//    }
+    dexOptions {
+        jumboMode = true
+
+        // Avoid the OutOfMemoryError: GC overhead limit exceeded:
+        incremental true
+        javaMaxHeapSize "4g"
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
@@ -43,10 +58,6 @@ dependencies {
     compile files('libs/activation.jar')
     compile files('libs/additionnal.jar')
     compile files('libs/mail.jar')
-    compile files('libs/nineoldandroids-library-2.4.0.jar')
-    compile files('libs/universal-image-loader-1.9.3-with-sources.jar')
-    compile files('libs/gcm.jar')
-    compile files('libs/ormlite-android-4.6.jar')
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile 'com.android.support:recyclerview-v7:23.1.1'
@@ -58,7 +69,18 @@ dependencies {
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.google.code.gson:gson:2.3'
     compile 'ch.acra:acra:4.7.0'
+    compile 'org.apmem.tools:layouts:1.10@aar'
     compile 'org.apache.httpcomponents:httpcore:4.4.1'
     compile 'org.apache.httpcomponents:httpmime:4.3.6'
+    compile files('libs/nineoldandroids-library-2.4.0.jar')
+    compile files('libs/universal-image-loader-1.9.3-with-sources.jar')
+    compile files('libs/gcm.jar')
     compile 'com.android.support:multidex:1.0.1'
+    compile files('libs/ormlite-android-4.6.jar')
+    compile('com.twitter.sdk.android:twitter:1.11.0@aar') {
+        transitive = true;
+    }
+    compile 'com.facebook.android:facebook-android-sdk:4.8.2'
+
+
 }

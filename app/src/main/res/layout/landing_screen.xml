@@ -27,13 +27,12 @@
             android:id="@+id/facebook_login_rl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_marginLeft="@dimen/margin_20dp"
             android:layout_marginRight="@dimen/margin_20dp"
-            android:background="@drawable/blue_button_selector"
-            android:clickable="true">
+            android:background="@drawable/blue_button_selector">
 
             <com.app.traphoria.customViews.MyTextView18
+                android:id="@+id/btn_facebook_login"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -41,6 +40,13 @@
                 android:text="@string/fb_login"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_18sp" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/btn_fb"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout

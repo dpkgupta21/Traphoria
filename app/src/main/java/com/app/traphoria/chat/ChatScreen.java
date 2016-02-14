@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
+import com.app.traphoria.utility.BaseActivity;
 
 public class ChatScreen extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,6 +40,7 @@ public class ChatScreen extends AppCompatActivity implements View.OnClickListene
 
 
     private void initView() {
+
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(" ");

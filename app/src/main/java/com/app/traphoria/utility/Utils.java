@@ -14,6 +14,12 @@ import com.app.traphoria.customViews.CustomAlert;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Utils {
 
 
@@ -59,7 +65,7 @@ public class Utils {
 //                "Internet is not available. Please check your network connection.")
 //                .show();
 
-        custumDialog("Internet is not available. Please check your network connection.", ctx);
+        customDialog("Internet is not available. Please check your network connection.", ctx);
     }
 
     public static void showExceptionDialog(Context ctx) {
@@ -68,7 +74,7 @@ public class Utils {
 //                "Some Error occured. Please try later.")
 //                .show();
 
-        custumDialog("Some Error occured. Please try later.", ctx);
+        customDialog("Some Error occured. Please try later.", ctx);
 
     }
 
@@ -133,7 +139,9 @@ public class Utils {
 
 
     public static boolean getWebServiceStatus(JSONObject json) {
+
         try {
+
             return json.getBoolean("status");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -152,9 +160,37 @@ public class Utils {
     }
 
 
-    public static void custumDialog(String msg, Context context) {
+    public static void customDialog(String msg, Context context) {
         new CustomAlert(context).singleButtonAlertDialog(msg, "Ok", null, 0);
 
     }
 
+    public static boolean isFromDateGreater(String fromDate, String toDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            Date date1 = sdf.parse(fromDate);
+            Date date2 = sdf.parse(toDate);
+            if (date2.after(date1)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+
+    public static String getCurrentDate() {
+        DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
+    public static boolean isValidEmail(String email) {
+
+        String emailExp = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,10}$";
+        Pattern pattern = Pattern.compile(emailExp, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 }

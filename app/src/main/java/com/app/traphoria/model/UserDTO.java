@@ -16,7 +16,16 @@ public class UserDTO  implements Serializable{
     public boolean is_push_alert;
     public boolean is_deal_expiry_alert;
     public String image;
+    public String userType;
     public CountryDTO Country;
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
 
     public String getId() {
         return id;

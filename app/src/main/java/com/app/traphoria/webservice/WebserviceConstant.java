@@ -6,7 +6,9 @@ public class WebserviceConstant {
     public static final String SERVICE_BASE_URL = "http://128.199.234.133/traphoria/webservices/";
 
     public static String DO_LOGIN = "login";
+    public static String DO_SOCIAL_LOGIN = "social_connect";
     public static String DO_SIGNUP = "register";
+    public static String CHECK_MOBILE = "checkmobile";
     public static String ADD_MEMBER = "addmember";
     public static String GET_PASSPORT_VISA_DETAILS = "getUserPassportVisa";
     public static String GET_NOTIFICATION_LIST = "notifications";

@@ -16,10 +16,9 @@
 
         <ImageView
             android:id="@+id/search_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:padding="@dimen/margin_10dp"
             android:src="@drawable/search_icon" />
 
         <com.app.traphoria.customViews.MyEditTextView
@@ -30,8 +29,8 @@
             android:layout_toRightOf="@+id/search_btn"
             android:background="@null"
             android:gravity="center_vertical"
+            android:paddingLeft="@dimen/margin_10dp"
             android:hint="@string/search_txt"
-            android:padding="@dimen/margin_10dp"
             android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_16sp"

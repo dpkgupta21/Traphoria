@@ -3,11 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/save_btn"
-        android:layout_marginBottom="@dimen/margin_10dp">
+        android:layout_above="@+id/btn_signup"
+        android:layout_below="@+id/toolbar"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -102,9 +108,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10dp"
                 android:layout_marginRight="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:orientation="horizontal"
-                android:weightSum="2.1">
+                android:weightSum="2">
 
                 <com.app.traphoria.customViews.MyEditTextView
                     android:id="@+id/edt_dob"
@@ -112,42 +118,37 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/grey_background"
-                    android:drawableRight="@drawable/calender_btn"
+                    android:drawableLeft="@drawable/dob_icon"
+                    android:drawablePadding="@dimen/margin_5dp"
                     android:hint="@string/dob"
-                    android:paddingBottom="@dimen/margin_15dp"
-                    android:paddingLeft="@dimen/margin_10dp"
-                    android:paddingRight="@dimen/margin_10dp"
-                    android:paddingTop="@dimen/margin_15dp"
+                    android:paddingBottom="@dimen/margin_5dp"
+                    android:paddingLeft="@dimen/margin_5dp"
+                    android:paddingRight="@dimen/margin_5dp"
+                    android:paddingTop="@dimen/margin_5dp"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="@color/dark_grey" />
 
-                <View
+
+                <com.app.traphoria.customViews.MyEditTextView
+                    android:id="@+id/edt_gender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.1" />
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/grey_background">
+                    android:background="@drawable/grey_background"
+                    android:drawableLeft="@drawable/gender_icon"
+                    android:drawablePadding="@dimen/margin_5dp"
+                    android:focusable="false"
+                    android:hint="@string/gender"
+                    android:paddingBottom="@dimen/margin_5dp"
+                    android:paddingLeft="@dimen/margin_5dp"
+                    android:paddingRight="@dimen/margin_5dp"
+                    android:paddingTop="@dimen/margin_5dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/dark_grey" />
 
-                    <com.app.traphoria.customViews.MyTextView18
-                        android:id="@+id/gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/grey_background"
-                        android:drawableRight="@drawable/down_btn"
-                        android:onClick="showDialog"
-                        android:paddingBottom="@dimen/margin_15dp"
-                        android:paddingLeft="@dimen/margin_20dp"
-                        android:paddingRight="@dimen/margin_20dp"
-                        android:paddingTop="@dimen/margin_15dp"
-                        android:text="@string/gender"
-                        android:textColor="@color/black"
-                        android:textColorHighlight="@color/dark_grey" />
-                </RelativeLayout>
 
             </LinearLayout>
 
@@ -157,22 +158,14 @@
 
     </ScrollView>
 
-
-    <RelativeLayout
-        android:id="@+id/save_btn"
+    <com.app.traphoria.customViews.MyButtonViewRegCustom
+        android:id="@+id/btn_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/purple"
-        android:padding="@dimen/margin_10dp">
+        android:text="@string/signup"
+        android:textColor="@color/white"
+        android:textStyle="normal" />
 
-        <com.app.traphoria.customViews.MyTextView18
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/signup"
-            android:textColor="@color/white"
-            android:textStyle="normal" />
-
-    </RelativeLayout>
 </RelativeLayout>
