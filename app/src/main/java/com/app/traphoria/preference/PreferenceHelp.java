@@ -32,5 +32,13 @@ public class PreferenceHelp {
             return "";
     }
 
+    public static String getUserAgeSex(Context context) {
+        UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO);
+        if (userDTO != null)
+            return userDTO.getGender();
+        else
+            return "";
+    }
+
 
 }

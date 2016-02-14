@@ -40,9 +40,9 @@
         <RelativeLayout
             android:id="@+id/user_details_rl"
             android:layout_width="wrap_content"
-            android:layout_below="@+id/back_btn"
-android:layout_marginTop="@dimen/margin_10dp"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/back_btn"
+            android:layout_marginTop="@dimen/margin_10dp"
             android:layout_toRightOf="@+id/img_user_image">
 
             <com.app.traphoria.customViews.MyTextView20
@@ -60,8 +60,8 @@ android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_name"
-                android:paddingLeft="@dimen/margin_10dp"
                 android:layout_marginTop="@dimen/margin_5dp"
+                android:paddingLeft="@dimen/margin_10dp"
                 android:text="25 | M"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_16sp"

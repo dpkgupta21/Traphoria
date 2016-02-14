@@ -16,7 +16,6 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
 
-
     <application
         android:name=".volley.AppController"
         android:allowBackup="true"
@@ -95,7 +94,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".view.TrackScreen"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity android:name=".search.TraditionScreen"></activity>
     </application>
 
 </manifest>

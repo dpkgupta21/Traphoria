@@ -3,6 +3,8 @@ package com.app.traphoria.navigationDrawer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -22,8 +24,9 @@ import android.widget.TextView;
 import com.app.traphoria.R;
 import com.app.traphoria.adapter.SideMenuListAdapter;
 import com.app.traphoria.alert.AlertsScreenFragment;
-import com.app.traphoria.fragments.LocationScreenFragment;
+import com.app.traphoria.locationservice.LocationScreenFragment;
 import com.app.traphoria.lacaldabase.Handler;
+import com.app.traphoria.login.LoginScreen;
 import com.app.traphoria.member.MembersScreenFragment;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.trip.MytripScreenFragment;
@@ -31,6 +34,10 @@ import com.app.traphoria.search.SearchDestinationFragment;
 import com.app.traphoria.settings.SettingsScreenFragment;
 import com.app.traphoria.task.TaskScreenFragment;
 import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 
 public class NavigationDrawerActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -42,11 +49,13 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     private int mCurrentSelectedPosition;
     public static Activity mActivity;
     private TextView mTitle, mRightTextView;
-    private ImageView back_btn, down_btn;
+    private ImageView back_btn, down_btn,logout_btn;
     private ListView mListView;
     public static Context context;
+    private View navigationHeaderView;
 
     private SideMenuListAdapter menuListAdapter;
+    private DisplayImageOptions options;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +64,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         initViews();
         assignClickOnView();
         displayView(0);
+
+        setHeaderValues();
 
 
     }
@@ -76,12 +87,28 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         back_btn = (ImageView) mNavigationView.findViewById(R.id.back_btn);
+        logout_btn = (ImageView) mNavigationView.findViewById(R.id.logout_btn);
         mListView = (ListView) mNavigationView.findViewById(R.id.side_menu_list);
+        navigationHeaderView = (View) mNavigationView.findViewById(R.id.header);
         down_btn = (ImageView) findViewById(R.id.down_btn);
         menuListAdapter = new SideMenuListAdapter(this);
         mListView.setAdapter(menuListAdapter);
         mListView.setOnItemClickListener(this);
         mDrawerToggle.syncState();
+
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.slide_img)
+                .showImageOnFail(R.drawable.slide_img)
+                .showImageForEmptyUri(R.drawable.slide_img)
+                .build();
+
+
     }
 
     private void assignClickOnView() {
@@ -91,6 +118,13 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             @Override
             public void onClick(View v) {
                 mDrawerLayout.closeDrawer(GravityCompat.START);
+            }
+        });
+
+        logout_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NavigationDrawerActivity.this, LoginScreen.class));
             }
         });
 
@@ -196,7 +230,16 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         }
     }
 
+    private void setHeaderValues() {
+        ((TextView) navigationHeaderView.findViewById(R.id.txt_name)).setText(PreferenceHelp.getUserName(this));
 
 
+        ((TextView) navigationHeaderView.findViewById(R.id.txt_age_gender)).setText(PreferenceHelp.getUserAgeSex(this));
+        ImageView imageView = (ImageView) navigationHeaderView.findViewById(R.id.img_user_image);
+        ImageLoader.getInstance().displayImage(PreferenceHelp.getUserImage(this), imageView,
+                options);
+
+
+    }
 
 }
