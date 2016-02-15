@@ -9,31 +9,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
+import com.app.traphoria.lacaldabase.NotificationDataSource;
+import com.app.traphoria.model.NotificationDurationDTO;
 
 import java.util.Arrays;
 import java.util.List;
 
 
-/**
- * Created by Harish on 12/16/2015.
- */
 public class DialogAdapter extends BaseAdapter {
 
 
     Activity mActivity;
     LayoutInflater mLayoutInflater;
+    List<NotificationDurationDTO> menuItemList;
 
-    List<String> menuItemList;
 
-
-    public DialogAdapter(Activity mActivity) {
+    public DialogAdapter(Activity mActivity, List<NotificationDurationDTO> menuItemList) {
         this.mActivity = mActivity;
-
+        this.menuItemList = menuItemList;
         try {
             mLayoutInflater = (LayoutInflater) mActivity
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-            menuItemList = Arrays.asList(mActivity.getResources().getStringArray(R.array.menu_list));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,7 +92,7 @@ public class DialogAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
 
-
+        holder.textview.setText(menuItemList.get(position).getName());
         return convertView;
     }
 

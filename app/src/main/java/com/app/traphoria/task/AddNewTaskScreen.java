@@ -3,9 +3,12 @@ package com.app.traphoria.task;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -49,6 +52,7 @@ public class AddNewTaskScreen extends BaseActivity {
     private ListView members_lv;
     private SelectMemberAdapter selectMemberAdapter;
     private List<MemberDTO> memberList;
+    private EditText edtDescription;
     private String TAG = "ADD TASK";
 
     @Override
@@ -68,7 +72,24 @@ public class AddNewTaskScreen extends BaseActivity {
         mTitle = (TextView) findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.add_new_task);
         members_lv = (ListView) findViewById(R.id.members_lv);
+        edtDescription = (EditText) findViewById(R.id.task_description);
+        edtDescription.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                setTextViewText(R.id.count, getViewText(R.id.task_description).length() + "/150");
+
+            }
+        });
         getMembersList();
 
         setClick(R.id.btn_add_task);

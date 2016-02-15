@@ -31,6 +31,8 @@ public class WebserviceConstant {
 
     public static String EDIT_PROFILE="editprofile";
 
+    public static String GET_NOTIFICATION_DURATION ="notificationDuration";
+
 
 
 }

@@ -61,6 +61,7 @@
                 android:textColor="@color/black" />
 
             <com.app.traphoria.customViews.MyTextView16
+                android:id="@+id/count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -81,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:background="@null"
                 android:hint="@string/write_here"
+                android:maxLength="150"
                 android:padding="@dimen/margin_10dp"
                 android:textColor="@color/black"
                 android:textColorHighlight="@color/dark_grey" />

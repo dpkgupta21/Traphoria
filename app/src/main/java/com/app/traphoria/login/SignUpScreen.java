@@ -438,13 +438,6 @@ public class SignUpScreen extends BaseActivity implements View.OnClickListener {
 
     public boolean validateForm() {
 
-
-//        if(f==null)
-//        {
-//            Utils.showDialog(SignUp.this, "Message", "Please enter image");
-//        }
-//        else
-
         if (getViewText(R.id.edt_user_name).equals("")) {
             Utils.showDialog(mActivity, "Message", "Please enter name");
             return false;

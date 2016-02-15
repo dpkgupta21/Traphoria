@@ -6,7 +6,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/save_btn"
+        android:layout_above="@+id/btn_save"
         android:layout_marginBottom="@dimen/margin_10dp">
 
         <LinearLayout
@@ -52,10 +52,10 @@
                     android:layout_height="wrap_content"
                     android:background="@null"
                     android:hint="@string/your_name"
-                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingBottom="@dimen/margin_10dp"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
-                    android:paddingTop="@dimen/margin_15dp"
+                    android:paddingTop="@dimen/margin_10dp"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="@color/dark_grey" />
@@ -66,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_10dp"
                 android:layout_marginRight="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:orientation="horizontal"
                 android:weightSum="2.1">
 
@@ -77,10 +77,10 @@
                     android:layout_weight="1"
                     android:background="@drawable/grey_background"
                     android:hint="@string/dob"
-                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingBottom="@dimen/margin_10dp"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
-                    android:paddingTop="@dimen/margin_15dp"
+                    android:paddingTop="@dimen/margin_10dp"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="@color/dark_grey" />
@@ -102,10 +102,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
                         android:drawableRight="@drawable/down_btn"
-                        android:paddingBottom="@dimen/margin_15dp"
-                        android:paddingLeft="@dimen/margin_20dp"
-                        android:paddingRight="@dimen/margin_20dp"
-                        android:paddingTop="@dimen/margin_15dp"
+                        android:paddingBottom="@dimen/margin_10dp"
+                        android:paddingLeft="@dimen/margin_10dp"
+                        android:paddingRight="@dimen/margin_10dp"
+                        android:paddingTop="@dimen/margin_10dp"
                         android:text="@string/gender"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
@@ -116,7 +116,7 @@
             <com.app.traphoria.customViews.MyTextView16
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_15dp"
+                android:padding="@dimen/margin_10dp"
                 android:text="@string/enter_contact"
                 android:textColor="@color/black" />
 
@@ -143,10 +143,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
                         android:drawableRight="@drawable/down_btn"
-                        android:paddingBottom="@dimen/margin_15dp"
-                        android:paddingLeft="@dimen/margin_20dp"
-                        android:paddingRight="@dimen/margin_20dp"
-                        android:paddingTop="@dimen/margin_15dp"
+                        android:paddingBottom="@dimen/margin_10dp"
+                        android:paddingLeft="@dimen/margin_10dp"
+                        android:paddingRight="@dimen/margin_10dp"
+                        android:paddingTop="@dimen/margin_10dp"
                         android:text="@string/select"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
@@ -158,16 +158,16 @@
                     android:layout_weight="0.1" />
 
                 <com.app.traphoria.customViews.MyEditTextView
-                    android:layout_width="0dp"
                     android:id="@+id/edt_number"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.40"
                     android:background="@drawable/grey_background"
-                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingBottom="@dimen/margin_10dp"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
-                    android:paddingTop="@dimen/margin_15dp"
-
+                    android:paddingTop="@dimen/margin_10dp"
+                    android:phoneNumber="true"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textColorHint="@color/dark_grey" />
@@ -178,13 +178,13 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:background="@color/grey">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_15dp"
+                    android:padding="@dimen/margin_10dp"
                     android:text="@string/genrl_sttngs"
                     android:textColor="@color/black"
                     android:textStyle="normal" />
@@ -197,7 +197,7 @@
                 <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_15dp"
+                    android:padding="@dimen/margin_10dp"
                     android:text="@string/location_services"
                     android:textColor="@color/black"
                     android:textStyle="normal" />
@@ -229,7 +229,7 @@
                 <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_15dp"
+                    android:padding="@dimen/margin_10dp"
                     android:text="@string/trip_tracker"
                     android:textColor="@color/black"
                     android:textStyle="normal" />
@@ -262,7 +262,7 @@
                 <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="@dimen/margin_15dp"
+                    android:padding="@dimen/margin_10dp"
                     android:text="@string/notification"
                     android:textColor="@color/black"
                     android:textStyle="normal" />
@@ -281,10 +281,10 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
                         android:drawableRight="@drawable/down_btn"
-                        android:paddingBottom="@dimen/margin_15dp"
-                        android:paddingLeft="@dimen/margin_20dp"
-                        android:paddingRight="@dimen/margin_20dp"
-                        android:paddingTop="@dimen/margin_15dp"
+                        android:paddingBottom="@dimen/margin_10dp"
+                        android:paddingLeft="@dimen/margin_10dp"
+                        android:paddingRight="@dimen/margin_10dp"
+                        android:paddingTop="@dimen/margin_10dp"
                         android:text="@string/select"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
@@ -300,21 +300,15 @@
     </ScrollView>
 
 
-    <RelativeLayout
-        android:id="@+id/save_btn"
+    <com.app.traphoria.customViews.MyButtonViewSemi
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
         android:background="@color/purple"
-        android:padding="@dimen/margin_10dp">
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textStyle="normal" />
 
-        <com.app.traphoria.customViews.MyTextView18
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/save"
-            android:textColor="@color/white"
-            android:textStyle="normal" />
-
-    </RelativeLayout>
 </RelativeLayout>

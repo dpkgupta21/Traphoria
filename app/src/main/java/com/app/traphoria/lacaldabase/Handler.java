@@ -12,6 +12,7 @@ import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.database.DatabaseHelper;
 import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.model.MemberDTO;
+import com.app.traphoria.model.NotificationDurationDTO;
 import com.app.traphoria.model.RelationDTO;
 import com.app.traphoria.model.TripCountryDTO;
 import com.app.traphoria.preference.PreferenceHelp;
@@ -44,6 +45,8 @@ public class Handler implements Runnable {
         getRelationValues();
         getMemberValues();
         getTripCountryValues();
+
+        getNotificationDuration();
     }
 
 
@@ -166,6 +169,47 @@ public class Handler implements Runnable {
     }
 
 
+    private void getNotificationDuration() {
+        if (Utils.isOnline(mActivity)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.GET_NOTIFICATION_DURATION);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<NotificationDurationDTO>>() {
+                                }.getType();
+                                List<NotificationDurationDTO> tripCountryList = new Gson().fromJson(response.getJSONArray("duration").toString(), type);
+                                insertNotificationList(tripCountryList);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Utils.showExceptionDialog(mActivity);
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } else {
+
+        }
+
+
+    }
+
+
+
+
+
+
     private void insertRelationList(List<RelationDTO> list) {
 
         new RelationDataSource(mActivity).insertRelation(list);
@@ -181,5 +225,7 @@ public class Handler implements Runnable {
         new CountryDataSource(mActivity).insertCountry(list);
     }
 
-
+    private void insertNotificationList(List<NotificationDurationDTO> list) {
+        new NotificationDataSource(mActivity).insertNotificationDuration(list);
+    }
 }

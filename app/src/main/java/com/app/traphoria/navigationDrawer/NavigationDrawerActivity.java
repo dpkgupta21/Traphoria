@@ -286,7 +286,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     public void dblBtnCallbackResponse(Boolean flag, int code) {
         if (flag) {
             TraphoriaPreference.removeObjectIntoPref(NavigationDrawerActivity.this, PreferenceConstant.USER_INFO);
-            startActivity(new Intent(NavigationDrawerActivity.this, LoginScreen.class));
+            Intent intent = new Intent(NavigationDrawerActivity.this, LoginScreen.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
         }
 
     }

@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import com.app.traphoria.model.MemberDTO;
+import com.app.traphoria.model.NotificationDurationDTO;
 import com.app.traphoria.model.RelationDTO;
 import com.app.traphoria.model.TripCountryDTO;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
@@ -23,6 +24,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<RelationDTO, String> relationDao = null;
     private Dao<MemberDTO, String> memberDao = null;
     private Dao<TripCountryDTO, String> countryDao = null;
+    private Dao<NotificationDurationDTO, String> notificationDurationDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -39,7 +41,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, RelationDTO.class);
             TableUtils.createTable(connectionSource, MemberDTO.class);
             TableUtils.createTable(connectionSource, TripCountryDTO.class);
-
+            TableUtils.createTable(connectionSource, NotificationDurationDTO.class);
 
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
@@ -55,6 +57,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, RelationDTO.class, true);
             TableUtils.dropTable(connectionSource, MemberDTO.class, true);
             TableUtils.dropTable(connectionSource, TripCountryDTO.class, true);
+            TableUtils.dropTable(connectionSource, NotificationDurationDTO.class, true);
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
@@ -101,6 +104,21 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
         return null;
     }
+
+
+    public Dao<NotificationDurationDTO, String> getNotificationDurationDao() throws SQLException {
+        try {
+            if (notificationDurationDao == null) {
+                notificationDurationDao = BaseDaoImpl.createDao(getConnectionSource(), NotificationDurationDTO.class);
+                Log.d("", "");
+            }
+            return notificationDurationDao;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 
     @Override

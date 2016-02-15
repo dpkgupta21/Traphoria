@@ -5,10 +5,15 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -27,13 +33,19 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.adapter.DialogAdapter;
+import com.app.traphoria.camera.CameraChooseDialogFragment;
+import com.app.traphoria.camera.CameraSelectInterface;
+import com.app.traphoria.camera.GallerySelectInterface;
 import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.lacaldabase.NotificationDataSource;
+import com.app.traphoria.model.NotificationDurationDTO;
 import com.app.traphoria.model.TripDetailsDTO;
 import com.app.traphoria.model.UserDTO;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.preference.TraphoriaPreference;
+import com.app.traphoria.settings.adapter.CountryCodeAdapter;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -46,11 +58,18 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -58,14 +77,22 @@ import java.util.Map;
  */
 public class SettingsScreenFragment extends BaseFragment {
 
-
+    private int CAMERA_REQUEST = 1001;
+    private int GALLERY_REQUEST = 1002;
+    private CameraChooseDialogFragment dFragment;
+    private byte[] bitmapdata;
+    private ImageView ivProfile;
     private View view;
-    private String TAG="SETTINGS";
+    private String TAG = "SETTINGS";
     private DisplayImageOptions options;
     private UserDTO userDTO;
     private ToggleButton tgl_location, tgl_trip;
     private static Activity mActivity;
     private File file;
+    private List<Map<String, String>> countryCodeList;
+    private Dialog dialogCountryCode;
+    private Dialog mDialog = null;
+    private List<NotificationDurationDTO> menuItemList;
 
     public SettingsScreenFragment() {
     }
@@ -75,7 +102,7 @@ public class SettingsScreenFragment extends BaseFragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.settings_screen_fragment, container, false);
-        init();
+
         return view;
 
     }
@@ -84,7 +111,7 @@ public class SettingsScreenFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        init();
         setData();
 
     }
@@ -105,16 +132,21 @@ public class SettingsScreenFragment extends BaseFragment {
                 .showImageForEmptyUri(R.drawable.slide_img)
                 .build();
 
-        setClick(R.id.edt_dob,view);
-        setClick(R.id.gender,view);
 
+        ivProfile = (ImageView) view.findViewById(R.id.img_user_image);
+        ivProfile.setOnClickListener(addImageClick);
         userDTO = TraphoriaPreference.getObjectFromPref(getActivity(), PreferenceConstant.USER_INFO);
-
-        showDialog();
+        countryCodeList = getCountryCode();
 
     }
 
     private void setData() {
+
+        setClick(R.id.edt_dob, view);
+        setClick(R.id.gender, view);
+        setClick(R.id.btn_save, view);
+        setClick(R.id.notification, view);
+        setClick(R.id.sel, view);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.img_user_image);
         ImageLoader.getInstance().displayImage(userDTO.getImage(), imageView,
@@ -122,7 +154,7 @@ public class SettingsScreenFragment extends BaseFragment {
 
         setViewText(R.id.edt_user_name, userDTO.getName(), view);
         setViewText(R.id.edt_dob, userDTO.getDob(), view);
-        setViewText(R.id.gender, userDTO.getGender(), view);
+        setViewText(R.id.gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
         if (userDTO.is_location_service()) {
 
             tgl_location.setChecked(true);
@@ -138,7 +170,7 @@ public class SettingsScreenFragment extends BaseFragment {
     }
 
     public void showDialog() {
-        Dialog mDialog = null;
+
         try {
             if (mDialog != null && mDialog.isShowing()) {
                 mDialog.dismiss();
@@ -157,9 +189,9 @@ public class SettingsScreenFragment extends BaseFragment {
             // contentView
             LayoutInflater inflater = (LayoutInflater) mActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            View view = inflater.inflate(R.layout.sliding_dialog, null,
+            final View view1 = inflater.inflate(R.layout.sliding_dialog, null,
                     false);
-            mDialog.setContentView(view);
+            mDialog.setContentView(view1);
             mDialog.setCancelable(true);
             mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
             WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
@@ -167,18 +199,19 @@ public class SettingsScreenFragment extends BaseFragment {
             lp.gravity = Gravity.BOTTOM;
             mDialog.getWindow().setAttributes(lp);
 
-
-            final ListView listView = (ListView) mDialog
-                    .findViewById(R.id.listview);
-
-            final DialogAdapter adapter = new DialogAdapter(
-                    mActivity);
-
-
-            listView.setAdapter(adapter);
-
-
             try {
+                final ListView listView = (ListView) mDialog
+                        .findViewById(R.id.listview);
+
+
+                menuItemList = new NotificationDataSource(getActivity()).getNotification();
+                final DialogAdapter adapter = new DialogAdapter(
+                        mActivity, menuItemList);
+                listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(dialogNotificationListener);
+
+
                 // Display the dialog
                 mDialog.show();
             } catch (WindowManager.BadTokenException e) {
@@ -199,10 +232,189 @@ public class SettingsScreenFragment extends BaseFragment {
             case R.id.edt_dob:
                 showCalendarDialog();
                 break;
+            case R.id.btn_save:
+                updateProfile();
+                break;
+            case R.id.notification:
+                showDialog();
+                break;
+
+            case R.id.sel:
+                openDialogForCountry();
+                break;
         }
     }
 
 
+    View.OnClickListener addImageClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showAlertCamera();
+        }
+    };
+
+    private void showAlertCamera() {
+        try {
+            if (dFragment == null) {
+                dFragment = new CameraChooseDialogFragment();
+            }
+            dFragment.setCallBack(cameraSelectInterface, gallerySelectInterface);
+            // Show DialogFragment
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            dFragment.show(fm, "Dialog Fragment");
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
+    CameraSelectInterface cameraSelectInterface = new CameraSelectInterface() {
+        @Override
+        public void startCamera() {
+            clickPictureUsingCamera();
+        }
+    };
+
+    GallerySelectInterface gallerySelectInterface = new GallerySelectInterface() {
+        @Override
+        public void startGallery() {
+            selectImageFromGallery();
+        }
+    };
+
+
+    /**
+     * This method is used to click image using camera and set the clicked image
+     * in round image view.
+     */
+    private void clickPictureUsingCamera() {
+        try {
+            Intent cameraIntent = new Intent(
+                    MediaStore.ACTION_IMAGE_CAPTURE);
+            cameraIntent.putExtra(MediaStore.EXTRA_SCREEN_ORIENTATION, ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+            startActivityForResult(cameraIntent, CAMERA_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void selectImageFromGallery() {
+        try {
+            Intent intent = new Intent();
+            intent.setType("image/*");
+            intent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(
+                    Intent.createChooser(intent, "Select Picture"), GALLERY_REQUEST);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            super.onActivityResult(requestCode, resultCode, data);
+            byte[] hash = null;
+            if (requestCode == GALLERY_REQUEST && resultCode == Activity.RESULT_OK
+                    && null != data) {
+                if (dFragment != null) {
+                    dFragment.dismiss();
+                    dFragment = null;
+                }
+                Uri selectedImage = data.getData();
+                Utils.ShowLog("DATA", data.toString());
+                Utils.ShowLog("uri ", selectedImage.toString());
+
+                // setting image in image in profile pic.
+//                image_loader
+//                        .displayImage(selectedImage.toString(), img_profile);
+//
+//                Bitmap bitmap = ((BitmapDrawable) img_profile.getDrawable())
+//                        .getBitmap();
+                Bitmap bitmap = null;
+
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(mActivity.getContentResolver(), selectedImage);
+                    ivProfile.setImageBitmap(bitmap);
+
+                    file = new File(getActivity().getCacheDir(), "profile.png");
+                    file.createNewFile();
+
+//Convert bitmap to byte array
+                    Bitmap bitmap1 = bitmap;
+                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                    bitmap1.compress(Bitmap.CompressFormat.PNG, 70 /*ignored for PNG*/, bos);
+                    bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+                    FileOutputStream fos = new FileOutputStream(file);
+                    fos.write(bitmapdata);
+                    fos.flush();
+                    fos.close();
+
+
+                } catch (FileNotFoundException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+
+
+                // Converting image's bitmap to byte array.
+                // ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                //   bitmap.compress(Bitmap.CompressFormat.JPEG, 30, bos);
+                //hash = bos.toByteArray();
+
+                // converting image's byte array to Base64encoded string
+                // imageStringBase64 = Base64.encodeToString(hash, Base64.NO_WRAP);
+
+            } else if (requestCode == CAMERA_REQUEST
+                    && resultCode == Activity.RESULT_OK) {
+                if (dFragment != null) {
+                    dFragment.dismiss();
+                    dFragment = null;
+                }
+                Bitmap photo = (Bitmap) data.getExtras().get("data");
+                ivProfile.setImageBitmap(photo);
+
+                file = new File(getActivity().getCacheDir(), "profile.png");
+                file.createNewFile();
+
+//Convert bitmap to byte array
+                Bitmap bitmap1 = photo;
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                bitmap1.compress(Bitmap.CompressFormat.PNG, 70 /*ignored for PNG*/, bos);
+                bitmapdata = bos.toByteArray();
+
+//write the bytes in file
+                FileOutputStream fos = new FileOutputStream(file);
+                fos.write(bitmapdata);
+                fos.flush();
+                fos.close();
+
+
+                // Converting image's bitmap to byte array.
+                //ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                //photo.compress(Bitmap.CompressFormat.JPEG, 30, bos);
+                //hash = bos.toByteArray();
+
+                // converting image's byte array to Base64encoded string
+                // imageStringBase64 = Base64.encodeToString(hash, Base64.NO_WRAP);
+
+            }
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+    }
 
 
     public void showCalendarDialog() {
@@ -217,10 +429,10 @@ public class SettingsScreenFragment extends BaseFragment {
                 new DatePickerDialog.OnDateSetListener() {
 
                     @Override
-                    public void onDateSet(DatePicker view, int year,
+                    public void onDateSet(DatePicker view1, int year,
                                           int monthOfYear, int dayOfMonth) {
                         // Display Selected date in textbox
-                        setViewText(R.id.edt_dob, (monthOfYear + 1) + "/" + dayOfMonth + "/" + year,view);
+                        setViewText(R.id.edt_dob, (monthOfYear + 1) + "-" + dayOfMonth + "-" + year, view);
 
                     }
                 }, mYear, mMonth, mDay);
@@ -237,7 +449,7 @@ public class SettingsScreenFragment extends BaseFragment {
             public void onClick(DialogInterface dialog, int item) {
 
                 // Do something with the selection
-                setViewText(R.id.gender, items[item].toString(),view);
+                setViewText(R.id.gender, items[item].toString(), view);
             }
         });
         AlertDialog alert = builder.create();
@@ -245,32 +457,39 @@ public class SettingsScreenFragment extends BaseFragment {
     }
 
 
-    private void updateProfile()
-    {
-        if(Utils.isOnline(getActivity()))
-        {
+    private void updateProfile() {
+        if (Utils.isOnline(getActivity())) {
+            CustomProgressDialog.showProgDialog(getActivity(), null);
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.EDIT_PROFILE);
             params.put("user_id", PreferenceHelp.getUserId(getActivity()));
-
-            params.put("name",getViewText(R.id.edt_user_name, view));
-            params.put("dob",getViewText(R.id.edt_dob, view));
-            params.put("gender",getViewText(R.id.gender,view).equals("Male") ? "M" : "F");
-            params.put("location","");
-            params.put("is_push_alert","");
-            params.put("is_location_service",tgl_location.isChecked()?"true":"false");
-            params.put("is_trip_tracker",tgl_trip.isChecked()?"true":"false");
-            params.put("family_contact", getViewText(R.id.edt_number, view));
-
-            CustomProgressDialog.showProgDialog(getActivity(), null);
-            CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,file,
+            params.put("name", getViewText(R.id.edt_user_name, view));
+            params.put("dob", getViewText(R.id.edt_dob, view));
+            params.put("gender", getViewText(R.id.gender, view).equals("Male") ? "M" : "F");
+            params.put("location", "");
+            params.put("is_push_alert", "");
+            params.put("is_location_service", tgl_location.isChecked() ? "true" : "false");
+            params.put("is_trip_tracker", tgl_trip.isChecked() ? "true" : "false");
+            params.put("family_contact", getViewText(R.id.sel, view) + getViewText(R.id.edt_number, view));
+           // params.put("notification_duration", new NotificationDataSource(getActivity()).getWhereData(getViewText(R.id.notification, view)).getId());
+            CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params, file,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             Utils.ShowLog(TAG, "Response -> " + response.toString());
 
                             try {
+                                if (Utils.getWebServiceStatus(response)) {
 
+                                    UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
+                                    TraphoriaPreference.putObjectIntoPref(getActivity(),
+                                            userDTO, PreferenceConstant.USER_INFO);
+                                    Intent intent = new Intent(getActivity(), NavigationDrawerActivity.class);
+                                    intent.putExtra("fragmentNumber", 7);
+                                    startActivity(intent);
+                                } else {
+                                    Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -289,14 +508,62 @@ public class SettingsScreenFragment extends BaseFragment {
             postReq.setRetryPolicy(new DefaultRetryPolicy(
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            CustomProgressDialog.hideProgressDialog();
 
-        }
-        else
-        {
+        } else {
             Utils.showNoNetworkDialog(getActivity());
         }
     }
+
+
+    private List<Map<String, String>> getCountryCode() {
+        List<Map<String, String>> list = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(getActivity()));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                Map<String, String> map = new HashMap<>();
+                map.put("name", jsonObject.getString("name"));
+                map.put("dial_code", jsonObject.getString("dial_code"));
+                list.add(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    private void openDialogForCountry() {
+        dialogCountryCode = new Dialog(getActivity());
+        dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogCountryCode.setContentView(R.layout.layout_country_code);
+        getActivity().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
+        CountryCodeAdapter adapter = new CountryCodeAdapter(getActivity(), countryCodeList);
+        listView.setAdapter(adapter);
+        dialogCountryCode.show();
+        listView.setOnItemClickListener(dialogItemClickListener);
+    }
+
+
+    AdapterView.OnItemClickListener dialogItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
+            setViewText(R.id.sel, countryCodeList.get(i).get("dial_code"), view);
+            dialogCountryCode.dismiss();
+        }
+    };
+
+
+    AdapterView.OnItemClickListener dialogNotificationListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
+            mDialog.dismiss();
+            setViewText(R.id.notification, menuItemList.get(i).getName(), view);
+        }
+    };
 
 
 }

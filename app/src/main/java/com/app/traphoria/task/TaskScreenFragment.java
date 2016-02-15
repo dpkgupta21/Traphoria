@@ -33,6 +33,8 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -136,7 +138,7 @@ public class TaskScreenFragment extends BaseFragment {
 
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    CustomProgressDialog.hideProgressDialog();
+
                     Utils.showExceptionDialog(getActivity());
                     //       CustomProgressDialog.hideProgressDialog();
                 }
@@ -156,7 +158,19 @@ public class TaskScreenFragment extends BaseFragment {
 
     private void setTaskValues() {
 
-        mAdapter = new TaskAdapter(getActivity(),taskList);
+        Collections.sort(taskList, new Comparator<TaskDTO>() {
+            @Override
+            public int compare(TaskDTO lhs, TaskDTO rhs) {
+                int result = 0;
+                if (Integer.parseInt(rhs.getId()) < Integer.parseInt(lhs.getId()))
+                    result = -1;
+                else
+                    result = 1;
+                return result;
+            }
+        });
+        CustomProgressDialog.hideProgressDialog();
+        mAdapter = new TaskAdapter(getActivity(), taskList);
         mRecyclerView.setAdapter(mAdapter);
     }
 

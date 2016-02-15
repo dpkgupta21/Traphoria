@@ -41,10 +41,10 @@
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:background="@drawable/grey_background"
                 android:hint="@string/your_name"
-                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingBottom="@dimen/margin_10dp"
                 android:paddingLeft="@dimen/margin_10dp"
                 android:paddingRight="@dimen/margin_10dp"
-                android:paddingTop="@dimen/margin_15dp"
+                android:paddingTop="@dimen/margin_10dp"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textColorHint="@color/dark_grey" />
@@ -59,10 +59,10 @@
                 android:background="@drawable/grey_background"
                 android:hint="@string/your_email"
                 android:inputType="textEmailAddress"
-                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingBottom="@dimen/margin_10dp"
                 android:paddingLeft="@dimen/margin_10dp"
                 android:paddingRight="@dimen/margin_10dp"
-                android:paddingTop="@dimen/margin_15dp"
+                android:paddingTop="@dimen/margin_10dp"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textColorHint="@color/dark_grey" />
@@ -77,10 +77,10 @@
                 android:background="@drawable/grey_background"
                 android:hint="@string/passwrd"
                 android:inputType="textPassword"
-                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingBottom="@dimen/margin_10dp"
                 android:paddingLeft="@dimen/margin_10dp"
                 android:paddingRight="@dimen/margin_10dp"
-                android:paddingTop="@dimen/margin_15dp"
+                android:paddingTop="@dimen/margin_10dp"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textColorHint="@color/dark_grey" />
@@ -95,10 +95,10 @@
                 android:background="@drawable/grey_background"
                 android:hint="@string/cnfrm_passwrd"
                 android:inputType="textPassword"
-                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingBottom="@dimen/margin_10dp"
                 android:paddingLeft="@dimen/margin_10dp"
                 android:paddingRight="@dimen/margin_10dp"
-                android:paddingTop="@dimen/margin_15dp"
+                android:paddingTop="@dimen/margin_10dp"
                 android:singleLine="true"
                 android:textColor="@color/black"
                 android:textColorHint="@color/dark_grey" />
@@ -112,7 +112,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
 
-                <com.app.traphoria.customViews.MyEditTextView
+                <com.app.traphoria.customViews.MyTextView14
                     android:id="@+id/edt_dob"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -120,6 +120,7 @@
                     android:background="@drawable/grey_background"
                     android:drawableLeft="@drawable/dob_icon"
                     android:drawablePadding="@dimen/margin_5dp"
+                    android:gravity="center_vertical"
                     android:hint="@string/dob"
                     android:paddingBottom="@dimen/margin_5dp"
                     android:paddingLeft="@dimen/margin_5dp"
@@ -130,7 +131,7 @@
                     android:textColorHint="@color/dark_grey" />
 
 
-                <com.app.traphoria.customViews.MyEditTextView
+                <com.app.traphoria.customViews.MyTextView14
                     android:id="@+id/edt_gender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -140,6 +141,7 @@
                     android:drawableLeft="@drawable/gender_icon"
                     android:drawablePadding="@dimen/margin_5dp"
                     android:focusable="false"
+                    android:gravity="center_vertical"
                     android:hint="@string/gender"
                     android:paddingBottom="@dimen/margin_5dp"
                     android:paddingLeft="@dimen/margin_5dp"

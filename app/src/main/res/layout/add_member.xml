@@ -96,6 +96,7 @@
                 android:background="@drawable/grey_background"
                 android:hint="000 000 000 000"
                 android:maxLines="2"
+                android:phoneNumber="true"
                 android:paddingBottom="@dimen/margin_15dp"
                 android:paddingLeft="@dimen/margin_20dp"
                 android:paddingRight="@dimen/margin_20dp"

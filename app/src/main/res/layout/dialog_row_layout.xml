@@ -11,7 +11,7 @@
         android:layout_marginBottom="@dimen/margin_10dp"
         android:layout_marginLeft="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/margin_10dp"
-        android:src="@drawable/radio_active" />
+        android:src="@drawable/unactive_circle" />
 
     <com.app.traphoria.customViews.MyTextView16
         android:id="@+id/textview"
