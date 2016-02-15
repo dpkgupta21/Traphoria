@@ -1,9 +1,7 @@
 package com.app.traphoria.search.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,23 +10,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
-import com.app.traphoria.model.DestinationDTO;
+import com.app.traphoria.model.FestivalDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
-import java.util.ConcurrentModificationException;
 import java.util.List;
 
-public class TopDestinationAdapter extends RecyclerView.Adapter<TopDestinationAdapter.DetailsViewHolder> {
+
+public class FestivalEventListAdapter extends RecyclerView.Adapter<FestivalEventListAdapter.DetailsViewHolder> {
+
     private Context context;
-    private List<DestinationDTO> destinationList;
+    private List<FestivalDTO> festivalList;
     private DisplayImageOptions options;
 
-    public TopDestinationAdapter(Context context, List<DestinationDTO> destinationList) {
+    public FestivalEventListAdapter(Context context, List<FestivalDTO> festivalList) {
+
         this.context = context;
-        this.destinationList = destinationList;
+        this.festivalList = festivalList;
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
@@ -44,7 +44,8 @@ public class TopDestinationAdapter extends RecyclerView.Adapter<TopDestinationAd
 
     @Override
     public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.top_destination_row_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.festivals_events_row_layout, parent, false);
         DetailsViewHolder detailsViewHolder = new DetailsViewHolder(v);
         return detailsViewHolder;
     }
@@ -52,27 +53,31 @@ public class TopDestinationAdapter extends RecyclerView.Adapter<TopDestinationAd
     @Override
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
-        ImageLoader.getInstance().displayImage(destinationList.get(position).getImage(), holder.thumbnail,
-                options);
-        holder.dest_name.setText(destinationList.get(position).getTitle());
+        ImageLoader.getInstance().displayImage(festivalList.get(position).getImage(),
+                holder.thumbnail, options);
+        holder.date_tv.setText(festivalList.get(position).getStart_date() +
+                " to " + festivalList.get(position).getEnd_date());
+        holder.event_tv.setText(festivalList.get(position).getTitle());
 
 
     }
 
     @Override
     public int getItemCount() {
-       return   destinationList.size();
+        return festivalList.size();
     }
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder {
-
         ImageView thumbnail;
-        TextView dest_name;
+        TextView event_tv, date_tv;
 
         public DetailsViewHolder(View itemView) {
             super(itemView);
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail);
-            dest_name = (TextView) itemView.findViewById(R.id.dest_name);
+            event_tv = (TextView) itemView.findViewById(R.id.event_tv);
+            date_tv = (TextView) itemView.findViewById(R.id.date_tv);
+
+
         }
     }
 

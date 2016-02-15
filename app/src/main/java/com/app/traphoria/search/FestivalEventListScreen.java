@@ -1,6 +1,7 @@
 package com.app.traphoria.search;
 
-import android.support.v7.app.AppCompatActivity;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,10 +16,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
-import com.app.traphoria.model.DestinationDTO;
 import com.app.traphoria.model.FestivalDTO;
-import com.app.traphoria.search.adapter.FestivalEventsAdapter;
-import com.app.traphoria.search.adapter.TopDestinationAdapter;
+import com.app.traphoria.search.adapter.FestivalEventListAdapter;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.MyOnClickListener;
 import com.app.traphoria.utility.RecyclerTouchListener;
@@ -37,40 +36,39 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class FestivalEventsScreen extends BaseActivity {
+public class FestivalEventListScreen extends BaseActivity {
 
 
     private String TAG = "Festival";
     private RecyclerView recyclerView;
-    private Toolbar mToolbar;
-    private TextView mTitle;
-    private FestivalEventsAdapter mFestivalEventsAdapter;
-
+    private FestivalEventListAdapter mFestivalEventListAdapter;
     private List<FestivalDTO> festivalList;
-    private String countryID;
+    // private String countryID;
+    private Activity mActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.festival_events_screen);
+        mActivity = this;
         initViews();
     }
 
     private void initViews() {
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(" ");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mToolbar.setNavigationIcon(R.drawable.back_btn);
-        mTitle = (TextView) findViewById(R.id.toolbar_title);
+        TextView mTitle = (TextView) findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.festival_events);
 
         recyclerView = (RecyclerView) findViewById(R.id.events_rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
-        countryID = getIntent().getStringExtra("CountryId");
-        getFestivalList();
+        String countryId = getIntent().getStringExtra("CountryId");
+        getFestivalList(countryId);
 
 
     }
@@ -87,14 +85,15 @@ public class FestivalEventsScreen extends BaseActivity {
     }
 
 
-    private void getFestivalList() {
+    private void getFestivalList(String countryId) {
 
         if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.GET_EVENT_LIST);
-            params.put("country_id", countryID);
+            params.put("country_id", countryId);
             CustomProgressDialog.showProgDialog(this, null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -102,7 +101,8 @@ public class FestivalEventsScreen extends BaseActivity {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
                                 Type type = new TypeToken<ArrayList<FestivalDTO>>() {
                                 }.getType();
-                                festivalList = new Gson().fromJson(response.getJSONArray("Event").toString(), type);
+                                festivalList = new Gson().fromJson(response.getJSONArray("Event").toString(),
+                                        type);
                                 setfestivalList();
 
                             } catch (Exception e) {
@@ -115,7 +115,7 @@ public class FestivalEventsScreen extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(FestivalEventsScreen.this);
+                    Utils.showExceptionDialog(FestivalEventListScreen.this);
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });
@@ -133,14 +133,14 @@ public class FestivalEventsScreen extends BaseActivity {
 
     private void setfestivalList() {
 
-        mFestivalEventsAdapter = new FestivalEventsAdapter(this, festivalList);
-        recyclerView.setAdapter(mFestivalEventsAdapter);
+        mFestivalEventListAdapter = new FestivalEventListAdapter(this, festivalList);
+        recyclerView.setAdapter(mFestivalEventListAdapter);
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new MyOnClickListener() {
             @Override
             public void onRecyclerClick(View view, int position) {
-//                Intent intent = new Intent(this, DestinationDetailScreen.class);
-//                intent.putExtra("eventID", festivalList.get(position).getEvent_id());
-//                startActivity(intent);
+                Intent intent = new Intent(mActivity, FestivalEventDetailScreen.class);
+                intent.putExtra("eventId", festivalList.get(position).getEvent_id());
+                startActivity(intent);
             }
 
             @Override

@@ -23,16 +23,15 @@
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/margin_10dp"
-                android:layout_marginRight="@dimen/margin_10dp"
-                android:layout_toLeftOf="@+id/type">
+                android:layout_marginRight="@dimen/margin_10dp">
 
-                <com.app.traphoria.customViews.MyTextView16
+                <com.app.traphoria.customViews.MyTextView18
                     android:id="@+id/dest_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:layout_marginTop="@dimen/margin_10dp"
                     android:singleLine="true"
                     android:text="UNITED ARAB EMIRATES"
                     android:textColor="@color/orange"
@@ -41,27 +40,42 @@
             </RelativeLayout>
 
             <com.app.traphoria.customViews.MyTextView16
-                android:id="@+id/type"
+                android:id="@+id/txt_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:singleLine="true"
                 android:text="Diplomatic Passport"
                 android:textColor="@color/black"
                 android:textStyle="normal" />
 
+
             <com.app.traphoria.customViews.MyTextView18
-                android:id="@+id/expire"
+                android:id="@+id/txt_expire_on_lbl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/txt_expire"
+                android:layout_below="@+id/txt_type"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_toLeftOf="@+id/txt_expire"
+                android:singleLine="true"
+                android:text="Expire on: "
+                android:textColor="@color/purple"
+                android:textStyle="normal" />
+
+            <com.app.traphoria.customViews.MyTextView16
+                android:id="@+id/txt_expire"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_below="@+id/type"
+                android:layout_alignRight="@+id/txt_type"
+                android:layout_below="@+id/txt_type"
                 android:layout_marginRight="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_20dp"
+                android:layout_marginTop="@dimen/margin_5dp"
                 android:singleLine="true"
-                android:text="Expire on:22D 9H"
+                android:text="22D 9H"
                 android:textColor="@color/purple"
                 android:textStyle="normal" />
 
@@ -69,7 +83,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="2dp"
             android:layout_gravity="bottom"
             android:background="@color/faded_white" />
     </RelativeLayout>

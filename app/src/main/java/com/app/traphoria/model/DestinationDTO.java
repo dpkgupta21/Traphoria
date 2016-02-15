@@ -5,6 +5,16 @@ public class DestinationDTO {
     private String image;
     private String title;
     private String top_destination_id;
+    private String description;
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getImage() {
         return image;

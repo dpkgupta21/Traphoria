@@ -10,6 +10,16 @@ public class FestivalDTO implements Serializable {
     private String event_id;
     private String start_date;
     private String end_date;
+    private String description;
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getImage() {
         return image;

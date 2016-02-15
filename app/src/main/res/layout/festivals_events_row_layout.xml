@@ -2,7 +2,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="150dp"
     card_view:cardCornerRadius="0dp">
 
     <RelativeLayout
@@ -21,8 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/event_tv"
-            android:layout_marginBottom="@dimen/margin_5dp"
-            android:layout_marginLeft="@dimen/margin_20dp"
+            android:layout_marginLeft="@dimen/margin_10dp"
             android:singleLine="true"
             android:text="3rd November 2015 to 9th April,2016"
             android:textColor="@color/white"
@@ -33,8 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_10dp"
-            android:layout_marginLeft="@dimen/margin_20dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:layout_marginLeft="@dimen/margin_10dp"
             android:singleLine="true"
             android:text="Global Village 2015-2016"
             android:textColor="@color/white"

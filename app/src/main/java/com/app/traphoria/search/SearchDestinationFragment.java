@@ -11,16 +11,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.TextView;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
-import com.app.traphoria.search.adapter.SearchDestinationAdapter;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.SerachDTO;
 import com.app.traphoria.preference.PreferenceHelp;
+import com.app.traphoria.search.adapter.SearchDestinationAdapter;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.MyOnClickListener;
 import com.app.traphoria.utility.RecyclerTouchListener;
@@ -30,7 +30,9 @@ import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,8 +49,6 @@ public class SearchDestinationFragment extends BaseFragment {
 
     private String TAG = "SEARCH";
     private View view;
-    private Toolbar mToolbar;
-    private TextView toolbar_right_tv;
     private SearchDestinationAdapter mSearchDestinationAdapter;
     private RecyclerView recyclerView;
     private List<SerachDTO> searchList;
@@ -63,7 +63,7 @@ public class SearchDestinationFragment extends BaseFragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.search_destination_fragment, container, false);
-        mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
+        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
 
 
         return view;
@@ -185,7 +185,7 @@ public class SearchDestinationFragment extends BaseFragment {
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new MyOnClickListener() {
             @Override
             public void onRecyclerClick(View view, int position) {
-                Intent intent = new Intent(getActivity(), DestinationDetailScreen.class);
+                Intent intent = new Intent(getActivity(), CountryDetailScreen.class);
                 intent.putExtra("countryId", searchList.get(position).getCountry_id());
                 startActivity(intent);
             }

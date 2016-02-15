@@ -1,10 +1,12 @@
 package com.app.traphoria.search;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+import android.webkit.WebView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -12,8 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
-import com.app.traphoria.model.CountryDetailsDTO;
-import com.app.traphoria.preference.PreferenceHelp;
+import com.app.traphoria.model.DestinationDTO;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -30,21 +31,29 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DestinationDetailScreen extends BaseActivity {
+public class TopDestinationDetailScreen extends BaseActivity {
 
-    private CountryDetailsDTO countryDetails;
-    private String TAG = "COUNTRY DETAILS";
+    private String TAG = "TopDestinationDetailScreen";
     private DisplayImageOptions options;
-    private String countryID;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.destination_detail_screen);
+        setContentView(R.layout.top_destination_detail_screen);
         init();
     }
 
     private void init() {
+        String topDestinationId = getIntent().getStringExtra("destinationId");
+
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setTitle(" ");
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mToolbar.setNavigationIcon(R.drawable.back_btn);
+        TextView mTitle = (TextView) findViewById(R.id.toolbar_title);
+        mTitle.setText(R.string.top_dest);
+
 
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
@@ -57,63 +66,44 @@ public class DestinationDetailScreen extends BaseActivity {
                 .showImageOnFail(R.drawable.slide_img)
                 .showImageForEmptyUri(R.drawable.slide_img)
                 .build();
-        countryID = getIntent().getStringExtra("countryId");
-        getCountryDetails(countryID);
-        setClick(R.id.back_btn);
-        setClick(R.id.place_name);
-        setClick(R.id.top_dest_tv);
-        setClick(R.id.culture_dest_tv);
-        setClick(R.id.festival_tv);
-    }
 
-    private void assignClicks() {
+
+        getTopDestinationDetails(topDestinationId);
+
 
     }
 
     @Override
-    public void onClick(View v) {
-        Intent intent;
-        switch (v.getId()) {
-
-            case R.id.back_btn:
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
                 finish();
                 break;
-            case R.id.top_dest_tv:
-                intent = new Intent(this, TopDestinationsScreen.class);
-                intent.putExtra("CountryId", countryID);
-                startActivity(intent);
-                break;
-
-            case R.id.culture_dest_tv:
-                break;
-
-            case R.id.festival_tv:
-                intent = new Intent(this, FestivalEventsScreen.class);
-                intent.putExtra("CountryId", countryID);
-                startActivity(intent);
-
-                break;
         }
+        return super.onOptionsItemSelected(item);
 
     }
 
 
-    private void getCountryDetails(String countryID) {
+    private void getTopDestinationDetails(String topDestinationId) {
 
         if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();
-            params.put("action", WebserviceConstant.GET_COUNTRY_DETAILS);
-            params.put("user_id", PreferenceHelp.getUserId(this));
-            params.put("country_id", countryID);
+            params.put("action", WebserviceConstant.GET_TOP_DESTINATION_DETAILS);
+            params.put("top_destination_id", topDestinationId);
             CustomProgressDialog.showProgDialog(this, null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                countryDetails = new Gson().fromJson(response.getJSONObject("trip").toString(), CountryDetailsDTO.class);
-                                setCountryDetails();
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                    DestinationDTO destinationDTO = new Gson().fromJson(response.getJSONObject
+                                            ("TopDestination").toString(), DestinationDTO.class);
+                                    setTopDestinationDetails(destinationDTO);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -124,7 +114,7 @@ public class DestinationDetailScreen extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(DestinationDetailScreen.this);
+                    Utils.showExceptionDialog(TopDestinationDetailScreen.this);
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });
@@ -140,11 +130,17 @@ public class DestinationDetailScreen extends BaseActivity {
     }
 
 
-    private void setCountryDetails() {
+    private void setTopDestinationDetails(DestinationDTO destinationDTO) {
+        String mimeType = "text/html";
+        String encoding = "utf-8";
+        WebView webView = (WebView) findViewById(R.id.webview_top_destination);
+        webView.loadData(destinationDTO.getDescription(), mimeType, encoding);
 
-        setTextViewText(R.id.place_name,countryDetails.getCountry_name());
-        ImageView countryImage = (ImageView) findViewById(R.id.thumbnail);
-        ImageLoader.getInstance().displayImage(countryDetails.getCountry_image(), countryImage,
+        TextView txtDestinationTitle = (TextView) findViewById(R.id.txt_destination_title);
+        txtDestinationTitle.setText(destinationDTO.getTitle());
+
+        ImageView destinationImage = (ImageView) findViewById(R.id.img_top_destination);
+        ImageLoader.getInstance().displayImage(destinationDTO.getImage(), destinationImage,
                 options);
 
     }
