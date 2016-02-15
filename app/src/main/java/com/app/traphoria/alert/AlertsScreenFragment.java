@@ -52,7 +52,8 @@ import java.util.Map;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AlertsScreenFragment extends Fragment implements View.OnClickListener, SwipeMenuListView.OnMenuItemClickListener {
+public class AlertsScreenFragment extends Fragment implements View.OnClickListener,
+        SwipeMenuListView.OnMenuItemClickListener {
 
 
     private View view;
@@ -308,7 +309,7 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
                             try {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
                                 if (Utils.getWebServiceStatus(response)) {
-                                    Toast.makeText(getActivity(), "Action done", Toast.LENGTH_LONG).show();
+                                    //Toast.makeText(getActivity(), "Action done", Toast.LENGTH_LONG).show();
                                 } else {
                                     CustomProgressDialog.hideProgressDialog();
                                     Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));

@@ -133,7 +133,7 @@ public class FestivalEventDetailScreen extends BaseActivity {
 
     private void setFestivalEventDetails(FestivalDTO festivalDTO) {
 
-        ImageView destinationImage = (ImageView) findViewById(R.id.img_top_destination);
+        ImageView destinationImage = (ImageView) findViewById(R.id.img_festive_event);
         ImageLoader.getInstance().displayImage(festivalDTO.getImage(), destinationImage,
                 options);
 

@@ -103,7 +103,7 @@ public class FestivalEventListScreen extends BaseActivity {
                                 }.getType();
                                 festivalList = new Gson().fromJson(response.getJSONArray("Event").toString(),
                                         type);
-                                setfestivalList();
+                                setFestivalList();
 
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -131,7 +131,7 @@ public class FestivalEventListScreen extends BaseActivity {
     }
 
 
-    private void setfestivalList() {
+    private void setFestivalList() {
 
         mFestivalEventListAdapter = new FestivalEventListAdapter(this, festivalList);
         recyclerView.setAdapter(mFestivalEventListAdapter);

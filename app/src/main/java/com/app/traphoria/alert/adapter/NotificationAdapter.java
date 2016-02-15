@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.app.traphoria.R;
@@ -72,11 +71,24 @@ public class NotificationAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
+        NotificationDTO notificationDTO = notificationList.get(position);
         if (convertView == null) {
-            convertView = mLayoutInflater.inflate(R.layout.notification_row_layout, parent, false);
             holder = new ViewHolder();
-            holder.notification = (TextView) convertView.findViewById(R.id.member_name);
-            holder.more_icon = (ImageView) convertView.findViewById(R.id.select_img);
+            if (notificationDTO.getType().equalsIgnoreCase("AddMember")) {
+                convertView = mLayoutInflater.inflate(R.layout.notification_add_member_type_item,
+                        parent, false);
+                holder.txtNotificationDetail = (TextView) convertView.findViewById(R.id.txt_notification_detail);
+                holder.imgMoreIcon = (ImageView) convertView.findViewById(R.id.img_more_icon);
+            } else {
+                convertView = mLayoutInflater.inflate(R.layout.notification_add_task_type_item,
+                        parent, false);
+                holder.txtTaskTitle = (TextView) convertView.findViewById(R.id.txt_task_title);
+                holder.txt_task_desc = (TextView) convertView.findViewById(R.id.txt_task_desc);
+
+                holder.imgMoreIcon = (ImageView) convertView.findViewById(R.id.img_more_icon);
+            }
+
+
             convertView.setTag(holder);
 
         } else {
@@ -84,14 +96,23 @@ public class NotificationAdapter extends BaseAdapter {
         }
 
 
-        holder.notification.setText(notificationList.get(position).getMessage());
+        if (notificationDTO.getType().equalsIgnoreCase("AddMember")) {
+            holder.txtNotificationDetail.setText(notificationList.get(position).getMessage());
+        } else {
+//            holder.txtNotificationDetail.setText(notificationList.get(position).getMessage());
+//            holder.txtNotificationDetail.setText(notificationList.get(position).getMessage());
+        }
+
 
         return convertView;
     }
 
 
     public class ViewHolder {
-        TextView notification;
-        ImageView more_icon;
+        TextView txtNotificationDetail;
+        ImageView imgMoreIcon;
+        TextView txtTaskTitle;
+        TextView txt_task_desc;
+
     }
 }

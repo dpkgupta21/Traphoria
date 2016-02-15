@@ -38,86 +38,6 @@
             android:src="@drawable/edit_icon" />
 
         <RelativeLayout
-            android:id="@+id/passport_details"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/edit_btn"
-            android:layout_toRightOf="@+id/type_tv"
-            android:visibility="gone">
-
-            <com.app.traphoria.customViews.MyTextView18
-                android:id="@+id/txt_country_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:paddingBottom="@dimen/margin_5dp"
-                android:paddingTop="@dimen/margin_5dp"
-                android:singleLine="true"
-                android:text="United States of America"
-                android:textColor="@color/white"
-                android:textStyle="normal" />
-
-            <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/txt_passport_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_country_name"
-                android:layout_centerHorizontal="true"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="Diplomatic Passports"
-                android:textColor="@color/white"
-                android:textStyle="normal" />
-
-            <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/txt_passport_no"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_passport_type"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="Passport No: 000 000 000 000"
-                android:textColor="@color/white"
-                android:textStyle="normal" />
-
-            <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/txt_expires_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_passport_no"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:gravity="center"
-                android:singleLine="true"
-                android:text="Expires On: 28 Jan 2016"
-                android:textColor="@color/white"
-                android:textStyle="normal" />
-
-            <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/explore"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_expires_date"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/margin_5dp"
-                android:layout_marginTop="@dimen/margin_5dp"
-                android:background="@drawable/white_button_selector"
-                android:gravity="center"
-                android:paddingBottom="@dimen/margin_10dp"
-                android:paddingLeft="@dimen/margin_20dp"
-                android:paddingRight="@dimen/margin_20dp"
-                android:paddingTop="@dimen/margin_10dp"
-                android:singleLine="true"
-                android:text="@string/visa_free_dest"
-                android:textColor="@color/white"
-                android:textStyle="normal" />
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/visa_details"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -152,7 +72,7 @@
                 android:textStyle="normal" />
 
             <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/txt_visa_entry_type"
+                android:id="@+id/txt_visa_entry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_visa_type"
@@ -168,7 +88,7 @@
                 android:id="@+id/txt_visa_expires_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_visa_entry_type"
+                android:layout_below="@+id/txt_visa_entry"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:gravity="center"
@@ -178,13 +98,12 @@
                 android:textStyle="normal" />
 
             <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/explore_visa"
+                android:id="@+id/txt_explore_visa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_visa_expires_date"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/margin_5dp"
-                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:background="@drawable/white_button_selector"
                 android:gravity="center"
                 android:paddingBottom="@dimen/margin_10dp"

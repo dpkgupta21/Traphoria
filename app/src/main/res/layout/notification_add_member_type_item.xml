@@ -10,33 +10,34 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/alert_pin"
+            android:id="@+id/img_alert_pin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_20dp"
+            android:paddingLeft="@dimen/margin_10dp"
+            android:paddingTop="@dimen/margin_10dp"
             android:src="@drawable/alert_icon" />
 
 
         <com.app.traphoria.customViews.MyTextView18
-            android:id="@+id/notification"
+            android:id="@+id/txt_notification_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/margin_30dp"
-            android:layout_marginTop="@dimen/margin_10dp"
-            android:layout_toRightOf="@+id/alert_pin"
+            android:layout_toRightOf="@+id/img_alert_pin"
             android:gravity="left"
             android:paddingBottom="@dimen/margin_10dp"
+            android:paddingLeft="@dimen/margin_10dp"
             android:paddingTop="@dimen/margin_10dp"
             android:text="Your UK Visa will be expired in next 10 days."
             android:textColor="@color/black" />
 
         <ImageView
-            android:id="@+id/more_icon"
+            android:id="@+id/img_more_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/margin_20dp"
+            android:padding="@dimen/margin_10dp"
             android:src="@drawable/more_icon" />
 
 
@@ -46,6 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_below="@+id/top_rl"
-        android:layout_marginTop="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_5dp"
         android:background="@color/grey" />
 </RelativeLayout>

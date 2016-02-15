@@ -6,7 +6,7 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/passport_visa_list"
+        android:id="@+id/recycler_passport_visa_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
@@ -18,7 +18,7 @@
 
 
         <com.app.traphoria.customViews.MyTextView18
-            android:id="@+id/no_record_tv"
+            android:id="@+id/txt_no_record_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -27,10 +27,10 @@
             android:textStyle="normal" />
 
         <ImageView
-            android:id="@+id/add_passport_visa"
+            android:id="@+id/img_add_passport_visa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/no_record_tv"
+            android:layout_below="@+id/txt_no_record_tv"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_20dp"
             android:padding="@dimen/margin_10dp"
@@ -38,9 +38,10 @@
 
 
         <com.app.traphoria.customViews.MyTextView18
+            android:id="@+id/txt_add_passport_visa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/add_passport_visa"
+            android:layout_below="@id/img_add_passport_visa"
             android:layout_centerHorizontal="true"
             android:text="@string/add_passport_visa"
             android:textColor="@color/purple"

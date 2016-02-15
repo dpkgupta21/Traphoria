@@ -185,7 +185,7 @@ public class LandingScreen extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sigup:
-                Intent intent = new Intent(mActivity, SignUpScreen.class);
+                Intent intent = new Intent(mActivity, MobileNumberVerificationScreen.class);
                 startActivity(intent);
                 break;
             case R.id.btn_facebook_login:

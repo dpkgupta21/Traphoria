@@ -92,7 +92,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".trip.ViewTripGroupDetailsScreen"
+            android:name=".trip.MyTripGroupDetailsScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity

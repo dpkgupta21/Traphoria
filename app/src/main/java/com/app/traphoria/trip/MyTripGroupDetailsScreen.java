@@ -34,7 +34,7 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ViewTripGroupDetailsScreen extends BaseActivity {
+public class MyTripGroupDetailsScreen extends BaseActivity {
 
     private String TAG = "TRIP DETAILS";
     private Toolbar mToolbar;
@@ -128,7 +128,7 @@ public class ViewTripGroupDetailsScreen extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(ViewTripGroupDetailsScreen.this);
+                    Utils.showExceptionDialog(MyTripGroupDetailsScreen.this);
                 }
             });
 

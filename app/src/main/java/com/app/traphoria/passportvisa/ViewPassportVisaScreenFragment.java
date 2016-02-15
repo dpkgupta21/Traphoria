@@ -16,21 +16,38 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.adapter.PassportVisaAdapter;
-import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
+import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.model.PassportVisaDetailsDTO;
+import com.app.traphoria.preference.PreferenceHelp;
+import com.app.traphoria.utility.Utils;
 import com.app.traphoria.view.AddPassportVisaScreen;
+import com.app.traphoria.volley.AppController;
+import com.app.traphoria.volley.CustomJsonRequest;
+import com.app.traphoria.webservice.WebserviceConstant;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ViewPassportVisaScreenFragment extends Fragment implements View.OnClickListener {
 
 
+    private static final String TAG = "ViewPassportVisaScreenFragment";
     private View view;
 
     private Activity mActivity;
     private Toolbar mToolbar;
-    private RelativeLayout no_record_rl;
-    private ImageView add_passport_visa;
+    private RelativeLayout noRecordRl;
+    private ImageView imgAddPassportVisa;
 
 
     private RecyclerView recyclerView;
@@ -45,15 +62,15 @@ public class ViewPassportVisaScreenFragment extends Fragment implements View.OnC
 
         view = inflater.inflate(R.layout.passport_visa_screen_fragment, container, false);
         mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
-        add_passport_visa = (ImageView) view.findViewById(R.id.add_passport_visa);
-        no_record_rl = (RelativeLayout) view.findViewById(R.id.no_record_rl);
-        recyclerView = (RecyclerView) view.findViewById(R.id.passport_visa_list);
+        imgAddPassportVisa = (ImageView) view.findViewById(R.id.img_add_passport_visa);
+        noRecordRl = (RelativeLayout) view.findViewById(R.id.no_record_rl);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_passport_visa_list);
         passportVisaAdapter = new PassportVisaAdapter();
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(llm);
         recyclerView.setAdapter(passportVisaAdapter);
-        add_passport_visa.setOnClickListener(this);
-        no_record_rl.setVisibility(View.GONE);
+        imgAddPassportVisa.setOnClickListener(this);
+        noRecordRl.setVisibility(View.GONE);
 
         return view;
 
@@ -70,7 +87,7 @@ public class ViewPassportVisaScreenFragment extends Fragment implements View.OnC
         super.onActivityCreated(savedInstanceState);
 
 
-        mActivity = NavigationDrawerActivity.mActivity;
+        mActivity = getActivity();
 
     }
 
@@ -97,11 +114,83 @@ public class ViewPassportVisaScreenFragment extends Fragment implements View.OnC
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.add_passport_visa:
+            case R.id.img_add_passport_visa:
                 addPassportVisa();
                 break;
         }
     }
+
+    private void getPassportVisaDetails() {
+
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.GET_PASSPORT_VISA_DETAILS);
+            params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+
+                                PassportVisaDetailsDTO passportVisaDetailDTO = new Gson().
+                                        fromJson(response.toString(), PassportVisaDetailsDTO.class);
+
+                                setPassportDetails(passportVisaDetailDTO);
+                            } catch (Exception e) {
+                                //setPassportDetails();
+                                e.printStackTrace();
+                            }
+                            CustomProgressDialog.hideProgressDialog();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    CustomProgressDialog.hideProgressDialog();
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+
+    }
+
+    private void setPassportDetails(PassportVisaDetailsDTO passportVisaDetailDTO) {
+
+//        if (passportVisaDetailDTO.getPassport() != null && passportVisaDetailDTO.getVisa() != null) {
+//            setViewVisibility(R.id.no_trip_rl, view, View.GONE);
+//            if (passportList != null && passportList.size() != 0) {
+//                mAdapter = new MemberPassportAdapter(passportList, getActivity());
+//                mRecyclerView.setAdapter(mAdapter);
+//            }
+//
+//            if (visaList != null && visaList.size() != 0) {
+//                vAdapter = new MemberVisaAdapter(visaList, getActivity());
+//                vRecyclerView.setAdapter(vAdapter);
+//
+//            }
+//
+//        } else {
+//            setViewVisibility(R.id.members_passport_recycler, view, View.GONE);
+//            setViewVisibility(R.id.members_visa_recycler, view, View.GONE);
+//            setViewVisibility(R.id.no_trip_rl, view, View.VISIBLE);
+//        }
+
+
+    }
+
 
     private void addPassportVisa() {
         startActivity(new Intent(getActivity(), AddPassportVisaScreen.class));

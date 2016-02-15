@@ -20,7 +20,7 @@ import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.TripDTO;
 import com.app.traphoria.preference.PreferenceHelp;
-import com.app.traphoria.trip.adapter.MyTripAdapter;
+import com.app.traphoria.trip.adapter.MyTripListAdapter;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.MyOnClickListener;
 import com.app.traphoria.utility.RecyclerTouchListener;
@@ -42,26 +42,26 @@ import java.util.Map;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MytripScreenFragment extends BaseFragment {
+public class MyTripListScreenFragment extends BaseFragment {
 
 
     private View view;
-    private Toolbar mToolbar;
-    private String TAG = "TRIP SCREEN";
+    //private Toolbar mToolbar;
+    private String TAG = "MyTripListScreenFragment";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private List<TripDTO> tripList;
+    //private List<TripDTO> tripList;
 
-    public MytripScreenFragment() {
+    public MyTripListScreenFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        view = inflater.inflate(R.layout.my_trips_fragment, container, false);
-        mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
+        view = inflater.inflate(R.layout.fragment_my_trips_list, container, false);
+        Toolbar mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
 
         return view;
 
@@ -137,8 +137,8 @@ public class MytripScreenFragment extends BaseFragment {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
                                 Type type = new TypeToken<ArrayList<TripDTO>>() {
                                 }.getType();
-                                tripList = new Gson().fromJson(response.getJSONArray("trip_list").toString(), type);
-                                setTripData();
+                                List<TripDTO> tripList = new Gson().fromJson(response.getJSONArray("trip_list").toString(), type);
+                                setTripData(tripList);
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -166,17 +166,17 @@ public class MytripScreenFragment extends BaseFragment {
     }
 
 
-    private void setTripData() {
+    private void setTripData(final List<TripDTO> tripList) {
 
         if (tripList != null && tripList.size() != 0) {
             setViewVisibility(R.id.no_trip_rl, view, View.GONE);
-            mAdapter = new MyTripAdapter(tripList, getActivity());
+            mAdapter = new MyTripListAdapter(tripList, getActivity());
             mRecyclerView.setAdapter(mAdapter);
 
             mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
                 @Override
                 public void onRecyclerClick(View view, int position) {
-                    Intent intent = new Intent(getActivity(), ViewTripGroupDetailsScreen.class);
+                    Intent intent = new Intent(getActivity(), MyTripGroupDetailsScreen.class);
                     intent.putExtra("tripID", tripList.get(position).getTrip_id());
                     startActivity(intent);
                 }

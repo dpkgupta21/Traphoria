@@ -16,8 +16,8 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="@dimen/margin_10dp"
-            android:layout_marginTop="@dimen/margin_25dp"
-            android:padding="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:paddingLeft="@dimen/margin_20dp"
             android:src="@drawable/unactive_circle"
             app:civ_border_color="@color/grey"
             app:civ_border_width="1dp" />
@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:padding="@dimen/margin_20dp"
+            android:padding="@dimen/margin_10dp"
             android:src="@drawable/more_icon" />
 
 
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_5dp"
             android:layout_marginRight="@dimen/margin_30dp"
-            android:layout_marginTop="@dimen/margin_20dp"
+            android:layout_marginTop="@dimen/margin_10dp"
             android:layout_toRightOf="@+id/status_pin"
             android:orientation="vertical"
             android:paddingBottom="@dimen/margin_20dp">
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/message_detail"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_5dp"
                 android:gravity="left"
                 android:text="15 June 2015"
                 android:textColor="@color/dark_grey" />
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/message_detail"
                 android:layout_marginLeft="@dimen/margin_5dp"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_5dp"
                 android:layout_toRightOf="@+id/date"
                 android:text="|"
                 android:textColor="@color/dark_grey" />
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/message_detail"
                 android:layout_marginLeft="@dimen/margin_5dp"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/margin_5dp"
                 android:layout_toRightOf="@+id/view"
                 android:gravity="left"
                 android:text="05:00 PM"

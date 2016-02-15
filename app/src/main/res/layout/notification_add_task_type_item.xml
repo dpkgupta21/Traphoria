@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+
+    <RelativeLayout
+        android:id="@+id/top_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_alert_pin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/margin_10dp"
+            android:paddingTop="@dimen/margin_10dp"
+            android:src="@drawable/alert_icon" />
+
+
+        <com.app.traphoria.customViews.MyTextView18
+            android:id="@+id/txt_task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/margin_30dp"
+            android:layout_toRightOf="@+id/img_alert_pin"
+            android:gravity="left"
+            android:paddingLeft="@dimen/margin_10dp"
+            android:paddingTop="@dimen/margin_10dp"
+            android:text="Your UK Visa will in next 10 days."
+            android:textColor="@color/black" />
+
+        <com.app.traphoria.customViews.MyTextView14
+            android:id="@+id/txt_task_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/txt_task_title"
+            android:layout_below="@+id/txt_task_title"
+            android:paddingLeft="@dimen/margin_10dp"
+            android:paddingTop="@dimen/margin_5dp"
+            android:text="Your UK Visa wil in next 10 days."
+            android:textColor="@color/app_color" />
+
+        <ImageView
+            android:id="@+id/img_more_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/margin_10dp"
+            android:src="@drawable/more_icon" />
+
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/top_rl"
+        android:layout_marginTop="@dimen/margin_5dp"
+        android:background="@color/grey" />
+</RelativeLayout>

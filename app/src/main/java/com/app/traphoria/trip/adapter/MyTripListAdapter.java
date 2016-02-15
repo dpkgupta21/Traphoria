@@ -18,13 +18,13 @@ import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.util.List;
 
-public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.DetailsViewHolder> {
+public class MyTripListAdapter extends RecyclerView.Adapter<MyTripListAdapter.DetailsViewHolder> {
 
     private List<TripDTO> tripList;
     private Context context;
     private DisplayImageOptions options;
 
-    public MyTripAdapter(List<TripDTO> tripList, Context context) {
+    public MyTripListAdapter(List<TripDTO> tripList, Context context) {
 
         this.tripList = tripList;
         this.context = context;
@@ -59,7 +59,7 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.DetailsVie
 
         holder.dest_name.setText(tripList.get(position).getCountry_name());
         holder.date.setText(tripList.get(position).getStart_date() + " - " + tripList.get(position).getEnd_date());
-        holder.expiry.setText("Visa Expires on:" + tripList.get(position).getExpire_date());
+        holder.expiry.setText("Visa Expires on: " + tripList.get(position).getExpire_date());
         ImageLoader.getInstance().displayImage(tripList.get(position).getCountry_image(), holder.thumbnail,
                 options);
 
@@ -73,9 +73,11 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.DetailsVie
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView thumbnail, trip_type_icon;
-        TextView dest_name, date, expiry;
-
+        ImageView thumbnail;
+        ImageView trip_type_icon;
+        TextView dest_name;
+        TextView date;
+        TextView expiry;
 
         public DetailsViewHolder(View itemView) {
 

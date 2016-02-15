@@ -33,7 +33,7 @@ import com.app.traphoria.member.MembersScreenFragment;
 import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.preference.TraphoriaPreference;
-import com.app.traphoria.trip.MytripScreenFragment;
+import com.app.traphoria.trip.MyTripListScreenFragment;
 import com.app.traphoria.search.SearchDestinationFragment;
 import com.app.traphoria.settings.SettingsScreenFragment;
 import com.app.traphoria.task.TaskScreenFragment;
@@ -160,7 +160,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                 title = "Passport & Visa";
                 break;
             case 3:
-                fragment = new MytripScreenFragment();
+                fragment = new MyTripListScreenFragment();
                 title = "My Trips";
                 break;
             case 4:
