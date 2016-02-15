@@ -22,6 +22,8 @@ import com.app.traphoria.model.TripDTO;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.trip.adapter.MyTripAdapter;
 import com.app.traphoria.utility.BaseFragment;
+import com.app.traphoria.utility.MyOnClickListener;
+import com.app.traphoria.utility.RecyclerTouchListener;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
@@ -171,9 +173,27 @@ public class MytripScreenFragment extends BaseFragment {
             mAdapter = new MyTripAdapter(tripList, getActivity());
             mRecyclerView.setAdapter(mAdapter);
 
-        }
-        else
-        {
+            mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
+                @Override
+                public void onRecyclerClick(View view, int position) {
+                    Intent intent = new Intent(getActivity(), ViewTripGroupDetailsScreen.class);
+                    intent.putExtra("tripID", tripList.get(position).getTrip_id());
+                    startActivity(intent);
+                }
+
+                @Override
+                public void onRecyclerLongClick(View view, int position) {
+
+                }
+
+                @Override
+                public void onItemClick(View view, int position) {
+
+                }
+            }));
+
+
+        } else {
 
             setViewVisibility(R.id.trip_list, view, View.GONE);
             setViewVisibility(R.id.no_trip_rl, view, View.VISIBLE);

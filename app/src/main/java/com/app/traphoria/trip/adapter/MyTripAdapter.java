@@ -1,10 +1,7 @@
 package com.app.traphoria.trip.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,8 +11,6 @@ import android.widget.TextView;
 
 import com.app.traphoria.R;
 import com.app.traphoria.model.TripDTO;
-import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
-import com.app.traphoria.view.ViewTripGroupDetailsScreen;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -56,13 +51,15 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.DetailsVie
     @Override
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
-        if (tripList.get(position).getTrip_type() != "1") {
+        if (!tripList.get(position).getTrip_type().equalsIgnoreCase("1")) {
             holder.trip_type_icon.setImageResource(R.drawable.group_icon);
+        } else {
+            holder.trip_type_icon.setImageResource(R.drawable.single_group_icon);
         }
 
         holder.dest_name.setText(tripList.get(position).getCountry_name());
-        holder.date.setText(tripList.get(position).getStart_date());
-        holder.expiry.setText(tripList.get(position).getExpire_date());
+        holder.date.setText(tripList.get(position).getStart_date() + " - " + tripList.get(position).getEnd_date());
+        holder.expiry.setText("Visa Expires on:" + tripList.get(position).getExpire_date());
         ImageLoader.getInstance().displayImage(tripList.get(position).getCountry_image(), holder.thumbnail,
                 options);
 
@@ -88,15 +85,6 @@ public class MyTripAdapter extends RecyclerView.Adapter<MyTripAdapter.DetailsVie
             dest_name = (TextView) itemView.findViewById(R.id.dest_name);
             date = (TextView) itemView.findViewById(R.id.date);
             expiry = (TextView) itemView.findViewById(R.id.expiry);
-
-
-            trip_type_icon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    //context.startActivity(new Intent(NavigationDrawerActivity.context, ViewTripGroupDetailsScreen.class));
-                }
-            });
 
 
         }

@@ -88,7 +88,11 @@ public class CountryDetailScreen extends BaseActivity {
                 break;
 
             case R.id.culture_dest_tv:
+                intent = new Intent(this, TraditionScreen.class);
+                intent.putExtra("CountryId", countryID);
+                startActivity(intent);
                 break;
+
 
             case R.id.festival_tv:
                 intent = new Intent(this, FestivalEventListScreen.class);

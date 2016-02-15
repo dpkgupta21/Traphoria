@@ -27,5 +27,10 @@ public class WebserviceConstant {
     public static String GET_EVENT_DETAILS = "eventdetail";
     public static String GET_TRADITION = "tradition";
 
+    public static String GET_TRIP_DETAILS="tripdetail";
+
+    public static String EDIT_PROFILE="editprofile";
+
+
 
 }

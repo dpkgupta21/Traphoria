@@ -4,13 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
-    <com.app.traphoria.customViews.MyTextView14
-        android:id="@+id/txt_relation_name"
+    <com.app.traphoria.customViews.MyTextView16
+        android:id="@+id/txt_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_14sp"
-        android:padding="@dimen/margin_10dp" />
-
+        android:paddingBottom="10dp"
+        android:paddingRight="?android:attr/expandableListPreferredItemPaddingLeft"
+        android:paddingTop="10dp" />
 </LinearLayout>

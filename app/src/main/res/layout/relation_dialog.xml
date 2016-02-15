@@ -7,7 +7,8 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:dividerHeight="1dp"
-        android:layout_height="wrap_content"></ListView>
+        android:layout_height="wrap_content"
+        android:divider="@color/grey"
+        android:dividerHeight="1dp"></ListView>
 
 </LinearLayout>

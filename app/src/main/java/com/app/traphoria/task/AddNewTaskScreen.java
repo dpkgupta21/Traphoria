@@ -1,5 +1,6 @@
 package com.app.traphoria.task;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -19,6 +20,7 @@ import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.lacaldabase.MemberDataSource;
 import com.app.traphoria.lacaldabase.RelationDataSource;
 import com.app.traphoria.model.RelationDTO;
+import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.task.adapter.SelectMemberAdapter;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.MemberDTO;
@@ -137,7 +139,7 @@ public class AddNewTaskScreen extends BaseActivity {
 
     private void addTask(String ids) {
         if (Utils.isOnline(AddNewTaskScreen.this)) {
-            if (validateForm()) {
+            if (validateForm(ids)) {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", WebserviceConstant.ADD_TASK);
                 params.put("user_id", PreferenceHelp.getUserId(AddNewTaskScreen.this));
@@ -152,7 +154,8 @@ public class AddNewTaskScreen extends BaseActivity {
                             public void onResponse(JSONObject response) {
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        Toast.makeText(AddNewTaskScreen.this, "Task added Successfully.", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(AddNewTaskScreen.this, "Task added Successfully.", Toast.LENGTH_LONG).show();
+                                        openTaskFragment();
                                     } else {
                                         Utils.showDialog(AddNewTaskScreen.this, "Error", Utils.getWebServiceMessage(response));
                                     }
@@ -185,8 +188,25 @@ public class AddNewTaskScreen extends BaseActivity {
 
     }
 
-    private boolean validateForm() {
+    private boolean validateForm(String ids) {
+
+        if (getEditTextText(R.id.task_name).equals("")) {
+            Utils.customDialog("Please enter task name.", this);
+            return false;
+        } else if (getEditTextText(R.id.task_description).equals("")) {
+            Utils.customDialog("Please enter description.", this);
+            return false;
+        } else if (ids.equals("")) {
+            Utils.customDialog("Please select member.", this);
+            return false;
+        }
         return true;
     }
 
+
+    private void openTaskFragment() {
+        Intent intent = new Intent(AddNewTaskScreen.this, NavigationDrawerActivity.class);
+        intent.putExtra("fragmentNumber", 4);
+        startActivity(intent);
+    }
 }

@@ -20,15 +20,19 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.app.traphoria.R;
 import com.app.traphoria.adapter.SideMenuListAdapter;
 import com.app.traphoria.alert.AlertsScreenFragment;
+import com.app.traphoria.customViews.CustomAlert;
 import com.app.traphoria.locationservice.LocationScreenFragment;
 import com.app.traphoria.lacaldabase.Handler;
 import com.app.traphoria.login.LoginScreen;
 import com.app.traphoria.member.MembersScreenFragment;
+import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
+import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.trip.MytripScreenFragment;
 import com.app.traphoria.search.SearchDestinationFragment;
 import com.app.traphoria.settings.SettingsScreenFragment;
@@ -49,10 +53,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     private int mCurrentSelectedPosition;
     public static Activity mActivity;
     private TextView mTitle, mRightTextView;
-    private ImageView back_btn, down_btn,logout_btn;
+    private ImageView back_btn, down_btn, logout_btn;
     private ListView mListView;
     public static Context context;
     private View navigationHeaderView;
+    private boolean backPressedToExitOnce = false;
 
     private SideMenuListAdapter menuListAdapter;
     private DisplayImageOptions options;
@@ -63,7 +68,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         setContentView(R.layout.user_nav_drawer_activity);
         initViews();
         assignClickOnView();
-        displayView(0);
+
+        int fragmentNumber = getIntent().getIntExtra("fragmentNumber", 0);
+        displayView(fragmentNumber);
 
         setHeaderValues();
 
@@ -124,7 +131,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         logout_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(NavigationDrawerActivity.this, LoginScreen.class));
+                showLogOutDialog();
             }
         });
 
@@ -242,4 +249,45 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (backPressedToExitOnce) {
+            // super.onBackPressed();
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
+            startActivity(intent);
+            finish();
+            System.exit(0);
+
+        } else {
+            this.backPressedToExitOnce = true;
+            Toast.makeText(NavigationDrawerActivity.this, "Press again to exit", Toast.LENGTH_SHORT).show();
+            new android.os.Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    backPressedToExitOnce = false;
+                }
+            }, 2000);
+        }
+    }
+
+
+    private void showLogOutDialog() {
+        new CustomAlert(NavigationDrawerActivity.this)
+                .doubleButtonAlertDialog(
+                        getString(R.string.you_logout),
+                        getString(R.string.ok_button),
+                        getString(R.string.canceled), "dblBtnCallbackResponse", 1000);
+    }
+
+    public void dblBtnCallbackResponse(Boolean flag, int code) {
+        if (flag) {
+            TraphoriaPreference.removeObjectIntoPref(NavigationDrawerActivity.this, PreferenceConstant.USER_INFO);
+            startActivity(new Intent(NavigationDrawerActivity.this, LoginScreen.class));
+        }
+
+    }
 }

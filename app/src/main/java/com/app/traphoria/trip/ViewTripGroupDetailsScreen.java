@@ -1,10 +1,12 @@
-package com.app.traphoria.search;
+package com.app.traphoria.trip;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.webkit.WebView;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -13,8 +15,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
+import com.app.traphoria.trip.adapter.ViewTripGroupDetailsAdapter;
 import com.app.traphoria.customViews.CustomProgressDialog;
-import com.app.traphoria.model.FestivalDTO;
+import com.app.traphoria.model.TripDetailsDTO;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -31,35 +34,42 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FestivalEventDetailScreen extends BaseActivity {
+public class ViewTripGroupDetailsScreen extends BaseActivity {
 
-    private String TAG = "FestivalEventDetailScreen";
+    private String TAG = "TRIP DETAILS";
+    private Toolbar mToolbar;
+    private TextView mTitle;
+    private RecyclerView recyclerView;
+    private ViewTripGroupDetailsAdapter mViewTripGroupDetailsAdapter;
+    private TripDetailsDTO tripDetails;
     private DisplayImageOptions options;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.festival_event_detail_screen);
-        init();
+        setContentView(R.layout.view_group_trip_details);
+        initView();
     }
 
-    private void init() {
 
-        String eventId = getIntent().getStringExtra("eventId");
+    private void initView() {
 
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(" ");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mToolbar.setNavigationIcon(R.drawable.back_btn);
-        TextView mTitle = (TextView) findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.festival_and_events);
+        mTitle = (TextView) findViewById(R.id.toolbar_title);
+        mTitle.setText(R.string.my_trips);
+        recyclerView = (RecyclerView) findViewById(R.id.trip_member_rv);
 
-
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(llm);
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                .imageScaleType(ImageScaleType.EXACTLY)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
@@ -67,44 +77,47 @@ public class FestivalEventDetailScreen extends BaseActivity {
                 .showImageOnFail(R.drawable.slide_img)
                 .showImageForEmptyUri(R.drawable.slide_img)
                 .build();
-
-
-        getFestivalEventDetails(eventId);
-
+        String tripID = getIntent().getStringExtra("tripID");
+        getTripDetails(tripID);
 
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
                 break;
         }
-        return super.onOptionsItemSelected(item);
 
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+        }
     }
 
 
-    private void getFestivalEventDetails(String eventId) {
-
+    private void getTripDetails(String tripID) {
         if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();
-            params.put("action", WebserviceConstant.GET_EVENT_DETAILS);
-            params.put("event_id", eventId);
+            params.put("action", WebserviceConstant.GET_TRIP_DETAILS);
+            params.put("trip_id", tripID);
             CustomProgressDialog.showProgDialog(this, null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
-                    WebserviceConstant.SERVICE_BASE_URL, params,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            Utils.ShowLog(TAG, "Response -> " + response.toString());
+
                             try {
-                                if (Utils.getWebServiceStatus(response)) {
-                                    Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                    FestivalDTO festivalDTO = new Gson().fromJson(response.getJSONObject
-                                            ("Event").toString(), FestivalDTO.class);
-                                    setFestivalEventDetails(festivalDTO);
-                                }
+                                tripDetails = new Gson().fromJson(response.getJSONObject("trip").toString(), TripDetailsDTO.class);
+                                setTripDetails();
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -115,38 +128,43 @@ public class FestivalEventDetailScreen extends BaseActivity {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(FestivalEventDetailScreen.this);
-                    //       CustomProgressDialog.hideProgressDialog();
+                    Utils.showExceptionDialog(ViewTripGroupDetailsScreen.this);
                 }
             });
+
             AppController.getInstance().getRequestQueue().add(postReq);
             postReq.setRetryPolicy(new DefaultRetryPolicy(
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            CustomProgressDialog.showProgDialog(this, null);
-        } else {
+            CustomProgressDialog.hideProgressDialog();
+
+        } else
+
+        {
             Utils.showNoNetworkDialog(this);
         }
-
     }
 
 
-    private void setFestivalEventDetails(FestivalDTO festivalDTO) {
+    private void setTripDetails()
+    {
 
-        ImageView destinationImage = (ImageView) findViewById(R.id.img_top_destination);
-        ImageLoader.getInstance().displayImage(festivalDTO.getImage(), destinationImage,
+
+        if (!tripDetails.getTrip_type().equalsIgnoreCase("1")) {
+            setImageResourseBackground(R.id.trip_type_icon, R.drawable.group_icon);
+        } else {
+            setImageResourseBackground(R.id.trip_type_icon, R.drawable.single_group_icon);
+        }
+
+        setTextViewText(R.id.dest_name, tripDetails.getCountry_name());
+        setTextViewText(R.id.date, tripDetails.getStart_date() + " - " + tripDetails.getEnd_date());
+        setTextViewText(R.id.expiry, "Visa Expires on: " + tripDetails.getExpire_date());
+        ImageView imageView = (ImageView)findViewById(R.id.thumbnail);
+        ImageLoader.getInstance().displayImage(tripDetails.getCountry_image(),imageView,
                 options);
-
-
-        TextView textView =(TextView)findViewById(R.id.txt_date);
-        textView.setText(festivalDTO.getStart_date() + " to " + festivalDTO.getEnd_date());
-       // setTextViewText(R.id.txt_date, festivalDTO.getStart_date() + " to " + festivalDTO.getEnd_date());
-        setTextViewText(R.id.txt_event_title, festivalDTO.getTitle());
-
-        String mimeType = "text/html";
-        String encoding = "utf-8";
-        WebView webView = (WebView) findViewById(R.id.webview_top_destination);
-        webView.loadData(festivalDTO.getDescription(), mimeType, encoding);
-
+        mViewTripGroupDetailsAdapter = new ViewTripGroupDetailsAdapter(tripDetails.getTrip_users(),this);
+        recyclerView.setAdapter(mViewTripGroupDetailsAdapter);
     }
+
+
 }

@@ -70,7 +70,7 @@
                 android:orientation="horizontal"
                 android:weightSum="2.1">
 
-                <com.app.traphoria.customViews.MyEditTextView
+                <com.app.traphoria.customViews.MyTextView18
                     android:id="@+id/edt_dob"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -102,7 +102,6 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
                         android:drawableRight="@drawable/down_btn"
-                        android:onClick="showDialog"
                         android:paddingBottom="@dimen/margin_15dp"
                         android:paddingLeft="@dimen/margin_20dp"
                         android:paddingRight="@dimen/margin_20dp"
@@ -160,6 +159,7 @@
 
                 <com.app.traphoria.customViews.MyEditTextView
                     android:layout_width="0dp"
+                    android:id="@+id/edt_number"
                     android:layout_height="wrap_content"
                     android:layout_weight="1.40"
                     android:background="@drawable/grey_background"

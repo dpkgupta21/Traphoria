@@ -85,6 +85,15 @@ public class SelectMemberAdapter extends BaseAdapter {
 
         holder.member_name.setText(memberList.get(position).getName());
 
+        if(memberList.get(position).getSelected().equalsIgnoreCase("N"))
+        {
+            holder.select_img.setImageResource(R.drawable.unactive_circle);
+        }
+        else
+        {
+            holder.select_img.setImageResource(R.drawable.active_circle);
+        }
+
         return convertView;
     }
 

@@ -92,7 +92,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".view.ViewTripGroupDetailsScreen"
+            android:name=".trip.ViewTripGroupDetailsScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
@@ -102,7 +102,7 @@
         <activity
             android:name=".member.AddMemberScreen"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+            />
         <activity
             android:name=".chat.ChatScreen"
             android:screenOrientation="portrait"

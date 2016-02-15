@@ -21,7 +21,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_ll"
+        android:layout_above="@+id/btn_add_member"
         android:layout_below="@+id/toolbar_ll"
         android:layout_marginBottom="@dimen/margin_10dp">
 

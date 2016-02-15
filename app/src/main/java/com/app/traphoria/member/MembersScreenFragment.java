@@ -22,7 +22,10 @@ import com.app.traphoria.chat.ChatScreen;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.member.adapter.MemberPassportAdapter;
 import com.app.traphoria.member.adapter.MemberVisaAdapter;
+import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportVisaDetailsDTO;
+import com.app.traphoria.model.TaskDTO;
+import com.app.traphoria.model.VisaDTO;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
@@ -32,10 +35,14 @@ import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,7 +62,10 @@ public class MembersScreenFragment extends BaseFragment {
 
 
     private View view;
-    private PassportVisaDetailsDTO detailValues;
+    //private PassportVisaDetailsDTO detailValues;
+
+    private List<PassportDTO> passportList;
+    private List<VisaDTO> visaList;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
     public MembersScreenFragment() {
@@ -96,6 +106,10 @@ public class MembersScreenFragment extends BaseFragment {
 
         getPassportVisaDetails();
         setClick(R.id.add_member, view);
+        setClick(R.id.message_btn, view);
+        setClick(R.id.track_btn, view);
+        setClick(R.id.task_btn, view);
+
 
     }
 
@@ -165,9 +179,18 @@ public class MembersScreenFragment extends BaseFragment {
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                detailValues = new Gson().fromJson(response.toString(), PassportVisaDetailsDTO.class);
+                                Type type = new TypeToken<ArrayList<PassportDTO>>() {
+                                }.getType();
+
+                                Type type1 = new TypeToken<ArrayList<VisaDTO>>() {
+                                }.getType();
+
+
+                                passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
+                                visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
                                 setPassportDetails();
                             } catch (Exception e) {
+                                setPassportDetails();
                                 e.printStackTrace();
                             }
                             CustomProgressDialog.hideProgressDialog();
@@ -196,15 +219,15 @@ public class MembersScreenFragment extends BaseFragment {
 
     private void setPassportDetails() {
 
-        if (detailValues.getVisa() != null && detailValues.getPassport() != null) {
+        if (passportList != null & visaList != null) {
             setViewVisibility(R.id.no_trip_rl, view, View.GONE);
-            if (detailValues.getPassport() != null && detailValues.getPassport().size() != 0) {
-                mAdapter = new MemberPassportAdapter(detailValues.getPassport(), getActivity());
+            if (passportList != null && passportList.size() != 0) {
+                mAdapter = new MemberPassportAdapter(passportList, getActivity());
                 mRecyclerView.setAdapter(mAdapter);
             }
 
-            if (detailValues.getVisa() != null && detailValues.getVisa().size() != 0) {
-                vAdapter = new MemberVisaAdapter(detailValues.getVisa(), getActivity());
+            if (visaList != null && visaList.size() != 0) {
+                vAdapter = new MemberVisaAdapter(visaList, getActivity());
                 vRecyclerView.setAdapter(vAdapter);
 
             }

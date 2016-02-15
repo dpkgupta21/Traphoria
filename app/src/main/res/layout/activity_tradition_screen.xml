@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context="com.app.traphoria.search.TraditionScreen">
 
-
     <LinearLayout
         android:id="@+id/toolbar_ll"
         android:layout_width="match_parent"
@@ -19,49 +18,51 @@
             layout="@layout/toolbar" />
     </LinearLayout>
 
-    <ScrollView
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="150dp">
 
-            <RelativeLayout
+            <ImageView
+                android:id="@+id/tnumbnail"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
-
-                <ImageView
-                    android:id="@+id/tnumbnail"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/slide_img" />
-
-                <com.app.traphoria.customViews.MyTextView16
-                    android:id="@+id/txt_country_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:gravity="center"
-                    android:text="hello"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/text_size_16sp" />
-
-            </RelativeLayout>
+                android:layout_height="match_parent" />
 
             <com.app.traphoria.customViews.MyTextView16
-                android:id="@+id/txt_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:id="@+id/txt_country_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="hello"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+        </RelativeLayout>
+
+        <com.app.traphoria.customViews.MyTextView16
+            android:id="@+id/txt_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/margin_10dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/grey"></View>
 
 
-            <ExpandableListView
-                android:id="@+id/expn_list"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"></ExpandableListView>
-        </LinearLayout>
+        <com.app.traphoria.customViews.ExpandViewListView
+            android:id="@+id/main_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-    </ScrollView>
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -180,7 +180,7 @@ public class AlertsScreenFragment extends Fragment implements View.OnClickListen
                 notification_tv.setTextColor(mActivity.getResources().getColor(R.color.dark_grey));
                 recyclerView.setVisibility(View.VISIBLE);
                 notification_lv.setVisibility(View.INVISIBLE);
-
+                no_trip_tv.setVisibility(View.GONE);
                 break;
             case R.id.notification_ll:
                 message_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.black_msj_icon));

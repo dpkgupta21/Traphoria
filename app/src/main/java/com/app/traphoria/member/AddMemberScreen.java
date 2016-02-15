@@ -138,7 +138,8 @@ public class AddMemberScreen extends BaseActivity {
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
+                                       // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
+                                    openMemberFragment();
                                     } else {
                                         Utils.showDialog(AddMemberScreen.this, "Error", Utils.getWebServiceMessage(response));
                                     }
@@ -174,13 +175,16 @@ public class AddMemberScreen extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.member_name).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter member name");
+           // Utils.showDialog(this, "Message", "Please enter member name");
+            Utils.customDialog("Please enter member name", this);
             return false;
         } else if (getTextViewText(R.id.relation).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter relation");
+           // Utils.showDialog(this, "Message", "Please enter relation");
+            Utils.customDialog("Please enter relation", this);
             return false;
         } else if (getEditTextText(R.id.register_mbl).equals("")) {
-            Utils.showDialog(this, "Message", "Please enter phone number");
+           // Utils.showDialog(this, "Message", "Please enter phone number");
+            Utils.customDialog("Please enter phone number", this);
             return false;
         }
         return true;
@@ -222,6 +226,15 @@ public class AddMemberScreen extends BaseActivity {
                     }
                 }
         );
+    }
+
+
+    private void openMemberFragment()
+    {
+
+        Intent intent = new Intent(AddMemberScreen.this, NavigationDrawerActivity.class);
+        intent.putExtra("fragmentNumber", 5);
+        startActivity(intent);
     }
 
 

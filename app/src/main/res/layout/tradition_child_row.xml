@@ -6,11 +6,10 @@
 
 
     <com.app.traphoria.customViews.MyTextView14
-        android:id="@+id/txt_relation_name"
+        android:id="@+id/txt_child"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_size_14sp"
-        android:padding="@dimen/margin_10dp" />
-
+        android:gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" />
 </LinearLayout>
