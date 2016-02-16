@@ -1,9 +1,7 @@
 package com.app.traphoria.passportvisa;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -13,45 +11,51 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
-import com.app.traphoria.adapter.PassportVisaAdapter;
 import com.app.traphoria.customViews.CustomProgressDialog;
-import com.app.traphoria.model.PassportVisaDetailsDTO;
+import com.app.traphoria.model.PassportDTO;
+import com.app.traphoria.model.VisaDTO;
+import com.app.traphoria.passportvisa.adapter.PassportAdapter;
+import com.app.traphoria.passportvisa.adapter.VisaAdapter;
 import com.app.traphoria.preference.PreferenceHelp;
+import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
-import com.app.traphoria.view.AddPassportVisaScreen;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
-public class ViewPassportVisaScreenFragment extends Fragment implements View.OnClickListener {
+public class ViewPassportVisaScreenFragment extends BaseFragment {
 
 
     private static final String TAG = "ViewPassportVisaScreenFragment";
     private View view;
-
-    private Activity mActivity;
     private Toolbar mToolbar;
-    private RelativeLayout noRecordRl;
-    private ImageView imgAddPassportVisa;
+    private List<PassportDTO> passportList;
+    private List<VisaDTO> visaList;
 
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
 
-    private RecyclerView recyclerView;
-    private PassportVisaAdapter passportVisaAdapter;
+    private RecyclerView vRecyclerView;
+    private RecyclerView.Adapter vAdapter;
+    private RecyclerView.LayoutManager vLayoutManager;
 
     public ViewPassportVisaScreenFragment() {
     }
@@ -62,16 +66,6 @@ public class ViewPassportVisaScreenFragment extends Fragment implements View.OnC
 
         view = inflater.inflate(R.layout.passport_visa_screen_fragment, container, false);
         mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
-        imgAddPassportVisa = (ImageView) view.findViewById(R.id.img_add_passport_visa);
-        noRecordRl = (RelativeLayout) view.findViewById(R.id.no_record_rl);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler_passport_visa_list);
-        passportVisaAdapter = new PassportVisaAdapter();
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(llm);
-        recyclerView.setAdapter(passportVisaAdapter);
-        imgAddPassportVisa.setOnClickListener(this);
-        noRecordRl.setVisibility(View.GONE);
-
         return view;
 
     }
@@ -80,15 +74,25 @@ public class ViewPassportVisaScreenFragment extends Fragment implements View.OnC
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.passport_visa_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+
+
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.members_passport_recycler);
+        mRecyclerView.setHasFixedSize(true);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mActivity = getActivity();
+        vRecyclerView = (RecyclerView) view.findViewById(R.id.members_visa_recycler);
+        vRecyclerView.setHasFixedSize(true);
+        vLayoutManager = new LinearLayoutManager(getActivity());
+        vRecyclerView.setLayoutManager(vLayoutManager);
 
+        getPassportVisaDetails();
     }
 
     @Override
@@ -135,12 +139,18 @@ public class ViewPassportVisaScreenFragment extends Fragment implements View.OnC
                         public void onResponse(JSONObject response) {
                             try {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<PassportDTO>>() {
+                                }.getType();
 
-                                PassportVisaDetailsDTO passportVisaDetailDTO = new Gson().
-                                        fromJson(response.toString(), PassportVisaDetailsDTO.class);
+                                Type type1 = new TypeToken<ArrayList<VisaDTO>>() {
+                                }.getType();
 
-                                setPassportDetails(passportVisaDetailDTO);
+                                passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
+                                visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
+                                setPassportDetails();
                             } catch (Exception e) {
+                                setPassportDetails();
                                 //setPassportDetails();
                                 e.printStackTrace();
                             }
@@ -167,27 +177,52 @@ public class ViewPassportVisaScreenFragment extends Fragment implements View.OnC
 
     }
 
-    private void setPassportDetails(PassportVisaDetailsDTO passportVisaDetailDTO) {
+    private void setPassportDetails() {
 
-//        if (passportVisaDetailDTO.getPassport() != null && passportVisaDetailDTO.getVisa() != null) {
-//            setViewVisibility(R.id.no_trip_rl, view, View.GONE);
-//            if (passportList != null && passportList.size() != 0) {
-//                mAdapter = new MemberPassportAdapter(passportList, getActivity());
-//                mRecyclerView.setAdapter(mAdapter);
-//            }
-//
-//            if (visaList != null && visaList.size() != 0) {
-//                vAdapter = new MemberVisaAdapter(visaList, getActivity());
-//                vRecyclerView.setAdapter(vAdapter);
-//
-//            }
-//
-//        } else {
-//            setViewVisibility(R.id.members_passport_recycler, view, View.GONE);
-//            setViewVisibility(R.id.members_visa_recycler, view, View.GONE);
-//            setViewVisibility(R.id.no_trip_rl, view, View.VISIBLE);
-//        }
+        if (passportList != null & visaList != null) {
+            setViewVisibility(R.id.no_record_rl, view, View.GONE);
+            if (passportList != null && passportList.size() != 0) {
+                mAdapter = new PassportAdapter(getActivity(), passportList);
+                mRecyclerView.setAdapter(mAdapter);
 
+                ((PassportAdapter) mAdapter).setOnItemClickListener(new PassportAdapter.MyClickListener() {
+                    @Override
+                    public void onItemClick(int position, View v) {
+                        Intent i;
+                        switch (v.getId())
+                        {
+                            case R.id.edit_btn:
+                                break;
+                        }
+
+                    }
+                });
+            }
+
+            if (visaList != null && visaList.size() != 0) {
+                vAdapter = new VisaAdapter(getActivity(), visaList);
+                vRecyclerView.setAdapter(vAdapter);
+
+                ((VisaAdapter) mAdapter).setOnItemClickListener(new VisaAdapter.MyClickListener() {
+                    @Override
+                    public void onItemClick(int position, View v) {
+                        Intent i;
+                        switch (v.getId()) {
+                            case R.id.edit_btn:
+                                break;
+                        }
+
+                    }
+                });
+
+
+            }
+
+        } else {
+            setViewVisibility(R.id.members_passport_recycler, view, View.GONE);
+            setViewVisibility(R.id.members_visa_recycler, view, View.GONE);
+            setViewVisibility(R.id.no_record_rl, view, View.VISIBLE);
+        }
 
     }
 

@@ -6,9 +6,16 @@
 
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_passport_visa_list"
+        android:id="@+id/members_passport_recycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/members_visa_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/members_passport_recycler" />
+
 
     <RelativeLayout
         android:id="@+id/no_record_rl"

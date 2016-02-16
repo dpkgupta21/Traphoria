@@ -66,12 +66,11 @@ public class NotificationDataSource {
     }
 
 
-    public NotificationDurationDTO getWhereData(String name){
+    public NotificationDurationDTO getWhereData(String name) {
         try {
-
-            //notificationDurationDao.queryBuilder().where().eq("name",name).q
-        }catch (Exception e)
-        {
+           // notificationDurationDao.query()
+            // notificationDurationDao.queryBuilder().where().eq("name",name).q
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

@@ -13,8 +13,10 @@ import com.app.traphoria.database.DatabaseHelper;
 import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.NotificationDurationDTO;
+import com.app.traphoria.model.PassportTypeDTO;
 import com.app.traphoria.model.RelationDTO;
 import com.app.traphoria.model.TripCountryDTO;
+import com.app.traphoria.model.VisaTypeDTO;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -45,12 +47,10 @@ public class Handler implements Runnable {
         getRelationValues();
         getMemberValues();
         getTripCountryValues();
-
         getNotificationDuration();
+        getPassportType();
+        getVisaType();
     }
-
-
-
 
 
     private void getRelationValues() {
@@ -206,8 +206,80 @@ public class Handler implements Runnable {
     }
 
 
+    private void getPassportType() {
+        if (Utils.isOnline(mActivity)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.GET_PASSPORT_TYPE);
+            params.put("user_id", PreferenceHelp.getUserId(mActivity));
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<PassportTypeDTO>>() {
+                                }.getType();
+                                List<PassportTypeDTO> tripCountryList = new Gson().fromJson(response.getJSONArray("passport_type").toString(), type);
+                                insertPassportType(tripCountryList);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Utils.showExceptionDialog(mActivity);
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } else {
+
+        }
 
 
+    }
+
+
+    private void getVisaType() {
+        if (Utils.isOnline(mActivity)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.GET_VISA_TYPE);
+            params.put("user_id", PreferenceHelp.getUserId(mActivity));
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<VisaTypeDTO>>() {
+                                }.getType();
+                                List<VisaTypeDTO> tripCountryList = new Gson().fromJson(response.getJSONArray("visa_type").toString(), type);
+                                insertVisaType(tripCountryList);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Utils.showExceptionDialog(mActivity);
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } else {
+
+        }
+
+
+    }
 
 
     private void insertRelationList(List<RelationDTO> list) {
@@ -227,5 +299,14 @@ public class Handler implements Runnable {
 
     private void insertNotificationList(List<NotificationDurationDTO> list) {
         new NotificationDataSource(mActivity).insertNotificationDuration(list);
+    }
+
+
+    private void insertPassportType(List<PassportTypeDTO> list) {
+        new PassportTypeDataSource(mActivity).insertPassportType(list);
+    }
+
+    private void insertVisaType(List<VisaTypeDTO> list) {
+        new VisaTypeDataSource(mActivity).insertVisaType(list);
     }
 }

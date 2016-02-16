@@ -6,8 +6,10 @@ import android.util.Log;
 
 import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.NotificationDurationDTO;
+import com.app.traphoria.model.PassportTypeDTO;
 import com.app.traphoria.model.RelationDTO;
 import com.app.traphoria.model.TripCountryDTO;
+import com.app.traphoria.model.VisaTypeDTO;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.Dao;
@@ -25,6 +27,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private Dao<MemberDTO, String> memberDao = null;
     private Dao<TripCountryDTO, String> countryDao = null;
     private Dao<NotificationDurationDTO, String> notificationDurationDao = null;
+    private Dao<PassportTypeDTO, String> passportTypeDao = null;
+    private Dao<VisaTypeDTO, String> visaTypeDao = null;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -42,6 +46,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, MemberDTO.class);
             TableUtils.createTable(connectionSource, TripCountryDTO.class);
             TableUtils.createTable(connectionSource, NotificationDurationDTO.class);
+            TableUtils.createTable(connectionSource, PassportTypeDTO.class);
+            TableUtils.createTable(connectionSource, VisaTypeDTO.class);
 
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't create database", e);
@@ -58,6 +64,9 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.dropTable(connectionSource, MemberDTO.class, true);
             TableUtils.dropTable(connectionSource, TripCountryDTO.class, true);
             TableUtils.dropTable(connectionSource, NotificationDurationDTO.class, true);
+            TableUtils.dropTable(connectionSource, PassportTypeDTO.class, true);
+            TableUtils.dropTable(connectionSource, VisaTypeDTO.class, true);
+
             onCreate(db, connectionSource);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Can't drop databases", e);
@@ -119,6 +128,32 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return null;
     }
 
+    public Dao<PassportTypeDTO, String> getPassportTypeDao() throws SQLException {
+        try {
+            if (passportTypeDao == null) {
+                passportTypeDao = BaseDaoImpl.createDao(getConnectionSource(), PassportTypeDTO.class);
+                Log.d("", "");
+            }
+            return passportTypeDao;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+    public Dao<VisaTypeDTO, String> getVisaTypeDao() throws SQLException {
+        try {
+            if (visaTypeDao == null) {
+                visaTypeDao = BaseDaoImpl.createDao(getConnectionSource(), VisaTypeDTO.class);
+                Log.d("", "");
+            }
+            return visaTypeDao;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 
     @Override

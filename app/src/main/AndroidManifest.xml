@@ -84,7 +84,7 @@
             <!-- </intent-filter> -->
         </activity>
         <activity
-            android:name=".view.AddPassportVisaScreen"
+            android:name=".passportvisa.AddPassportVisaScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity

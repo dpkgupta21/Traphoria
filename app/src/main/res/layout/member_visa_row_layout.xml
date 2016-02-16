@@ -37,7 +37,6 @@
             android:layout_gravity="right"
             android:src="@drawable/edit_icon" />
 
-
         <RelativeLayout
             android:id="@+id/visa_details"
             android:layout_width="match_parent"
@@ -73,7 +72,7 @@
                 android:textStyle="normal" />
 
             <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/txt_visa_entry_type"
+                android:id="@+id/txt_visa_entry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_visa_type"
@@ -89,7 +88,7 @@
                 android:id="@+id/txt_visa_expires_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_visa_entry_type"
+                android:layout_below="@+id/txt_visa_entry"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:gravity="center"
@@ -99,13 +98,12 @@
                 android:textStyle="normal" />
 
             <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/explore_visa"
+                android:id="@+id/txt_explore_visa"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_visa_expires_date"
                 android:layout_centerHorizontal="true"
-                android:layout_marginBottom="@dimen/margin_5dp"
-                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:background="@drawable/white_button_selector"
                 android:gravity="center"
                 android:paddingBottom="@dimen/margin_10dp"

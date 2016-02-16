@@ -27,12 +27,18 @@ public class WebserviceConstant {
     public static String GET_EVENT_DETAILS = "eventdetail";
     public static String GET_TRADITION = "tradition";
 
-    public static String GET_TRIP_DETAILS="tripdetail";
+    public static String GET_TRIP_DETAILS = "tripdetail";
 
-    public static String EDIT_PROFILE="editprofile";
+    public static String EDIT_PROFILE = "editprofile";
 
-    public static String GET_NOTIFICATION_DURATION ="notificationDuration";
+    public static String GET_NOTIFICATION_DURATION = "notificationDuration";
 
+
+    public static String GET_PASSPORT_TYPE = "passportdata";
+    public static String GET_VISA_TYPE = "visadata";
+
+
+    public static String ADD_EDIT_PASSPORT="addeditpassport";
 
 
 }
