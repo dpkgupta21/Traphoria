@@ -1,15 +1,10 @@
 package com.app.traphoria.search;
 
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ExpandableListView;
+import android.view.MenuItem;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -20,9 +15,7 @@ import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.customViews.ExpandViewListView;
 import com.app.traphoria.model.AccordianDTO;
-import com.app.traphoria.model.PassportVisaDetailsDTO;
 import com.app.traphoria.model.TraditionDTO;
-import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.search.adapter.CustomArrayAdapter;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
@@ -50,7 +43,7 @@ public class TraditionScreen extends BaseActivity {
     private DisplayImageOptions options;
     List<AccordianDTO> accordianList;
     private ExpandViewListView mListView;
-    private final int CELL_DEFAULT_HEIGHT = 100;
+    private final int CELL_DEFAULT_HEIGHT = 0;
 
 
     @Override
@@ -155,6 +148,16 @@ public class TraditionScreen extends BaseActivity {
         mListView.setDivider(null);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+
+    }
 
 
 

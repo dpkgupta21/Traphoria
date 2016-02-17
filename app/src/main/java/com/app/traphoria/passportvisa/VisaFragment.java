@@ -3,10 +3,13 @@ package com.app.traphoria.passportvisa;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +28,9 @@ import com.app.traphoria.lacaldabase.CountryDataSource;
 import com.app.traphoria.lacaldabase.PassportTypeDataSource;
 import com.app.traphoria.lacaldabase.VisaTypeDataSource;
 import com.app.traphoria.model.PassportTypeDTO;
+import com.app.traphoria.model.VisaDTO;
 import com.app.traphoria.model.VisaTypeDTO;
+import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.passportvisa.adapter.VisaTypeAdapter;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.trip.Dialog.DialogFragment;
@@ -35,6 +40,7 @@ import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
+import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
@@ -47,28 +53,33 @@ import java.util.Map;
 public class VisaFragment extends BaseFragment implements FetchInterface {
 
     private View view;
+    private String TAG = "ADD_EDIT_VISA";
+    private String visaID = "";
 
-    private String visaID="";
     public VisaFragment() {
 
     }
 
-    public static VisaFragment newInstance() {
+    public static VisaFragment newInstance(String id) {
         VisaFragment fragment = new VisaFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        fragment.setArguments(bundle);
+
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        visaID = getArguments().getString("id");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-       view = inflater.inflate(R.layout.fragment_visa, container, false);
+        view = inflater.inflate(R.layout.fragment_visa, container, false);
         return view;
     }
 
@@ -77,10 +88,14 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        if (!visaID.equalsIgnoreCase("")) {
+            visaDetails();
+        }
         setClick(R.id.visa_type, view);
         setClick(R.id.visa_country, view);
         setClick(R.id.visa_expire_on_tv, view);
         setClick(R.id.save_btn, view);
+        setClick(R.id.visa_entry_country, view);
 
     }
 
@@ -104,7 +119,10 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
                 break;
 
             case R.id.save_btn:
-                //addVisa(visaID);
+                addVisa(visaID);
+                break;
+            case R.id.visa_entry_country:
+                showEntryTypeDialog();
                 break;
         }
     }
@@ -138,7 +156,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
 //                if (dialog != null) {
 //                    dialog = null;
 //                }
-                setViewText(R.id.passprt_type, passportTypeList.get(position).getName(), view);
+                setViewText(R.id.visa_type, passportTypeList.get(position).getName(), view);
             }
         });
     }
@@ -165,7 +183,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
                                           int monthOfYear, int dayOfMonth) {
                         // Display Selected date in textbox
 
-                        setViewText(R.id.txt_expiry, (monthOfYear + 1) + "/" + dayOfMonth + "/" + year, view);
+                        setViewText(R.id.visa_expire_on_tv, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, view);
 
                     }
                 }, mYear, mMonth, mDay);
@@ -173,70 +191,151 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
     }
 
 
+    public void showEntryTypeDialog() {
+        final CharSequence[] items = {"Single", "Multiple"};
 
-//    private void addVisa(String passportID) {
-//        Utils.hideKeyboard(getActivity());
-//        if (Utils.isOnline(getActivity())) {
-//            if (validateForm()) {
-//                Map<String, String> params = new HashMap<>();
-//                params.put("action", WebserviceConstant.ADD_EDIT_PASSPORT);
-//                params.put("country_id", new CountryDataSource(getActivity()).getWhereData(getViewText(R.id.passprt_country, view)).getId());
-//                params.put("passport_type_id", new PassportTypeDataSource(getActivity()).getWhereData(getViewText(R.id.passprt_type, view)).getId());
-//                params.put("passport_no", getViewText(R.id.passport_no_spinner, view));
-//                params.put("expire_date", getViewText(R.id.txt_expiry, view));
-//                params.put("user_id", PreferenceHelp.getUserId(getActivity()));
-//                params.put("passport_id",passportID);
-//
-//                CustomProgressDialog.showProgDialog(getActivity(), null);
-//                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
-//                        new Response.Listener<JSONObject>() {
-//                            @Override
-//                            public void onResponse(JSONObject response) {
-//                                Utils.ShowLog(TAG, "Response -> " + response.toString());
-//
-//                                try {
-//                                    if (Utils.getWebServiceStatus(response)) {
-//                                        // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
-//                                        //openMemberFragment();
-//                                    } else {
-//                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
-//                                    }
-//
-//
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//
-//                                CustomProgressDialog.hideProgressDialog();
-//                            }
-//                        }, new Response.ErrorListener() {
-//
-//                    @Override
-//                    public void onErrorResponse(VolleyError error) {
-//                        CustomProgressDialog.hideProgressDialog();
-//                        Utils.showExceptionDialog(getActivity());
-//                    }
-//                });
-//
-//                AppController.getInstance().getRequestQueue().add(postReq);
-//                postReq.setRetryPolicy(new DefaultRetryPolicy(
-//                        30000, 0,
-//                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-//                CustomProgressDialog.showProgDialog(getActivity(), null);
-//
-//            }
-//        } else {
-//            Utils.showNoNetworkDialog(getActivity());
-//        }
-//
-//
-//    }
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Choose Entry Type");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+                // Do something with the selection
+                setViewText(R.id.visa_entry_country, items[item].toString(), view);
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
+    private void addVisa(String passportID) {
+        Utils.hideKeyboard(getActivity());
+        if (Utils.isOnline(getActivity())) {
+            if (validateForm()) {
+                Map<String, String> params = new HashMap<>();
+                params.put("action", WebserviceConstant.ADD_EDIT_VISA);
+                params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+                params.put("country_id", new CountryDataSource(getActivity()).getWhereData("name", getViewText(R.id.visa_country, view)).getId());
+                params.put("visa_type_id", new VisaTypeDataSource(getActivity()).getWhereData("name", getViewText(R.id.visa_type, view)).getId());
+                params.put("entry_type", getViewText(R.id.visa_entry_country, view));
+                params.put("expire_date", getViewText(R.id.visa_expire_on_tv, view));
+                params.put("passport_id", passportID);
+
+                CustomProgressDialog.showProgDialog(getActivity(), null);
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                        new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Utils.ShowLog(TAG, "Response -> " + response.toString());
+
+                                try {
+                                    if (Utils.getWebServiceStatus(response)) {
+                                        openUserVisaScreen();
+                                    } else {
+                                        Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
+                                    }
+
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+
+                                CustomProgressDialog.hideProgressDialog();
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        CustomProgressDialog.hideProgressDialog();
+                        Utils.showExceptionDialog(getActivity());
+                    }
+                });
+
+                AppController.getInstance().getRequestQueue().add(postReq);
+                postReq.setRetryPolicy(new DefaultRetryPolicy(
+                        30000, 0,
+                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+                CustomProgressDialog.showProgDialog(getActivity(), null);
+
+            }
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+
+    }
 
 
     private boolean validateForm() {
         return true;
     }
 
+
+    private void openUserVisaScreen() {
+        Intent intent = new Intent(getActivity(), NavigationDrawerActivity.class);
+        intent.putExtra("fragmentNumber", 2);
+        startActivity(intent);
+    }
+
+
+    private void visaDetails() {
+
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.GET_VISA_DETAILS);
+            params.put("visa_id", visaID);
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Utils.ShowLog(TAG, "Response -> " + response.toString());
+
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
+                                    VisaDTO visaDTO = new Gson().fromJson(response.getJSONObject("Visa").toString(), VisaDTO.class);
+                                    setVisaDetails(visaDTO);
+                                } else {
+                                    Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            CustomProgressDialog.hideProgressDialog();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    CustomProgressDialog.hideProgressDialog();
+                    Utils.showExceptionDialog(getActivity());
+                }
+            });
+
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+
+    }
+
+    private void setVisaDetails(VisaDTO visaDetails) {
+
+        setViewText(R.id.visa_country, new CountryDataSource(getActivity()).getWhereData("id", visaDetails.getCountry_id()).getName(), view);
+        setViewText(R.id.visa_type, new VisaTypeDataSource(getActivity()).getWhereData("id", visaDetails.getVisa_type_id()).getName(), view);
+        setViewText(R.id.visa_entry_country, visaDetails.getEntry_type(), view);
+        setViewText(R.id.visa_expire_on_tv, visaDetails.getExpire_date(), view);
+
+
+    }
 
 
 }

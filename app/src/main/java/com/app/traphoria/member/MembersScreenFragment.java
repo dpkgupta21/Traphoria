@@ -21,10 +21,8 @@ import com.app.traphoria.R;
 import com.app.traphoria.chat.ChatScreen;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.member.adapter.MemberPassportAdapter;
-import com.app.traphoria.member.adapter.MemberVisaAdapter;
 import com.app.traphoria.model.PassportDTO;
-import com.app.traphoria.model.PassportVisaDetailsDTO;
-import com.app.traphoria.model.TaskDTO;
+import com.app.traphoria.model.PassportVisaDTO;
 import com.app.traphoria.model.VisaDTO;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.utility.BaseFragment;
@@ -56,17 +54,8 @@ public class MembersScreenFragment extends BaseFragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private RecyclerView vRecyclerView;
-    private RecyclerView.Adapter vAdapter;
-    private RecyclerView.LayoutManager vLayoutManager;
-
-
     private View view;
-    //private PassportVisaDetailsDTO detailValues;
-
-    private List<PassportDTO> passportList;
-    private List<VisaDTO> visaList;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private List<PassportVisaDTO> passportVisaList;
 
     public MembersScreenFragment() {
     }
@@ -98,11 +87,6 @@ public class MembersScreenFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
-        vRecyclerView = (RecyclerView) view.findViewById(R.id.members_visa_recycler);
-        vRecyclerView.setHasFixedSize(true);
-        vLayoutManager = new LinearLayoutManager(getActivity());
-        vRecyclerView.setLayoutManager(vLayoutManager);
 
         getPassportVisaDetails();
         setClick(R.id.add_member, view);
@@ -177,6 +161,8 @@ public class MembersScreenFragment extends BaseFragment {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            List<PassportDTO> passportList = null;
+                            List<VisaDTO> visaList = null;
                             try {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
                                 Type type = new TypeToken<ArrayList<PassportDTO>>() {
@@ -188,9 +174,9 @@ public class MembersScreenFragment extends BaseFragment {
 
                                 passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
                                 visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
-                                setPassportDetails();
+                                setPassportDetails(passportList, visaList);
                             } catch (Exception e) {
-                                setPassportDetails();
+                                setPassportDetails(passportList, visaList);
                                 e.printStackTrace();
                             }
                             CustomProgressDialog.hideProgressDialog();
@@ -217,29 +203,57 @@ public class MembersScreenFragment extends BaseFragment {
     }
 
 
-    private void setPassportDetails() {
+    private void setPassportDetails(List<PassportDTO> passportList, List<VisaDTO> visaList) {
 
         if (passportList != null & visaList != null) {
+
+
             setViewVisibility(R.id.no_trip_rl, view, View.GONE);
+            passportVisaList = new ArrayList<>();
             if (passportList != null && passportList.size() != 0) {
-                mAdapter = new MemberPassportAdapter(passportList, getActivity());
-                mRecyclerView.setAdapter(mAdapter);
+
+                for (int i = 0; i < passportList.size(); i++) {
+                    PassportVisaDTO passportVisaDTO = new PassportVisaDTO();
+                    passportVisaDTO.setId(passportList.get(i).getPassport_id());
+                    passportVisaDTO.setCountry(passportList.get(i).getCountry());
+                    passportVisaDTO.setCountryID(passportList.get(i).getCountry_id());
+                    passportVisaDTO.setPassportNumber(passportList.get(i).getPassport_no());
+                    passportVisaDTO.setExpiryDate(passportList.get(i).getExpire_date());
+                    passportVisaDTO.setPassport_visa_type(passportList.get(i).getPassport_type());
+                    passportVisaDTO.setPassport_visa_type_id(passportList.get(i).getPassport_type_id());
+                    passportVisaDTO.setCountry_image(passportList.get(i).getCountry_image());
+                    passportVisaDTO.setType("P");
+                    passportVisaList.add(passportVisaDTO);
+
+                }
+
             }
 
             if (visaList != null && visaList.size() != 0) {
-                vAdapter = new MemberVisaAdapter(visaList, getActivity());
-                vRecyclerView.setAdapter(vAdapter);
 
+                for (int i = 0; i < visaList.size(); i++) {
+                    PassportVisaDTO passportVisaDTO = new PassportVisaDTO();
+                    passportVisaDTO.setId(visaList.get(i).getVisa_id());
+                    passportVisaDTO.setCountry(visaList.get(i).getCountry());
+                    passportVisaDTO.setCountryID(visaList.get(i).getCountry_id());
+                    passportVisaDTO.setExpiryDate(visaList.get(i).getExpire_date());
+                    passportVisaDTO.setPassport_visa_type(visaList.get(i).getVisa_type());
+                    passportVisaDTO.setPassport_visa_type_id(visaList.get(i).getVisa_type_id());
+                    passportVisaDTO.setCountry_image(visaList.get(i).getCountry_image());
+                    passportVisaDTO.setEntry_type(visaList.get(i).getEntry_type());
+                    passportVisaDTO.setType("V");
+                    passportVisaList.add(passportVisaDTO);
+
+                }
             }
 
+            mAdapter = new MemberPassportAdapter(passportVisaList, getActivity());
+            mRecyclerView.setAdapter(mAdapter);
         } else {
             setViewVisibility(R.id.members_passport_recycler, view, View.GONE);
-            setViewVisibility(R.id.members_visa_recycler, view, View.GONE);
             setViewVisibility(R.id.no_trip_rl, view, View.VISIBLE);
         }
 
-
     }
-
 
 }

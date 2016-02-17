@@ -65,12 +65,12 @@ public class VisaTypeDataSource {
     }
 
 
-    public VisaTypeDTO getWhereData(String name) {
+    public VisaTypeDTO getWhereData(String key ,String value) {
         Iterator<VisaTypeDTO> iterator =null;
         try {
 
             QueryBuilder<VisaTypeDTO, String> queryBuilder = visaTypeDao.queryBuilder();
-            queryBuilder.where().eq("name", name.trim());
+            queryBuilder.where().eq(key, value);
             PreparedQuery<VisaTypeDTO> preparedQuery = queryBuilder.prepare();
 
             iterator =  visaTypeDao.query(preparedQuery).iterator();
@@ -83,5 +83,9 @@ public class VisaTypeDataSource {
         }
         return iterator.next();
     }
+
+
+
+
 
 }

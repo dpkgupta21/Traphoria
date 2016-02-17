@@ -80,7 +80,7 @@ public class ExpandViewListView extends ListView {
 
         /* Update the layout so the extra content becomes invisible.*/
         view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-                viewObject.getCollapsedHeight()));
+                LayoutParams.WRAP_CONTENT));
 
          /* Add an onPreDraw listener. */
         final ViewTreeObserver observer = getViewTreeObserver();

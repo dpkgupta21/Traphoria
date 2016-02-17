@@ -7,13 +7,13 @@ public class ExpandListItem implements OnSizeChangedListener {
     private String mTitle;
     private String mText;
     private boolean mIsExpand;
-    private int mCollapsedHeight;
+    //  private int mCollapsedHeight;
     private int mExpandedHeight;
 
     public ExpandListItem(String title, int collapsedHeight, String text) {
         mText = text;
         mTitle = title;
-        mCollapsedHeight = collapsedHeight;
+        // mCollapsedHeight = collapsedHeight;
         mExpandedHeight = -1;
         mIsExpand = false;
     }
@@ -55,12 +55,12 @@ public class ExpandListItem implements OnSizeChangedListener {
         setExpandedHeight(newHeight);
     }
 
-    public int getCollapsedHeight() {
-        return mCollapsedHeight;
-    }
-
-    public void setCollapsedHeight(int mCollapsedHeight) {
-        this.mCollapsedHeight = mCollapsedHeight;
-    }
+//    public int getCollapsedHeight() {
+//        return mCollapsedHeight;
+//    }
+//
+//    public void setCollapsedHeight(int mCollapsedHeight) {
+//        this.mCollapsedHeight = mCollapsedHeight;
+//    }
 
 }

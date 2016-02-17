@@ -38,8 +38,12 @@ public class WebserviceConstant {
     public static String GET_VISA_TYPE = "visadata";
 
 
-    public static String ADD_EDIT_PASSPORT="addeditpassport";
-    public static String ADD_EDIT_VISA ="addeditvisa";
+    public static String ADD_EDIT_PASSPORT = "addeditpassport";
+    public static String ADD_EDIT_VISA = "addeditvisa";
 
+    public static String GET_PASSPORT_DETAILS = "getPassportdetail";
+    public static String GET_VISA_DETAILS = "getVisadetail";
+
+    public static String GET_FREE_VISA_COUNTRIES="visafreedesiti";
 
 }

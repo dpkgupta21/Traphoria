@@ -44,8 +44,27 @@ public class AddPassportVisaScreen extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_passport_visa_screen);
+
         initView();
         assignClick();
+        init();
+    }
+
+    private void init() {
+        String id = getIntent().getStringExtra("id");
+        String type = getIntent().getStringExtra("type");
+
+        if ((id != null && !id.equalsIgnoreCase("")) && (type != null && !type.equalsIgnoreCase(""))) {
+
+            if (type.equalsIgnoreCase("P")) {
+                openFragment(0, id);
+            } else {
+                openFragment(1, id);
+            }
+        } else {
+            openFragment(0, "");
+        }
+
     }
 
     private void assignClick() {
@@ -67,7 +86,7 @@ public class AddPassportVisaScreen extends BaseActivity {
         mTitle.setText(R.string.pasport_visa);
         passport_btn.setBackground(getResources().getDrawable(R.drawable.purple_background));
         passport_btn.setTextColor(getResources().getColor(R.color.white));
-        openFragment(0);
+
     }
 
 
@@ -91,7 +110,7 @@ public class AddPassportVisaScreen extends BaseActivity {
                 visa_btn.setTextColor(getResources().getColor(R.color.white));
                 passport_btn.setBackground(getResources().getDrawable(R.drawable.grey_background));
                 passport_btn.setTextColor(getResources().getColor(R.color.black));
-                openFragment(1);
+                openFragment(1, "");
                 break;
 
             case R.id.passport_btn:
@@ -99,20 +118,20 @@ public class AddPassportVisaScreen extends BaseActivity {
                 visa_btn.setTextColor(getResources().getColor(R.color.black));
                 passport_btn.setBackground(getResources().getDrawable(R.drawable.purple_background));
                 passport_btn.setTextColor(getResources().getColor(R.color.white));
-                openFragment(0);
+                openFragment(0, "");
                 break;
 
         }
     }
 
 
-    private void openFragment(int flag) {
+    private void openFragment(int flag, String id) {
         Fragment fragment = null;
 
         if (flag == 0) {
-            fragment = new PassportFragment();
+            fragment = PassportFragment.newInstance(id);
         } else {
-            fragment = new VisaFragment();
+            fragment = VisaFragment.newInstance(id);
         }
 
         if (fragment != null) {

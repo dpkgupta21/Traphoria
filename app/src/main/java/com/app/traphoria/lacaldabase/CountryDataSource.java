@@ -66,13 +66,13 @@ public class CountryDataSource {
     }
 
 
-    public TripCountryDTO getWhereData(String name) {
+    public TripCountryDTO getWhereData(String key,String value) {
 
         Iterator<TripCountryDTO> iterator =null;
         try {
 
             QueryBuilder<TripCountryDTO, String> queryBuilder = countryDao.queryBuilder();
-            queryBuilder.where().eq("name", name.trim());
+            queryBuilder.where().eq(key, value);
             PreparedQuery<TripCountryDTO> preparedQuery = queryBuilder.prepare();
 
              iterator =  countryDao.query(preparedQuery).iterator();

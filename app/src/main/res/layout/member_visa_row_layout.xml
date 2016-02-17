@@ -29,13 +29,13 @@
             android:textColor="@color/white"
             android:textStyle="normal" />
 
-        <ImageView
-            android:id="@+id/edit_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:src="@drawable/edit_icon" />
+        <!--<ImageView-->
+            <!--android:id="@+id/edit_btn"-->
+            <!--android:layout_width="40dp"-->
+            <!--android:layout_height="40dp"-->
+            <!--android:layout_alignParentRight="true"-->
+            <!--android:layout_gravity="right"-->
+            <!--android:src="@drawable/edit_icon" />-->
 
         <RelativeLayout
             android:id="@+id/visa_details"
@@ -97,23 +97,23 @@
                 android:textColor="@color/white"
                 android:textStyle="normal" />
 
-            <com.app.traphoria.customViews.MyTextView12
-                android:id="@+id/txt_explore_visa"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_visa_expires_date"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/margin_10dp"
-                android:background="@drawable/white_button_selector"
-                android:gravity="center"
-                android:paddingBottom="@dimen/margin_10dp"
-                android:paddingLeft="@dimen/margin_20dp"
-                android:paddingRight="@dimen/margin_20dp"
-                android:paddingTop="@dimen/margin_10dp"
-                android:singleLine="true"
-                android:text="@string/explore_free"
-                android:textColor="@color/white"
-                android:textStyle="normal" />
+            <!--<com.app.traphoria.customViews.MyTextView12-->
+                <!--android:id="@+id/txt_explore_visa"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_below="@+id/txt_visa_expires_date"-->
+                <!--android:layout_centerHorizontal="true"-->
+                <!--android:layout_marginTop="@dimen/margin_10dp"-->
+                <!--android:background="@drawable/white_button_selector"-->
+                <!--android:gravity="center"-->
+                <!--android:paddingBottom="@dimen/margin_10dp"-->
+                <!--android:paddingLeft="@dimen/margin_20dp"-->
+                <!--android:paddingRight="@dimen/margin_20dp"-->
+                <!--android:paddingTop="@dimen/margin_10dp"-->
+                <!--android:singleLine="true"-->
+                <!--android:text="@string/explore_free"-->
+                <!--android:textColor="@color/white"-->
+                <!--android:textStyle="normal" />-->
         </RelativeLayout>
     </RelativeLayout>
 

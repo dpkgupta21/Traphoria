@@ -7,11 +7,35 @@ public class PassportDTO implements Serializable {
 
     public String passport_id;
     public String country;
+    public String country_id;
     public String passport_type;
+    public String  passport_type_id;
     public String passport_no;
     public String expire_date;
     public String country_image;
     public String type;
+
+
+
+
+
+
+    public String getPassport_type_id() {
+        return passport_type_id;
+    }
+
+    public void setPassport_type_id(String passport_type_id) {
+        this.passport_type_id = passport_type_id;
+    }
+
+    public String getCountry_id() {
+        return country_id;
+    }
+
+    public void setCountry_id(String country_id) {
+        this.country_id = country_id;
+    }
+
 
 
     public String getPassport_id() {

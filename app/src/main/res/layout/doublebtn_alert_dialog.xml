@@ -26,31 +26,29 @@
         android:orientation="horizontal"
         android:weightSum="2">
 
-        <Button
+        <com.app.traphoria.customViews.MyButtonViewSemi
             android:id="@+id/dblBtnAlert_negativeBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:background="@drawable/blue_button_selector"
+            android:background="@drawable/purple_button_selector"
             android:text="Cancel"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textColor="@color/white" />
 
-        <Button
+        <com.app.traphoria.customViews.MyButtonViewSemi
             android:id="@+id/dblBtnAlert_positveBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:background="@drawable/blue_button_selector"
+            android:background="@drawable/purple_button_selector"
             android:text="Ok"
             android:textAllCaps="false"
-            android:textColor="@color/white"
-            android:textSize="13sp" />
+            android:textColor="@color/white" />
     </LinearLayout>
 
 </LinearLayout>

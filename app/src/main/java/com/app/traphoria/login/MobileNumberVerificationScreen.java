@@ -15,6 +15,7 @@ import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.preference.TraphoriaPreference;
+import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
@@ -30,62 +31,58 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MobileNumberVerificationScreen extends AppCompatActivity implements View.OnClickListener {
+public class MobileNumberVerificationScreen extends BaseActivity {
 
     private static final String TAG = "MobileNumberVerificationScreen";
-    private RelativeLayout mobile_num_form, send_btn_rl, verification_code_form, verify_btn_rl;
     private ImageView back_btn;
-    private MobileNumberVerificationScreen mContext;
     private DigitsAuthButton digitsButton;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mobile_number_verification_screen);
-        mContext = this;
         initViews();
         assignClicks();
     }
 
     private void initViews() {
-        mobile_num_form = (RelativeLayout) findViewById(R.id.mobile_num_form);
-        send_btn_rl = (RelativeLayout) findViewById(R.id.send_btn_rl);
-        verification_code_form = (RelativeLayout) findViewById(R.id.verification_code_form);
-        verify_btn_rl = (RelativeLayout) findViewById(R.id.verify_btn_rl);
         back_btn = (ImageView) findViewById(R.id.back_btn);
         Digits.getSessionManager().clearActiveSession();
-        digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
-        digitsButton.setText(getString(R.string.send_code));
-        digitsButton.setAuthTheme(R.style.btn_style_small);
-        digitsButton.setBackgroundResource(R.drawable.purple_button_selector);
-        digitsButton.setTextSize(12);
-        digitsButton.setCallback(authCallback);
-        digitsButton.setOnClickListener(onDigitClick);
+//        digitsButton = (DigitsAuthButton) findViewById(R.id.auth_button);
+//        digitsButton.setText(getString(R.string.send_code));
+//        digitsButton.setAuthTheme(R.style.btn_style_small);
+//        digitsButton.setBackgroundResource(R.drawable.purple_button_selector);
+//        digitsButton.setTextSize(12);
+//        digitsButton.setCallback(authCallback);
+//        digitsButton.setOnClickListener(onDigitClick);
+
+        setClick(R.id.btn_verify);
     }
 
-    View.OnClickListener onDigitClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            doCheckMobile(((EditText) findViewById(R.id.mobile_num_et)).
-                    getText().toString().trim());
-//            TraphoriaPreference.setMobileNumber(mContext, ((EditText) findViewById(R.id.mobile_num_et)).
-//                    getText().toString().trim());
-//            Digits.authenticate(authCallback, ((EditText) findViewById(R.id.mobile_num_et)).getText().toString().trim());
-
-        }
-    };
+//    View.OnClickListener onDigitClick = new View.OnClickListener() {
+//        @Override
+//        public void onClick(View v) {
+//
+//            String phoneNum = ((EditText) findViewById(R.id.mobile_num_et)).getText().toString().trim();
+//            if (phoneNum != null && !phoneNum.equalsIgnoreCase("")) {
+//                doCheckMobile(phoneNum);
+//            } else {
+//                Utils.customDialog("Please enter phone number", MobileNumberVerificationScreen.this);
+//            }
+//        }
+//    };
 
 
     AuthCallback authCallback = new AuthCallback() {
         @Override
         public void success(DigitsSession session, String phoneNumber) {
-            if(phoneNumber!=null) {
-                String countryCode = phoneNumber.replace(TraphoriaPreference.getMobileNumber(mContext), "");
-                TraphoriaPreference.setCountryCode(mContext, countryCode);
+            if (phoneNumber != null) {
+                String countryCode = phoneNumber.replace(TraphoriaPreference.getMobileNumber(MobileNumberVerificationScreen.this), "");
+                TraphoriaPreference.setCountryCode(MobileNumberVerificationScreen.this, countryCode);
 
                 //After Successful verification call Signup screen
-                Intent intent = new Intent(mContext, SignUpScreen.class);
-                intent.putExtra("MOBILE_NUMBER", TraphoriaPreference.getMobileNumber(mContext));
+                Intent intent = new Intent(MobileNumberVerificationScreen.this, SignUpScreen.class);
+                intent.putExtra("MOBILE_NUMBER", TraphoriaPreference.getMobileNumber(MobileNumberVerificationScreen.this));
                 startActivity(intent);
             }
         }
@@ -98,13 +95,13 @@ public class MobileNumberVerificationScreen extends AppCompatActivity implements
 
 
     private void doCheckMobile(final String phoneNumber) {
-        Utils.hideKeyboard(mContext);
+        Utils.hideKeyboard(this);
 
-        if (Utils.isOnline(mContext)) {
+        if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.CHECK_MOBILE);
             params.put("mobile", phoneNumber);
-            CustomProgressDialog.showProgDialog(mContext, null);
+            CustomProgressDialog.showProgDialog(this, null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
                     WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
@@ -114,17 +111,17 @@ public class MobileNumberVerificationScreen extends AppCompatActivity implements
                             CustomProgressDialog.hideProgressDialog();
                             try {
                                 if (Utils.getWebServiceStatus(response)) {
-                                    TraphoriaPreference.setMobileNumber(mContext,
+                                    TraphoriaPreference.setMobileNumber(MobileNumberVerificationScreen.this,
                                             ((EditText) findViewById(R.id.mobile_num_et)).
-                                            getText().toString().trim());
+                                                    getText().toString().trim());
                                     Digits.authenticate(authCallback,
                                             ((EditText) findViewById(R.id.mobile_num_et)).
                                                     getText().toString().trim());
 
 
                                 } else {
-                                    Utils.showDialog(mContext, "Error", Utils.getWebServiceMessage(response));
-                                    startActivity(new Intent(mContext, LandingScreen.class));
+                                    Utils.showDialog(MobileNumberVerificationScreen.this, "Error", Utils.getWebServiceMessage(response));
+                                    startActivity(new Intent(MobileNumberVerificationScreen.this, LandingScreen.class));
                                 }
                             } catch (Exception e) {
                                 e.printStackTrace();
@@ -136,7 +133,7 @@ public class MobileNumberVerificationScreen extends AppCompatActivity implements
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(mContext);
+                    Utils.showExceptionDialog(MobileNumberVerificationScreen.this);
                 }
             });
 
@@ -145,14 +142,12 @@ public class MobileNumberVerificationScreen extends AppCompatActivity implements
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         } else {
-            Utils.showNoNetworkDialog(mContext);
+            Utils.showNoNetworkDialog(this);
         }
 
     }
 
     private void assignClicks() {
-        send_btn_rl.setOnClickListener(this);
-        verify_btn_rl.setOnClickListener(this);
         back_btn.setOnClickListener(this);
     }
 
@@ -161,19 +156,24 @@ public class MobileNumberVerificationScreen extends AppCompatActivity implements
 
         switch (v.getId()) {
 
-            case R.id.send_btn_rl:
-                mobile_num_form.setVisibility(View.GONE);
-                verification_code_form.setVisibility(View.VISIBLE);
-                break;
-
-            case R.id.verify_btn_rl:
-                finish();
-                Intent intent = new Intent(this, SignUpScreen.class);
-                startActivity(intent);
-                break;
             case R.id.back_btn:
                 finish();
                 break;
+
+            case R.id.btn_verify:
+                verifyNumber();
+                break;
+        }
+    }
+
+    private void verifyNumber()
+    {
+
+        String phoneNum = ((EditText) findViewById(R.id.mobile_num_et)).getText().toString().trim();
+        if (phoneNum != null && !phoneNum.equalsIgnoreCase("")) {
+            doCheckMobile(phoneNum);
+        } else {
+            Utils.customDialog("Please enter phone number", MobileNumberVerificationScreen.this);
         }
     }
 }

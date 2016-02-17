@@ -19,9 +19,9 @@ import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.PassportDTO;
+import com.app.traphoria.model.PassportVisaDTO;
 import com.app.traphoria.model.VisaDTO;
 import com.app.traphoria.passportvisa.adapter.PassportAdapter;
-import com.app.traphoria.passportvisa.adapter.VisaAdapter;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
@@ -46,16 +46,12 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
     private static final String TAG = "ViewPassportVisaScreenFragment";
     private View view;
     private Toolbar mToolbar;
-    private List<PassportDTO> passportList;
-    private List<VisaDTO> visaList;
 
+
+    private List<PassportVisaDTO> passportVisaList;
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
-    private RecyclerView vRecyclerView;
-    private RecyclerView.Adapter vAdapter;
-    private RecyclerView.LayoutManager vLayoutManager;
 
     public ViewPassportVisaScreenFragment() {
     }
@@ -86,11 +82,6 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
-
-        vRecyclerView = (RecyclerView) view.findViewById(R.id.members_visa_recycler);
-        vRecyclerView.setHasFixedSize(true);
-        vLayoutManager = new LinearLayoutManager(getActivity());
-        vRecyclerView.setLayoutManager(vLayoutManager);
 
         getPassportVisaDetails();
     }
@@ -137,9 +128,11 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
+                            List<PassportDTO> passportList = null;
+                            List<VisaDTO> visaList = null;
                             try {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+
                                 Type type = new TypeToken<ArrayList<PassportDTO>>() {
                                 }.getType();
 
@@ -148,10 +141,10 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
 
                                 passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
                                 visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
-                                setPassportDetails();
+                                setPassportDetails(passportList, visaList);
                             } catch (Exception e) {
-                                setPassportDetails();
-                                //setPassportDetails();
+                                setPassportDetails(passportList, visaList);
+
                                 e.printStackTrace();
                             }
                             CustomProgressDialog.hideProgressDialog();
@@ -177,50 +170,83 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
 
     }
 
-    private void setPassportDetails() {
+    private void setPassportDetails(List<PassportDTO> passportList, List<VisaDTO> visaList) {
 
         if (passportList != null & visaList != null) {
             setViewVisibility(R.id.no_record_rl, view, View.GONE);
+            passportVisaList = new ArrayList<>();
+
             if (passportList != null && passportList.size() != 0) {
-                mAdapter = new PassportAdapter(getActivity(), passportList);
-                mRecyclerView.setAdapter(mAdapter);
 
-                ((PassportAdapter) mAdapter).setOnItemClickListener(new PassportAdapter.MyClickListener() {
-                    @Override
-                    public void onItemClick(int position, View v) {
-                        Intent i;
-                        switch (v.getId())
-                        {
-                            case R.id.edit_btn:
-                                break;
-                        }
+                for (int i = 0; i < passportList.size(); i++) {
+                    PassportVisaDTO passportVisaDTO = new PassportVisaDTO();
 
-                    }
-                });
+                    passportVisaDTO.setId(passportList.get(i).getPassport_id());
+                    passportVisaDTO.setCountry(passportList.get(i).getCountry());
+                    passportVisaDTO.setCountryID(passportList.get(i).getCountry_id());
+                    passportVisaDTO.setPassportNumber(passportList.get(i).getPassport_no());
+                    passportVisaDTO.setExpiryDate(passportList.get(i).getExpire_date());
+                    passportVisaDTO.setPassport_visa_type(passportList.get(i).getPassport_type());
+                    passportVisaDTO.setPassport_visa_type_id(passportList.get(i).getPassport_type_id());
+                    passportVisaDTO.setCountry_image(passportList.get(i).getCountry_image());
+                    passportVisaDTO.setType("P");
+                    passportVisaList.add(passportVisaDTO);
+
+                }
+
             }
 
             if (visaList != null && visaList.size() != 0) {
-                vAdapter = new VisaAdapter(getActivity(), visaList);
-                vRecyclerView.setAdapter(vAdapter);
 
-                ((VisaAdapter) vAdapter).setOnItemClickListener(new VisaAdapter.MyClickListener() {
-                    @Override
-                    public void onItemClick(int position, View v) {
-                        Intent i;
-                        switch (v.getId()) {
-                            case R.id.edit_btn:
-                                break;
-                        }
+                for (int i = 0; i < visaList.size(); i++) {
+                    PassportVisaDTO passportVisaDTO = new PassportVisaDTO();
+                    passportVisaDTO.setId(visaList.get(i).getVisa_id());
+                    passportVisaDTO.setCountry(visaList.get(i).getCountry());
+                    passportVisaDTO.setCountryID(visaList.get(i).getCountry_id());
+                    passportVisaDTO.setExpiryDate(visaList.get(i).getExpire_date());
+                    passportVisaDTO.setPassport_visa_type(visaList.get(i).getVisa_type());
+                    passportVisaDTO.setPassport_visa_type_id(visaList.get(i).getVisa_type_id());
+                    passportVisaDTO.setCountry_image(visaList.get(i).getCountry_image());
+                    passportVisaDTO.setEntry_type(visaList.get(i).getEntry_type());
+                    passportVisaDTO.setType("V");
+                    passportVisaList.add(passportVisaDTO);
+
+                }
+            }
+            mAdapter = new PassportAdapter(getActivity(), passportVisaList);
+            mRecyclerView.setAdapter(mAdapter);
+
+            ((PassportAdapter) mAdapter).setOnItemClickListener(new PassportAdapter.MyClickListener() {
+                @Override
+                public void onItemClick(int position, View v) {
+                    Intent intent;
+                    switch (v.getId()) {
+                        case R.id.edit_btn:
+                            intent = new Intent(getActivity(), AddPassportVisaScreen.class);
+                            intent.putExtra("id", passportVisaList.get(position).getId());
+                            intent.putExtra("type", passportVisaList.get(position).getType());
+                            startActivity(intent);
+                            break;
+                        case R.id.explore:
+                            intent = new Intent(getActivity(), VisaFreeCountryDetails.class);
+                            intent.putExtra("id", passportVisaList.get(position).getId());
+                            startActivity(intent);
+                            break;
+                        case R.id.btn_edit:
+                            intent = new Intent(getActivity(), AddPassportVisaScreen.class);
+                            intent.putExtra("id", passportVisaList.get(position).getId());
+                            intent.putExtra("type", passportVisaList.get(position).getType());
+                            startActivity(intent);
+
 
                     }
-                });
 
+                }
+            });
 
-            }
 
         } else {
             setViewVisibility(R.id.members_passport_recycler, view, View.GONE);
-            setViewVisibility(R.id.members_visa_recycler, view, View.GONE);
             setViewVisibility(R.id.no_record_rl, view, View.VISIBLE);
         }
 

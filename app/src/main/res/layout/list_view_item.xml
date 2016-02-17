@@ -24,7 +24,7 @@
             android:id="@+id/image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="center_vertical"
             android:layout_marginRight="@dimen/margin_10dp"
             android:background="@drawable/according_btn" />
 

@@ -10,17 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/members_visa_recycler"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/members_passport_recycler" />
-
 
     <RelativeLayout
         android:id="@+id/no_record_rl"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_centerInParent="true">
 
 
@@ -31,6 +26,7 @@
             android:layout_centerHorizontal="true"
             android:text="@string/no_record_found"
             android:textColor="@color/black"
+
             android:textStyle="normal" />
 
         <ImageView

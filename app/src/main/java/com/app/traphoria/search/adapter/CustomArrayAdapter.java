@@ -77,7 +77,7 @@ public class CustomArrayAdapter extends BaseAdapter {
         LinearLayout linearLayout = (LinearLayout) (convertView.findViewById(
                 R.id.item_linear_layout));
         LinearLayout.LayoutParams linearLayoutParams = new LinearLayout.LayoutParams
-                (AbsListView.LayoutParams.MATCH_PARENT, object.getCollapsedHeight());
+                (AbsListView.LayoutParams.MATCH_PARENT,AbsListView.LayoutParams.WRAP_CONTENT);
         linearLayout.setLayoutParams(linearLayoutParams);
 
         TextView titleView = (TextView) convertView.findViewById(R.id.title_view);

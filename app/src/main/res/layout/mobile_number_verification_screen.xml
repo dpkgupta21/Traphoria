@@ -3,8 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_bg"
-    tools:context=".view.LandingScreen">
+    android:background="@drawable/login_bg">
 
     <ImageView
         android:id="@+id/back_btn"
@@ -55,8 +54,21 @@
                 android:textSize="@dimen/text_size_18sp" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/send_btn_rl"
+        <!--<RelativeLayout-->
+        <!--android:id="@+id/send_btn_rl"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/mobile_num_rl"-->
+        <!--android:layout_marginLeft="@dimen/margin_20dp"-->
+        <!--android:layout_marginRight="@dimen/margin_20dp"-->
+        <!--android:layout_marginTop="@dimen/margin_15dp">-->
+
+        <!--<com.digits.sdk.android.DigitsAuthButton-->
+        <!--android:id="@+id/auth_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+        <com.app.traphoria.customViews.MyButtonViewSemi
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/mobile_num_rl"
@@ -64,92 +76,15 @@
             android:layout_marginRight="@dimen/margin_20dp"
             android:layout_marginTop="@dimen/margin_15dp"
             android:background="@drawable/purple_button_selector"
-            android:clickable="true">
+            android:text="@string/verify"
+            android:id="@+id/btn_verify"
+            android:textColor="@color/white"></com.app.traphoria.customViews.MyButtonViewSemi>
 
-            <com.digits.sdk.android.DigitsAuthButton
-                android:id="@+id/auth_button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                 />
 
-            <com.app.traphoria.customViews.MyTextView18
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@null"
-                android:padding="@dimen/round_btn_padding"
-                android:text="@string/send_code"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:visibility="gone" />
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
 
     </RelativeLayout>
 
 
-    <RelativeLayout
-        android:id="@+id/verification_code_form"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/alert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="@string/verify_alert"
-            android:textColor="@color/dark_blue_alpha"
-            android:textSize="@dimen/text_size_14sp" />
-
-        <RelativeLayout
-            android:id="@+id/code_rl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/alert"
-            android:layout_marginLeft="@dimen/margin_20dp"
-            android:layout_marginRight="@dimen/margin_20dp"
-            android:layout_marginTop="@dimen/margin_10dp"
-            android:background="@drawable/dark_blue_button_selector">
-
-            <com.app.traphoria.customViews.MyEditTextView
-                android:id="@+id/code_et"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@null"
-                android:gravity="center"
-                android:hint="@string/enter_verification"
-                android:inputType="number"
-                android:padding="@dimen/round_btn_padding"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/text_size_18sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/verify_btn_rl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/code_rl"
-            android:layout_marginLeft="@dimen/margin_20dp"
-            android:layout_marginRight="@dimen/margin_20dp"
-            android:layout_marginTop="@dimen/margin_15dp"
-            android:background="@drawable/purple_button_selector"
-            android:clickable="true">
-
-            <com.app.traphoria.customViews.MyTextView18
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@null"
-                android:padding="@dimen/round_btn_padding"
-                android:text="@string/verify"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
-        </RelativeLayout>
-
-    </RelativeLayout>
 </RelativeLayout>

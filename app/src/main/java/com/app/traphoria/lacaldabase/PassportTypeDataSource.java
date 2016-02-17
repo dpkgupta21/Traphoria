@@ -66,12 +66,12 @@ public class PassportTypeDataSource {
 
 
 
-    public PassportTypeDTO getWhereData(String name) {
+    public PassportTypeDTO getWhereData(String key,String value) {
         Iterator<PassportTypeDTO> iterator =null;
         try {
 
             QueryBuilder<PassportTypeDTO, String> queryBuilder = passportTypeDao.queryBuilder();
-            queryBuilder.where().eq("name", name.trim());
+            queryBuilder.where().eq(key, value);
             PreparedQuery<PassportTypeDTO> preparedQuery = queryBuilder.prepare();
 
             iterator =  passportTypeDao.query(preparedQuery).iterator();

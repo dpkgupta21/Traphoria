@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -22,7 +23,9 @@ import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.lacaldabase.CountryDataSource;
 import com.app.traphoria.lacaldabase.PassportTypeDataSource;
+import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportTypeDTO;
+import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.passportvisa.adapter.PassportTypeAdapter;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.trip.Dialog.DialogFragment;
@@ -32,6 +35,7 @@ import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
+import com.google.gson.Gson;
 
 import android.widget.DatePicker;
 
@@ -48,13 +52,18 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
     private View view;
 
     private String TAG = "ADD PASSPORT";
-    private String passportID ="";
+    private String passportID = "";
 
     public PassportFragment() {
     }
 
-    public static PassportFragment newInstance() {
+
+    public static PassportFragment newInstance(String id) {
         PassportFragment fragment = new PassportFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("id", id);
+        fragment.setArguments(bundle);
+
         return fragment;
     }
 
@@ -62,6 +71,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        passportID = getArguments().getString("id");
     }
 
     @Override
@@ -76,10 +86,14 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+        if (!passportID.equalsIgnoreCase("")) {
+            getPassPortDetails();
+        }
         setClick(R.id.passprt_type, view);
         setClick(R.id.passprt_country, view);
         setClick(R.id.txt_expiry, view);
-        setClick(R.id.save_btn,view);
+        setClick(R.id.save_btn, view);
 
     }
 
@@ -178,12 +192,12 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
             if (validateForm()) {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", WebserviceConstant.ADD_EDIT_PASSPORT);
-                params.put("country_id", new CountryDataSource(getActivity()).getWhereData(getViewText(R.id.passprt_country, view)).getId());
-                params.put("passport_type_id", new PassportTypeDataSource(getActivity()).getWhereData(getViewText(R.id.passprt_type, view)).getId());
+                params.put("country_id", new CountryDataSource(getActivity()).getWhereData("name", getViewText(R.id.passprt_country, view)).getId());
+                params.put("passport_type_id", new PassportTypeDataSource(getActivity()).getWhereData("name", getViewText(R.id.passprt_type, view)).getId());
                 params.put("passport_no", getViewText(R.id.passport_no_spinner, view));
                 params.put("expire_date", getViewText(R.id.txt_expiry, view));
                 params.put("user_id", PreferenceHelp.getUserId(getActivity()));
-                params.put("passport_id",passportID);
+                params.put("passport_id", passportID);
 
                 CustomProgressDialog.showProgDialog(getActivity(), null);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
@@ -194,10 +208,9 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
 
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
-                                        //openMemberFragment();
+                                        openUserVisaScreen();
                                     } else {
-                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
+                                        Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
                                     }
 
 
@@ -233,6 +246,72 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
 
     private boolean validateForm() {
         return true;
+    }
+
+
+    private void openUserVisaScreen() {
+        Intent intent = new Intent(getActivity(), NavigationDrawerActivity.class);
+        intent.putExtra("fragmentNumber", 2);
+        startActivity(intent);
+    }
+
+
+    private void getPassPortDetails() {
+
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.GET_PASSPORT_DETAILS);
+            params.put("passport_id", passportID);
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Utils.ShowLog(TAG, "Response -> " + response.toString());
+
+                            try {
+                                if (Utils.getWebServiceStatus(response)) {
+                                    PassportDTO passportDTO = new Gson().fromJson(response.getJSONObject("Passport").toString(), PassportDTO.class);
+                                    setPassportDetails(passportDTO);
+                                } else {
+                                    Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
+                                }
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+
+                            CustomProgressDialog.hideProgressDialog();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    CustomProgressDialog.hideProgressDialog();
+                    Utils.showExceptionDialog(getActivity());
+                }
+            });
+
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+
+    }
+
+    private void setPassportDetails(PassportDTO passportDetails) {
+        setViewText(R.id.passprt_country, new CountryDataSource(getActivity()).getWhereData("id", passportDetails.getCountry_id()).getName(), view);
+        setViewText(R.id.passprt_type, new PassportTypeDataSource(getActivity()).getWhereData("id", passportDetails.getPassport_type_id()).getName(), view);
+        setViewText(R.id.passport_no_spinner, passportDetails.getPassport_no(), view);
+        setViewText(R.id.txt_expiry, passportDetails.getExpire_date(), view);
+
+
     }
 
 }
