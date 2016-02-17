@@ -7,7 +7,10 @@ import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.model.PassportTypeDTO;
 import com.app.traphoria.model.VisaTypeDTO;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class VisaTypeDataSource {
@@ -59,6 +62,26 @@ public class VisaTypeDataSource {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public VisaTypeDTO getWhereData(String name) {
+        Iterator<VisaTypeDTO> iterator =null;
+        try {
+
+            QueryBuilder<VisaTypeDTO, String> queryBuilder = visaTypeDao.queryBuilder();
+            queryBuilder.where().eq("name", name.trim());
+            PreparedQuery<VisaTypeDTO> preparedQuery = queryBuilder.prepare();
+
+            iterator =  visaTypeDao.query(preparedQuery).iterator();
+            // notificationDurationDao.query()
+            // notificationDurationDao.queryBuilder().where().eq("name",name).q
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return iterator.next();
     }
 
 }

@@ -39,6 +39,7 @@ public class WebserviceConstant {
 
 
     public static String ADD_EDIT_PASSPORT="addeditpassport";
+    public static String ADD_EDIT_VISA ="addeditvisa";
 
 
 }

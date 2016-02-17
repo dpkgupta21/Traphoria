@@ -19,6 +19,8 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
+import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.lacaldabase.CountryDataSource;
 import com.app.traphoria.lacaldabase.PassportTypeDataSource;
 import com.app.traphoria.model.PassportTypeDTO;
 import com.app.traphoria.passportvisa.adapter.PassportTypeAdapter;
@@ -45,7 +47,9 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
 
     private View view;
 
-    private String TAG="ADD PASSPORT";
+    private String TAG = "ADD PASSPORT";
+    private String passportID ="";
+
     public PassportFragment() {
     }
 
@@ -75,6 +79,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
         setClick(R.id.passprt_type, view);
         setClick(R.id.passprt_country, view);
         setClick(R.id.txt_expiry, view);
+        setClick(R.id.save_btn,view);
 
     }
 
@@ -98,7 +103,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
                 break;
 
             case R.id.save_btn:
-                addPassport();
+                addPassport(passportID);
                 break;
         }
     }
@@ -167,27 +172,26 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
     }
 
 
-
-    private void addPassport()
-    {
+    private void addPassport(String passportID) {
         Utils.hideKeyboard(getActivity());
         if (Utils.isOnline(getActivity())) {
             if (validateForm()) {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", WebserviceConstant.ADD_EDIT_PASSPORT);
-                params.put("country_id", getViewText(R.id.passprt_country,view));
-                params.put("passport_type_id", getViewText(R.id.passprt_type,view));
-                params.put("passport_no", getViewText(R.id.passport_no_spinner,view));
-                params.put("expire_date", getViewText(R.id.txt_expiry,view));
+                params.put("country_id", new CountryDataSource(getActivity()).getWhereData(getViewText(R.id.passprt_country, view)).getId());
+                params.put("passport_type_id", new PassportTypeDataSource(getActivity()).getWhereData(getViewText(R.id.passprt_type, view)).getId());
+                params.put("passport_no", getViewText(R.id.passport_no_spinner, view));
+                params.put("expire_date", getViewText(R.id.txt_expiry, view));
                 params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+                params.put("passport_id",passportID);
 
-                final ProgressDialog pdialog = Utils.createProgressDialog(getActivity(), null, false);
+                CustomProgressDialog.showProgDialog(getActivity(), null);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
                                 Utils.ShowLog(TAG, "Response -> " + response.toString());
-                                pdialog.dismiss();
+
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
                                         // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
@@ -200,21 +204,23 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
+
+                                CustomProgressDialog.hideProgressDialog();
                             }
                         }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        pdialog.dismiss();
+                        CustomProgressDialog.hideProgressDialog();
                         Utils.showExceptionDialog(getActivity());
                     }
                 });
-                pdialog.show();
+
                 AppController.getInstance().getRequestQueue().add(postReq);
                 postReq.setRetryPolicy(new DefaultRetryPolicy(
                         30000, 0,
                         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-
+                CustomProgressDialog.showProgDialog(getActivity(), null);
 
             }
         } else {
@@ -225,8 +231,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
     }
 
 
-    private boolean validateForm()
-    {
+    private boolean validateForm() {
         return true;
     }
 

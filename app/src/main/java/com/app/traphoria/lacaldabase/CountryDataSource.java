@@ -8,7 +8,10 @@ import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.TripCountryDTO;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class CountryDataSource {
@@ -62,5 +65,25 @@ public class CountryDataSource {
         }
     }
 
+
+    public TripCountryDTO getWhereData(String name) {
+
+        Iterator<TripCountryDTO> iterator =null;
+        try {
+
+            QueryBuilder<TripCountryDTO, String> queryBuilder = countryDao.queryBuilder();
+            queryBuilder.where().eq("name", name.trim());
+            PreparedQuery<TripCountryDTO> preparedQuery = queryBuilder.prepare();
+
+             iterator =  countryDao.query(preparedQuery).iterator();
+            // notificationDurationDao.query()
+            // notificationDurationDao.queryBuilder().where().eq("name",name).q
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return iterator.next();
+    }
 
 }

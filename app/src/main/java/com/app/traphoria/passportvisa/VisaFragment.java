@@ -15,24 +15,40 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ListView;
 
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.app.traphoria.R;
+import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.lacaldabase.CountryDataSource;
 import com.app.traphoria.lacaldabase.PassportTypeDataSource;
 import com.app.traphoria.lacaldabase.VisaTypeDataSource;
 import com.app.traphoria.model.PassportTypeDTO;
 import com.app.traphoria.model.VisaTypeDTO;
 import com.app.traphoria.passportvisa.adapter.VisaTypeAdapter;
+import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.trip.Dialog.DialogFragment;
 import com.app.traphoria.trip.Dialog.FetchInterface;
 import com.app.traphoria.utility.BaseFragment;
+import com.app.traphoria.utility.Utils;
+import com.app.traphoria.volley.AppController;
+import com.app.traphoria.volley.CustomJsonRequest;
+import com.app.traphoria.webservice.WebserviceConstant;
+
+import org.json.JSONObject;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class VisaFragment extends BaseFragment implements FetchInterface {
 
     private View view;
 
+    private String visaID="";
     public VisaFragment() {
 
     }
@@ -64,6 +80,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
         setClick(R.id.visa_type, view);
         setClick(R.id.visa_country, view);
         setClick(R.id.visa_expire_on_tv, view);
+        setClick(R.id.save_btn, view);
 
     }
 
@@ -84,6 +101,10 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
                 break;
             case R.id.visa_expire_on_tv:
                 showCalendarDialog();
+                break;
+
+            case R.id.save_btn:
+                //addVisa(visaID);
                 break;
         }
     }
@@ -152,6 +173,69 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
     }
 
 
+
+//    private void addVisa(String passportID) {
+//        Utils.hideKeyboard(getActivity());
+//        if (Utils.isOnline(getActivity())) {
+//            if (validateForm()) {
+//                Map<String, String> params = new HashMap<>();
+//                params.put("action", WebserviceConstant.ADD_EDIT_PASSPORT);
+//                params.put("country_id", new CountryDataSource(getActivity()).getWhereData(getViewText(R.id.passprt_country, view)).getId());
+//                params.put("passport_type_id", new PassportTypeDataSource(getActivity()).getWhereData(getViewText(R.id.passprt_type, view)).getId());
+//                params.put("passport_no", getViewText(R.id.passport_no_spinner, view));
+//                params.put("expire_date", getViewText(R.id.txt_expiry, view));
+//                params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+//                params.put("passport_id",passportID);
+//
+//                CustomProgressDialog.showProgDialog(getActivity(), null);
+//                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+//                        new Response.Listener<JSONObject>() {
+//                            @Override
+//                            public void onResponse(JSONObject response) {
+//                                Utils.ShowLog(TAG, "Response -> " + response.toString());
+//
+//                                try {
+//                                    if (Utils.getWebServiceStatus(response)) {
+//                                        // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
+//                                        //openMemberFragment();
+//                                    } else {
+//                                        Utils.showDialog(getActivity(), "Error", Utils.getWebServiceMessage(response));
+//                                    }
+//
+//
+//                                } catch (Exception e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                                CustomProgressDialog.hideProgressDialog();
+//                            }
+//                        }, new Response.ErrorListener() {
+//
+//                    @Override
+//                    public void onErrorResponse(VolleyError error) {
+//                        CustomProgressDialog.hideProgressDialog();
+//                        Utils.showExceptionDialog(getActivity());
+//                    }
+//                });
+//
+//                AppController.getInstance().getRequestQueue().add(postReq);
+//                postReq.setRetryPolicy(new DefaultRetryPolicy(
+//                        30000, 0,
+//                        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+//                CustomProgressDialog.showProgDialog(getActivity(), null);
+//
+//            }
+//        } else {
+//            Utils.showNoNetworkDialog(getActivity());
+//        }
+//
+//
+//    }
+
+
+    private boolean validateForm() {
+        return true;
+    }
 
 
 

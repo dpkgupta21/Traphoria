@@ -8,10 +8,12 @@ import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.model.NotificationDurationDTO;
 import com.app.traphoria.model.TripCountryDTO;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.stmt.Where;
 
 import java.sql.SQLException;
+import java.util.Iterator;
 import java.util.List;
 
 public class NotificationDataSource {
@@ -67,13 +69,22 @@ public class NotificationDataSource {
 
 
     public NotificationDurationDTO getWhereData(String name) {
+        Iterator<NotificationDurationDTO> iterator =null;
         try {
-           // notificationDurationDao.query()
+
+            QueryBuilder<NotificationDurationDTO, String> queryBuilder = notificationDurationDao.queryBuilder();
+            queryBuilder.where().eq("name", name.trim());
+            PreparedQuery<NotificationDurationDTO> preparedQuery = queryBuilder.prepare();
+
+            iterator =  notificationDurationDao.query(preparedQuery).iterator();
+            // notificationDurationDao.query()
             // notificationDurationDao.queryBuilder().where().eq("name",name).q
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return iterator.next();
     }
 
 }

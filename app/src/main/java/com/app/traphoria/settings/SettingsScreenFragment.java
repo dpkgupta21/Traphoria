@@ -471,7 +471,8 @@ public class SettingsScreenFragment extends BaseFragment {
             params.put("is_location_service", tgl_location.isChecked() ? "true" : "false");
             params.put("is_trip_tracker", tgl_trip.isChecked() ? "true" : "false");
             params.put("family_contact", getViewText(R.id.sel, view) + getViewText(R.id.edt_number, view));
-           // params.put("notification_duration", new NotificationDataSource(getActivity()).getWhereData(getViewText(R.id.notification, view)).getId());
+            params.put("notification_duration", new NotificationDataSource(getActivity()).getWhereData(getViewText(R.id.notification, view)).getId());
+            params.put("countrycode", getViewText(R.id.sel, view));
             CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params, file,
                     new Response.Listener<JSONObject>() {
                         @Override

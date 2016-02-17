@@ -203,7 +203,7 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
                 vAdapter = new VisaAdapter(getActivity(), visaList);
                 vRecyclerView.setAdapter(vAdapter);
 
-                ((VisaAdapter) mAdapter).setOnItemClickListener(new VisaAdapter.MyClickListener() {
+                ((VisaAdapter) vAdapter).setOnItemClickListener(new VisaAdapter.MyClickListener() {
                     @Override
                     public void onItemClick(int position, View v) {
                         Intent i;
