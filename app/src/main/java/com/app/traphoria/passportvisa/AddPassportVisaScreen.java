@@ -57,8 +57,16 @@ public class AddPassportVisaScreen extends BaseActivity {
         if ((id != null && !id.equalsIgnoreCase("")) && (type != null && !type.equalsIgnoreCase(""))) {
 
             if (type.equalsIgnoreCase("P")) {
+                visa_btn.setBackground(getResources().getDrawable(R.drawable.grey_background));
+                visa_btn.setTextColor(getResources().getColor(R.color.black));
+                passport_btn.setBackground(getResources().getDrawable(R.drawable.purple_background));
+                passport_btn.setTextColor(getResources().getColor(R.color.white));
                 openFragment(0, id);
             } else {
+                visa_btn.setBackground(getResources().getDrawable(R.drawable.purple_background));
+                visa_btn.setTextColor(getResources().getColor(R.color.white));
+                passport_btn.setBackground(getResources().getDrawable(R.drawable.grey_background));
+                passport_btn.setTextColor(getResources().getColor(R.color.black));
                 openFragment(1, id);
             }
         } else {
