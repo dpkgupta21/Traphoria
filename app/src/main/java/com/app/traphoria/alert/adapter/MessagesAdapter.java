@@ -1,6 +1,8 @@
 package com.app.traphoria.alert.adapter;
 
 import android.app.Activity;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,18 +12,37 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
+import com.app.traphoria.model.MessageDTO;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
-/**
- * Created by Harish on 1/26/2016.
- */
+import java.util.List;
+
+
 public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.DetailsViewHolder> {
 
 
-    static Activity mActivity;
+    private Context context;
+    private List<MessageDTO> messageList;
+    private DisplayImageOptions options;
 
-    public MessagesAdapter(Activity mActivity) {
+    public MessagesAdapter(Context context, List<MessageDTO> messageList) {
 
-        this.mActivity = mActivity;
+        this.context = context;
+        this.messageList = messageList;
+        options = new DisplayImageOptions.Builder()
+                .resetViewBeforeLoading(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565)
+                .considerExifParams(true)
+                .displayer(new SimpleBitmapDisplayer())
+                .showImageOnLoading(R.drawable.slide_img)
+                .showImageOnFail(R.drawable.slide_img)
+                .showImageForEmptyUri(R.drawable.slide_img)
+                .build();
 
     }
 
@@ -37,31 +58,34 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Detail
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
 
+        ImageLoader.getInstance().displayImage(messageList.get(position).getImage(), holder.status_pin,
+                options);
+        holder.name.setText(messageList.get(position).getName());
+        holder.message_detail.setText(messageList.get(position).getMessage());
+        holder.date.setText(messageList.get(position).getTimestamp());
+
+
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return messageList.size();
     }
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder {
 
-        CardView cardView;
-        ImageView more_icon;
-        TextView name, message_detail, date, time;
+        ImageView status_pin;
+        TextView name, message_detail, date;
 
 
         public DetailsViewHolder(View itemView) {
 
             super(itemView);
 
-            cardView = (CardView) itemView.findViewById(R.id.card_view);
-            more_icon = (ImageView) itemView.findViewById(R.id.more_icon);
+            status_pin = (ImageView) itemView.findViewById(R.id.status_pin);
             name = (TextView) itemView.findViewById(R.id.name);
             message_detail = (TextView) itemView.findViewById(R.id.message_detail);
             date = (TextView) itemView.findViewById(R.id.date);
-            time = (TextView) itemView.findViewById(R.id.time);
-
 
         }
     }

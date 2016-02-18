@@ -1,4 +1,4 @@
-package com.app.traphoria.chat;
+package com.app.traphoria.member.adapter;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -8,33 +8,28 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import com.app.traphoria.R;
+import com.app.traphoria.model.MemberDTO;
+import com.app.traphoria.model.NotificationDurationDTO;
 
+import java.util.List;
 
-/**
- * Created by Harish on 12/16/2015.
- */
-public class ChatAdapter extends BaseAdapter {
+public class MemberListAdapter extends BaseAdapter {
 
 
     Activity mActivity;
     LayoutInflater mLayoutInflater;
+    List<MemberDTO> menuItemList;
 
-    ArrayList<String> menuItemList;
 
-
-    public ChatAdapter(Activity mActivity) {
+    public MemberListAdapter(Activity mActivity, List<MemberDTO> menuItemList) {
         this.mActivity = mActivity;
-
+        this.menuItemList = menuItemList;
         try {
             mLayoutInflater = (LayoutInflater) mActivity
                     .getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
 
-            menuItemList = new ArrayList<String>();
-            menuItemList.add("Abdul Nasseer (Son)");
-            menuItemList.add("Habib (Cook)");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -84,31 +79,25 @@ public class ChatAdapter extends BaseAdapter {
 
         ViewHolder holder = null;
         if (convertView == null) {
-            if (position % 2 == 0) {
-                convertView = mLayoutInflater.inflate(R.layout.chat_left_row_layout, parent, false);
-
-            } else {
-                convertView = mLayoutInflater.inflate(R.layout.chat_right_row_layout, parent, false);
-
-            }
+            convertView = mLayoutInflater.inflate(R.layout.dialog_row_layout, parent, false);
             holder = new ViewHolder();
-            holder.msg_tv = (TextView) convertView.findViewById(R.id.msg_tv);
-            holder.date = (TextView) convertView.findViewById(R.id.date);
-            holder.time = (TextView) convertView.findViewById(R.id.time);
-            holder.img_user_image = (ImageView) convertView.findViewById(R.id.img_user_image);
+
+            holder.textview = (TextView) convertView.findViewById(R.id.textview);
+            holder.select_img = (ImageView) convertView.findViewById(R.id.select_img);
             convertView.setTag(holder);
 
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
-
+        holder.textview.setText(menuItemList.get(position).getName());
         return convertView;
     }
 
 
     public class ViewHolder {
-        TextView msg_tv, date, time;
-        ImageView img_user_image;
+        TextView textview;
+        ImageView select_img;
     }
+
 }

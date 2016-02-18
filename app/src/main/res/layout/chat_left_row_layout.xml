@@ -65,7 +65,7 @@
                 android:layout_below="@+id/msg_tv"
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_toRightOf="@+id/date"
-                android:text="|"
+                android:text=""
                 android:textColor="@color/dark_grey"
                 />
 
@@ -77,7 +77,7 @@
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_toRightOf="@+id/view"
                 android:gravity="left"
-                android:text="05:00 PM"
+                android:text=""
                 android:textSize="@dimen/text_size_10sp"
                 android:textColor="@color/dark_grey"
                  />

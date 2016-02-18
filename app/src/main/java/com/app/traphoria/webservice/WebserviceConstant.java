@@ -12,6 +12,7 @@ public class WebserviceConstant {
     public static String ADD_MEMBER = "addmember";
     public static String GET_PASSPORT_VISA_DETAILS = "getUserPassportVisa";
     public static String GET_NOTIFICATION_LIST = "notifications";
+    public static String GET_MESSAGE_LIST = "inbox";
     public static String GET_RELATION_LIST = "relations";
     public static String DO_APPROVE_DECLINE_MEMBER = "adddeclinemember";
     public static String GET_TASK_LIST = "tasklist";
@@ -44,6 +45,9 @@ public class WebserviceConstant {
     public static String GET_PASSPORT_DETAILS = "getPassportdetail";
     public static String GET_VISA_DETAILS = "getVisadetail";
 
-    public static String GET_FREE_VISA_COUNTRIES="visafreedesiti";
+    public static String GET_FREE_VISA_COUNTRIES = "visafreedesiti";
+
+    public static String LOAD_MESSAGE = "loadMessage";
+    public static String SEND_MESSAGE = "sendMessage";
 
 }

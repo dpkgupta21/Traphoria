@@ -58,7 +58,7 @@
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:textSize="@dimen/text_size_10sp"
                 android:layout_toLeftOf="@+id/time"
-                android:text="|"
+                android:text=""
                 android:textColor="@color/dark_grey" />
 
             <com.app.traphoria.customViews.MyTextView10
@@ -70,7 +70,7 @@
                 android:layout_marginRight="@dimen/margin_20dp"
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:gravity="left"
-                android:text="05:00 PM"
+                android:text=""
                 android:textColor="@color/dark_grey"
                 android:textSize="@dimen/text_size_10sp" />
 

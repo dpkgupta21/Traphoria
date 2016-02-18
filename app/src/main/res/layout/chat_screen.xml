@@ -26,6 +26,18 @@
         android:dividerHeight="0dp"
         android:paddingBottom="@dimen/margin_10dp" />
 
+    <com.app.traphoria.customViews.MyTextView18
+        android:id="@+id/no_trip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_record_found"
+        android:textColor="@color/black"
+        android:textStyle="normal"
+        android:visibility="gone" />
+
+
+
     <LinearLayout
         android:id="@+id/bottom_msg_rl"
         android:layout_width="match_parent"

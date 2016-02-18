@@ -1,25 +1,41 @@
 package com.app.traphoria.member;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
+import com.app.traphoria.adapter.DialogAdapter;
 import com.app.traphoria.chat.ChatScreen;
 import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.lacaldabase.MemberDataSource;
+import com.app.traphoria.lacaldabase.NotificationDataSource;
+import com.app.traphoria.member.adapter.MemberListAdapter;
 import com.app.traphoria.member.adapter.MemberPassportAdapter;
+import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportVisaDTO;
 import com.app.traphoria.model.VisaDTO;
@@ -55,6 +71,8 @@ public class MembersScreenFragment extends BaseFragment {
     private RecyclerView.LayoutManager mLayoutManager;
     private View view;
     private List<PassportVisaDTO> passportVisaList;
+    private List<MemberDTO> memberList;
+    private Dialog mDialog = null;
 
     public MembersScreenFragment() {
     }
@@ -86,8 +104,8 @@ public class MembersScreenFragment extends BaseFragment {
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-
-        getPassportVisaDetails();
+        setTitleFragment();
+        getPassportVisaDetails(PreferenceHelp.getUserId(getActivity()));
         setClick(R.id.add_member, view);
         setClick(R.id.message_btn, view);
         setClick(R.id.track_btn, view);
@@ -144,12 +162,12 @@ public class MembersScreenFragment extends BaseFragment {
     }
 
 
-    private void getPassportVisaDetails() {
+    private void getPassportVisaDetails(String userID) {
 
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.GET_PASSPORT_VISA_DETAILS);
-            params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+            params.put("user_id", userID);
 
             CustomProgressDialog.showProgDialog(getActivity(), null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
@@ -242,6 +260,9 @@ public class MembersScreenFragment extends BaseFragment {
                 }
             }
 
+            if (mAdapter != null) {
+                mAdapter = null;
+            }
             mAdapter = new MemberPassportAdapter(passportVisaList, getActivity());
             mRecyclerView.setAdapter(mAdapter);
         } else {
@@ -251,4 +272,78 @@ public class MembersScreenFragment extends BaseFragment {
 
     }
 
+
+    protected void setTitleFragment() {
+        Toolbar mToolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.tool_bar);
+        ImageView downButton = ((ImageView) mToolbar.findViewById(R.id.down_btn));
+        downButton.setVisibility(View.VISIBLE);
+        downButton.setOnClickListener(memberListDialog);
+    }
+
+
+    View.OnClickListener memberListDialog = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            showDialog();
+        }
+    };
+
+
+    public void showDialog() {
+
+        try {
+            if (mDialog != null && mDialog.isShowing()) {
+                mDialog.dismiss();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        if (getActivity() != null) {
+            mDialog = new Dialog(getActivity(), R.style.DialogSlideAnim);
+            mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            LayoutInflater inflater = (LayoutInflater) getActivity()
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            final View view1 = inflater.inflate(R.layout.sliding_dialog, null,
+                    false);
+            mDialog.setContentView(view1);
+            mDialog.setCancelable(true);
+            mDialog.getWindow().setBackgroundDrawable(new ColorDrawable(0));
+            WindowManager.LayoutParams lp = mDialog.getWindow().getAttributes();
+            lp.dimAmount = 0.8f;
+            lp.gravity = Gravity.BOTTOM;
+            mDialog.getWindow().setAttributes(lp);
+
+            try {
+                final ListView listView = (ListView) mDialog
+                        .findViewById(R.id.listview);
+
+
+                memberList = new MemberDataSource(getActivity()).getMember();
+                final MemberListAdapter adapter = new MemberListAdapter(
+                        getActivity(), memberList);
+                listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(dialogNotificationListener);
+                mDialog.show();
+            } catch (WindowManager.BadTokenException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    AdapterView.OnItemClickListener dialogNotificationListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
+            mDialog.dismiss();
+            getPassportVisaDetails(memberList.get(i).getId());
+        }
+    };
+
+
 }
+
+

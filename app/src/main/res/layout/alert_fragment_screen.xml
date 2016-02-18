@@ -72,26 +72,12 @@
         </LinearLayout>
     </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/messages_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/top_selection_ll"
-        android:visibility="gone" />
-
-    <com.baoyz.swipemenulistview.SwipeMenuListView
-        android:id="@+id/notification_lv"
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/top_selection_ll" />
+        android:layout_below="@+id/top_selection_ll">
 
-    <com.app.traphoria.customViews.MyTextView18
-        android:id="@+id/no_trip_tv"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/no_record_found"
-        android:textColor="@color/black"
-        android:textStyle="normal" />
+    </FrameLayout>
+
 </RelativeLayout>
