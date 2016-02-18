@@ -390,8 +390,8 @@ public class SignUpScreen extends BaseActivity implements View.OnClickListener {
                 params.put("name", getViewText(R.id.edt_user_name));
                 params.put("mobile", mobNumber != null ? mobNumber : "");
                 params.put("mobie_countrycode", TraphoriaPreference.getCountryCode(mActivity));
-                params.put("lat", getViewText(R.id.edt_user_name));
-                params.put("lng", getViewText(R.id.edt_user_name));
+                params.put("lat", String.valueOf(TraphoriaPreference.getLatitude(mActivity)));
+                params.put("lng",  String.valueOf(TraphoriaPreference.getLongitude(mActivity)));
 
                 CustomProgressDialog.showProgDialog(mActivity, null);
                 CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,

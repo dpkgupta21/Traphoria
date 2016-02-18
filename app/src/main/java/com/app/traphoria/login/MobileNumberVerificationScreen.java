@@ -1,5 +1,6 @@
 package com.app.traphoria.login;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -14,6 +16,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.customViews.CustomSnackbar;
 import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
@@ -28,6 +31,7 @@ import com.digits.sdk.android.DigitsSession;
 
 import org.json.JSONObject;
 
+import java.net.ConnectException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,11 +40,13 @@ public class MobileNumberVerificationScreen extends BaseActivity {
     private static final String TAG = "MobileNumberVerificationScreen";
     private ImageView back_btn;
     private DigitsAuthButton digitsButton;
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mobile_number_verification_screen);
+        mContext=MobileNumberVerificationScreen.this;
         initViews();
         assignClicks();
     }
@@ -82,7 +88,7 @@ public class MobileNumberVerificationScreen extends BaseActivity {
 
                 //After Successful verification call Signup screen
                 Intent intent = new Intent(MobileNumberVerificationScreen.this, SignUpScreen.class);
-                intent.putExtra("MOBILE_NUMBER", TraphoriaPreference.getMobileNumber(MobileNumberVerificationScreen.this));
+                intent.putExtra("MOB_NUMBER", TraphoriaPreference.getMobileNumber(MobileNumberVerificationScreen.this));
                 startActivity(intent);
             }
         }
@@ -120,7 +126,9 @@ public class MobileNumberVerificationScreen extends BaseActivity {
 
 
                                 } else {
-                                    Utils.showDialog(MobileNumberVerificationScreen.this, "Error", Utils.getWebServiceMessage(response));
+                                    //Utils.showDialog(mContext, "Error", Utils.getWebServiceMessage(response));
+                                    Toast.makeText(mContext, ""+Utils.getWebServiceMessage(response),
+                                            Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(MobileNumberVerificationScreen.this, LandingScreen.class));
                                 }
                             } catch (Exception e) {

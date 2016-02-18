@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -63,7 +64,7 @@ public class VisaFreeCountryDetails extends BaseActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        String countryID = getIntent().getStringExtra("id");
+        String countryID = getIntent().getStringExtra("countryId");
         getFreeVisa(countryID);
 
 
@@ -96,11 +97,16 @@ public class VisaFreeCountryDetails extends BaseActivity {
                             Utils.ShowLog(TAG, "Response -> " + response.toString());
 
                             try {
-                                Type type = new TypeToken<ArrayList<FreeVisaCountryDTO>>() {
-                                }.getType();
-                                List<FreeVisaCountryDTO> list = new Gson().fromJson(response.getJSONArray("countries").toString(), type);
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Type type = new TypeToken<ArrayList<FreeVisaCountryDTO>>() {
+                                    }.getType();
+                                    List<FreeVisaCountryDTO> list = new Gson().
+                                            fromJson(response.getJSONArray("countries").toString(), type);
 
-                                setFreeVisaValues(list);
+                                    setFreeVisaValues(list);
+                                } else {
+
+                                }
 
 
                             } catch (Exception e) {
@@ -133,9 +139,15 @@ public class VisaFreeCountryDetails extends BaseActivity {
 
 
     private void setFreeVisaValues(List<FreeVisaCountryDTO> list) {
-        mAdapter = new FreeVisaCountryAdapter(this, list);
-        mRecyclerView.setAdapter(mAdapter);
+        if (list.size() > 0) {
+            mAdapter = new FreeVisaCountryAdapter(this, list);
+            mRecyclerView.setAdapter(mAdapter);
+        } else {
+            mRecyclerView.setVisibility(View.GONE);
+            TextView txt_free_visa = (TextView) findViewById(R.id.txt_free_visa);
+            txt_free_visa.setVisibility(View.VISIBLE);
 
+        }
 
     }
 }

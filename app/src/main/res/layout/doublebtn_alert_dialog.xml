@@ -33,7 +33,7 @@
             android:layout_marginRight="5dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:background="@drawable/purple_button_selector"
+            android:background="@drawable/alert_purple_selector"
             android:text="Cancel"
             android:textAllCaps="false"
             android:textColor="@color/white" />
@@ -45,7 +45,7 @@
             android:layout_marginLeft="5dp"
             android:layout_marginTop="15dp"
             android:layout_weight="1"
-            android:background="@drawable/purple_button_selector"
+            android:background="@drawable/alert_purple_selector"
             android:text="Ok"
             android:textAllCaps="false"
             android:textColor="@color/white" />

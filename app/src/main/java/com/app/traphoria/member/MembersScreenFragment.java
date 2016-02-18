@@ -2,7 +2,6 @@ package com.app.traphoria.member;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -28,7 +27,7 @@ import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.task.AddNewTaskScreen;
-import com.app.traphoria.view.TrackScreen;
+import com.app.traphoria.track.TrackScreen;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
@@ -123,10 +122,8 @@ public class MembersScreenFragment extends BaseFragment {
             case R.id.create_trip:
                 addMember();
                 break;
-
             case R.id.message_btn:
                 startActivity(new Intent(getActivity(), ChatScreen.class));
-
                 break;
             case R.id.track_btn:
                 startActivity(new Intent(getActivity(), TrackScreen.class));
@@ -134,8 +131,6 @@ public class MembersScreenFragment extends BaseFragment {
             case R.id.task_btn:
                 startActivity(new Intent(getActivity(), AddNewTaskScreen.class));
                 break;
-
-
             case R.id.add_member:
                 addMember();
                 break;

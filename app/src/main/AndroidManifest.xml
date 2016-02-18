@@ -68,7 +68,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
-            android:name=".view.TermsAndConditionScreen"
+            android:name=".termsandcondition.TermsAndConditionScreen"
             android:screenOrientation="portrait" />
         <activity
             android:name=".navigationDrawer.NavigationDrawerActivity"
@@ -121,12 +121,16 @@
             android:name=".search.FestivalEventDetailScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.TrackScreen"
+            android:name=".track.TrackScreen"
             android:screenOrientation="portrait" />
         <activity
             android:name=".search.TraditionScreen"
             android:screenOrientation="portrait" />
 
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
         <!-- Start Facebook -->
         <activity android:name="com.facebook.FacebookActivity" />
 

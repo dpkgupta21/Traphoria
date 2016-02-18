@@ -1,7 +1,6 @@
 package com.app.traphoria.lacaldabase;
 
 
-import android.app.Activity;
 import android.content.Context;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -9,8 +8,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.customViews.CustomProgressDialog;
-import com.app.traphoria.database.DatabaseHelper;
-import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.NotificationDurationDTO;
 import com.app.traphoria.model.PassportTypeDTO;
@@ -57,7 +54,6 @@ public class Handler implements Runnable {
         if (Utils.isOnline(mActivity)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.GET_RELATION_LIST);
-            params.put("address", "");
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -239,10 +235,7 @@ public class Handler implements Runnable {
         } else {
 
         }
-
-
     }
-
 
     private void getVisaType() {
         if (Utils.isOnline(mActivity)) {

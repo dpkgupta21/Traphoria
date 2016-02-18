@@ -139,8 +139,10 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
                                 Type type1 = new TypeToken<ArrayList<VisaDTO>>() {
                                 }.getType();
 
-                                passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
-                                visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
+                                passportList = new Gson().fromJson(
+                                        response.getJSONArray("Passport").toString(), type);
+                                visaList = new Gson().fromJson(
+                                        response.getJSONArray("Visa").toString(), type1);
                                 setPassportDetails(passportList, visaList);
                             } catch (Exception e) {
                                 setPassportDetails(passportList, visaList);
@@ -229,7 +231,7 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
                             break;
                         case R.id.explore:
                             intent = new Intent(getActivity(), VisaFreeCountryDetails.class);
-                            intent.putExtra("id", passportVisaList.get(position).getId());
+                            intent.putExtra("countryId", passportVisaList.get(position).getCountryID());
                             startActivity(intent);
                             break;
                         case R.id.btn_edit:

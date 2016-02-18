@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:layout_toLeftOf="@+id/edit_btn"
+            android:layout_toLeftOf="@+id/btn_edit"
             android:layout_toRightOf="@+id/type_tv"
             android:visibility="visible">
 
