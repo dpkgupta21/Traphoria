@@ -41,7 +41,6 @@
             android:hint="@string/email_add"
             android:inputType="textEmailAddress"
             android:padding="@dimen/round_btn_padding"
-            android:text="user01@gmail.com"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="@dimen/text_size_18sp" />
@@ -58,7 +57,6 @@
             android:hint="@string/pwd"
             android:inputType="textPassword"
             android:padding="@dimen/round_btn_padding"
-            android:text="123456"
             android:textColor="@color/white"
             android:textColorHint="@color/white"
             android:textSize="@dimen/text_size_18sp" />
