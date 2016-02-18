@@ -28,11 +28,9 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
-import com.app.traphoria.adapter.DialogAdapter;
 import com.app.traphoria.chat.ChatScreen;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.lacaldabase.MemberDataSource;
-import com.app.traphoria.lacaldabase.NotificationDataSource;
 import com.app.traphoria.member.adapter.MemberListAdapter;
 import com.app.traphoria.member.adapter.MemberPassportAdapter;
 import com.app.traphoria.model.MemberDTO;
@@ -40,10 +38,10 @@ import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportVisaDTO;
 import com.app.traphoria.model.VisaDTO;
 import com.app.traphoria.preference.PreferenceHelp;
-import com.app.traphoria.utility.BaseFragment;
-import com.app.traphoria.utility.Utils;
 import com.app.traphoria.task.AddNewTaskScreen;
 import com.app.traphoria.track.TrackScreen;
+import com.app.traphoria.utility.BaseFragment;
+import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
@@ -64,7 +62,7 @@ import java.util.Map;
 public class MembersScreenFragment extends BaseFragment {
 
 
-    private Toolbar mToolbar;
+    //private Toolbar mToolbar;
     private String TAG = "Member_Screen";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -73,6 +71,7 @@ public class MembersScreenFragment extends BaseFragment {
     private List<PassportVisaDTO> passportVisaList;
     private List<MemberDTO> memberList;
     private Dialog mDialog = null;
+    private TextView toolbarTitle;
 
     public MembersScreenFragment() {
     }
@@ -82,7 +81,7 @@ public class MembersScreenFragment extends BaseFragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.members_fragment, container, false);
-        mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
+        //mToolbar = (Toolbar) view.findViewById(R.id.tool_bar);
 
         return view;
 
@@ -137,9 +136,6 @@ public class MembersScreenFragment extends BaseFragment {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.create_trip:
-                addMember();
-                break;
             case R.id.message_btn:
                 startActivity(new Intent(getActivity(), ChatScreen.class));
                 break;
@@ -220,7 +216,7 @@ public class MembersScreenFragment extends BaseFragment {
 
         if (passportList != null & visaList != null) {
 
-
+            setViewVisibility(R.id.members_passport_recycler, view, View.VISIBLE);
             setViewVisibility(R.id.no_trip_rl, view, View.GONE);
             passportVisaList = new ArrayList<>();
             if (passportList != null && passportList.size() != 0) {
@@ -275,6 +271,8 @@ public class MembersScreenFragment extends BaseFragment {
 
     protected void setTitleFragment() {
         Toolbar mToolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.tool_bar);
+        toolbarTitle = ((TextView) mToolbar.findViewById(R.id.toolbar_title));
+
         ImageView downButton = ((ImageView) mToolbar.findViewById(R.id.down_btn));
         downButton.setVisibility(View.VISIBLE);
         downButton.setOnClickListener(memberListDialog);
@@ -339,6 +337,7 @@ public class MembersScreenFragment extends BaseFragment {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
             mDialog.dismiss();
+            toolbarTitle.setText(memberList.get(i).getName());
             getPassportVisaDetails(memberList.get(i).getId());
         }
     };
