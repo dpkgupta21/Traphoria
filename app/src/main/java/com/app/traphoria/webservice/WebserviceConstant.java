@@ -20,6 +20,7 @@ public class WebserviceConstant {
     public static String ADD_TASK = "addtask";
     public static String GET_TRIP_DATA = "tripdata";
     public static String GET_TRIP_LIST = "triplist";
+    public static String ADD_TRIP = "addtrip";
     public static String GET_SEARCH = "usersearch";
     public static String GET_COUNTRY_DETAILS = "countrydetail";
     public static String GET_TOP_DESTINATIONS = "topdestinationlist";

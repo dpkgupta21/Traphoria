@@ -27,7 +27,7 @@
                 <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/select_country"
                     android:textColor="@color/black" />
@@ -36,10 +36,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/grey_background"
-                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingBottom="@dimen/margin_10dp"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
-                    android:paddingTop="@dimen/margin_15dp">
+                    android:paddingTop="@dimen/margin_10dp">
 
                     <com.app.traphoria.customViews.MyTextView18
                         android:id="@+id/visa_country"
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
                         android:drawableRight="@drawable/down_btn"
-                        android:text="@string/select"
+                        android:hint="@string/select"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
@@ -55,7 +55,7 @@
                 <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/visa_type"
                     android:textColor="@color/black" />
@@ -64,10 +64,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/grey_background"
-                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingBottom="@dimen/margin_10dp"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
-                    android:paddingTop="@dimen/margin_15dp">
+                    android:paddingTop="@dimen/margin_10dp">
 
                     <com.app.traphoria.customViews.MyTextView18
                         android:id="@+id/visa_type"
@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
                         android:drawableRight="@drawable/down_btn"
-                        android:text="@string/select"
+                        android:hint="@string/select"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
@@ -83,7 +83,7 @@
                 <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/entry_type"
                     android:textColor="@color/black" />
@@ -93,10 +93,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/grey_background"
-                    android:paddingBottom="@dimen/margin_15dp"
+                    android:paddingBottom="@dimen/margin_10dp"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
-                    android:paddingTop="@dimen/margin_15dp">
+                    android:paddingTop="@dimen/margin_10dp">
 
                     <com.app.traphoria.customViews.MyTextView18
                         android:id="@+id/visa_entry_country"
@@ -104,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/grey_background"
                         android:drawableRight="@drawable/down_btn"
-                        android:text="@string/select"
+                        android:hint="@string/select"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
@@ -113,7 +113,7 @@
                 <com.app.traphoria.customViews.MyTextView16
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_5dp"
                     android:padding="@dimen/margin_10dp"
                     android:text="@string/expire_on"
                     android:textColor="@color/black" />
@@ -126,11 +126,11 @@
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/calender_btn"
                     android:gravity="center_vertical"
-                    android:paddingBottom="@dimen/margin_15dp"
+                    android:hint="@string/dd_mm_yyyy"
+                    android:paddingBottom="@dimen/margin_10dp"
                     android:paddingLeft="@dimen/margin_10dp"
                     android:paddingRight="@dimen/margin_10dp"
-                    android:paddingTop="@dimen/margin_15dp"
-                    android:text="@string/passport"
+                    android:paddingTop="@dimen/margin_10dp"
                     android:textColor="@color/text_color_selector" />
 
             </LinearLayout>

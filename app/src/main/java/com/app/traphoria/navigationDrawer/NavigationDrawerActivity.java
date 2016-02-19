@@ -170,7 +170,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             case 5:
                 down_btn.setVisibility(View.VISIBLE);
                 fragment = new MembersScreenFragment();
-                title = "Abdul Naseer";
+                title = PreferenceHelp.getUserName(this);
                 break;
             case 6:
                 fragment = new LocationScreenFragment();

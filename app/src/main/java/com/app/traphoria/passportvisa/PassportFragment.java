@@ -245,6 +245,22 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
 
 
     private boolean validateForm() {
+
+        if (getViewText(R.id.passprt_country, view).equals("")) {
+            Utils.customDialog("Please select country", getActivity());
+            return false;
+        } else if (getViewText(R.id.passprt_type, view).equals("")) {
+            Utils.customDialog("Please select passport type", getActivity());
+            return false;
+        } else if (getViewText(R.id.passport_no_spinner, view).equals("")) {
+            Utils.customDialog("Please enter passport number", getActivity());
+            return false;
+        } else if (getViewText(R.id.txt_expiry, view).equals("")) {
+            Utils.customDialog("Please enter expiry date", getActivity());
+            return false;
+        }
+
+
         return true;
     }
 

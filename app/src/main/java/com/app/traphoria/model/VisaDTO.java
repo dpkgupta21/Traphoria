@@ -1,16 +1,28 @@
 package com.app.traphoria.model;
 
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 public class VisaDTO implements Serializable {
+    @DatabaseField(generatedId = true)
+    private int localID;
+    @DatabaseField
     public String visa_id;
+    @DatabaseField
     public String country;
+    @DatabaseField
     public String country_id;
+    @DatabaseField
     public String visa_type;
+    @DatabaseField
     public String visa_type_id;
+    @DatabaseField
     public String entry_type;
+    @DatabaseField
     public String expire_date;
+    @DatabaseField
     public String country_image;
 
     public String getVisa_id() {

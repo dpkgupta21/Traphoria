@@ -176,9 +176,11 @@ public class MyTripListScreenFragment extends BaseFragment {
             mRecyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), mRecyclerView, new MyOnClickListener() {
                 @Override
                 public void onRecyclerClick(View view, int position) {
-                    Intent intent = new Intent(getActivity(), MyTripGroupDetailsScreen.class);
-                    intent.putExtra("tripID", tripList.get(position).getTrip_id());
-                    startActivity(intent);
+                    if (tripList.get(position).getTrip_type().equalsIgnoreCase("2")) {
+                        Intent intent = new Intent(getActivity(), MyTripGroupDetailsScreen.class);
+                        intent.putExtra("tripID", tripList.get(position).getTrip_id());
+                        startActivity(intent);
+                    }
                 }
 
                 @Override

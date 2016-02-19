@@ -267,6 +267,21 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
 
 
     private boolean validateForm() {
+
+        if (getViewText(R.id.visa_country, view).equals("")) {
+            Utils.customDialog("Please select country", getActivity());
+            return false;
+        } else if (getViewText(R.id.visa_type, view).equals("")) {
+            Utils.customDialog("Please select visa type", getActivity());
+            return false;
+        } else if (getViewText(R.id.visa_entry_country, view).equals("")) {
+            Utils.customDialog("Please select entry type", getActivity());
+            return false;
+        } else if (getViewText(R.id.visa_expire_on_tv, view).equals("")) {
+            Utils.customDialog("Please enter expiry date", getActivity());
+            return false;
+        }
+
         return true;
     }
 

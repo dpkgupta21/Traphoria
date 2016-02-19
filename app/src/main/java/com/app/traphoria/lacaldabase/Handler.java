@@ -10,9 +10,11 @@ import com.android.volley.VolleyError;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.NotificationDurationDTO;
+import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportTypeDTO;
 import com.app.traphoria.model.RelationDTO;
 import com.app.traphoria.model.TripCountryDTO;
+import com.app.traphoria.model.VisaDTO;
 import com.app.traphoria.model.VisaTypeDTO;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.utility.Utils;
@@ -47,6 +49,7 @@ public class Handler implements Runnable {
         getNotificationDuration();
         getPassportType();
         getVisaType();
+        getPassportVisa();
     }
 
 
@@ -275,6 +278,52 @@ public class Handler implements Runnable {
     }
 
 
+    private void getPassportVisa() {
+
+        if (Utils.isOnline(mActivity)) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.GET_PASSPORT_VISA_DETAILS);
+            params.put("user_id", PreferenceHelp.getUserId(mActivity));
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            List<PassportDTO> passportList = null;
+                            List<VisaDTO> visaList = null;
+                            try {
+                                Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                Type type = new TypeToken<ArrayList<PassportDTO>>() {
+                                }.getType();
+
+                                Type type1 = new TypeToken<ArrayList<VisaDTO>>() {
+                                }.getType();
+
+
+                                passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
+                                visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
+                                insetPassportVisaDetails(passportList, visaList);
+                            } catch (Exception e) {
+                                insetPassportVisaDetails(passportList, visaList);
+                                e.printStackTrace();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Utils.showExceptionDialog(mActivity);
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        } else {
+
+        }
+
+    }
+
     private void insertRelationList(List<RelationDTO> list) {
 
         new RelationDataSource(mActivity).insertRelation(list);
@@ -301,5 +350,14 @@ public class Handler implements Runnable {
 
     private void insertVisaType(List<VisaTypeDTO> list) {
         new VisaTypeDataSource(mActivity).insertVisaType(list);
+    }
+
+    private void insetPassportVisaDetails(List<PassportDTO> passportList, List<VisaDTO> visaList) {
+        if (passportList != null && passportList.size() > 0) {
+            new PassportDataSource(mActivity).insertPassport(passportList);
+        }
+        if (visaList != null && visaList.size() > 0) {
+            new VisaDataSource(mActivity).insertVisa(visaList);
+        }
     }
 }

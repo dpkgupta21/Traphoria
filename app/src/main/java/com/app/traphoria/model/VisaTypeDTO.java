@@ -2,8 +2,10 @@ package com.app.traphoria.model;
 
 import com.j256.ormlite.field.DatabaseField;
 
+import java.io.Serializable;
 
-public class VisaTypeDTO {
+
+public class VisaTypeDTO implements Serializable {
 
     @DatabaseField(generatedId = true)
     private int localID;

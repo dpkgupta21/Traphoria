@@ -175,15 +175,12 @@ public class AddMemberScreen extends BaseActivity {
     public boolean validateForm() {
 
         if (getEditTextText(R.id.member_name).equals("")) {
-           // Utils.showDialog(this, "Message", "Please enter member name");
             Utils.customDialog("Please enter member name", this);
             return false;
         } else if (getTextViewText(R.id.relation).equals("")) {
-           // Utils.showDialog(this, "Message", "Please enter relation");
             Utils.customDialog("Please enter relation", this);
             return false;
         } else if (getEditTextText(R.id.register_mbl).equals("")) {
-           // Utils.showDialog(this, "Message", "Please enter phone number");
             Utils.customDialog("Please enter phone number", this);
             return false;
         }

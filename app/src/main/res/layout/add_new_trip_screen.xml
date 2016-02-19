@@ -19,7 +19,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_ll"
+        android:layout_above="@+id/btn_add_trip"
         android:layout_below="@+id/toolbar_ll"
         android:layout_marginBottom="@dimen/margin_10dp">
 
@@ -80,8 +80,8 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/down_btn"
-                    android:padding="@dimen/margin_15dp"
-                    android:text="@string/select"
+                    android:padding="@dimen/margin_10dp"
+                    android:hint="@string/select"
                     android:textColor="@color/black" />
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -100,7 +100,7 @@
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/calender_btn"
                     android:hint="DD-MM-YYYY"
-                    android:padding="@dimen/margin_15dp"
+                    android:padding="@dimen/margin_10dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/dark_grey"
                     android:textSize="@dimen/text_size_18sp" />
@@ -121,7 +121,7 @@
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/calender_btn"
                     android:hint="DD-MM-YYYY"
-                    android:padding="@dimen/margin_15dp"
+                    android:padding="@dimen/margin_10dp"
                     android:textColor="@color/black"
                     android:textColorHint="@color/dark_grey"
                     android:textSize="@dimen/text_size_18sp" />
@@ -142,8 +142,8 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/down_btn"
-                    android:padding="@dimen/margin_15dp"
-                    android:text="@string/select"
+                    android:padding="@dimen/margin_10dp"
+                    android:hint="@string/select"
                     android:textColor="@color/black" />
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -162,8 +162,8 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/down_btn"
-                    android:padding="@dimen/margin_15dp"
-                    android:text="@string/select"
+                    android:padding="@dimen/margin_10dp"
+                    android:hint="@string/select"
                     android:textColor="@color/black" />
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -184,8 +184,8 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/down_btn"
-                    android:padding="@dimen/margin_15dp"
-                    android:text="@string/select"
+                    android:padding="@dimen/margin_10dp"
+                    android:hint="@string/select"
                     android:textColor="@color/black"
                     android:visibility="gone" />
 
@@ -194,23 +194,14 @@
 
     </ScrollView>
 
-    <RelativeLayout
-        android:id="@+id/bottom_ll"
+
+    <com.app.traphoria.customViews.MyButtonViewSemi
+        android:id="@+id/btn_add_trip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@color/purple">
-
-        <com.app.traphoria.customViews.MyTextView18
-            android:id="@+id/save_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:padding="@dimen/margin_10dp"
-            android:text="@string/save"
-            android:textColor="@color/white" />
-
-
-    </RelativeLayout>
+        android:background="@color/purple"
+        android:text="@string/save"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

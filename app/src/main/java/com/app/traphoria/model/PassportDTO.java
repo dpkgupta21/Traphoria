@@ -1,23 +1,31 @@
 package com.app.traphoria.model;
 
 
+import com.j256.ormlite.field.DatabaseField;
+
 import java.io.Serializable;
 
 public class PassportDTO implements Serializable {
-
+    @DatabaseField(generatedId = true)
+    private int localID;
+    @DatabaseField
     public String passport_id;
+    @DatabaseField
     public String country;
+    @DatabaseField
     public String country_id;
+    @DatabaseField
     public String passport_type;
-    public String  passport_type_id;
+    @DatabaseField
+    public String passport_type_id;
+    @DatabaseField
     public String passport_no;
+    @DatabaseField
     public String expire_date;
+    @DatabaseField
     public String country_image;
+    @DatabaseField
     public String type;
-
-
-
-
 
 
     public String getPassport_type_id() {
@@ -35,7 +43,6 @@ public class PassportDTO implements Serializable {
     public void setCountry_id(String country_id) {
         this.country_id = country_id;
     }
-
 
 
     public String getPassport_id() {
