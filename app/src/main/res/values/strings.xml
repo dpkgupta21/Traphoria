@@ -156,5 +156,6 @@
     <string name="you_logout">You will be Logged out !!</string>
     <string name="ok_button">Ok</string>
     <string name="canceled">Cancel</string>
+    <string name="title_activity_track">Map</string>
 
 </resources>

@@ -1,0 +1,21 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=71:F0:F3:B6:C5:55:18:87:6A:65:4B:D7:2A:A1:1C:03:E1:0F:0B:E7%3Bcom.app.traphoria.track
+
+    You can also add your credentials to an existing key, using this line:
+    71:F0:F3:B6:C5:55:18:87:6A:65:4B:D7:2A:A1:1C:03:E1:0F:0B:E7;com.app.traphoria.track
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+       AIzaSyCzz7aBCjy20A1nrdqJHK6MS92789KGKWQ
+    </string>
+</resources>

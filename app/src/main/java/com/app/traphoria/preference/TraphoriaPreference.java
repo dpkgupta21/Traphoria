@@ -18,6 +18,7 @@ public class TraphoriaPreference {
     public static String PUSH_REGISTRATION_ID = "push_registration_id";
     public static final String LATITUDE = "LATITUDE";
     public static final String LONGITUDE = "LONGITUDE";
+    public static final String LOCATION_UPLOAD = "ADD_LOCATION";
 
     /**
      * This genric method use to put object into preference<br>
@@ -77,8 +78,6 @@ public class TraphoriaPreference {
     }
 
 
-
-
     public static String getCountryCode(Context context) {
         String countryCode = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
                 COUNTRY_CODE, "");
@@ -108,6 +107,7 @@ public class TraphoriaPreference {
         editor.putString(MOBILE_NUMBER, String.valueOf(mobileNumber));
         editor.apply();
     }
+
     public static String getPushRegistrationId(Context context) {
         String pushRegistrationId = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
                 PUSH_REGISTRATION_ID, "");
@@ -136,6 +136,20 @@ public class TraphoriaPreference {
                 LATITUDE, "0.0");
         return Double.parseDouble(latitude);
     }
+
+    public static void setLocationUpload(Context context, boolean flag) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(LOCATION_UPLOAD, flag);
+        editor.apply();
+    }
+
+    public static boolean getLocationUpload(Context context) {
+        boolean flag = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(LOCATION_UPLOAD, false);
+        return flag;
+    }
+
 
     public static void setLongitude(Context context, double latitude) {
         SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,

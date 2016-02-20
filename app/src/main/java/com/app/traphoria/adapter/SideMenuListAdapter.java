@@ -95,10 +95,10 @@ public class SideMenuListAdapter extends BaseAdapter {
 
         if (menuItemList != null) {
             holder.menu_item.setText(menuItemList.get(position));
-            if (menuItemList.get(position).equals("Alert")) {
-                holder.alert_count.setText("8");
-
-            }
+//            if (menuItemList.get(position).equals("Alert")) {
+//                holder.alert_count.setText("8");
+//
+//            }
 
         }
 //        if (position == 1) {

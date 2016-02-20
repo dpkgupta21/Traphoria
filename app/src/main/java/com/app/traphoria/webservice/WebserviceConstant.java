@@ -51,4 +51,7 @@ public class WebserviceConstant {
     public static String LOAD_MESSAGE = "loadMessage";
     public static String SEND_MESSAGE = "sendMessage";
 
+    public static String USER_LOCATION = "userlocationlist";
+    public static String ADD_LOCATION = "addlocation";
+
 }

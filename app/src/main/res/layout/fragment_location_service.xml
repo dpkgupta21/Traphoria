@@ -12,7 +12,7 @@
         <android.support.design.widget.TabLayout
             android:id="@+id/infotabs"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
+            android:layout_height="60dp"
             android:scrollbars="horizontal"
             app:tabGravity="fill"
             app:tabMode="fixed"

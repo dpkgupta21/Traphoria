@@ -121,12 +121,8 @@
             android:name=".search.FestivalEventDetailScreen"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".track.TrackScreen"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".search.TraditionScreen"
             android:screenOrientation="portrait" />
-
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
@@ -161,8 +157,14 @@
 
         <service android:name=".GCMIntentService" />
 
+        <receiver android:name="com.app.traphoria.track.receiver.LocationUpLoadReceiver"></receiver>
+
         <!-- End Push Notification -->
-        <activity android:name=".passportvisa.VisaFreeCountryDetails"></activity>
+        <activity android:name=".passportvisa.VisaFreeCountryDetails" />
+        <activity
+            android:name=".track.TrackActivity"
+            android:label="@string/title_activity_track"></activity>
+
     </application>
 
 </manifest>

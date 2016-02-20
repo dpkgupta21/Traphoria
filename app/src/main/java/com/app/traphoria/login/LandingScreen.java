@@ -24,6 +24,7 @@ import com.app.traphoria.model.UserDTO;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.TraphoriaPreference;
+import com.app.traphoria.track.receiver.LocationUpLoadReceiver;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -57,6 +58,7 @@ public class LandingScreen extends BaseActivity implements View.OnClickListener 
     private Activity mActivity;
     private CallbackManager callbackmanager;
     private AsyncTask<Void, Void, Void> mRegisterTask;
+    private LocationUpLoadReceiver locationUpLoadReceiver = new LocationUpLoadReceiver();
 
 
     @Override
@@ -71,6 +73,10 @@ public class LandingScreen extends BaseActivity implements View.OnClickListener 
         String pushRegistrationId = TraphoriaPreference.getPushRegistrationId(mActivity);
         if (pushRegistrationId == null || pushRegistrationId.equalsIgnoreCase("")) {
             registrationPushNotification();
+        }
+        if (!TraphoriaPreference.getLocationUpload(this)) {
+            locationUpLoadReceiver.setAlarm(this);
+            TraphoriaPreference.setLocationUpload(this, true);
         }
         GPSTracker gpsTracker = new GPSTracker(this);
     }

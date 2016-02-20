@@ -39,7 +39,7 @@ import com.app.traphoria.model.PassportVisaDTO;
 import com.app.traphoria.model.VisaDTO;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.task.AddNewTaskScreen;
-import com.app.traphoria.track.TrackScreen;
+import com.app.traphoria.track.TrackActivity;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -140,7 +140,7 @@ public class MembersScreenFragment extends BaseFragment {
                 startActivity(new Intent(getActivity(), ChatScreen.class));
                 break;
             case R.id.track_btn:
-                startActivity(new Intent(getActivity(), TrackScreen.class));
+                startActivity(new Intent(getActivity(), TrackActivity.class));
                 break;
             case R.id.task_btn:
                 startActivity(new Intent(getActivity(), AddNewTaskScreen.class));

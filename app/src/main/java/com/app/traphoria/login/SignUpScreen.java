@@ -33,6 +33,7 @@ import com.app.traphoria.camera.CameraChooseDialogFragment;
 import com.app.traphoria.camera.CameraSelectInterface;
 import com.app.traphoria.camera.GallerySelectInterface;
 import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.gps.GPSTracker;
 import com.app.traphoria.model.UserDTO;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.preference.PreferenceHelp;
@@ -130,6 +131,8 @@ public class SignUpScreen extends BaseActivity implements View.OnClickListener {
         if (pushRegistrationId == null || pushRegistrationId.equalsIgnoreCase("")) {
             //registrationPushNotification();
         }
+
+        GPSTracker gpsTracker = new GPSTracker(this);
     }
 
     View.OnClickListener signUpClick = new View.OnClickListener() {

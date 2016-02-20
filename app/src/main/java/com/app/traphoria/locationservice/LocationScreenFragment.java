@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
+import com.app.traphoria.gps.GPSTracker;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.utility.BaseFragment;
 
@@ -54,6 +55,7 @@ public class LocationScreenFragment extends BaseFragment{
         super.onActivityCreated(savedInstanceState);
         mActivity = NavigationDrawerActivity.mActivity;
 
+        GPSTracker gpsTracker = new GPSTracker(getActivity());
         viewpager = (ViewPager)view.findViewById(R.id.infoviewpager);
         setUpViewPager(viewpager);
 

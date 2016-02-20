@@ -33,7 +33,7 @@ public class GPSTracker implements ConnectionCallbacks,
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             MIN_TIME_BW_UPDATES / 2;
     private static final String TAG = "GPSTracker";
-    private final Activity mActivity;
+    private final Context mActivity;
     // Declaring a Location Manager
     protected LocationRequest mLocationRequest;
     // flag for GPS status
@@ -48,8 +48,8 @@ public class GPSTracker implements ConnectionCallbacks,
     private Location mCurrentLocation; // location
 
 
-    public GPSTracker(Activity mActivity) {
-        this.mActivity = mActivity;
+    public GPSTracker(Context context) {
+        this.mActivity = context;
         LocationManager manager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
         if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildGoogleApiClient();

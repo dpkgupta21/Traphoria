@@ -241,7 +241,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         ((TextView) navigationHeaderView.findViewById(R.id.txt_name)).setText(PreferenceHelp.getUserName(this));
 
 
-        ((TextView) navigationHeaderView.findViewById(R.id.txt_age_gender)).setText(PreferenceHelp.getUserAgeSex(this));
+        ((TextView) navigationHeaderView.findViewById(R.id.txt_age_gender)).setText(PreferenceHelp.getUserAgeSex(this).equalsIgnoreCase("M")?"Male":"Female");
         ImageView imageView = (ImageView) navigationHeaderView.findViewById(R.id.img_user_image);
         ImageLoader.getInstance().displayImage(PreferenceHelp.getUserImage(this), imageView,
                 options);

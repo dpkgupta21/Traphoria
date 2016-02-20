@@ -1,7 +1,5 @@
 package com.app.traphoria.locationservice;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,8 +7,19 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.app.traphoria.R;
+import com.app.traphoria.preference.TraphoriaPreference;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class EmbassyFragment extends Fragment {
+public class EmbassyFragment extends Fragment implements OnMapReadyCallback {
+
+    private View view;
+    private GoogleMap map;
 
     public EmbassyFragment() {
         // Required empty public constructor
@@ -32,23 +41,26 @@ public class EmbassyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_embassy, container, false);
+        view = inflater.inflate(R.layout.fragment_embassy, container, false);
+        return view;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
 
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
+        LatLng current = new LatLng(TraphoriaPreference.getLatitude(getActivity()), TraphoriaPreference.getLongitude(getActivity()));
+        map.addMarker(new MarkerOptions().position(current).icon(BitmapDescriptorFactory.fromResource(R.drawable.place_violet)));
+        map.moveCamera(CameraUpdateFactory.newLatLng(current));
     }
 
 
