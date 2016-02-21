@@ -18,8 +18,7 @@ public class LocationUpLoadReceiver extends WakefulBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        new UpLoadLocation(context).upload();
-
+        new UpLoadLocation(context);
 
 
     }

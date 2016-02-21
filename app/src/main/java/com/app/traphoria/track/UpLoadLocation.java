@@ -3,6 +3,8 @@ package com.app.traphoria.track;
 
 import android.app.Activity;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -25,6 +27,8 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class UpLoadLocation {
@@ -34,14 +38,17 @@ public class UpLoadLocation {
     public UpLoadLocation(Context context) {
         this.context = context;
         GPSTracker gpsTracker = new GPSTracker(context);
+        String address = getMyLocationAddress(TraphoriaPreference.getLatitude(context), TraphoriaPreference.getLongitude(context));
+        upload(address);
+
     }
 
-    public void upload() {
+    public void upload(String address) {
         if (Utils.isOnline(context)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.ADD_LOCATION);
             params.put("user_id", PreferenceHelp.getUserId(context));
-            params.put("address", "C-370 Malviya nagar Jaipur Raj 302022");
+            params.put("address", address);
             params.put("lat", "" + TraphoriaPreference.getLatitude(context));
             params.put("lng", "" + TraphoriaPreference.getLongitude(context));
 
@@ -71,5 +78,39 @@ public class UpLoadLocation {
         }
 
     }
+
+
+    public String getMyLocationAddress(double latitude, double longitude) {
+
+        String address = "";
+        Geocoder geocoder = new Geocoder(context, Locale.ENGLISH);
+
+        try {
+
+            //Place your latitude and longitude
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+
+            if (addresses != null) {
+
+                Address fetchedAddress = addresses.get(0);
+                StringBuilder strAddress = new StringBuilder();
+
+                for (int i = 0; i < fetchedAddress.getMaxAddressLineIndex(); i++) {
+                    strAddress.append(fetchedAddress.getAddressLine(i)).append(" ");
+                }
+
+                address = strAddress.toString();
+
+            } else
+                address = "No location found..!";
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+        return address;
+    }
+
 
 }
