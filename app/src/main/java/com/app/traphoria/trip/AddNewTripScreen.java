@@ -359,8 +359,8 @@ public class AddNewTripScreen extends BaseActivity implements FetchInterface {
                 params.put("action", WebserviceConstant.ADD_TRIP);
                 params.put("user_id", PreferenceHelp.getUserId(this));
                 params.put("country_id", new CountryDataSource(this).getWhereData("name", getTextViewText(R.id.select_country)).getId());
-                params.put("passport_id", new PassportDataSource(this).getWhereData("country", getTextViewText(R.id.select_passport)).getCountry_id());
-                params.put("visa_id", new VisaDataSource(this).getWhereData("country", getTextViewText(R.id.select_visa)).getCountry_id());
+                params.put("passport_id", new PassportDataSource(this).getWhereData("country", getTextViewText(R.id.select_passport)).getPassport_id());
+                params.put("visa_id", new VisaDataSource(this).getWhereData("country", getTextViewText(R.id.select_visa)).getVisa_id());
                 params.put("start_date", getTextViewText(R.id.start_date_et));
                 params.put("end_date", getTextViewText(R.id.end_date));
                 params.put("trip_type_id", tripType + "");
