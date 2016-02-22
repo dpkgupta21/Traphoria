@@ -57,7 +57,7 @@ public class MessageFragment extends BaseFragment {
         // Required empty public constructor
     }
 
-    public static MessageFragment newInstance() {
+       public static MessageFragment newInstance() {
         MessageFragment fragment = new MessageFragment();
 
         return fragment;

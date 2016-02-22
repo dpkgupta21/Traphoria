@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
-import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportVisaDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;

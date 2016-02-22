@@ -322,8 +322,11 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
     }
 
     private void setPassportDetails(PassportDTO passportDetails) {
-        setViewText(R.id.passprt_country, new CountryDataSource(getActivity()).getWhereData("id", passportDetails.getCountry_id()).getName(), view);
-        setViewText(R.id.passprt_type, new PassportTypeDataSource(getActivity()).getWhereData("id", passportDetails.getPassport_type_id()).getName(), view);
+        setViewText(R.id.passprt_country,
+                new CountryDataSource(getActivity()).
+                        getWhereData("id", passportDetails.getCountry_id()).getName(), view);
+        setViewText(R.id.passprt_type, new PassportTypeDataSource(getActivity()).
+                getWhereData("id", passportDetails.getPassport_type_id()).getName(), view);
         setViewText(R.id.passport_no_spinner, passportDetails.getPassport_no(), view);
         setViewText(R.id.txt_expiry, passportDetails.getExpire_date(), view);
 
