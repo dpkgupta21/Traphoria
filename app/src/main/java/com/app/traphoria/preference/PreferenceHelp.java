@@ -45,5 +45,23 @@ public class PreferenceHelp {
             return "";
     }
 
+    public static String getFamily(Context context) {
+        UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO);
+        if (userDTO != null)
+            return userDTO.getCountrycode()+userDTO.getFamily_contact();
+        else
+            return "";
+    }
+
+
+    public static String getEmergency(Context context) {
+        UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO);
+        if (userDTO != null)
+            return userDTO.getEmergency_number();
+        else
+            return "";
+    }
+
+
 
 }

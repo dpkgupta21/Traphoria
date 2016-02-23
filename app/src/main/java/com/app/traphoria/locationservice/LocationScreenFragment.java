@@ -104,7 +104,7 @@ public class LocationScreenFragment extends BaseFragment{
                 getString(R.string.hospital));
         infoViewPagerAdapter.addFragment(BankATMFragment.newInstance(),
                 getString(R.string.bank_atm));
-        infoViewPagerAdapter.addFragment(PolicaStnFragment.newInstance(),
+        infoViewPagerAdapter.addFragment(PoliceStnFragment.newInstance(),
                 getString(R.string.police_stn));
         viewpager.setAdapter(infoViewPagerAdapter);
     }

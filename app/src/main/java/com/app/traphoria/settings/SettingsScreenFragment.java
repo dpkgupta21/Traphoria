@@ -151,10 +151,14 @@ public class SettingsScreenFragment extends BaseFragment {
         ImageView imageView = (ImageView) view.findViewById(R.id.img_user_image);
         ImageLoader.getInstance().displayImage(userDTO.getImage(), imageView,
                 options);
-
         setViewText(R.id.edt_user_name, userDTO.getName(), view);
         setViewText(R.id.edt_dob, userDTO.getDob(), view);
         setViewText(R.id.gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
+        setViewText(R.id.sel, userDTO.getCountrycode(), view);
+        setViewText(R.id.edt_number, userDTO.getFamily_contact(), view);
+
+        setViewText(R.id.notification, userDTO.getNotification_duration(), view);
+
         if (userDTO.is_location_service()) {
 
             tgl_location.setChecked(true);
@@ -467,7 +471,6 @@ public class SettingsScreenFragment extends BaseFragment {
             params.put("dob", getViewText(R.id.edt_dob, view));
             params.put("gender", getViewText(R.id.gender, view).equals("Male") ? "M" : "F");
             params.put("location", "");
-            params.put("is_push_alert", "");
             params.put("is_location_service", tgl_location.isChecked() ? "true" : "false");
             params.put("is_trip_tracker", tgl_trip.isChecked() ? "true" : "false");
             params.put("family_contact", getViewText(R.id.sel, view) + getViewText(R.id.edt_number, view));

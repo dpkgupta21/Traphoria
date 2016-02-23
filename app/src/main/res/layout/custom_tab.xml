@@ -5,4 +5,4 @@
     android:id="@+id/tab"
     android:textColor="@color/white"
     android:fontFamily="@string/font_fontFamily_medium"
-    android:textSize="12sp" />
+    android:textSize="13sp" />

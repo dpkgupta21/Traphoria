@@ -146,8 +146,7 @@ public class MyTripGroupDetailsScreen extends BaseActivity {
     }
 
 
-    private void setTripDetails()
-    {
+    private void setTripDetails() {
 
 
         if (!tripDetails.getTrip_type().equalsIgnoreCase("1")) {
@@ -159,11 +158,14 @@ public class MyTripGroupDetailsScreen extends BaseActivity {
         setTextViewText(R.id.dest_name, tripDetails.getCountry_name());
         setTextViewText(R.id.date, tripDetails.getStart_date() + " - " + tripDetails.getEnd_date());
         setTextViewText(R.id.expiry, "Visa Expires on: " + tripDetails.getExpire_date());
-        ImageView imageView = (ImageView)findViewById(R.id.thumbnail);
-        ImageLoader.getInstance().displayImage(tripDetails.getCountry_image(),imageView,
+        ImageView imageView = (ImageView) findViewById(R.id.thumbnail);
+        ImageLoader.getInstance().displayImage(tripDetails.getCountry_image(), imageView,
                 options);
-        mViewTripGroupDetailsAdapter = new ViewTripGroupDetailsAdapter(tripDetails.getTrip_users(),this);
-        recyclerView.setAdapter(mViewTripGroupDetailsAdapter);
+
+        if (tripDetails.getTrip_users() != null && tripDetails.getTrip_users().size() > 0) {
+            mViewTripGroupDetailsAdapter = new ViewTripGroupDetailsAdapter(tripDetails.getTrip_users(), this);
+            recyclerView.setAdapter(mViewTripGroupDetailsAdapter);
+        }
     }
 
 

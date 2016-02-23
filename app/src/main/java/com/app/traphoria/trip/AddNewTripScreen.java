@@ -419,6 +419,10 @@ public class AddNewTripScreen extends BaseActivity implements FetchInterface {
         } else if (getTextViewText(R.id.end_date).equals("")) {
             Utils.customDialog("Please enter end date", this);
             return false;
+
+        } else if (!Utils.isFromDateGreater(getTextViewText(R.id.start_date_et), getTextViewText(R.id.end_date))) {
+            Utils.customDialog("Trip start date should be less then trip end date", this);
+            return false;
         } else if (getTextViewText(R.id.select_passport).equals("")) {
             Utils.customDialog("Please select passport", this);
             return false;

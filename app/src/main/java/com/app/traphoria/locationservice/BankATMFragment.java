@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +46,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BankATMFragment extends BaseFragment implements OnMapReadyCallback {
+public class BankATMFragment extends BaseFragment {
 
     private View view;
     private GoogleMap map;
     private List<NearBYLocationDTO> list;
+    private MapView mapview;
 
     public BankATMFragment() {
         // Required empty public constructor
@@ -70,8 +73,16 @@ public class BankATMFragment extends BaseFragment implements OnMapReadyCallback 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_bank_atm, container, false);
 
+        mapview = (MapView) view.findViewById(R.id.bank_map);
+        mapview.onCreate(savedInstanceState);
+        map = mapview.getMap();
+        map.getUiSettings().setMyLocationButtonEnabled(false);
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.getUiSettings().setMapToolbarEnabled(false);
+        MapsInitializer.initialize(this.getActivity());
         return view;
     }
 
@@ -79,19 +90,16 @@ public class BankATMFragment extends BaseFragment implements OnMapReadyCallback 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         getBankATMList(TraphoriaPreference.getLatitude(getActivity()) + "", TraphoriaPreference.getLongitude(getActivity()) + "", "atm");
+
 
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-
+    public void onMapReady() {
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 LatLng location = new LatLng(Double.parseDouble(list.get(i).getGeometry().getLocation().getLat()), Double.parseDouble(list.get(i).getGeometry().getLocation().getLng()));
-                map.addMarker(new MarkerOptions().position(location).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_atm_icon_copy_2)).title(list.get(i).getName()+"\n"+list.get(i).getVicinity()));
+                map.addMarker(new MarkerOptions().position(location).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_atm_icon_copy_2)).title(list.get(i).getName()));
 
             }
 
@@ -100,7 +108,7 @@ public class BankATMFragment extends BaseFragment implements OnMapReadyCallback 
 
         LatLng current = new LatLng(TraphoriaPreference.getLatitude(getActivity()), TraphoriaPreference.getLongitude(getActivity()));
         map.addMarker(new MarkerOptions().position(current).icon(BitmapDescriptorFactory.fromResource(R.drawable.place_violet)));
-        map.moveCamera(CameraUpdateFactory.newLatLng(current));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 14));
     }
 
 
@@ -108,7 +116,7 @@ public class BankATMFragment extends BaseFragment implements OnMapReadyCallback 
         if (Utils.isOnline(getActivity())) {
 
             CustomProgressDialog.showProgDialog(getActivity(), null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.GET, Utils.locationUrl(lat, lng, type, "500"), null,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.GET, Utils.locationUrl(lat, lng, type, "5000"), null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -149,10 +157,29 @@ public class BankATMFragment extends BaseFragment implements OnMapReadyCallback 
 
 
     private void setList() {
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.bank_map);
-        mapFragment.getMapAsync(this);
+        onMapReady();
 
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapview.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapview.onPause();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapview.onDestroy();
+    }
+
+
 }

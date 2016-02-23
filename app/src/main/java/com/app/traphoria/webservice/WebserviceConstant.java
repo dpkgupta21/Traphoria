@@ -54,4 +54,6 @@ public class WebserviceConstant {
     public static String USER_LOCATION = "userlocationlist";
     public static String ADD_LOCATION = "addlocation";
 
+    public static String GET_EMBASSY ="embassy";
+
 }

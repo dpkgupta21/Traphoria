@@ -60,155 +60,159 @@ public class ExpandViewListView extends ListView {
             }
         }
     };
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void collapseView(final View view) {
         final ExpandListItem viewObject = (ExpandListItem) getItemAtPosition
                 (getPositionForView(view));
 
-        /* Store the original top and bottom bounds of all the cells.*/
-        final int oldTop = view.getTop();
-        final int oldBottom = view.getBottom();
 
-        final HashMap<View, int[]> oldCoordinates = new HashMap<View, int[]>();
-
-        int childCount = getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View v = getChildAt(i);
-            v.setHasTransientState(true);
-            oldCoordinates.put(v, new int[]{v.getTop(), v.getBottom()});
-        }
-
-        /* Update the layout so the extra content becomes invisible.*/
-        view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
-                LayoutParams.WRAP_CONTENT));
-
-         /* Add an onPreDraw listener. */
-        final ViewTreeObserver observer = getViewTreeObserver();
-        observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-            @Override
-            public boolean onPreDraw() {
-
-                if (!mRemoveObserver) {
-                    /*Same as for expandingView, the parameters for setSelectionFromTop must
-                    * be determined such that the necessary cells of the ListView are rendered
-                    * and added to it.*/
-                    mRemoveObserver = true;
-
-                    int newTop = view.getTop();
-                    int newBottom = view.getBottom();
-
-                    int newHeight = newBottom - newTop;
-                    int oldHeight = oldBottom - oldTop;
-                    int deltaHeight = oldHeight - newHeight;
-
-                    mTranslate = getTopAndBottomTranslations(oldTop, oldBottom, deltaHeight, false);
-
-                    int currentTop = view.getTop();
-                    int futureTop = oldTop + mTranslate[0];
-
-                    int firstChildStartTop = getChildAt(0).getTop();
-                    int firstVisiblePosition = getFirstVisiblePosition();
-                    int deltaTop = currentTop - futureTop;
-
-                    int i;
-                    int childCount = getChildCount();
-                    for (i = 0; i < childCount; i++) {
-                        View v = getChildAt(i);
-                        int height = v.getBottom() - Math.max(0, v.getTop());
-                        if (deltaTop - height > 0) {
-                            firstVisiblePosition++;
-                            deltaTop -= height;
-                        } else {
-                            break;
-                        }
-                    }
-
-                    if (i > 0) {
-                        firstChildStartTop = 0;
-                    }
-
-                    setSelectionFromTop(firstVisiblePosition, firstChildStartTop - deltaTop);
-
-                    requestLayout();
-
-                    return false;
-                }
-
-                mRemoveObserver = false;
-                observer.removeOnPreDrawListener(this);
-
-                int yTranslateTop = mTranslate[0];
-                int yTranslateBottom = mTranslate[1];
-
-                int index = indexOfChild(view);
-                int childCount = getChildCount();
-                for (int i = 0; i < childCount; i++) {
-                    View v = getChildAt(i);
-                    int[] old = oldCoordinates.get(v);
-                    if (old != null) {
-                        /* If the cell was present in the ListView before the collapse and
-                        * after the collapse then the bounds are reset to their old values.*/
-                        v.setTop(old[0]);
-                        v.setBottom(old[1]);
-                        v.setHasTransientState(false);
-                    } else {
-                        /* If the cell is present in the ListView after the collapse but
-                         * not before the collapse then the bounds are calculated using
-                         * the bottom and top translation of the collapsing cell.*/
-                        int delta = i > index ? yTranslateBottom : -yTranslateTop;
-                        v.setTop(v.getTop() + delta);
-                        v.setBottom(v.getBottom() + delta);
-                    }
-                }
-
-                final View expandingLayout = view.findViewById(R.id.expanding_layout);
-
-                /* Animates all the cells present on the screen after the collapse. */
-                ArrayList<Animator> animations = new ArrayList<Animator>();
-                for (int i = 0; i < childCount; i++) {
-                    View v = getChildAt(i);
-                    if (v != view) {
-                        float diff = i > index ? -yTranslateBottom : yTranslateTop;
-                        animations.add(getAnimation(v, diff, diff));
-                    }
-                }
-
-
-                /* Adds animation for collapsing the cell that was clicked. */
-                animations.add(getAnimation(view, yTranslateTop, -yTranslateBottom));
-
-                /* Adds an animation for fading out the extra content. */
-                animations.add(ObjectAnimator.ofFloat(expandingLayout, View.ALPHA, 1, 0));
-
-                /* Disabled the ListView for the duration of the animation.*/
-                setEnabled(false);
-                setClickable(false);
-
-                /* Play all the animations created above together at the same time. */
-                AnimatorSet s = new AnimatorSet();
-                s.playTogether(animations);
-                s.addListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        expandingLayout.setVisibility(View.GONE);
-                        view.setLayoutParams(new LayoutParams(
-                                LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-                        viewObject.setExpand(false);
-                        setEnabled(true);
-                        setClickable(true);
-                        /* Note that alpha must be set back to 1 in case this view is reused
-                        * by a cell that was expanded, but not yet collapsed, so its state
-                        * should persist in an expanded state with the extra content visible.*/
-                        expandingLayout.setAlpha(1);
-                    }
-                });
-                s.start();
-
-                return true;
-            }
-        });
+        final View expandingLayout = view.findViewById(R.id.expanding_layout);
+        expandingLayout.setVisibility(GONE);
+        viewObject.setExpand(false);
+//        /* Store the original top and bottom bounds of all the cells.*/
+//        final int oldTop = view.getTop();
+//        final int oldBottom = view.getBottom();
+//
+//        final HashMap<View, int[]> oldCoordinates = new HashMap<View, int[]>();
+//
+//        int childCount = getChildCount();
+//        for (int i = 0; i < chibiographyldCount; i++) {
+//            View v = getChildAt(i);
+//            v.setHasTransientState(true);
+//            oldCoordinates.put(v, new int[]{v.getTop(), v.getBottom()});
+//        }
+//
+//        /* Update the layout so the extra content becomes invisible.*/
+//        view.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+//                LayoutParams.WRAP_CONTENT));
+//
+//         /* Add an onPreDraw listener. */
+//        final ViewTreeObserver observer = getViewTreeObserver();
+//        observer.addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//
+//            @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+//            @Override
+//            public boolean onPreDraw() {
+//
+//                if (!mRemoveObserver) {
+//                    /*Same as for expandingView, the parameters for setSelectionFromTop must
+//                    * be determined such that the necessary cells of the ListView are rendered
+//                    * and added to it.*/
+//                    mRemoveObserver = true;
+//
+//                    int newTop = view.getTop();
+//                    int newBottom = view.getBottom();
+//
+//                    int newHeight = newBottom - newTop;
+//                    int oldHeight = oldBottom - oldTop;
+//                    int deltaHeight = oldHeight - newHeight;
+//
+//                    mTranslate = getTopAndBottomTranslations(oldTop, oldBottom, deltaHeight, false);
+//
+//                    int currentTop = view.getTop();
+//                    int futureTop = oldTop + mTranslate[0];
+//
+//                    int firstChildStartTop = getChildAt(0).getTop();
+//                    int firstVisiblePosition = getFirstVisiblePosition();
+//                    int deltaTop = currentTop - futureTop;
+//
+//                    int i;
+//                    int childCount = getChildCount();
+//                    for (i = 0; i < childCount; i++) {
+//                        View v = getChildAt(i);
+//                        int height = v.getBottom() - Math.max(0, v.getTop());
+//                        if (deltaTop - height > 0) {
+//                            firstVisiblePosition++;
+//                            deltaTop -= height;
+//                        } else {
+//                            break;
+//                        }
+//                    }
+//
+//                    if (i > 0) {
+//                        firstChildStartTop = 0;
+//                    }
+//
+//                    setSelectionFromTop(firstVisiblePosition, firstChildStartTop - deltaTop);
+//
+//                    requestLayout();
+//
+//                    return false;
+//                }
+//
+//                mRemoveObserver = false;
+//                observer.removeOnPreDrawListener(this);
+//
+//                int yTranslateTop = mTranslate[0];
+//                int yTranslateBottom = mTranslate[1];
+//
+//                int index = indexOfChild(view);
+//                int childCount = getChildCount();
+//                for (int i = 0; i < childCount; i++) {
+//                    View v = getChildAt(i);
+//                    int[] old = oldCoordinates.get(v);
+//                    if (old != null) {
+//                        /* If the cell was present in the ListView before the collapse and
+//                        * after the collapse then the bounds are reset to their old values.*/
+//                        v.setTop(old[0]);
+//                        v.setBottom(old[1]);
+//                        v.setHasTransientState(false);
+//                    } else {
+//                        /* If the cell is present in the ListView after the collapse but
+//                         * not before the collapse then the bounds are calculated using
+//                         * the bottom and top translation of the collapsing cell.*/
+//                        int delta = i > index ? yTranslateBottom : -yTranslateTop;
+//                        v.setTop(v.getTop() + delta);
+//                        v.setBottom(v.getBottom() + delta);
+//                    }
+//                }
+//
+//
+//                /* Animates all the cells present on the screen after the collapse. */
+//                ArrayList<Animator> animations = new ArrayList<Animator>();
+//                for (int i = 0; i < childCount; i++) {
+//                    View v = getChildAt(i);
+//                    if (v != view) {
+//                        float diff = i > index ? -yTranslateBottom : yTranslateTop;
+//                        animations.add(getAnimation(v, diff, diff));
+//                    }
+//                }
+//
+//
+//                /* Adds animation for collapsing the cell that was clicked. */
+//                animations.add(getAnimation(view, yTranslateTop, -yTranslateBottom));
+//
+//                /* Adds an animation for fading out the extra content. */
+//                animations.add(ObjectAnimator.ofFloat(expandingLayout, View.ALPHA, 1, 0));
+//
+//                /* Disabled the ListView for the duration of the animation.*/
+//                setEnabled(false);
+//                setClickable(false);
+//
+//                /* Play all the animations created above together at the same time. */
+//                AnimatorSet s = new AnimatorSet();
+//                s.playTogether(animations);
+//                s.addListener(new AnimatorListenerAdapter() {
+//                    @Override
+//                    public void onAnimationEnd(Animator animation) {
+//                        expandingLayout.setVisibility(View.GONE);
+//                        view.setLayoutParams(new LayoutParams(
+//                                LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+//                        viewObject.setExpand(false);
+//                        setEnabled(true);
+//                        setClickable(true);
+//                        /* Note that alpha must be set back to 1 in case this view is reused
+//                        * by a cell that was expanded, but not yet collapsed, so its state
+//                        * should persist in an expanded state with the extra content visible.*/
+//                        expandingLayout.setAlpha(1);
+//                    }
+//                });
+//                s.start();
+//
+//                return true;
+//            }
+//        });
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)

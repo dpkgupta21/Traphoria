@@ -13,11 +13,14 @@ public class UserDTO  implements Serializable{
     public String dob;
     public boolean is_location_service;
     public boolean is_trip_tracker;
-    public boolean is_push_alert;
-    public boolean is_deal_expiry_alert;
     public String image;
     public String userType;
     public CountryDTO Country;
+
+    public String family_contact;
+    public String countrycode;
+    public String notification_duration;
+    public String emergency_number;
 
     public String getUserType() {
         return userType;
@@ -91,22 +94,6 @@ public class UserDTO  implements Serializable{
         this.is_trip_tracker = is_trip_tracker;
     }
 
-    public boolean is_push_alert() {
-        return is_push_alert;
-    }
-
-    public void setIs_push_alert(boolean is_push_alert) {
-        this.is_push_alert = is_push_alert;
-    }
-
-    public boolean is_deal_expiry_alert() {
-        return is_deal_expiry_alert;
-    }
-
-    public void setIs_deal_expiry_alert(boolean is_deal_expiry_alert) {
-        this.is_deal_expiry_alert = is_deal_expiry_alert;
-    }
-
     public String getImage() {
         return image;
     }
@@ -121,5 +108,37 @@ public class UserDTO  implements Serializable{
 
     public void setCountry(CountryDTO country) {
         Country = country;
+    }
+
+    public String getFamily_contact() {
+        return family_contact;
+    }
+
+    public void setFamily_contact(String family_contact) {
+        this.family_contact = family_contact;
+    }
+
+    public String getCountrycode() {
+        return countrycode;
+    }
+
+    public void setCountrycode(String countrycode) {
+        this.countrycode = countrycode;
+    }
+
+    public String getNotification_duration() {
+        return notification_duration;
+    }
+
+    public void setNotification_duration(String notification_duration) {
+        this.notification_duration = notification_duration;
+    }
+
+    public String getEmergency_number() {
+        return emergency_number;
+    }
+
+    public void setEmergency_number(String emergency_number) {
+        this.emergency_number = emergency_number;
     }
 }

@@ -1,7 +1,5 @@
 package com.app.traphoria.locationservice;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,10 +22,9 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -39,19 +36,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PolicaStnFragment extends Fragment implements OnMapReadyCallback {
+public class PoliceStnFragment extends Fragment {
 
     private View view;
     private GoogleMap map;
     private List<NearBYLocationDTO> list;
+    private MapView mapview;
 
-    public PolicaStnFragment() {
+    public PoliceStnFragment() {
         // Required empty public constructor
     }
 
 
-    public static PolicaStnFragment newInstance() {
-        PolicaStnFragment fragment = new PolicaStnFragment();
+    public static PoliceStnFragment newInstance() {
+        PoliceStnFragment fragment = new PoliceStnFragment();
 
         return fragment;
     }
@@ -66,26 +64,48 @@ public class PolicaStnFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_polica_stn, container, false);
+
+        mapview = (MapView) view.findViewById(R.id.police_map);
+        mapview.onCreate(savedInstanceState);
+        map = mapview.getMap();
+        map.getUiSettings().setMyLocationButtonEnabled(false);
+        map.getUiSettings().setZoomControlsEnabled(true);
+        map.getUiSettings().setMapToolbarEnabled(false);
+        MapsInitializer.initialize(this.getActivity());
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
         getPolicaStationList(TraphoriaPreference.getLatitude(getActivity()) + "", TraphoriaPreference.getLongitude(getActivity()) + "", "police");
+
+//        map.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
+//            @Override
+//            public View getInfoWindow(Marker marker) {
+//                return null;
+//            }
+//
+//            @Override
+//            public View getInfoContents(Marker marker) {
+//                if (marker != null) {
+//                    LayoutInflater layoutInflater = LayoutInflater.from(getContext());
+//                    View infowindow = layoutInflater.inflate(R.layout.infowindow_layout, null);
+//
+//                    Marker marker1 =
+//                }
+//                return null;
+//            }
+//        });
     }
 
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        map = googleMap;
-
-
+    public void onMapReady() {
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 LatLng location = new LatLng(Double.parseDouble(list.get(i).getGeometry().getLocation().getLat()), Double.parseDouble(list.get(i).getGeometry().getLocation().getLng()));
-                map.addMarker(new MarkerOptions().position(location).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_police_icon_copy_3)).title(list.get(i).getName() + "\n" + list.get(i).getVicinity()));
+                map.addMarker(new MarkerOptions().position(location).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_police_icon_copy_3)).title(list.get(i).getName()));
 
             }
 
@@ -94,14 +114,14 @@ public class PolicaStnFragment extends Fragment implements OnMapReadyCallback {
 
         LatLng current = new LatLng(TraphoriaPreference.getLatitude(getActivity()), TraphoriaPreference.getLongitude(getActivity()));
         map.addMarker(new MarkerOptions().position(current).icon(BitmapDescriptorFactory.fromResource(R.drawable.place_violet)));
-        map.moveCamera(CameraUpdateFactory.newLatLng(current));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 14));
     }
 
 
     private void getPolicaStationList(String lat, String lng, String type) {
         if (Utils.isOnline(getActivity())) {
             CustomProgressDialog.showProgDialog(getActivity(), null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.GET, Utils.locationUrl(lat, lng, type, "500"), null,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.GET, Utils.locationUrl(lat, lng, type, "5000"), null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -144,11 +164,27 @@ public class PolicaStnFragment extends Fragment implements OnMapReadyCallback {
 
     private void setList() {
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
-                .findFragmentById(R.id.police_map);
-        mapFragment.getMapAsync(this);
+        onMapReady();
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mapview.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        mapview.onPause();
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mapview.onDestroy();
+    }
 
 }
