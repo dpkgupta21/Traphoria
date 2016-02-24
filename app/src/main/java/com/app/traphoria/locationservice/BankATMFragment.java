@@ -116,7 +116,8 @@ public class BankATMFragment extends BaseFragment {
         if (Utils.isOnline(getActivity())) {
 
             CustomProgressDialog.showProgDialog(getActivity(), null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.GET, Utils.locationUrl(lat, lng, type, "5000"), null,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.GET,
+                    Utils.locationUrl(lat, lng, type, "5000"), null,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

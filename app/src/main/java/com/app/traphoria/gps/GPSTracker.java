@@ -28,7 +28,7 @@ public class GPSTracker implements ConnectionCallbacks,
     // The minimum distance to change Updates in meters
     private static final float MIN_DISTANCE_CHANGE_FOR_UPDATES = 10; // 10 meters
     // The minimum time between updates in milliseconds
-    private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1; // 1 minute
+    private static final long MIN_TIME_BW_UPDATES = 1000 * 2 * 1; // 2 second
 
     private static final long FASTEST_UPDATE_INTERVAL_IN_MILLISECONDS =
             MIN_TIME_BW_UPDATES / 2;
