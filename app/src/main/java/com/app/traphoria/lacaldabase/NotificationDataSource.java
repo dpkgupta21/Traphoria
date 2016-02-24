@@ -68,12 +68,12 @@ public class NotificationDataSource {
     }
 
 
-    public NotificationDurationDTO getWhereData(String name) {
+    public NotificationDurationDTO getWhereData(String key,String value) {
         Iterator<NotificationDurationDTO> iterator =null;
         try {
 
             QueryBuilder<NotificationDurationDTO, String> queryBuilder = notificationDurationDao.queryBuilder();
-            queryBuilder.where().eq("name", name.trim());
+            queryBuilder.where().eq(key, value.trim());
             PreparedQuery<NotificationDurationDTO> preparedQuery = queryBuilder.prepare();
 
             iterator =  notificationDurationDao.query(preparedQuery).iterator();

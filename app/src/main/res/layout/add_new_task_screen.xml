@@ -44,7 +44,7 @@
             android:background="@drawable/grey_background"
             android:hint="@string/write_here"
             android:maxLines="2"
-            android:padding="@dimen/margin_20dp"
+            android:padding="@dimen/margin_10dp"
             android:textColor="@color/black"
             android:textColorHighlight="@color/dark_grey" />
 

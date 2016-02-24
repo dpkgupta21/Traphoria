@@ -1,27 +1,188 @@
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.design.widget.AppBarLayout
+
+    <LinearLayout
+        android:id="@+id/top_selection_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        android:weightSum="4">
 
-        <android.support.design.widget.TabLayout
-            android:id="@+id/infotabs"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/ll_embassy"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:scrollbars="horizontal"
-            app:tabGravity="fill"
-            app:tabMode="fixed"
-            app:tabIndicatorColor="@color/white"/>
-    </android.support.design.widget.AppBarLayout>
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/infoviewpager"
+            <ImageView
+                android:id="@+id/img_embassy"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:src="@drawable/embassy_icon" />
+
+            <com.app.traphoria.customViews.MyTextView16
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="@string/embassy"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <View
+                android:id="@+id/view_embassy"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/tab_indicator">
+
+            </View>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"></View>
+
+        <LinearLayout
+            android:id="@+id/ll_hospital"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_hospital"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:src="@drawable/hospital_icon" />
+
+            <com.app.traphoria.customViews.MyTextView16
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="@string/hospital"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <View
+                android:id="@+id/view_hospital"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/tab_indicator"
+                android:visibility="invisible">
+
+            </View>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"></View>
+
+        <LinearLayout
+            android:id="@+id/ll_bank"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_bank"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:src="@drawable/bank_icon" />
+
+            <com.app.traphoria.customViews.MyTextView16
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="@string/bank_atm"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <View
+                android:id="@+id/view_bak"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/tab_indicator"
+                android:visibility="invisible">
+
+            </View>
+
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"></View>
+
+        <LinearLayout
+            android:id="@+id/ll_police"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <ImageView
+                android:id="@+id/img_police"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:src="@drawable/police_icon" />
+
+            <com.app.traphoria.customViews.MyTextView16
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="3dp"
+                android:text="@string/police_stn"
+                android:textColor="@color/black"
+                android:textStyle="normal" />
+
+            <View
+                android:id="@+id/view_police"
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:layout_marginTop="3dp"
+                android:background="@color/tab_indicator"
+                android:visibility="invisible">
+
+            </View>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-</android.support.design.widget.CoordinatorLayout>
+        android:layout_below="@+id/top_selection_ll">
+
+    </FrameLayout>
+
+</RelativeLayout>
+

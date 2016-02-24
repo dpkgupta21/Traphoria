@@ -157,7 +157,7 @@ public class SettingsScreenFragment extends BaseFragment {
         setViewText(R.id.sel, userDTO.getCountrycode(), view);
         setViewText(R.id.edt_number, userDTO.getFamily_contact(), view);
 
-        setViewText(R.id.notification, userDTO.getNotification_duration(), view);
+        setViewText(R.id.notification, new NotificationDataSource(getActivity()).getWhereData("id", userDTO.getNotification_duration()).getName(), view);
 
         if (userDTO.is_location_service()) {
 
@@ -436,7 +436,7 @@ public class SettingsScreenFragment extends BaseFragment {
                     public void onDateSet(DatePicker view1, int year,
                                           int monthOfYear, int dayOfMonth) {
                         // Display Selected date in textbox
-                        setViewText(R.id.edt_dob, (monthOfYear + 1) + "-" + dayOfMonth + "-" + year, view);
+                        setViewText(R.id.edt_dob, dayOfMonth + "-" + (monthOfYear + 1) + "-" + year, view);
 
                     }
                 }, mYear, mMonth, mDay);
@@ -474,7 +474,11 @@ public class SettingsScreenFragment extends BaseFragment {
             params.put("is_location_service", tgl_location.isChecked() ? "true" : "false");
             params.put("is_trip_tracker", tgl_trip.isChecked() ? "true" : "false");
             params.put("family_contact", getViewText(R.id.sel, view) + getViewText(R.id.edt_number, view));
-            params.put("notification_duration", new NotificationDataSource(getActivity()).getWhereData(getViewText(R.id.notification, view)).getId());
+            if (getViewText(R.id.notification, view).equals("")) {
+                params.put("notification_duration", "");
+            } else {
+                params.put("notification_duration", new NotificationDataSource(getActivity()).getWhereData("name", getViewText(R.id.notification, view)).getId());
+            }
             params.put("countrycode", getViewText(R.id.sel, view));
             CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params, file,
                     new Response.Listener<JSONObject>() {

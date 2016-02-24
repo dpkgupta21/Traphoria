@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
@@ -24,7 +25,7 @@ import java.util.List;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class LocationScreenFragment extends BaseFragment{
+public class LocationScreenFragment extends BaseFragment {
 
 
     private View view;
@@ -56,98 +57,84 @@ public class LocationScreenFragment extends BaseFragment{
         mActivity = NavigationDrawerActivity.mActivity;
 
         GPSTracker gpsTracker = new GPSTracker(getActivity());
-        viewpager = (ViewPager)view.findViewById(R.id.infoviewpager);
-        setUpViewPager(viewpager);
 
-        tabLayout = (TabLayout)view.findViewById(R.id.infotabs);
-        tabLayout.setupWithViewPager(viewpager);
-        setupTabIcons();
+        init();
+        openFragment(0);
 
     }
 
 
-
-    private void setupTabIcons() {
-
-        TextView tabOne = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
-        tabOne.setText(getString(R.string.embassy));
-        tabOne.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.embassy_icon, 0, 0);
-        tabLayout.getTabAt(0).setCustomView(tabOne);
-
-        TextView tabTwo = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
-        tabTwo.setText(getString(R.string.hospital));
-        tabTwo.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.hospital_icon, 0, 0);
-        tabLayout.getTabAt(1).setCustomView(tabTwo);
-
-        TextView tabThree = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
-        tabThree.setText(getString(R.string.bank_atm));
-        tabThree.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.bank_icon, 0, 0);
-        tabLayout.getTabAt(2).setCustomView(tabThree);
-
-
-        TextView tabFouth = (TextView) LayoutInflater.from(getActivity()).inflate(R.layout.custom_tab, null);
-        tabFouth.setText(getString(R.string.police_stn));
-        tabFouth.setCompoundDrawablesWithIntrinsicBounds(0, R.drawable.police_icon, 0, 0);
-        tabLayout.getTabAt(3).setCustomView(tabFouth);
-
+    private void init() {
+        setClick(R.id.ll_embassy, view);
+        setClick(R.id.ll_bank, view);
+        setClick(R.id.ll_hospital, view);
+        setClick(R.id.ll_police, view);
     }
 
+    private void openFragment(int flag) {
+        Fragment fragment = null;
 
 
+        if (flag == 0) {
+            fragment = EmbassyFragment.newInstance();
+        } else if (flag == 1) {
+            fragment = HospitalFragment.newInstance();
+        } else if (flag == 2) {
+            fragment = BankATMFragment.newInstance();
+        } else if (flag == 3) {
+            fragment = PoliceStnFragment.newInstance();
+        }
+        if (fragment != null) {
+            FragmentManager fm = getActivity().getSupportFragmentManager();
+            fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            FragmentTransaction ft = fm
+                    .beginTransaction();
+            ft.replace(R.id.frame_layout, fragment);
+            ft.setTransition(FragmentTransaction.TRANSIT_NONE);
+            ft.commit();
+        }
 
-    private void setUpViewPager(ViewPager viewpager) {
-        InfoViewPagerAdapter infoViewPagerAdapter
-                = new InfoViewPagerAdapter(getActivity().getSupportFragmentManager());
-        infoViewPagerAdapter.addFragment(EmbassyFragment.newInstance(),
-                getString(R.string.embassy));
-        infoViewPagerAdapter.addFragment(HospitalFragment.newInstance(),
-                getString(R.string.hospital));
-        infoViewPagerAdapter.addFragment(BankATMFragment.newInstance(),
-                getString(R.string.bank_atm));
-        infoViewPagerAdapter.addFragment(PoliceStnFragment.newInstance(),
-                getString(R.string.police_stn));
-        viewpager.setAdapter(infoViewPagerAdapter);
     }
-
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+            case R.id.ll_embassy:
+                openFragment(0);
+                setViewVisibility(R.id.view_embassy, view, View.VISIBLE);
+                setViewVisibility(R.id.view_hospital, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_bak, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_police, view, View.INVISIBLE);
+                break;
+
+            case R.id.ll_hospital:
+                openFragment(1);
+                setViewVisibility(R.id.view_embassy, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_hospital, view, View.VISIBLE);
+                setViewVisibility(R.id.view_bak, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_police, view, View.INVISIBLE);
+                break;
+
+            case R.id.ll_bank:
+                openFragment(2);
+                setViewVisibility(R.id.view_embassy, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_hospital, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_bak, view, View.VISIBLE);
+                setViewVisibility(R.id.view_police, view, View.INVISIBLE);
+                break;
+
+            case R.id.ll_police:
+                openFragment(3);
+                setViewVisibility(R.id.view_embassy, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_hospital, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_bak, view, View.INVISIBLE);
+                setViewVisibility(R.id.view_police, view, View.VISIBLE);
+                break;
+
         }
     }
-
-    class InfoViewPagerAdapter extends FragmentPagerAdapter {
-
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-
-        public InfoViewPagerAdapter(FragmentManager fm) {
-            super(fm);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-    }
-
 
 
 }

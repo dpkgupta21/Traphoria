@@ -13,6 +13,7 @@ import com.android.volley.VolleyError;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.gps.GPSTracker;
 import com.app.traphoria.model.UserLocationDTO;
+import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.utility.Utils;
@@ -37,9 +38,11 @@ public class UpLoadLocation {
 
     public UpLoadLocation(Context context) {
         this.context = context;
-        GPSTracker gpsTracker = new GPSTracker(context);
-        String address = getMyLocationAddress(TraphoriaPreference.getLatitude(context), TraphoriaPreference.getLongitude(context));
-        upload(address);
+        if (TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO) != null) {
+            GPSTracker gpsTracker = new GPSTracker(context);
+            String address = getMyLocationAddress(TraphoriaPreference.getLatitude(context), TraphoriaPreference.getLongitude(context));
+            upload(address);
+        }
 
     }
 

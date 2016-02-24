@@ -222,7 +222,7 @@ public class Utils {
 
 
     public static String locationUrl(String latitude, String longitude, String type, String radius) {
-        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + radius + "&types=" + type + "&sensor=true&key=AIzaSyDF29a-3qPVYudfMaR_XULKHNtzbSEvmUI";
+        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=" + latitude + "," + longitude + "&radius=" + radius + "&types=" + type + "&sensor=true&key=AIzaSyAhm1YfISuWPrwKHOBx7OGGCuc6WdSryWk";
 
         return url;
     }

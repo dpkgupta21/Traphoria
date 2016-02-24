@@ -56,6 +56,11 @@ public class SearchDestinationAdapter extends RecyclerView.Adapter<SearchDestina
 
 
         holder.dest_name.setText(searchList.get(position).getName());
+        if (searchList.get(position).getExpire_on()!=null && !searchList.get(position).getExpire_on().equals("")) {
+            holder.txt_expire_on_lbl.setVisibility(View.VISIBLE);
+        } else {
+            holder.txt_expire_on_lbl.setVisibility(View.INVISIBLE);
+        }
         holder.txt_expire.setText(searchList.get(position).getExpire_on());
         holder.txt_type.setText(searchList.get(position).getPassportvisatext());
         ImageLoader.getInstance().displayImage(searchList.get(position).getCountry_image(), holder.thumbnail,
@@ -70,7 +75,7 @@ public class SearchDestinationAdapter extends RecyclerView.Adapter<SearchDestina
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder {
         ImageView thumbnail;
-        TextView dest_name, txt_type, txt_expire;
+        TextView dest_name, txt_type, txt_expire, txt_expire_on_lbl;
 
 
         public DetailsViewHolder(View itemView) {
@@ -80,6 +85,7 @@ public class SearchDestinationAdapter extends RecyclerView.Adapter<SearchDestina
             txt_type = (TextView) itemView.findViewById(R.id.txt_type);
             dest_name = (TextView) itemView.findViewById(R.id.dest_name);
             txt_expire = (TextView) itemView.findViewById(R.id.txt_expire);
+            txt_expire_on_lbl = (TextView) itemView.findViewById(R.id.txt_expire_on_lbl);
         }
     }
 
