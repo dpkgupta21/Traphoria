@@ -68,23 +68,27 @@ public class NotificationDataSource {
     }
 
 
-    public NotificationDurationDTO getWhereData(String key,String value) {
-        Iterator<NotificationDurationDTO> iterator =null;
-        try {
+    public NotificationDurationDTO getWhereData(String key, String value) {
+        if (value != null) {
+            Iterator<NotificationDurationDTO> iterator = null;
+            try {
 
-            QueryBuilder<NotificationDurationDTO, String> queryBuilder = notificationDurationDao.queryBuilder();
-            queryBuilder.where().eq(key, value.trim());
-            PreparedQuery<NotificationDurationDTO> preparedQuery = queryBuilder.prepare();
+                QueryBuilder<NotificationDurationDTO, String> queryBuilder = notificationDurationDao.queryBuilder();
+                queryBuilder.where().eq(key, value.trim());
+                PreparedQuery<NotificationDurationDTO> preparedQuery = queryBuilder.prepare();
 
-            iterator =  notificationDurationDao.query(preparedQuery).iterator();
-            // notificationDurationDao.query()
-            // notificationDurationDao.queryBuilder().where().eq("name",name).q
+                iterator = notificationDurationDao.query(preparedQuery).iterator();
+                // notificationDurationDao.query()
+                // notificationDurationDao.queryBuilder().where().eq("name",name).q
 
 
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return iterator.next();
+        } else {
+            return null;
         }
-        return iterator.next();
     }
 
 }

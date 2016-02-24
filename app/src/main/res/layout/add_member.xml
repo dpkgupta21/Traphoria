@@ -85,6 +85,29 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/margin_10dp"
                 android:paddingTop="@dimen/margin_10dp"
+                android:text="@string/country_code"
+                android:textColor="@color/black" />
+
+
+            <com.app.traphoria.customViews.MyTextView18
+                android:id="@+id/txt_contry_code_val"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/grey_background"
+                android:drawableRight="@drawable/down_btn"
+                android:paddingBottom="@dimen/margin_15dp"
+                android:paddingLeft="@dimen/margin_20dp"
+                android:paddingRight="@dimen/margin_20dp"
+                android:paddingTop="@dimen/margin_15dp"
+                android:hint="@string/select"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/dark_grey" />
+
+            <com.app.traphoria.customViews.MyTextView16
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/margin_10dp"
+                android:paddingTop="@dimen/margin_10dp"
                 android:text="@string/register_mbl"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_size_16sp" />

@@ -447,7 +447,7 @@ public class SignUpScreen extends BaseActivity implements View.OnClickListener {
         } else if (getViewText(R.id.edt_dob).equals("")) {
             Utils.showDialog(mActivity, "Message", "Please enter DOB");
             return false;
-        } else if (Utils.isFromDateGreater(Utils.getCurrentDate(), getViewText(R.id.edt_dob))) {
+        } else if (Utils.isDOBValid(Utils.getCurrentDate(), getViewText(R.id.edt_dob))) {
             Utils.showDialog(mActivity, "Message", "Please enter valid DOB");
             return false;
         } else if (getViewText(R.id.edt_gender).equals("")) {

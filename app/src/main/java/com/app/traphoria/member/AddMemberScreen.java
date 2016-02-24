@@ -1,5 +1,6 @@
 package com.app.traphoria.member;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -34,6 +35,7 @@ import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.preference.TraphoriaPreference;
+import com.app.traphoria.settings.adapter.CountryCodeAdapter;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -43,6 +45,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.j256.ormlite.dao.Dao;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -58,11 +61,16 @@ public class AddMemberScreen extends BaseActivity {
     private String TAG = "ADD_MEMBER";
     private List<RelationDTO> relationList;
     private Dialog dialog;
+    private Dialog dialogCountryCode;
+    private Activity mActivity;
+    private List<Map<String, String>> countryCodeList;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_member);
+        mActivity = this;
         init();
         setToolBar();
 
@@ -73,6 +81,7 @@ public class AddMemberScreen extends BaseActivity {
 
         setClick(R.id.btn_add_member);
         setClick(R.id.relation);
+        setClick(R.id.txt_contry_code_val);
     }
 
     private void setToolBar() {
@@ -83,6 +92,7 @@ public class AddMemberScreen extends BaseActivity {
         mToolbar.setNavigationIcon(R.drawable.back_btn);
         mTitle = (TextView) findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.add_member);
+        countryCodeList = getCountryCode();
     }
 
 
@@ -112,9 +122,54 @@ public class AddMemberScreen extends BaseActivity {
             case R.id.relation:
                 openRelationDialog();
                 break;
+
+            case R.id.txt_contry_code_val:
+                openDialogForCountry();
+                break;
         }
     }
 
+
+    private void openDialogForCountry() {
+        dialogCountryCode = new Dialog(mActivity);
+        dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogCountryCode.setContentView(R.layout.layout_country_code);
+        getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        ListView listView = (ListView) dialogCountryCode.findViewById(R.id.list);
+        CountryCodeAdapter adapter = new CountryCodeAdapter(mActivity, countryCodeList);
+        listView.setAdapter(adapter);
+        dialogCountryCode.show();
+        listView.setOnItemClickListener(dialogItemClickListener);
+    }
+
+
+    AdapterView.OnItemClickListener dialogItemClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
+            setViewText(R.id.txt_contry_code_val, countryCodeList.get(i).get("dial_code"));
+            dialogCountryCode.dismiss();
+        }
+    };
+
+    private List<Map<String, String>> getCountryCode() {
+        List<Map<String, String>> list = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(Utils.loadJSONFromAsset(mActivity));
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                Map<String, String> map = new HashMap<>();
+                map.put("name", jsonObject.getString("name"));
+                map.put("dial_code", jsonObject.getString("dial_code"));
+                list.add(map);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
 
     private void addMember() {
 
@@ -126,7 +181,7 @@ public class AddMemberScreen extends BaseActivity {
                 params.put("name", getEditTextText(R.id.member_name));
                 params.put("relation", getTextViewText(R.id.relation));
                 params.put("mobile", getEditTextText(R.id.register_mbl));
-                params.put("mobilecode", "91");
+                params.put("mobilecode", getTextViewText(R.id.txt_contry_code_val));
                 params.put("user_id", PreferenceHelp.getUserId(AddMemberScreen.this));
 
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
@@ -138,8 +193,8 @@ public class AddMemberScreen extends BaseActivity {
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                       // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
-                                    openMemberFragment();
+                                        // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
+                                        openMemberFragment();
                                     } else {
                                         Utils.showDialog(AddMemberScreen.this, "Error", Utils.getWebServiceMessage(response));
                                     }
@@ -226,8 +281,7 @@ public class AddMemberScreen extends BaseActivity {
     }
 
 
-    private void openMemberFragment()
-    {
+    private void openMemberFragment() {
 
         Intent intent = new Intent(AddMemberScreen.this, NavigationDrawerActivity.class);
         intent.putExtra("fragmentNumber", 5);

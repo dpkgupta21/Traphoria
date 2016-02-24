@@ -12,7 +12,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
@@ -39,7 +38,6 @@ import com.app.traphoria.camera.GallerySelectInterface;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.lacaldabase.NotificationDataSource;
 import com.app.traphoria.model.NotificationDurationDTO;
-import com.app.traphoria.model.TripDetailsDTO;
 import com.app.traphoria.model.UserDTO;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
 import com.app.traphoria.preference.PreferenceConstant;
@@ -50,7 +48,6 @@ import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonImageRequest;
-import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -156,8 +153,9 @@ public class SettingsScreenFragment extends BaseFragment {
         setViewText(R.id.gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
         setViewText(R.id.sel, userDTO.getCountrycode(), view);
         setViewText(R.id.edt_number, userDTO.getFamily_contact(), view);
-
-        setViewText(R.id.notification, new NotificationDataSource(getActivity()).getWhereData("id", userDTO.getNotification_duration()).getName(), view);
+        NotificationDurationDTO notificationDurationDTO = new NotificationDataSource(getActivity()).getWhereData("id", userDTO.getNotification_duration());
+        if (notificationDurationDTO != null)
+            setViewText(R.id.notification, notificationDurationDTO.getName(), view);
 
         if (userDTO.is_location_service()) {
 

@@ -167,6 +167,20 @@ public class Utils {
 
     }
 
+    public static boolean isDOBValid(String fromDate, String toDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+            Date date1 = sdf.parse(fromDate);
+            Date date2 = sdf.parse(toDate);
+            if (date2.after(date1)) {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public static boolean isFromDateGreater(String fromDate, String toDate) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
