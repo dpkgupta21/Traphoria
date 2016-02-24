@@ -8,6 +8,7 @@ public class WebserviceConstant {
     public static String DO_LOGIN = "login";
     public static String DO_SOCIAL_LOGIN = "social_connect";
     public static String DO_SIGNUP = "register";
+    public static String FORGOT_PASSWORD = "forgot";
     public static String CHECK_MOBILE = "checkmobile";
     public static String ADD_MEMBER = "addmember";
     public static String GET_PASSPORT_VISA_DETAILS = "getUserPassportVisa";

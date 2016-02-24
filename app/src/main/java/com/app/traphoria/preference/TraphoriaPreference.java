@@ -16,9 +16,12 @@ public class TraphoriaPreference {
     public static String COUNTRY_CODE = "country_code";
     public static String MOBILE_NUMBER = "mobile_number";
     public static String PUSH_REGISTRATION_ID = "push_registration_id";
-    public static final String LATITUDE = "LATITUDE";
-    public static final String LONGITUDE = "LONGITUDE";
-    public static final String LOCATION_UPLOAD = "ADD_LOCATION";
+    public static final String LATITUDE = "latitude";
+    public static final String LONGITUDE = "longitude";
+    public static final String LOCATION_UPLOAD = "add_location";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+
 
     /**
      * This genric method use to put object into preference<br>
@@ -163,6 +166,36 @@ public class TraphoriaPreference {
         String longitude = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
                 LONGITUDE, "0.0");
         return Double.parseDouble(longitude);
+    }
+
+    public static String getUsername(Context context) {
+        String mobNumber = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
+                USERNAME, "");
+        return mobNumber;
+
+    }
+
+    public static void setUsername(Context context, String mobileNumber) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(USERNAME, String.valueOf(mobileNumber));
+        editor.apply();
+    }
+
+    public static String getPassword(Context context) {
+        String mobNumber = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
+                PASSWORD, "");
+        return mobNumber;
+
+    }
+
+    public static void setPassword(Context context, String mobileNumber) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(PASSWORD, String.valueOf(mobileNumber));
+        editor.apply();
     }
 
 }

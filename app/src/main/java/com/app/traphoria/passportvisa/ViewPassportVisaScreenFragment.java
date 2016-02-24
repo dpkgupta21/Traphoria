@@ -231,6 +231,7 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
                             break;
                         case R.id.explore:
                             intent = new Intent(getActivity(), VisaFreeCountryDetails.class);
+                            intent.putExtra("type","p");
                             intent.putExtra("countryId", passportVisaList.get(position).getCountryID());
                             startActivity(intent);
                             break;
@@ -238,6 +239,11 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
                             intent = new Intent(getActivity(), AddPassportVisaScreen.class);
                             intent.putExtra("id", passportVisaList.get(position).getId());
                             intent.putExtra("type", passportVisaList.get(position).getType());
+                            startActivity(intent);
+                        case R.id.explore_visa:
+                            intent = new Intent(getActivity(), VisaFreeCountryDetails.class);
+                            intent.putExtra("type","v");
+                            intent.putExtra("countryId", passportVisaList.get(position).getCountryID());
                             startActivity(intent);
 
 

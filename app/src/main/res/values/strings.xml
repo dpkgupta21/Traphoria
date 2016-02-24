@@ -13,6 +13,7 @@
     <string name="email_add">Your Email Address</string>
     <string name="pwd">Password</string>
     <string name="login">Login</string>
+    <string name="forget_password">Forget Password</string>
     <string name="mobile_num">Your Mobile No.</string>
     <string name="send_code">Send Verification Code</string>
     <string name="enter_verification">Enter Verification No.</string>

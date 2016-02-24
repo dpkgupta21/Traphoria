@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -87,6 +86,7 @@ public class LandingScreen extends BaseActivity implements View.OnClickListener 
 
     private void initViews() {
         setClick(R.id.btn_facebook_login);
+        setClick(R.id.email_login_rl);
         sigup = (TextView) findViewById(R.id.sigup);
         btnFbLogin = (LoginButton) findViewById(R.id.btn_fb);
         btnFbLogin.setBackgroundResource(R.drawable.backgound_fill);
@@ -194,6 +194,10 @@ public class LandingScreen extends BaseActivity implements View.OnClickListener 
                 Intent intent = new Intent(mActivity, MobileNumberVerificationScreen.class);
                 startActivity(intent);
                 break;
+            case R.id.email_login_rl:
+                startActivity(new Intent(mActivity, LoginScreen.class));
+
+                break;
             case R.id.btn_facebook_login:
                 btnFbLogin.performClick();
                 setFbClick();
@@ -235,7 +239,9 @@ public class LandingScreen extends BaseActivity implements View.OnClickListener 
 
                                     TraphoriaPreference.putObjectIntoPref(mActivity, userDTO,
                                             PreferenceConstant.USER_INFO);
-                                    startActivity(new Intent(mActivity, NavigationDrawerActivity.class));
+
+                                    Intent intent = new Intent(mActivity, NavigationDrawerActivity.class);
+                                    startActivity(intent);
 
                                 } else {
                                     Utils.showDialog(mActivity, "Message", Utils.getWebServiceMessage(response));

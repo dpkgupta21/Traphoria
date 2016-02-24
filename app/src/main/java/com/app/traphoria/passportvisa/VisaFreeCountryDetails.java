@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -57,7 +58,12 @@ public class VisaFreeCountryDetails extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mToolbar.setNavigationIcon(R.drawable.back_btn);
         TextView mTitle = (TextView) findViewById(R.id.toolbar_title);
-        mTitle.setText("Visa Free Destinations");
+        String type = getIntent().getStringExtra("type");
+        if (type.equalsIgnoreCase("p")) {
+            mTitle.setText("Visa Free Destinations");
+        } else {
+            mTitle.setText("Explore free usage");
+        }
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.free_visa);
@@ -105,7 +111,7 @@ public class VisaFreeCountryDetails extends BaseActivity {
 
                                     setFreeVisaValues(list);
                                 } else {
-
+                                    setFreeVisaValues(null);
                                 }
 
 
@@ -139,11 +145,12 @@ public class VisaFreeCountryDetails extends BaseActivity {
 
 
     private void setFreeVisaValues(List<FreeVisaCountryDTO> list) {
-        if (list.size() > 0) {
+        if (list != null && list.size() > 0) {
             mAdapter = new FreeVisaCountryAdapter(this, list);
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mRecyclerView.setVisibility(View.GONE);
+            ((RelativeLayout)findViewById(R.id.search_rl)).setVisibility(View.GONE);
             TextView txt_free_visa = (TextView) findViewById(R.id.txt_free_visa);
             txt_free_visa.setVisibility(View.VISIBLE);
 

@@ -43,6 +43,7 @@ import com.app.traphoria.search.SearchDestinationFragment;
 import com.app.traphoria.settings.SettingsScreenFragment;
 import com.app.traphoria.task.TaskScreenFragment;
 import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
+import com.app.traphoria.utility.SessionManager;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -315,13 +316,13 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     @Override
     public void onBackPressed() {
         if (backPressedToExitOnce) {
-            // super.onBackPressed();
+             super.onBackPressed();
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);//***Change Here***
             startActivity(intent);
-            finish();
-            System.exit(0);
+
 
         } else {
             this.backPressedToExitOnce = true;
@@ -347,10 +348,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
     public void dblBtnCallbackResponse(Boolean flag, int code) {
         if (flag) {
-            TraphoriaPreference.removeObjectIntoPref(NavigationDrawerActivity.this, PreferenceConstant.USER_INFO);
-            Intent intent = new Intent(NavigationDrawerActivity.this, LoginScreen.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            SessionManager.logoutUser(mActivity);
+//            TraphoriaPreference.removeObjectIntoPref(NavigationDrawerActivity.this, PreferenceConstant.USER_INFO);
+//            Intent intent = new Intent(NavigationDrawerActivity.this, LoginScreen.class);
+//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            startActivity(intent);
         }
 
     }

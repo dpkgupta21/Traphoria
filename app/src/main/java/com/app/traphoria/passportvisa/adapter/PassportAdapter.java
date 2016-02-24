@@ -140,6 +140,7 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             thumbnail.setOnClickListener(this);
             btn_edit.setOnClickListener(this);
+            explore_visa.setOnClickListener(this);
 
         }
 

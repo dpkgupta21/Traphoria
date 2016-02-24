@@ -39,7 +39,7 @@ import static com.app.traphoria.CommonUtilities.EXTRA_MESSAGE;
 import static com.app.traphoria.CommonUtilities.SENDER_ID;
 
 
-public class LoginScreen extends BaseActivity {
+public class LoginScreen extends BaseActivity  {
 
     private AsyncTask<Void, Void, Void> mRegisterTask;
     private Activity mActivity;
@@ -63,6 +63,8 @@ public class LoginScreen extends BaseActivity {
 
         setClick(R.id.btn_login);
         setClick(R.id.back_btn);
+        setClick(R.id.btn_forgot);
+
     }
 
     @Override
@@ -71,9 +73,13 @@ public class LoginScreen extends BaseActivity {
             case R.id.back_btn:
                 finish();
                 break;
-            case R.id.btn_login:
 
+            case R.id.btn_login:
                 performLogin();
+                break;
+
+            case R.id.btn_forgot:
+                startActivity(new Intent(mActivity, ForgetPasswordActivity.class));
                 break;
         }
     }
@@ -104,8 +110,9 @@ public class LoginScreen extends BaseActivity {
 
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         TraphoriaPreference.putObjectIntoPref(LoginScreen.this, userDTO, PreferenceConstant.USER_INFO);
-                                        startActivity(new Intent(LoginScreen.this, NavigationDrawerActivity.class));
 
+                                        Intent intent=new Intent(mActivity, NavigationDrawerActivity.class);
+                                        startActivity(intent);
                                     } else {
                                         Utils.customDialog(Utils.getWebServiceMessage(response), LoginScreen.this);
                                         // Utils.showDialog(LoginScreen.this, "Error", Utils.getWebServiceMessage(response));

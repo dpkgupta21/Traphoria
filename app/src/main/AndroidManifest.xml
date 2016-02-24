@@ -49,7 +49,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".login.LandingScreen"
+            android:name=".login.SplashScreenActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -58,7 +58,15 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".login.LandingScreen"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"></activity>
+        <activity
             android:name=".login.LoginScreen"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".login.ForgetPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
@@ -126,6 +134,16 @@
             android:name=".search.TraditionScreen"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".passportvisa.VisaFreeCountryDetails"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".track.TrackActivity"
+            android:label="@string/title_activity_track"
+            android:screenOrientation="portrait"></activity>
+
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -162,10 +180,7 @@
         <receiver android:name="com.app.traphoria.track.receiver.LocationUpLoadReceiver"></receiver>
 
         <!-- End Push Notification -->
-        <activity android:name=".passportvisa.VisaFreeCountryDetails" />
-        <activity
-            android:name=".track.TrackActivity"
-            android:label="@string/title_activity_track"></activity>
+
 
     </application>
 

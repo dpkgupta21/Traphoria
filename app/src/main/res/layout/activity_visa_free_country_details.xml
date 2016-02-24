@@ -51,6 +51,17 @@
             android:textStyle="normal" />
     </RelativeLayout>
 
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/free_visa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_rl"
+        android:layout_marginTop="5dp"
+        android:visibility="visible"
+        />
+
     <com.app.traphoria.customViews.MyTextView16
         android:id="@+id/txt_free_visa"
         android:layout_width="match_parent"
@@ -64,14 +75,6 @@
         android:text="You don't need visa in these countries."
         android:textSize="@dimen/text_size_16sp"
         android:visibility="gone" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/free_visa"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/search_rl"
-        android:layout_marginTop="5dp"
-        android:visibility="visible" />
 
 
 </RelativeLayout>

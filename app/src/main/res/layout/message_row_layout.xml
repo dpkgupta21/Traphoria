@@ -55,7 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/name"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginTop="2dp"
                 android:gravity="left"
                 android:text="Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor."
                 android:textColor="@color/black" />
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/message_detail"
-                android:layout_marginTop="@dimen/margin_5dp"
+                android:layout_marginTop="2dp"
                 android:gravity="left"
                 android:text="15 June 2015"
                 android:textColor="@color/dark_grey" />

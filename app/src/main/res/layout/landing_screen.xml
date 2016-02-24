@@ -58,8 +58,7 @@
             android:layout_marginRight="@dimen/margin_20dp"
             android:layout_marginTop="@dimen/margin_10dp"
             android:background="@drawable/dark_blue_button_selector"
-            android:clickable="true"
-            android:onClick="openLoginScreen">
+            android:clickable="true">
 
             <com.app.traphoria.customViews.MyTextView18
                 android:layout_width="wrap_content"
