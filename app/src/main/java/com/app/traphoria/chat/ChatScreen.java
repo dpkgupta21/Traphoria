@@ -119,8 +119,11 @@ public class ChatScreen extends BaseActivity {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
                                 if (Utils.getWebServiceStatus(response)) {
                                     chat_lv.setVisibility(View.VISIBLE);
-                                    ChatDTO chatDTO = new Gson().fromJson(response.getJSONObject("messageList").toString(), ChatDTO.class);
-                                    setChatList(chatDTO);
+
+                                    Type type = new TypeToken<ArrayList<MessagesDTO>>() {
+                                    }.getType();
+                                    chatList = new Gson().fromJson(response.getJSONArray("messageList").toString(), type);
+                                    setChatList();
                                 } else {
                                     chat_lv.setVisibility(View.GONE);
                                     setViewVisibility(R.id.no_trip_tv, View.VISIBLE);
@@ -152,8 +155,7 @@ public class ChatScreen extends BaseActivity {
     }
 
 
-    private void setChatList(ChatDTO chatDTO) {
-        chatList = chatDTO.getMessageList();
+    private void setChatList() {
         if (chatList != null && chatList.size() > 0) {
             if (chatAdapter == null) {
                 chatAdapter = new ChatAdapter(this, chatList);
@@ -189,14 +191,13 @@ public class ChatScreen extends BaseActivity {
                                 CustomProgressDialog.hideProgressDialog();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        ChatDTO chat = new Gson().fromJson(response.getJSONObject("messageList").toString(), ChatDTO.class);
-                                        if (chat != null) {
-
-                                            setTextViewText(R.id.msg_et, "");
-                                            chatList.clear();
-                                            chatAdapter.setChatList(chat.getMessageList());
-                                            chatAdapter.notifyDataSetChanged();
-                                        }
+                                        chatList.clear();
+                                        Type type = new TypeToken<ArrayList<MessagesDTO>>() {
+                                        }.getType();
+                                        chatList = new Gson().fromJson(response.getJSONArray("messageList").toString(), type);
+                                        setTextViewText(R.id.msg_et, "");
+                                        chatAdapter.setChatList(chatList);
+                                        chatAdapter.notifyDataSetChanged();
                                     } else {
                                         Utils.customDialog(Utils.getWebServiceMessage(response), ChatScreen.this);
                                     }

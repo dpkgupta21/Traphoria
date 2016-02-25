@@ -6,6 +6,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
@@ -40,7 +41,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onRegistered(Context context, String registrationId) {
         Log.i(TAG, "Device registered: regId = " + registrationId);
         TraphoriaPreference.setPushRegistrationId(context, registrationId);
-        displayMessage(context, "Your device registred with GCM");
+        displayMessage(context, "Your device registred with GCM", "");
         // Log.d("NAME", MainActivity.name);
         // ServerUtilities.register(context, MainActivity.name,
         //	MainActivity.email, registrationId);
@@ -52,7 +53,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     @Override
     protected void onUnregistered(Context context, String registrationId) {
         Log.i(TAG, "Device unregistered");
-        displayMessage(context, getString(R.string.gcm_unregistered));
+        displayMessage(context, getString(R.string.gcm_unregistered), "");
         //ServerUtilities.unregister(context, registrationId);
     }
 
@@ -61,13 +62,13 @@ public class GCMIntentService extends GCMBaseIntentService {
      */
     @Override
     protected void onMessage(Context context, Intent intent) {
-
+        String type = intent.getExtras().getString(CommonUtilities.EXTRA_TYPE);
         String message = intent.getExtras().getString(CommonUtilities.EXTRA_MESSAGE);
         Log.i(TAG, "Received message :" + message);
 
-        displayMessage(context, message);
+        displayMessage(context, message, type);
         // notifies user
-        generateNotification(context, message);
+        generateNotification(context, message, type);
     }
 
     /**
@@ -77,9 +78,9 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onDeletedMessages(Context context, int total) {
         Log.i(TAG, "Received deleted messages notification");
         String message = getString(R.string.gcm_deleted, total);
-        displayMessage(context, message);
+        displayMessage(context, message, "");
         // notifies user
-        generateNotification(context, message);
+        generateNotification(context, message, "");
     }
 
     /**
@@ -88,7 +89,7 @@ public class GCMIntentService extends GCMBaseIntentService {
     @Override
     public void onError(Context context, String errorId) {
         Log.i(TAG, "Received error: " + errorId);
-        displayMessage(context, getString(R.string.gcm_error, errorId));
+        displayMessage(context, getString(R.string.gcm_error, errorId), "");
     }
 
     @Override
@@ -96,7 +97,7 @@ public class GCMIntentService extends GCMBaseIntentService {
         // log message
         Log.i(TAG, "Received recoverable error: " + errorId);
         displayMessage(context,
-                getString(R.string.gcm_recoverable_error, errorId));
+                getString(R.string.gcm_recoverable_error, errorId), "");
         return super.onRecoverableError(context, errorId);
     }
 
@@ -104,7 +105,7 @@ public class GCMIntentService extends GCMBaseIntentService {
      * Issues a notification to inform the user that server has sent a message.
      */
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    private static void generateNotification(Context context, String message) {
+    private static void generateNotification(Context context, String message, String type) {
 //        int icon = R.mipmap.ic_launcher;
 //        long when = System.currentTimeMillis();
 //        NotificationManager notificationManager = (NotificationManager) context
@@ -168,33 +169,39 @@ public class GCMIntentService extends GCMBaseIntentService {
             builder.setSmallIcon(icon);
             builder.setContentText(message);
             builder.setWhen(when);
+            builder.setColor(Color.parseColor("#1f667e"));
             String title = context.getString(R.string.app_name);
             builder.setContentTitle(title);
             UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO);
             Intent notificationIntent = null;
             PendingIntent intent = null;
-            String[] messageArray = message.split(":");
-            builder.setContentText(messageArray[3]);
-
+            builder.setContentText(message);
+//            String[] messageArray = message.split(":");
+//
+//            builder.setContentText(messageArray[2]);
+//
+//            String[] subMessageArray = messageArray[1].split(",");
+//
+//
             if (userDTO != null) {
-                if (messageArray[1].equalsIgnoreCase("CHAT")) {
-
-                    notificationIntent = new Intent(context,
-                            NavigationDrawerActivity.class);
-                    notificationIntent.putExtra("fragmentNumber", 1);
-                    notificationIntent.putExtra("subFragmentNumber", 0);
-                    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(notificationIntent);
-
-                } else if (messageArray[1].equalsIgnoreCase("addMember")) {
+                if (type.equalsIgnoreCase("CHAT")) {
                     notificationIntent = new Intent(context,
                             NavigationDrawerActivity.class);
                     notificationIntent.putExtra("fragmentNumber", 1);
                     notificationIntent.putExtra("subFragmentNumber", 1);
                     notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(notificationIntent);
+
+                } else if (type.equalsIgnoreCase("addMember")) {
+                    notificationIntent = new Intent(context,
+                            NavigationDrawerActivity.class);
+                    notificationIntent.putExtra("fragmentNumber", 1);
+                    notificationIntent.putExtra("subFragmentNumber", 0);
+                    notificationIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(notificationIntent);
                 }
 
+                intent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
                 builder.setContentIntent(intent);
             }
             Notification notification = builder.build();
