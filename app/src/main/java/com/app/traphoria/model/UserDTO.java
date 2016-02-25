@@ -7,20 +7,20 @@ public class UserDTO  implements Serializable{
 
     public String id;
     public String name;
-    public String email;
-    public String mobile;
-    public String gender;
-    public String dob;
-    public boolean is_location_service;
-    public boolean is_trip_tracker;
-    public String image;
-    public String userType;
+    public String email ="";
+    public String mobile ="";
+    public String gender ="";
+    public String dob ="";
+    public boolean is_location_service =false;
+    public boolean is_trip_tracker = false;
+    public String image ="";
+    public String userType="";
     public CountryDTO Country;
 
-    public String family_contact;
-    public String countrycode;
-    public String notification_duration;
-    public String emergency_number;
+    public String family_contact="";
+    public String countrycode="";
+    public String notification_duration="";
+    public String emergency_number="";
 
     public String getUserType() {
         return userType;

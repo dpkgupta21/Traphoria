@@ -153,10 +153,13 @@ public class SettingsScreenFragment extends BaseFragment {
         setViewText(R.id.gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
         setViewText(R.id.sel, userDTO.getCountrycode(), view);
         setViewText(R.id.edt_number, userDTO.getFamily_contact(), view);
-        NotificationDurationDTO notificationDurationDTO = new NotificationDataSource(getActivity()).getWhereData("id", userDTO.getNotification_duration());
-        if (notificationDurationDTO != null)
-            setViewText(R.id.notification, notificationDurationDTO.getName(), view);
 
+        if (userDTO.getNotification_duration() != null && !userDTO.getNotification_duration().equals("")) {
+            NotificationDurationDTO notificationDurationDTO = new NotificationDataSource(getActivity()).getWhereData("id", userDTO.getNotification_duration());
+            if (notificationDurationDTO != null)
+                setViewText(R.id.notification, notificationDurationDTO.getName(), view);
+
+        }
         if (userDTO.is_location_service()) {
 
             tgl_location.setChecked(true);

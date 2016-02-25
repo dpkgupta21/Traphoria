@@ -72,6 +72,7 @@ public class MembersScreenFragment extends BaseFragment {
     private List<MemberDTO> memberList;
     private Dialog mDialog = null;
     private TextView toolbarTitle;
+    private String memberId;
 
     public MembersScreenFragment() {
     }
@@ -109,7 +110,7 @@ public class MembersScreenFragment extends BaseFragment {
         setClick(R.id.message_btn, view);
         setClick(R.id.track_btn, view);
         setClick(R.id.task_btn, view);
-
+        memberId = PreferenceHelp.getUserId(getActivity());
 
     }
 
@@ -137,7 +138,15 @@ public class MembersScreenFragment extends BaseFragment {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.message_btn:
-                startActivity(new Intent(getActivity(), ChatScreen.class));
+
+                if (!memberId.equalsIgnoreCase(PreferenceHelp.getUserId(getActivity()))) {
+                    Intent intent = new Intent(getActivity(), ChatScreen.class);
+                    intent.putExtra("receiverId", memberId);
+                    startActivity(intent);
+                } else {
+                    Utils.customDialog("Please select member", getActivity());
+                }
+
                 break;
             case R.id.track_btn:
                 startActivity(new Intent(getActivity(), TrackActivity.class));
@@ -339,6 +348,7 @@ public class MembersScreenFragment extends BaseFragment {
             mDialog.dismiss();
             toolbarTitle.setText(memberList.get(i).getName());
             getPassportVisaDetails(memberList.get(i).getId());
+            memberId = memberList.get(i).getId();
         }
     };
 
