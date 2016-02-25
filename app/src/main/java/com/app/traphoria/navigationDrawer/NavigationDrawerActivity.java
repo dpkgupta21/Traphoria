@@ -76,7 +76,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         assignClickOnView();
 
         int fragmentNumber = getIntent().getIntExtra("fragmentNumber", 0);
-        displayView(fragmentNumber);
+        int subFragmentNumber = getIntent().getIntExtra("subFragmentNumber", 0);
+        displayView(fragmentNumber,subFragmentNumber);
 
         setHeaderValues();
 
@@ -144,7 +145,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     }
 
 
-    private void displayView(int position) {
+    private void displayView(int position,int subPosition) {
         mDrawerLayout.closeDrawer(GravityCompat.START);
         Fragment fragment = null;
         String title = getString(R.string.app_name);
@@ -157,7 +158,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                 title = PreferenceHelp.getUserName(NavigationDrawerActivity.this);
                 break;
             case 1:
-                fragment = new AlertsScreenFragment();
+                fragment = AlertsScreenFragment.newInstance(subPosition);
                 title = "Alerts";
 
                 break;
@@ -210,34 +211,34 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
         switch (position) {
             case 0:
-                displayView(0);
+                displayView(0,0);
                 break;
             case 1:
-                displayView(1);
+                displayView(1,0);
 
                 break;
             case 2:
-                displayView(2);
+                displayView(2,0);
 
                 break;
             case 3:
-                displayView(3);
+                displayView(3,0);
 
                 break;
             case 4:
-                displayView(4);
+                displayView(4,0);
 
                 break;
             case 5:
-                displayView(5);
+                displayView(5,0);
 
                 break;
             case 6:
-                displayView(6);
+                displayView(6,0);
 
                 break;
             case 7:
-                displayView(7);
+                displayView(7,0);
 
                 break;
         }
@@ -247,19 +248,17 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         ((TextView) navigationHeaderView.findViewById(R.id.txt_name)).setText(PreferenceHelp.getUserName(this));
 
 
-        ((TextView) navigationHeaderView.findViewById(R.id.txt_age_gender)).setText(PreferenceHelp.getUserAgeSex(this).equalsIgnoreCase("M")?"Male":"Female");
+        ((TextView) navigationHeaderView.findViewById(R.id.txt_age_gender)).setText(PreferenceHelp.getUserAgeSex(this).equalsIgnoreCase("M") ? "Male" : "Female");
         ImageView imageView = (ImageView) navigationHeaderView.findViewById(R.id.img_user_image);
         ImageLoader.getInstance().displayImage(PreferenceHelp.getUserImage(this), imageView,
                 options);
 
 
-
-
-        ((ImageView)navigationHeaderView.findViewById(R.id.call_btn)).setOnClickListener(new View.OnClickListener() {
+        ((ImageView) navigationHeaderView.findViewById(R.id.call_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
                 if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT
                         && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
                     // The phone has SIM card
@@ -283,11 +282,11 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             }
         });
 
-        ((ImageView)navigationHeaderView.findViewById(R.id.call_cancel_btn)).setOnClickListener(new View.OnClickListener() {
+        ((ImageView) navigationHeaderView.findViewById(R.id.call_cancel_btn)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                TelephonyManager tm = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
                 if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT
                         && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
                     // The phone has SIM card
@@ -316,7 +315,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     @Override
     public void onBackPressed() {
         if (backPressedToExitOnce) {
-             super.onBackPressed();
+            super.onBackPressed();
             Intent intent = new Intent(Intent.ACTION_MAIN);
             intent.addCategory(Intent.CATEGORY_HOME);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);

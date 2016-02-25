@@ -106,7 +106,7 @@
                         android:paddingLeft="@dimen/margin_10dp"
                         android:paddingRight="@dimen/margin_10dp"
                         android:paddingTop="@dimen/margin_10dp"
-                        android:text="@string/gender"
+                        android:hint="@string/gender"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
@@ -147,7 +147,7 @@
                         android:paddingLeft="@dimen/margin_10dp"
                         android:paddingRight="@dimen/margin_10dp"
                         android:paddingTop="@dimen/margin_10dp"
-                        android:text="@string/select"
+                        android:hint="@string/select"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>
@@ -285,7 +285,7 @@
                         android:paddingLeft="@dimen/margin_10dp"
                         android:paddingRight="@dimen/margin_10dp"
                         android:paddingTop="@dimen/margin_10dp"
-                        android:text="@string/select"
+                        android:hint="@string/select"
                         android:textColor="@color/black"
                         android:textColorHighlight="@color/dark_grey" />
                 </RelativeLayout>

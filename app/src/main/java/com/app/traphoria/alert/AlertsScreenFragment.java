@@ -65,8 +65,25 @@ public class AlertsScreenFragment extends BaseFragment {
     private LinearLayout notification_ll, message_ll;
     private TextView message_tv, notification_tv;
     private ImageView notification_icon, message_icon;
+    private int subFragment;
 
     public AlertsScreenFragment() {
+    }
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        subFragment = getArguments().getInt("id");
+    }
+
+    public static AlertsScreenFragment newInstance(int id) {
+        AlertsScreenFragment fragment = new AlertsScreenFragment();
+        Bundle bundle = new Bundle();
+        bundle.putInt("id", id);
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
     @Override
@@ -92,7 +109,7 @@ public class AlertsScreenFragment extends BaseFragment {
         message_tv = (TextView) view.findViewById(R.id.message_tv);
         notification_tv = (TextView) view.findViewById(R.id.notification_tv);
         assignClicks();
-        openFragment(0);
+        openFragment(subFragment);
     }
 
     private void assignClicks() {
