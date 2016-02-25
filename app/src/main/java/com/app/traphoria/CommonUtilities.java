@@ -21,6 +21,7 @@ public final class CommonUtilities {
     public static final String DISPLAY_MESSAGE_ACTION = "com.app.traphoria.DISPLAY_MESSAGE";
 
     public static final String EXTRA_MESSAGE = "message";
+    public static final String EXTRA_TYPE = "type";
 
     /**
      * Notifies UI to display a message.
