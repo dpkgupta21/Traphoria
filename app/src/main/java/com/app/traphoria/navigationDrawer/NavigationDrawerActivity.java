@@ -31,6 +31,7 @@ import com.app.traphoria.R;
 import com.app.traphoria.adapter.SideMenuListAdapter;
 import com.app.traphoria.alert.AlertsScreenFragment;
 import com.app.traphoria.customViews.CustomAlert;
+import com.app.traphoria.lacaldabase.MemberHandler;
 import com.app.traphoria.locationservice.LocationScreenFragment;
 import com.app.traphoria.lacaldabase.Handler;
 import com.app.traphoria.login.LoginScreen;
@@ -77,7 +78,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
         int fragmentNumber = getIntent().getIntExtra("fragmentNumber", 0);
         int subFragmentNumber = getIntent().getIntExtra("subFragmentNumber", 0);
-        displayView(fragmentNumber,subFragmentNumber);
+        displayView(fragmentNumber, subFragmentNumber);
 
         setHeaderValues();
 
@@ -145,7 +146,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     }
 
 
-    private void displayView(int position,int subPosition) {
+    private void displayView(int position, int subPosition) {
         mDrawerLayout.closeDrawer(GravityCompat.START);
         Fragment fragment = null;
         String title = getString(R.string.app_name);
@@ -175,6 +176,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                 title = "Task";
                 break;
             case 5:
+                new Thread(new MemberHandler(getApplicationContext())).start();
                 down_btn.setVisibility(View.VISIBLE);
                 fragment = new MembersScreenFragment();
                 title = PreferenceHelp.getUserName(this);
@@ -211,34 +213,34 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
         switch (position) {
             case 0:
-                displayView(0,0);
+                displayView(0, 0);
                 break;
             case 1:
-                displayView(1,0);
+                displayView(1, 0);
 
                 break;
             case 2:
-                displayView(2,0);
+                displayView(2, 0);
 
                 break;
             case 3:
-                displayView(3,0);
+                displayView(3, 0);
 
                 break;
             case 4:
-                displayView(4,0);
+                displayView(4, 0);
 
                 break;
             case 5:
-                displayView(5,0);
+                displayView(5, 0);
 
                 break;
             case 6:
-                displayView(6,0);
+                displayView(6, 0);
 
                 break;
             case 7:
-                displayView(7,0);
+                displayView(7, 0);
 
                 break;
         }
