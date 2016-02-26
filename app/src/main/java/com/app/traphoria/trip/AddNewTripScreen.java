@@ -221,7 +221,7 @@ public class AddNewTripScreen extends BaseActivity implements FetchInterface {
     }
 
     @Override
-    public void vehicleName(String text) {
+    public void vehicleName(String text, String countryId) {
         setTextViewText(R.id.select_country, text);
     }
 

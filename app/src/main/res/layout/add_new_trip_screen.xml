@@ -80,8 +80,8 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/down_btn"
-                    android:padding="@dimen/margin_10dp"
                     android:hint="@string/select"
+                    android:padding="@dimen/margin_10dp"
                     android:textColor="@color/black" />
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -142,8 +142,8 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/down_btn"
-                    android:padding="@dimen/margin_10dp"
                     android:hint="@string/select"
+                    android:padding="@dimen/margin_10dp"
                     android:textColor="@color/black" />
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -162,8 +162,8 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/down_btn"
-                    android:padding="@dimen/margin_10dp"
                     android:hint="@string/select"
+                    android:padding="@dimen/margin_10dp"
                     android:textColor="@color/black" />
 
                 <com.app.traphoria.customViews.MyTextView16
@@ -184,8 +184,8 @@
                     android:layout_centerVertical="true"
                     android:background="@drawable/grey_background"
                     android:drawableRight="@drawable/down_btn"
-                    android:padding="@dimen/margin_10dp"
                     android:hint="@string/select"
+                    android:padding="@dimen/margin_10dp"
                     android:textColor="@color/black"
                     android:visibility="gone" />
 

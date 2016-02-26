@@ -163,7 +163,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
 
 
     @Override
-    public void vehicleName(String text) {
+    public void vehicleName(String text, String countryId) {
         setViewText(R.id.visa_country, text, view);
     }
 

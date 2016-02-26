@@ -158,7 +158,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
 
 
     @Override
-    public void vehicleName(String text) {
+    public void vehicleName(String text, String countryId) {
         setViewText(R.id.passprt_country, text, view);
     }
 

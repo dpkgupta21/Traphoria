@@ -70,7 +70,8 @@ public class DialogFragment extends android.app.DialogFragment {
                 recyclerView, new MyOnClickListener() {
             @Override
             public void onRecyclerClick(View view, int position) {
-                fetchVehicleInterface.vehicleName(countryList.get(position).getName());
+                fetchVehicleInterface.vehicleName(countryList.get(position).getName(),
+                        countryList.get(position).getId());
                 dialog.dismiss();
             }
 

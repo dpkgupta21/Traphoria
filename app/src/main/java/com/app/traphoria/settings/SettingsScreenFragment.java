@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -44,6 +45,8 @@ import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.settings.adapter.CountryCodeAdapter;
+import com.app.traphoria.trip.Dialog.DialogFragment;
+import com.app.traphoria.trip.Dialog.FetchInterface;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -72,7 +75,7 @@ import java.util.Map;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SettingsScreenFragment extends BaseFragment {
+public class SettingsScreenFragment extends BaseFragment implements FetchInterface {
 
     private int CAMERA_REQUEST = 1001;
     private int GALLERY_REQUEST = 1002;
@@ -90,6 +93,7 @@ public class SettingsScreenFragment extends BaseFragment {
     private Dialog dialogCountryCode;
     private Dialog mDialog = null;
     private List<NotificationDurationDTO> menuItemList;
+    private String countryId = null;
 
     public SettingsScreenFragment() {
     }
@@ -137,13 +141,17 @@ public class SettingsScreenFragment extends BaseFragment {
 
     }
 
-    private void setData() {
+    public View.OnClickListener getAddImageClick() {
+        return addImageClick;
+    }
 
+    private void setData() {
         setClick(R.id.edt_dob, view);
         setClick(R.id.gender, view);
         setClick(R.id.btn_save, view);
         setClick(R.id.notification, view);
         setClick(R.id.sel, view);
+        setClick(R.id.txt_select_country_dropdown, view);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.img_user_image);
         ImageLoader.getInstance().displayImage(userDTO.getImage(), imageView,
@@ -153,6 +161,9 @@ public class SettingsScreenFragment extends BaseFragment {
         setViewText(R.id.gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
         setViewText(R.id.sel, userDTO.getCountrycode(), view);
         setViewText(R.id.edt_number, userDTO.getFamily_contact(), view);
+        if (userDTO.getCountry() != null && userDTO.getCountry().getName() != null) {
+            setViewText(R.id.txt_select_country_dropdown, userDTO.getCountry().getName(), view);
+        }
 
         if (userDTO.getNotification_duration() != null && !userDTO.getNotification_duration().equals("")) {
             NotificationDurationDTO notificationDurationDTO = new NotificationDataSource(getActivity()).getWhereData("id", userDTO.getNotification_duration());
@@ -173,6 +184,7 @@ public class SettingsScreenFragment extends BaseFragment {
             tgl_trip.setChecked(false);
         }
     }
+
 
     public void showDialog() {
 
@@ -246,6 +258,13 @@ public class SettingsScreenFragment extends BaseFragment {
 
             case R.id.sel:
                 openDialogForCountry();
+                break;
+
+            case R.id.txt_select_country_dropdown:
+                DialogFragment dialogFragment = new DialogFragment();
+                dialogFragment.setFetchVehicleInterface(this);
+                dialogFragment.setCancelable(false);
+                dialogFragment.show(getActivity().getFragmentManager(), "");
                 break;
         }
     }
@@ -472,6 +491,7 @@ public class SettingsScreenFragment extends BaseFragment {
             params.put("dob", getViewText(R.id.edt_dob, view));
             params.put("gender", getViewText(R.id.gender, view).equals("Male") ? "M" : "F");
             params.put("location", "");
+            params.put("country_id", countryId);
             params.put("is_location_service", tgl_location.isChecked() ? "true" : "false");
             params.put("is_trip_tracker", tgl_trip.isChecked() ? "true" : "false");
             params.put("family_contact", getViewText(R.id.sel, view) + getViewText(R.id.edt_number, view));
@@ -575,4 +595,9 @@ public class SettingsScreenFragment extends BaseFragment {
     };
 
 
+    @Override
+    public void vehicleName(String text, String countryId) {
+        setViewText(R.id.txt_select_country_dropdown, text, view);
+        this.countryId = countryId;
+    }
 }

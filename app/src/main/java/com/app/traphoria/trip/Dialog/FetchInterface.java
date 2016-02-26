@@ -1,5 +1,5 @@
 package com.app.traphoria.trip.Dialog;
 
 public interface FetchInterface {
-    void vehicleName(String text);
+    void vehicleName(String text, String countryId);
 }
