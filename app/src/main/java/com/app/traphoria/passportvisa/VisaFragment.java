@@ -219,7 +219,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
                 params.put("visa_type_id", new VisaTypeDataSource(getActivity()).getWhereData("name", getViewText(R.id.visa_type, view)).getId());
                 params.put("entry_type", getViewText(R.id.visa_entry_country, view));
                 params.put("expire_date", getViewText(R.id.visa_expire_on_tv, view));
-                params.put("passport_id", passportID);
+                params.put("visa_id", passportID);
 
                 CustomProgressDialog.showProgDialog(getActivity(), null);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,

@@ -122,19 +122,10 @@ public class AlertsScreenFragment extends BaseFragment {
 
         switch (v.getId()) {
             case R.id.message_ll:
-                message_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.sky_message_icon));
-                notification_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.black_notifiaction));
 
-                message_tv.setTextColor(mActivity.getResources().getColor(R.color.purple));
-                notification_tv.setTextColor(mActivity.getResources().getColor(R.color.dark_grey));
                 openFragment(1);
                 break;
             case R.id.notification_ll:
-                message_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.black_msj_icon));
-                notification_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.purple_notificaion));
-
-                message_tv.setTextColor(mActivity.getResources().getColor(R.color.dark_grey));
-                notification_tv.setTextColor(mActivity.getResources().getColor(R.color.purple));
                 openFragment(0);
                 break;
 
@@ -144,10 +135,23 @@ public class AlertsScreenFragment extends BaseFragment {
     private void openFragment(int flag) {
         Fragment fragment = null;
 
-        if (flag == 0) {
-            fragment = NotificationFragment.newInstance();
-        } else {
+        if (flag == 1) {
+            message_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.sky_message_icon));
+            notification_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.black_notifiaction));
+
+            message_tv.setTextColor(mActivity.getResources().getColor(R.color.purple));
+            notification_tv.setTextColor(mActivity.getResources().getColor(R.color.dark_grey));
             fragment = MessageFragment.newInstance();
+        } else {
+
+            message_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.black_msj_icon));
+            notification_icon.setImageDrawable(mActivity.getResources().getDrawable(R.drawable.purple_notificaion));
+
+            message_tv.setTextColor(mActivity.getResources().getColor(R.color.dark_grey));
+            notification_tv.setTextColor(mActivity.getResources().getColor(R.color.purple));
+            fragment = NotificationFragment.newInstance();
+
+
         }
         if (fragment != null) {
             FragmentManager fm = getActivity().getSupportFragmentManager();
