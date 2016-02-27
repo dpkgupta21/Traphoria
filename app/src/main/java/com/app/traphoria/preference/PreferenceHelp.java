@@ -10,8 +10,6 @@ public class PreferenceHelp {
     public static String USER_INFO = "user_info";
 
 
-
-
     public static String getUserId(Context context) {
         UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceHelp.USER_INFO);
         if (userDTO != null)
@@ -47,8 +45,10 @@ public class PreferenceHelp {
 
     public static String getFamily(Context context) {
         UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO);
-        if (userDTO != null)
-            return userDTO.getCountrycode()+userDTO.getFamily_contact();
+        if (userDTO != null &&
+                userDTO.getFamily_contact() != null &&
+                !userDTO.getFamily_contact().equalsIgnoreCase(""))
+            return userDTO.getCountrycode() + userDTO.getFamily_contact();
         else
             return "";
     }
@@ -61,7 +61,6 @@ public class PreferenceHelp {
         else
             return "";
     }
-
 
 
 }

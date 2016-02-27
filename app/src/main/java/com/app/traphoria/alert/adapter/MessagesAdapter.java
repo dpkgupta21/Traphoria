@@ -37,9 +37,9 @@ public class MessagesAdapter extends RecyclerView.Adapter<MessagesAdapter.Detail
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.avtar_icon)
+                .showImageOnFail(R.drawable.avtar_icon)
+                .showImageForEmptyUri(R.drawable.avtar_icon)
                 .build();
 
     }

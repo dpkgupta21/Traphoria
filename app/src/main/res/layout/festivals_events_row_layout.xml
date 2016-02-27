@@ -13,8 +13,8 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/festival"
-            android:scaleType="centerCrop" />
+            android:background="@drawable/login_bg"
+            android:scaleType="fitXY" />
 
         <com.app.traphoria.customViews.MyTextView14
             android:id="@+id/date_tv"

@@ -36,9 +36,9 @@ public class FestivalEventListAdapter extends RecyclerView.Adapter<FestivalEvent
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.login_bg)
+                .showImageOnFail(R.drawable.login_bg)
+                .showImageForEmptyUri(R.drawable.login_bg)
                 .build();
     }
 

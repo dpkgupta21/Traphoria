@@ -36,7 +36,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/margin_20dp"
             android:padding="@dimen/margin_10dp"
-            android:src="@drawable/croos_circle_icon" />
+            android:src="@drawable/circle_add" />
 
 
         <com.app.traphoria.customViews.MyTextView18

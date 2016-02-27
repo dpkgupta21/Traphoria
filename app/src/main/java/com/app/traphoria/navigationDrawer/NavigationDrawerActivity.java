@@ -118,9 +118,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.avtar_icon)
+                .showImageOnFail(R.drawable.avtar_icon)
+                .showImageForEmptyUri(R.drawable.avtar_icon)
                 .build();
 
 
@@ -266,15 +266,19 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                     // The phone has SIM card
                     // No SIM card on the phone
 
-                    //String phnum = car.getNumber();
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + PreferenceHelp.getFamily(NavigationDrawerActivity.this)));
-                    if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                    String phnum = PreferenceHelp.getFamily(NavigationDrawerActivity.this);
+                    if (!phnum.equalsIgnoreCase("")) {
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + phnum));
+                        if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
+                                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        startActivity(callIntent);
+                    } else {
+                        Toast.makeText(NavigationDrawerActivity.this, "No Family contact no available.",
+                                Toast.LENGTH_SHORT).show();
                     }
-                    startActivity(callIntent);
-
                 } else {
                     Toast.makeText(NavigationDrawerActivity.this, "No Sim Card",
                             Toast.LENGTH_SHORT).show();
@@ -294,15 +298,19 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                     // The phone has SIM card
                     // No SIM card on the phone
 
-                    //String phnum = car.getNumber();
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + PreferenceHelp.getEmergency(NavigationDrawerActivity.this)));
-                    if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                    String emergencyPhnNum = PreferenceHelp.getEmergency(NavigationDrawerActivity.this);
+                    if (!emergencyPhnNum.equalsIgnoreCase("")) {
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + emergencyPhnNum));
+                        if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
+                                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        startActivity(callIntent);
+                    } else {
+                        Toast.makeText(NavigationDrawerActivity.this, "No Emergency contact no available.",
+                                Toast.LENGTH_SHORT).show();
                     }
-                    startActivity(callIntent);
-
                 } else {
                     Toast.makeText(NavigationDrawerActivity.this, "No Sim Card",
                             Toast.LENGTH_SHORT).show();

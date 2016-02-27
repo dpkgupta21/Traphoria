@@ -13,8 +13,8 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/uae" />
+            android:scaleType="fitXY"
+            android:src="@drawable/login_bg" />
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
 import com.app.traphoria.R;
 import com.app.traphoria.model.TripUserDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -36,9 +37,9 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.avtar_icon)
+                .showImageOnFail(R.drawable.avtar_icon)
+                .showImageForEmptyUri(R.drawable.avtar_icon)
                 .build();
     }
 
@@ -53,7 +54,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
         holder.member_name.setText(tripUserList.get(position).getName());
-        holder.gender_age.setText(tripUserList.get(position).getGender() +" | "+tripUserList.get(position).getAge());
+        holder.gender_age.setText(tripUserList.get(position).getGender() + " | " + tripUserList.get(position).getAge());
         ImageLoader.getInstance().displayImage(tripUserList.get(position).getImage(), holder.img_user_image,
                 options);
 

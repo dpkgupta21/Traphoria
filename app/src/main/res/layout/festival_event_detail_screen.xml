@@ -17,7 +17,9 @@
         <ImageView
             android:id="@+id/img_festive_event"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_5dp"
-                android:text="Deepak"
+                android:text=""
                 android:textColor="@color/white"
                 android:textSize="25sp" />
 
@@ -50,8 +52,14 @@
 
     </RelativeLayout>
 
-    <WebView
-        android:id="@+id/webview_top_destination"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <com.app.traphoria.customViews.MyTextView18
+            android:id="@+id/txt_top_destination"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
 </LinearLayout>

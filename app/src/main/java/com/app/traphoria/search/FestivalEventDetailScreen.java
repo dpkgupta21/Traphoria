@@ -59,13 +59,13 @@ public class FestivalEventDetailScreen extends BaseActivity {
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY_STRETCHED)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.login_bg)
+                .showImageOnFail(R.drawable.login_bg)
+                .showImageForEmptyUri(R.drawable.login_bg)
                 .build();
 
 
@@ -145,8 +145,8 @@ public class FestivalEventDetailScreen extends BaseActivity {
 
         String mimeType = "text/html";
         String encoding = "utf-8";
-        WebView webView = (WebView) findViewById(R.id.webview_top_destination);
-        webView.loadData(festivalDTO.getDescription(), mimeType, encoding);
+        TextView txtTopDestination = (TextView) findViewById(R.id.txt_top_destination);
+        txtTopDestination.setText(festivalDTO.getDescription());
 
     }
 }

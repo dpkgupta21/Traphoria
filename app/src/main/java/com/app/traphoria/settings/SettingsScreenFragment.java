@@ -128,9 +128,9 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.avtar_icon)
+                .showImageOnFail(R.drawable.avtar_icon)
+                .showImageForEmptyUri(R.drawable.avtar_icon)
                 .build();
 
 
@@ -163,6 +163,7 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
         setViewText(R.id.edt_number, userDTO.getFamily_contact(), view);
         if (userDTO.getCountry() != null && userDTO.getCountry().getName() != null) {
             setViewText(R.id.txt_select_country_dropdown, userDTO.getCountry().getName(), view);
+            setViewTag(R.id.txt_select_country_dropdown, userDTO.getCountry().getId(), view);
         }
 
         if (userDTO.getNotification_duration() != null && !userDTO.getNotification_duration().equals("")) {
@@ -491,10 +492,10 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
             params.put("dob", getViewText(R.id.edt_dob, view));
             params.put("gender", getViewText(R.id.gender, view).equals("Male") ? "M" : "F");
             params.put("location", "");
-            params.put("country_id", countryId!=null?countryId:"");
+            params.put("country_id", getViewTag(R.id.txt_select_country_dropdown, view));
             params.put("is_location_service", tgl_location.isChecked() ? "true" : "false");
             params.put("is_trip_tracker", tgl_trip.isChecked() ? "true" : "false");
-            params.put("family_contact", getViewText(R.id.sel, view) + getViewText(R.id.edt_number, view));
+            params.put("family_contact", getViewText(R.id.edt_number, view));
             if (getViewText(R.id.notification, view).equals("")) {
                 params.put("notification_duration", "");
             } else {
@@ -598,6 +599,8 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
     @Override
     public void vehicleName(String text, String countryId) {
         setViewText(R.id.txt_select_country_dropdown, text, view);
+        setViewTag(R.id.txt_select_country_dropdown, countryId, view);
+
         this.countryId = countryId;
     }
 }

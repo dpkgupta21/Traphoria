@@ -62,9 +62,9 @@ public class TopDestinationDetailScreen extends BaseActivity {
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
-                .showImageOnLoading(R.drawable.slide_img)
-                .showImageOnFail(R.drawable.slide_img)
-                .showImageForEmptyUri(R.drawable.slide_img)
+                .showImageOnLoading(R.drawable.login_bg)
+                .showImageOnFail(R.drawable.login_bg)
+                .showImageForEmptyUri(R.drawable.login_bg)
                 .build();
 
 
@@ -131,10 +131,9 @@ public class TopDestinationDetailScreen extends BaseActivity {
 
 
     private void setTopDestinationDetails(DestinationDTO destinationDTO) {
-        String mimeType = "text/html";
-        String encoding = "utf-8";
-        WebView webView = (WebView) findViewById(R.id.webview_top_destination);
-        webView.loadData(destinationDTO.getDescription(), mimeType, encoding);
+
+        TextView txtTopDestination = (TextView) findViewById(R.id.txt_top_destination);
+        txtTopDestination.setText(destinationDTO.getDescription());
 
         TextView txtDestinationTitle = (TextView) findViewById(R.id.txt_destination_title);
         txtDestinationTitle.setText(destinationDTO.getTitle());
