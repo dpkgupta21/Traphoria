@@ -95,6 +95,31 @@ public class EmbassyFragment extends Fragment {
 
             }
 
+
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.embassy_recycler_view);
+            final LinearLayoutManager manager = new LinearLayoutManager(this.getActivity(),
+                    LinearLayoutManager.HORIZONTAL, false);
+            recyclerView.setLayoutManager(manager);
+            EmbassyAdapter adapter = new EmbassyAdapter(
+                    this.getActivity(), list);
+            recyclerView.setAdapter(adapter);
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        int currentPos = manager.findFirstVisibleItemPosition();
+                        animateCamera(currentPos);
+                    }
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                }
+            });
+
+
         }
 
 
@@ -146,6 +171,7 @@ public class EmbassyFragment extends Fragment {
 
                                 setList();
                             } catch (Exception e) {
+                                setList();
                                 e.printStackTrace();
                             }
                             CustomProgressDialog.hideProgressDialog();
@@ -175,30 +201,6 @@ public class EmbassyFragment extends Fragment {
 
     private void setList() {
         onMapReady();
-
-
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.embassy_recycler_view);
-        final LinearLayoutManager manager = new LinearLayoutManager(this.getActivity(),
-                LinearLayoutManager.HORIZONTAL, false);
-        recyclerView.setLayoutManager(manager);
-        EmbassyAdapter adapter = new EmbassyAdapter(
-                this.getActivity(), list);
-        recyclerView.setAdapter(adapter);
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    int currentPos = manager.findFirstVisibleItemPosition();
-                    animateCamera(currentPos);
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-            }
-        });
 
 
     }
