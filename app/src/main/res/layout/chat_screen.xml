@@ -37,7 +37,6 @@
         android:visibility="gone" />
 
 
-
     <LinearLayout
         android:id="@+id/bottom_msg_rl"
         android:layout_width="match_parent"
@@ -61,10 +60,10 @@
             android:background="@color/white"
             android:hint="@string/your_msg"
             android:maxHeight="100dp"
-            android:paddingBottom="@dimen/margin_20dp"
+            android:paddingBottom="@dimen/margin_10dp"
             android:paddingLeft="@dimen/margin_10dp"
             android:paddingRight="@dimen/margin_10dp"
-            android:paddingTop="@dimen/margin_20dp"
+            android:paddingTop="@dimen/margin_10dp"
             android:textColorHint="@color/dark_grey" />
 
         <ImageView

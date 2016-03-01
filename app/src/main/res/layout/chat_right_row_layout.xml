@@ -26,7 +26,7 @@
                 android:layout_marginLeft="@dimen/margin_30dp"
                 android:layout_marginRight="@dimen/margin_20dp"
                 android:background="@drawable/right_chat_grey_bg"
-                android:padding="@dimen/margin_20dp"
+                android:padding="@dimen/margin_10dp"
                 android:text="Hello"
                 android:textColor="@color/black"
                 />

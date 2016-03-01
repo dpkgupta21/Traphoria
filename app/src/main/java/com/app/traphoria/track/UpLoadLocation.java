@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.LocationManager;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -39,9 +40,12 @@ public class UpLoadLocation {
     public UpLoadLocation(Context context) {
         this.context = context;
         if (TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO) != null) {
-            GPSTracker gpsTracker = new GPSTracker(context);
-            String address = getMyLocationAddress(TraphoriaPreference.getLatitude(context), TraphoriaPreference.getLongitude(context));
-            upload(address);
+            LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+            if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+                GPSTracker gpsTracker = new GPSTracker(context);
+                String address = getMyLocationAddress(TraphoriaPreference.getLatitude(context), TraphoriaPreference.getLongitude(context));
+                upload(address);
+            }
         }
 
     }
