@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_20dp"
                 android:background="@drawable/left_chat_white_bg"
-                android:padding="@dimen/margin_15dp"
+                android:padding="@dimen/margin_10dp"
                 android:text="Hi Md,How can I help you?"
                 android:textColor="@color/black"
                 />

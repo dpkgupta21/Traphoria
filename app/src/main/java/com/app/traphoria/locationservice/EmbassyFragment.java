@@ -2,8 +2,8 @@ package com.app.traphoria.locationservice;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +14,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
+import com.app.traphoria.locationservice.adapter.EmbassyAdapter;
 import com.app.traphoria.model.EmbassyDTO;
 import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.utility.Utils;
@@ -24,8 +25,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -92,9 +91,34 @@ public class EmbassyFragment extends Fragment {
         if (list != null && list.size() > 0) {
             for (int i = 0; i < list.size(); i++) {
                 LatLng location = new LatLng(Double.parseDouble(list.get(i).getLat()), Double.parseDouble(list.get(i).getLng()));
-                map.addMarker(new MarkerOptions().position(location).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_atm_icon_copy_2)).title(list.get(i).getAddress()));
+                map.addMarker(new MarkerOptions().position(location).icon(BitmapDescriptorFactory.fromResource(R.drawable.pin_embassy_icon)).title(list.get(i).getAddress()));
 
             }
+
+
+            RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.embassy_recycler_view);
+            final LinearLayoutManager manager = new LinearLayoutManager(this.getActivity(),
+                    LinearLayoutManager.HORIZONTAL, false);
+            recyclerView.setLayoutManager(manager);
+            EmbassyAdapter adapter = new EmbassyAdapter(
+                    this.getActivity(), list);
+            recyclerView.setAdapter(adapter);
+            recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        int currentPos = manager.findFirstVisibleItemPosition();
+                        animateCamera(currentPos);
+                    }
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                }
+            });
+
 
         }
 
@@ -124,17 +148,16 @@ public class EmbassyFragment extends Fragment {
     }
 
 
-    private void getEmbassyList()
-    {
+    private void getEmbassyList() {
 
         if (Utils.isOnline(getActivity())) {
 
-            Map<String,String> param = new HashMap<>();
+            Map<String, String> param = new HashMap<>();
             param.put("action", WebserviceConstant.GET_EMBASSY);
-            param.put("lat",TraphoriaPreference.getLatitude(getActivity())+"");
-            param.put("lng",TraphoriaPreference.getLongitude(getActivity())+"");
+            param.put("lat", TraphoriaPreference.getLatitude(getActivity()) + "");
+            param.put("lng", TraphoriaPreference.getLongitude(getActivity()) + "");
             CustomProgressDialog.showProgDialog(getActivity(), null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,WebserviceConstant.SERVICE_BASE_URL, param,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, param,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
@@ -148,6 +171,7 @@ public class EmbassyFragment extends Fragment {
 
                                 setList();
                             } catch (Exception e) {
+                                setList();
                                 e.printStackTrace();
                             }
                             CustomProgressDialog.hideProgressDialog();
@@ -172,13 +196,20 @@ public class EmbassyFragment extends Fragment {
         }
 
 
-
     }
-
 
 
     private void setList() {
         onMapReady();
 
+
+    }
+
+
+    private void animateCamera(int position) {
+        EmbassyDTO embassyDTO = list.get(position);
+        map.animateCamera(CameraUpdateFactory
+                .newLatLngZoom(new LatLng(Double.valueOf(embassyDTO.getLat()),
+                        Double.valueOf(embassyDTO.getLng())), 13));
     }
 }

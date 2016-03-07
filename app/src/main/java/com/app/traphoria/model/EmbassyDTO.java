@@ -17,6 +17,8 @@ public class EmbassyDTO implements Serializable {
     private String status;
     private String created;
     private String modifed;
+    private String web;
+    private String distance = "";
 
     public String getId() {
         return id;
@@ -120,5 +122,21 @@ public class EmbassyDTO implements Serializable {
 
     public void setModifed(String modifed) {
         this.modifed = modifed;
+    }
+
+    public String getWeb() {
+        return web;
+    }
+
+    public void setWeb(String web) {
+        this.web = web;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 }
