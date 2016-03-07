@@ -10,6 +10,15 @@ public class TaskDTO implements Serializable {
     private String created;
     private String modified;
     private String shared_with;
+    private boolean status;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public String getId() {
         return id;

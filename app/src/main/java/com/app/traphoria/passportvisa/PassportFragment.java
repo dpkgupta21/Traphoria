@@ -94,6 +94,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
         setClick(R.id.passprt_country, view);
         setClick(R.id.txt_expiry, view);
         setClick(R.id.save_btn, view);
+        setClick(R.id.add_btn, view);
 
     }
 
@@ -116,8 +117,11 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
                 showCalendarDialog();
                 break;
 
+            case R.id.add_btn:
+                addPassport(passportID, false);
+                break;
             case R.id.save_btn:
-                addPassport(passportID);
+                addPassport(passportID, true);
                 break;
         }
     }
@@ -186,7 +190,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
     }
 
 
-    private void addPassport(String passportID) {
+    private void addPassport(String passportID, final boolean flag) {
         Utils.hideKeyboard(getActivity());
         if (Utils.isOnline(getActivity())) {
             if (validateForm()) {
@@ -200,7 +204,9 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
                 params.put("passport_id", passportID);
 
                 CustomProgressDialog.showProgDialog(getActivity(), null);
-                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                        WebserviceConstant.SERVICE_BASE_URL,
+                        params,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {
@@ -208,7 +214,15 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
 
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        openUserVisaScreen();
+                                        if (flag) {
+                                            openUserVisaScreen();
+                                        } else {
+                                            Intent intent = new Intent(getActivity().getApplicationContext(),
+                                                    AddPassportVisaScreen.class);
+                                            intent.putExtra("id", "");
+                                            intent.putExtra("type", "P");
+                                            startActivity(intent);
+                                        }
                                     } else {
                                         Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
                                     }

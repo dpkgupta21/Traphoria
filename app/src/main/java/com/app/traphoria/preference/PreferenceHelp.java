@@ -18,6 +18,14 @@ public class PreferenceHelp {
             return "0";
     }
 
+    public static String getSocialLogin(Context context) {
+        UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceHelp.USER_INFO);
+        if (userDTO != null)
+            return userDTO.getSociallogin();
+        else
+            return "0";
+    }
+
     public static String getUserName(Context context) {
         UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceHelp.USER_INFO);
         if (userDTO != null)

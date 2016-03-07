@@ -40,6 +40,7 @@
     <string name="trip_tracker">Trip Tracker</string>
     <string name="notification">Notification</string>
     <string name="save">Save</string>
+    <string name="add_mob_no">Mobile No.</string>
     <string name="enter_contact">Add your Family Contact No.</string>
     <string name="no_record_found">No Record Found</string>
     <string name="add_passport_visa"><![CDATA[Add Your Passport & Visa]]></string>

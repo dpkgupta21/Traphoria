@@ -15,10 +15,12 @@ import com.app.traphoria.model.NotificationDTO;
 
 public class NotificationAdapter extends BaseAdapter {
 
+    private static final String ADDMEMBER_CONSTANT = "AddMember";
 
     private Activity mActivity;
     private LayoutInflater mLayoutInflater;
     private List<NotificationDTO> notificationList;
+
 
     public NotificationAdapter(Activity mActivity, List<NotificationDTO> notificationList) {
         this.mActivity = mActivity;
@@ -64,7 +66,7 @@ public class NotificationAdapter extends BaseAdapter {
     @Override
     public int getItemViewType(int position) {
 
-        return 0;
+        return notificationList.get(position).getType().equalsIgnoreCase(ADDMEMBER_CONSTANT) ? 0 : 1;
     }
 
     @Override
@@ -74,19 +76,19 @@ public class NotificationAdapter extends BaseAdapter {
         NotificationDTO notificationDTO = notificationList.get(position);
         if (convertView == null) {
             holder = new ViewHolder();
-            if (notificationDTO.getType().equalsIgnoreCase("AddMember")) {
-                convertView = mLayoutInflater.inflate(R.layout.notification_add_member_type_item,
-                        parent, false);
-                holder.txtNotificationDetail = (TextView) convertView.findViewById(R.id.txt_notification_detail);
-                holder.imgMoreIcon = (ImageView) convertView.findViewById(R.id.img_more_icon);
-            } else {
-                convertView = mLayoutInflater.inflate(R.layout.notification_add_task_type_item,
-                        parent, false);
-                holder.txtTaskTitle = (TextView) convertView.findViewById(R.id.txt_task_title);
-                holder.txt_task_desc = (TextView) convertView.findViewById(R.id.txt_task_desc);
-
-                holder.imgMoreIcon = (ImageView) convertView.findViewById(R.id.img_more_icon);
-            }
+            // if (notificationDTO.getType().equalsIgnoreCase(ADDMEMBER_CONSTANT)) {
+            convertView = mLayoutInflater.inflate(R.layout.notification_add_member_type_item,
+                    parent, false);
+            holder.txtNotificationDetail = (TextView) convertView.findViewById(R.id.txt_notification_detail);
+            holder.imgMoreIcon = (ImageView) convertView.findViewById(R.id.img_more_icon);
+//            } else {
+//                convertView = mLayoutInflater.inflate(R.layout.notification_add_task_type_item,
+//                        parent, false);
+//                holder.txtTaskTitle = (TextView) convertView.findViewById(R.id.txt_task_title);
+//                holder.txt_task_desc = (TextView) convertView.findViewById(R.id.txt_task_desc);
+//
+//                holder.imgMoreIcon = (ImageView) convertView.findViewById(R.id.img_more_icon);
+//            }
 
 
             convertView.setTag(holder);
@@ -96,12 +98,12 @@ public class NotificationAdapter extends BaseAdapter {
         }
 
 
-        if (notificationDTO.getType().equalsIgnoreCase("AddMember")) {
-            holder.txtNotificationDetail.setText(notificationList.get(position).getMessage());
-        } else {
+        //if (notificationDTO.getType().equalsIgnoreCase("AddMember")) {
+        holder.txtNotificationDetail.setText(notificationList.get(position).getMessage());
+        //} else {
 //            holder.txtNotificationDetail.setText(notificationList.get(position).getMessage());
 //            holder.txtNotificationDetail.setText(notificationList.get(position).getMessage());
-        }
+        //}
 
 
         return convertView;

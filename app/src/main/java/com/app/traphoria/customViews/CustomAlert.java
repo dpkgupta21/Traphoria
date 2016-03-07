@@ -17,13 +17,20 @@ import java.lang.reflect.Method;
 public class CustomAlert {
 
     private Context context;
+    private Object mObj;
     private AlertDialog alertDialog;
+
+    public CustomAlert(Context context, Object mObj) {
+        this.context = context;
+        this.mObj=mObj;
+    }
 
     public CustomAlert(Context context) {
         this.context = context;
     }
 
-    public void singleButtonAlertDialog(String msg,
+
+    public void singleContextButtonAlertDialog(String msg,
                                         String positiveBtn, final String callbackFunc, final Integer requestCode) {
         try {
             LayoutInflater inflater = LayoutInflater.from(context);
@@ -68,6 +75,52 @@ public class CustomAlert {
         }
     }
 
+
+    public void singleButtonAlertDialog(String msg,
+                                        String positiveBtn, final String callbackFunc, final Integer requestCode) {
+        try {
+            LayoutInflater inflater = LayoutInflater.from(context);
+            View view = inflater.inflate(R.layout.customdialog, null);
+
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
+            alertDialogBuilder.setView(view);
+            alertDialog = alertDialogBuilder.create();
+            alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+            TextView txt_msg = (TextView) view.findViewById(R.id.alertMsg);
+            txt_msg.setText(msg);
+
+            Button positiveButton = (Button) view.findViewById(R.id.alertBtn);
+            positiveButton.setText(positiveBtn);
+
+            positiveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!TextUtils.isEmpty(callbackFunc)) {
+                        try {
+                            Class<?>[] paramTypes = {Boolean.class, int.class};
+                            Method callback = mObj.getClass().
+                                    getMethod(callbackFunc, paramTypes);
+                            callback.invoke(mObj, true, requestCode);
+                        } catch (NoSuchMethodException e) {
+                            e.printStackTrace();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (alertDialog != null) {
+                        alertDialog.dismiss();
+                        alertDialog = null;
+                    }
+                }
+            });
+
+            alertDialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void doubleButtonAlertDialog(String msg, String positiveBtn, String negativeBtn,
                                         final String callbackFunc, final int requestCode) {
         try {
@@ -92,9 +145,9 @@ public class CustomAlert {
                 public void onClick(View v) {
                     if (!TextUtils.isEmpty(callbackFunc)) {
                         try {
-                            Method callbackMethod = context.getClass().getMethod(callbackFunc,
+                            Method callbackMethod = mObj.getClass().getMethod(callbackFunc,
                                     Boolean.class, int.class);
-                            callbackMethod.invoke(context, true, requestCode);
+                            callbackMethod.invoke(mObj, true, requestCode);
                         } catch (NoSuchMethodException ex) {
                             ex.printStackTrace();
                         } catch (Exception e) {
@@ -113,9 +166,9 @@ public class CustomAlert {
                 public void onClick(View v) {
                     if (!TextUtils.isEmpty(callbackFunc)) {
                         try {
-                            Method callbackMethod = context.getClass().getMethod(callbackFunc,
+                            Method callbackMethod = mObj.getClass().getMethod(callbackFunc,
                                     Boolean.class, int.class);
-                            callbackMethod.invoke(context, false, requestCode);
+                            callbackMethod.invoke(mObj, false, requestCode);
                         } catch (NoSuchMethodException ex) {
                             ex.printStackTrace();
                         } catch (Exception e) {

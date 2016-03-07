@@ -22,6 +22,7 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -78,8 +79,12 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
         int fragmentNumber = getIntent().getIntExtra("fragmentNumber", 0);
         int subFragmentNumber = getIntent().getIntExtra("subFragmentNumber", 0);
-        displayView(fragmentNumber, subFragmentNumber);
 
+        if (PreferenceHelp.getSocialLogin(NavigationDrawerActivity.this).equalsIgnoreCase("1")) {
+            displayView(7, 0);
+        } else {
+            displayView(fragmentNumber, subFragmentNumber);
+        }
         setHeaderValues();
 
 
@@ -254,9 +259,23 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         ImageView imageView = (ImageView) navigationHeaderView.findViewById(R.id.img_user_image);
         ImageLoader.getInstance().displayImage(PreferenceHelp.getUserImage(this), imageView,
                 options);
+        Button btnCall = (Button) navigationHeaderView.findViewById(R.id.call_btn);
+        final String phnum = PreferenceHelp.getFamily(NavigationDrawerActivity.this);
 
+        if (!phnum.equalsIgnoreCase("")) {
+            btnCall.setEnabled(true);
+        } else {
+            btnCall.setEnabled(false);
+        }
 
-        ((ImageView) navigationHeaderView.findViewById(R.id.call_btn)).setOnClickListener(new View.OnClickListener() {
+        Button btnEmergencyCall = (Button) navigationHeaderView.findViewById(R.id.call_cancel_btn);
+        final String emergencyPhnNum = PreferenceHelp.getEmergency(NavigationDrawerActivity.this);
+        if (!emergencyPhnNum.equalsIgnoreCase("")) {
+            btnEmergencyCall.setEnabled(true);
+        } else {
+            btnEmergencyCall.setEnabled(false);
+        }
+        btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -266,19 +285,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                     // The phone has SIM card
                     // No SIM card on the phone
 
-                    String phnum = PreferenceHelp.getFamily(NavigationDrawerActivity.this);
-                    if (!phnum.equalsIgnoreCase("")) {
-                        Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:" + phnum));
-                        if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
-                                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            return;
-                        }
-                        startActivity(callIntent);
-                    } else {
-                        Toast.makeText(NavigationDrawerActivity.this, "No Family contact no available.",
-                                Toast.LENGTH_SHORT).show();
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + phnum));
+                    if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
+                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
                     }
+                    startActivity(callIntent);
+
                 } else {
                     Toast.makeText(NavigationDrawerActivity.this, "No Sim Card",
                             Toast.LENGTH_SHORT).show();
@@ -288,7 +302,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             }
         });
 
-        ((ImageView) navigationHeaderView.findViewById(R.id.call_cancel_btn)).setOnClickListener(new View.OnClickListener() {
+        btnEmergencyCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -298,19 +312,15 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                     // The phone has SIM card
                     // No SIM card on the phone
 
-                    String emergencyPhnNum = PreferenceHelp.getEmergency(NavigationDrawerActivity.this);
-                    if (!emergencyPhnNum.equalsIgnoreCase("")) {
-                        Intent callIntent = new Intent(Intent.ACTION_CALL);
-                        callIntent.setData(Uri.parse("tel:" + emergencyPhnNum));
-                        if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
-                                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                            return;
-                        }
-                        startActivity(callIntent);
-                    } else {
-                        Toast.makeText(NavigationDrawerActivity.this, "No Emergency contact no available.",
-                                Toast.LENGTH_SHORT).show();
+
+                    Intent callIntent = new Intent(Intent.ACTION_CALL);
+                    callIntent.setData(Uri.parse("tel:" + emergencyPhnNum));
+                    if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
+                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        return;
                     }
+                    startActivity(callIntent);
+
                 } else {
                     Toast.makeText(NavigationDrawerActivity.this, "No Sim Card",
                             Toast.LENGTH_SHORT).show();
@@ -348,7 +358,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
 
     private void showLogOutDialog() {
-        new CustomAlert(NavigationDrawerActivity.this)
+        new CustomAlert(NavigationDrawerActivity.this, NavigationDrawerActivity.this)
                 .doubleButtonAlertDialog(
                         getString(R.string.you_logout),
                         getString(R.string.ok_button),

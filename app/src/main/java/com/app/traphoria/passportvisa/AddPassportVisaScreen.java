@@ -1,36 +1,16 @@
 package com.app.traphoria.passportvisa;
 
-import android.app.DatePickerDialog;
-import android.app.Dialog;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.DatePicker;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
-import com.app.traphoria.lacaldabase.PassportTypeDataSource;
-import com.app.traphoria.lacaldabase.RelationDataSource;
-import com.app.traphoria.member.adapter.RelationAdapter;
-import com.app.traphoria.model.PassportTypeDTO;
-import com.app.traphoria.passportvisa.adapter.PassportTypeAdapter;
-import com.app.traphoria.trip.Dialog.DialogFragment;
-import com.app.traphoria.trip.Dialog.FetchInterface;
 import com.app.traphoria.utility.BaseActivity;
-import com.twitter.sdk.android.core.internal.TwitterApiConstants;
-
-import java.util.Calendar;
-import java.util.List;
 
 public class AddPassportVisaScreen extends BaseActivity {
 
@@ -54,23 +34,30 @@ public class AddPassportVisaScreen extends BaseActivity {
         String id = getIntent().getStringExtra("id");
         String type = getIntent().getStringExtra("type");
 
-        if ((id != null && !id.equalsIgnoreCase("")) && (type != null && !type.equalsIgnoreCase(""))) {
+        if ((id != null && !id.equalsIgnoreCase("") && !id.equalsIgnoreCase("0"))
+                && (type != null && !type.equalsIgnoreCase(""))) {
 
             if (type.equalsIgnoreCase("P")) {
-                visa_btn.setBackground(getResources().getDrawable(R.drawable.grey_background));
+                visa_btn.setBackgroundResource(R.drawable.grey_background);
                 visa_btn.setTextColor(getResources().getColor(R.color.black));
-                passport_btn.setBackground(getResources().getDrawable(R.drawable.purple_background));
+                passport_btn.setBackgroundResource(R.drawable.purple_background);
                 passport_btn.setTextColor(getResources().getColor(R.color.white));
                 openFragment(0, id);
             } else {
-                visa_btn.setBackground(getResources().getDrawable(R.drawable.purple_background));
+                visa_btn.setBackgroundResource(R.drawable.purple_background);
                 visa_btn.setTextColor(getResources().getColor(R.color.white));
-                passport_btn.setBackground(getResources().getDrawable(R.drawable.grey_background));
+                passport_btn.setBackgroundResource((R.drawable.grey_background));
                 passport_btn.setTextColor(getResources().getColor(R.color.black));
                 openFragment(1, id);
             }
         } else {
-            openFragment(0, "");
+            if (type == null) {
+                openFragment(0, "");
+            } else if (type.equalsIgnoreCase("P")) {
+                openFragment(0, "");
+            } else if (type.equalsIgnoreCase("V")) {
+                openFragment(1, "");
+            }
         }
 
     }

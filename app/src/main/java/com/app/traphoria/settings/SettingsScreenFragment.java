@@ -24,7 +24,6 @@ import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -88,7 +87,7 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
     private UserDTO userDTO;
     private ToggleButton tgl_location, tgl_trip;
     private static Activity mActivity;
-    private File file =null;
+    private File file = null;
     private List<Map<String, String>> countryCodeList;
     private Dialog dialogCountryCode;
     private Dialog mDialog = null;
@@ -151,6 +150,7 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
         setClick(R.id.btn_save, view);
         setClick(R.id.notification, view);
         setClick(R.id.sel, view);
+        setClick(R.id.select_mob_country_code, view);
         setClick(R.id.txt_select_country_dropdown, view);
 
         ImageView imageView = (ImageView) view.findViewById(R.id.img_user_image);
@@ -160,6 +160,8 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
         setViewText(R.id.edt_dob, userDTO.getDob(), view);
         setViewText(R.id.gender, userDTO.getGender().equalsIgnoreCase("M") ? "Male" : "Female", view);
         setViewText(R.id.sel, userDTO.getCountrycode(), view);
+        setViewText(R.id.select_mob_country_code, userDTO.getCountrycode(), view);
+        setViewText(R.id.edt_mob_number, userDTO.getMobile(), view);
         setViewText(R.id.edt_number, userDTO.getFamily_contact(), view);
         if (userDTO.getCountry() != null && userDTO.getCountry().getName() != null) {
             setViewText(R.id.txt_select_country_dropdown, userDTO.getCountry().getName(), view);
@@ -258,7 +260,10 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
                 break;
 
             case R.id.sel:
-                openDialogForCountry();
+                openDialogForCountry(1002);
+                break;
+            case R.id.select_mob_country_code:
+                openDialogForCountry(1003);
                 break;
 
             case R.id.txt_select_country_dropdown:
@@ -564,7 +569,7 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
         return list;
     }
 
-    private void openDialogForCountry() {
+    private void openDialogForCountry(int requestCode) {
         dialogCountryCode = new Dialog(getActivity());
         dialogCountryCode.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialogCountryCode.setContentView(R.layout.layout_country_code);
@@ -574,14 +579,25 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
         CountryCodeAdapter adapter = new CountryCodeAdapter(getActivity(), countryCodeList);
         listView.setAdapter(adapter);
         dialogCountryCode.show();
-        listView.setOnItemClickListener(dialogItemClickListener);
+        if (requestCode == 1002) {
+            listView.setOnItemClickListener(countryCodeSelectClickListener);
+        } else {
+            listView.setOnItemClickListener(mobCountryCodeClickListener);
+        }
     }
 
-
-    AdapterView.OnItemClickListener dialogItemClickListener = new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemClickListener countryCodeSelectClickListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
             setViewText(R.id.sel, countryCodeList.get(i).get("dial_code"), view);
+            dialogCountryCode.dismiss();
+        }
+    };
+
+    AdapterView.OnItemClickListener mobCountryCodeClickListener = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
+            setViewText(R.id.select_mob_country_code, countryCodeList.get(i).get("dial_code"), view);
             dialogCountryCode.dismiss();
         }
     };

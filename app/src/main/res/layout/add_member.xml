@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:paddingBottom="@dimen/margin_10dp"
                 android:paddingTop="@dimen/margin_10dp"
-                android:text="@string/task_description"
+                android:text="@string/relation"
                 android:textColor="@color/black" />
 
 

@@ -10,7 +10,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -28,12 +27,9 @@ import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.gson.Gson;
-
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import static com.app.traphoria.CommonUtilities.DISPLAY_MESSAGE_ACTION;
 import static com.app.traphoria.CommonUtilities.EXTRA_MESSAGE;
 import static com.app.traphoria.CommonUtilities.SENDER_ID;

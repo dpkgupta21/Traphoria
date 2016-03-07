@@ -3,7 +3,8 @@ package com.app.traphoria.webservice;
 
 public class WebserviceConstant {
 
-    public static final String SERVICE_BASE_URL = "http://128.199.234.133/traphoria/webservices/";
+    //public static final String SERVICE_BASE_URL = "http://128.199.234.133/traphoria/webservices/";
+    public static final String SERVICE_BASE_URL = " http://traphoria.com/webservices/";
 
     public static String DO_LOGIN = "login";
     public static String DO_SOCIAL_LOGIN = "social_connect";
@@ -56,5 +57,6 @@ public class WebserviceConstant {
     public static String ADD_LOCATION = "addlocation";
 
     public static String GET_EMBASSY ="embassy";
+    public static String COMPLETE_TASK ="taskcomplete";
 
 }

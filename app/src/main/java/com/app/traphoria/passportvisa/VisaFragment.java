@@ -95,6 +95,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
         setClick(R.id.visa_country, view);
         setClick(R.id.visa_expire_on_tv, view);
         setClick(R.id.save_btn, view);
+        setClick(R.id.add_btn, view);
         setClick(R.id.visa_entry_country, view);
 
     }
@@ -117,9 +118,11 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
             case R.id.visa_expire_on_tv:
                 showCalendarDialog();
                 break;
-
+            case R.id.add_btn:
+                addVisa(visaID, false);
+                break;
             case R.id.save_btn:
-                addVisa(visaID);
+                addVisa(visaID, true);
                 break;
             case R.id.visa_entry_country:
                 showEntryTypeDialog();
@@ -208,7 +211,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
     }
 
 
-    private void addVisa(String passportID) {
+    private void addVisa(String passportID, final boolean flag) {
         Utils.hideKeyboard(getActivity());
         if (Utils.isOnline(getActivity())) {
             if (validateForm()) {
@@ -230,7 +233,15 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
 
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        openUserVisaScreen();
+                                        if(flag) {
+                                            openUserVisaScreen();
+                                        }else{
+                                            Intent intent = new Intent(getActivity().getApplicationContext(),
+                                                    AddPassportVisaScreen.class);
+                                            intent.putExtra("id", "");
+                                            intent.putExtra("type", "V");
+                                            startActivity(intent);
+                                        }
                                     } else {
                                         Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
                                     }

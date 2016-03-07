@@ -179,23 +179,25 @@ public class MembersScreenFragment extends BaseFragment {
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
-                            List<PassportDTO> passportList = null;
-                            List<VisaDTO> visaList = null;
-                            try {
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<PassportDTO>>() {
-                                }.getType();
+                            if (Utils.getWebServiceStatus(response)) {
+                                List<PassportDTO> passportList = null;
+                                List<VisaDTO> visaList = null;
+                                try {
+                                    Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<PassportDTO>>() {
+                                    }.getType();
 
-                                Type type1 = new TypeToken<ArrayList<VisaDTO>>() {
-                                }.getType();
+                                    Type type1 = new TypeToken<ArrayList<VisaDTO>>() {
+                                    }.getType();
 
 
-                                passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
-                                visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
-                                setPassportDetails(passportList, visaList);
-                            } catch (Exception e) {
-                                setPassportDetails(passportList, visaList);
-                                e.printStackTrace();
+                                    passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
+                                    visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
+                                    setPassportDetails(passportList, visaList);
+                                } catch (Exception e) {
+                                    setPassportDetails(passportList, visaList);
+                                    e.printStackTrace();
+                                }
                             }
                             CustomProgressDialog.hideProgressDialog();
                         }
@@ -331,7 +333,7 @@ public class MembersScreenFragment extends BaseFragment {
                         getActivity(), memberList);
                 listView.setAdapter(adapter);
 
-                listView.setOnItemClickListener(dialogNotificationListener);
+                listView.setOnItemClickListener(memberListItemListener);
                 mDialog.show();
             } catch (WindowManager.BadTokenException e) {
                 e.printStackTrace();
@@ -342,13 +344,18 @@ public class MembersScreenFragment extends BaseFragment {
 
     }
 
-    AdapterView.OnItemClickListener dialogNotificationListener = new AdapterView.OnItemClickListener() {
+    AdapterView.OnItemClickListener memberListItemListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view1, int i, long l) {
-            mDialog.dismiss();
+
+            if (mDialog != null) {
+                mDialog.dismiss();
+                mDialog = null;
+            }
             toolbarTitle.setText(memberList.get(i).getName());
-            getPassportVisaDetails(memberList.get(i).getId());
             memberId = memberList.get(i).getId();
+            getPassportVisaDetails(memberId);
+
         }
     };
 

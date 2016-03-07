@@ -215,6 +215,7 @@ public class NotificationFragment extends BaseFragment implements SwipeMenuListV
         switch (menu.getViewType()) {
             case 1:
                 Snackbar.make(view, "Delete Clicked", Snackbar.LENGTH_SHORT).show();
+                doMemberAction(position, 2);
                 break;
             case 0:
 
@@ -235,14 +236,15 @@ public class NotificationFragment extends BaseFragment implements SwipeMenuListV
     }
 
 
-
     private void doMemberAction(int position, int status) {
         if (Utils.isOnline(getActivity())) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.DO_APPROVE_DECLINE_MEMBER);
             params.put("user_id", PreferenceHelp.getUserId(getActivity()));
             params.put("notification_id", notificationList.get(position).getNotification_id());
-            params.put("sender_id", notificationList.get(position).getSender_id());
+            if (status == 2) {
+                params.put("sender_id", notificationList.get(position).getSender_id());
+            }
             params.put("status", "" + status);
 
             CustomProgressDialog.showProgDialog(getActivity(), null);
@@ -253,6 +255,7 @@ public class NotificationFragment extends BaseFragment implements SwipeMenuListV
                             try {
                                 Utils.ShowLog(TAG, "got some response = " + response.toString());
                                 if (Utils.getWebServiceStatus(response)) {
+                                    getNotificationList();
                                     //Toast.makeText(getActivity(), "Action done", Toast.LENGTH_LONG).show();
                                 } else {
                                     CustomProgressDialog.hideProgressDialog();

@@ -117,6 +117,70 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin_10dp"
+                android:text="@string/add_mob_no"
+                android:textColor="@color/black" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/margin_10dp"
+                    android:layout_weight="0.50"
+                    android:background="@drawable/grey_background">
+
+                    <com.app.traphoria.customViews.MyTextView18
+                        android:id="@+id/select_mob_country_code"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/grey_background"
+                        android:drawableRight="@drawable/down_btn"
+                        android:hint="@string/select"
+                        android:paddingBottom="@dimen/margin_10dp"
+                        android:paddingLeft="@dimen/margin_10dp"
+                        android:paddingRight="@dimen/margin_10dp"
+                        android:paddingTop="@dimen/margin_10dp"
+                        android:textColor="@color/black"
+                        android:textColorHighlight="@color/dark_grey" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1" />
+
+                <com.app.traphoria.customViews.MyEditTextView
+                    android:id="@+id/edt_mob_number"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.40"
+                    android:background="@drawable/grey_background"
+                    android:paddingBottom="@dimen/margin_10dp"
+                    android:paddingLeft="@dimen/margin_10dp"
+                    android:paddingRight="@dimen/margin_10dp"
+                    android:paddingTop="@dimen/margin_10dp"
+                    android:phoneNumber="true"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/dark_grey" />
+
+            </LinearLayout>
+
+
+
+
+            <com.app.traphoria.customViews.MyTextView16
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_10dp"
                 android:text="@string/enter_contact"
                 android:textColor="@color/black" />
 

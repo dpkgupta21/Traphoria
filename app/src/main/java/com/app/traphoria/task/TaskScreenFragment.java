@@ -17,6 +17,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
+import com.app.traphoria.customViews.CustomAlert;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.TaskDTO;
 import com.app.traphoria.preference.PreferenceHelp;
@@ -49,7 +50,7 @@ public class TaskScreenFragment extends BaseFragment {
     private Toolbar mToolbar;
     private String TAG = "TASK SCREEN";
     private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
+    private TaskAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<TaskDTO> taskList;
 
@@ -170,8 +171,88 @@ public class TaskScreenFragment extends BaseFragment {
             }
         });
         CustomProgressDialog.hideProgressDialog();
+
         mAdapter = new TaskAdapter(getActivity(), taskList);
         mRecyclerView.setAdapter(mAdapter);
+
+
+        mAdapter.setOnItemClickListener(new TaskAdapter.MyClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+
+                switch (v.getId()) {
+                    case R.id.status_pin:
+                        if (taskList.get(position).isStatus()) {
+                            new CustomAlert(getActivity(), TaskScreenFragment.this).
+                                    doubleButtonAlertDialog("Do you want to complete the task?",
+                                            getString(R.string.ok_button),
+                                            getString(R.string.canceled),
+                                            "doBtnCustomAlert", position);
+                        }
+                        break;
+
+
+                }
+            }
+
+        });
+
     }
+
+    public void doBtnCustomAlert(Boolean flag, int position) {
+        if (flag) {
+            completeTask(position);
+        }
+    }
+
+    private void completeTask(final int position) {
+
+        if (Utils.isOnline(getActivity())) {
+            Map<String, String> params = new HashMap<>();
+            params.put("action", WebserviceConstant.COMPLETE_TASK);
+            params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+            params.put("task_id", taskList.get(position).getId());
+
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    WebserviceConstant.SERVICE_BASE_URL,
+                    params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            if (Utils.getWebServiceStatus(response)) {
+                                try {
+                                    Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                    taskList.get(position).setStatus(true);
+                                    mAdapter.setTaskList(taskList);
+                                    mAdapter.notifyDataSetChanged();
+
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            CustomProgressDialog.hideProgressDialog();
+                        }
+                    }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    Utils.showExceptionDialog(getActivity());
+                    //       CustomProgressDialog.hideProgressDialog();
+                }
+            });
+            AppController.getInstance().getRequestQueue().add(postReq);
+            postReq.setRetryPolicy(new DefaultRetryPolicy(
+                    30000, 0,
+                    DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            CustomProgressDialog.showProgDialog(getActivity(), null);
+        } else {
+            Utils.showNoNetworkDialog(getActivity());
+        }
+
+
+    }
+
 
 }

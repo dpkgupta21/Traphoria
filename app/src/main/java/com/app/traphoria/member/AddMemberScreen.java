@@ -5,9 +5,11 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,7 +185,11 @@ public class AddMemberScreen extends BaseActivity {
                 params.put("mobile", getEditTextText(R.id.register_mbl));
                 params.put("mobilecode", getTextViewText(R.id.txt_contry_code_val));
                 params.put("user_id", PreferenceHelp.getUserId(AddMemberScreen.this));
-
+                String mobNumber = (getTextViewText(R.id.txt_contry_code_val)
+                        + getEditTextText(R.id.register_mbl)).replace("+", "");
+                final String formatMobNumber = mobNumber.replace("+", "");
+                Toast.makeText(AddMemberScreen.this, "formatMobNumber" +
+                        formatMobNumber, Toast.LENGTH_SHORT).show();
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
                 CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
@@ -193,6 +199,27 @@ public class AddMemberScreen extends BaseActivity {
                                 pdialog.dismiss();
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
+                                        if (response.has("sms")) {
+                                            try {
+                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                                                sendIntent.setData(Uri.parse("smsto:"));
+                                                sendIntent.setType("vnd.android-dir/mms-sms");
+                                                sendIntent.putExtra("address", formatMobNumber);
+                                                sendIntent.putExtra("sms_body", response.has("sms"));
+                                                startActivity(sendIntent);
+                                                Toast.makeText(getApplicationContext(), "SMS sent.",
+                                                        Toast.LENGTH_LONG).show();
+                                            } catch (Exception e) {
+                                                Toast.makeText(getApplicationContext(),
+                                                        "SMS failed, please try again.",
+                                                        Toast.LENGTH_LONG).show();
+                                                e.printStackTrace();
+                                            }
+                                        }
+//                                        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+//                                        sendIntent.putExtra("sms_body", "default content");
+//                                        sendIntent.setType("vnd.android-dir/mms-sms");
+//                                        startActivity(sendIntent);
                                         // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
                                         openMemberFragment();
                                     } else {

@@ -163,7 +163,7 @@ public class Utils {
 
 
     public static void customDialog(String msg, Context context) {
-        new CustomAlert(context).singleButtonAlertDialog(msg, "Ok", null, 0);
+        new CustomAlert(context).singleContextButtonAlertDialog(msg, "Ok", null, 0);
 
     }
 

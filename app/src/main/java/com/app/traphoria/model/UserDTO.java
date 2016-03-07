@@ -15,12 +15,22 @@ public class UserDTO  implements Serializable{
     public boolean is_trip_tracker = false;
     public String image ="";
     public String userType="";
+    public String sociallogin="";
+
     public CountryDTO Country;
 
     public String family_contact="";
     public String countrycode="";
     public String notification_duration="";
     public String emergency_number="";
+
+    public String getSociallogin() {
+        return sociallogin;
+    }
+
+    public void setSociallogin(String sociallogin) {
+        this.sociallogin = sociallogin;
+    }
 
     public String getUserType() {
         return userType;
