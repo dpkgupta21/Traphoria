@@ -60,9 +60,12 @@ public class MyTripListAdapter extends RecyclerView.Adapter<MyTripListAdapter.De
         holder.dest_name.setText(tripList.get(position).getCountry_name());
         holder.date.setText(tripList.get(position).getStart_date() + " - " + tripList.get(position).getEnd_date());
         holder.expiry.setText("Visa Expires on: " + tripList.get(position).getExpire_date());
-        ImageLoader.getInstance().displayImage(tripList.get(position).getCountry_image(), holder.thumbnail,
-                options);
-
+        try {
+            ImageLoader.getInstance().displayImage(tripList.get(position).getCountry_image(), holder.thumbnail,
+                    options);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 

@@ -51,6 +51,7 @@
         </RelativeLayout>
 
         <LinearLayout
+            android:id="@+id/linear_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/grey"
@@ -101,7 +102,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-
                 android:paddingBottom="@dimen/margin_5dp"
                 android:paddingLeft="@dimen/margin_20dp"
                 android:paddingRight="@dimen/margin_20dp">
