@@ -188,10 +188,10 @@ public class AddMemberScreen extends BaseActivity {
                 String mobNumber = (getTextViewText(R.id.txt_contry_code_val)
                         + getEditTextText(R.id.register_mbl)).replace("+", "");
                 final String formatMobNumber = mobNumber.replace("+", "");
-                Toast.makeText(AddMemberScreen.this, "formatMobNumber" +
-                        formatMobNumber, Toast.LENGTH_SHORT).show();
+
                 final ProgressDialog pdialog = Utils.createProgressDialog(this, null, false);
-                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                        WebserviceConstant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

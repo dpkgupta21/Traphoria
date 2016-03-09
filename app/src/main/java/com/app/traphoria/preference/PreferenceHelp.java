@@ -69,6 +69,12 @@ public class PreferenceHelp {
         else
             return "";
     }
-
+    public static String getCountryCode(Context context) {
+        UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO);
+        if (userDTO != null)
+            return userDTO.getCountrycode();
+        else
+            return "";
+    }
 
 }

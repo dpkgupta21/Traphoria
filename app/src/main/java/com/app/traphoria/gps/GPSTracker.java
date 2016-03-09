@@ -209,7 +209,11 @@ public class GPSTracker implements ConnectionCallbacks,
                     TraphoriaPreference.setLatitude(mActivity, mCurrentLocation.getLatitude());
                     TraphoriaPreference.setLongitude(mActivity, mCurrentLocation.getLongitude());
                     // mLocationChangedListener.onReceiveLocation(mCurrentLocation, 1);
+                }else{
+                    stopLocationUpdates();
                 }
+            }else{
+                startLocationUpdates();
             }
             if (mCurrentLocation == null && mGoogleApiClient.isConnected()) {
                 startLocationUpdates();

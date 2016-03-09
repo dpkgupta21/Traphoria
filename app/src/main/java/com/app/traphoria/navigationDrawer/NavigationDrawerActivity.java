@@ -42,6 +42,7 @@ import com.app.traphoria.lacaldabase.Handler;
 import com.app.traphoria.lacaldabase.MemberHandler;
 import com.app.traphoria.locationservice.LocationScreenFragment;
 import com.app.traphoria.member.MembersScreenFragment;
+import com.app.traphoria.menucount.EmergencyContactHandler;
 import com.app.traphoria.menucount.MenuCountHandler;
 import com.app.traphoria.model.MenuDTO;
 import com.app.traphoria.model.TripCountryDTO;
@@ -84,8 +85,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     private DisplayImageOptions options;
 
     private MenuDTO menuDTO;
-    private final MenuHandler myHandler =
+    private final MenuHandler menuHandler =
             new MenuHandler(NavigationDrawerActivity.this);
+    private final CountryHandler countryHandler =
+            new CountryHandler(NavigationDrawerActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,11 +110,16 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
     }
 
-    public void changeMenuCount() {
+    public void changeMenuCount(MenuDTO menuDto) {
+        TraphoriaPreference.setEmergencyNumber(mActivity, menuDto.getNumber());
         menuListAdapter.setAlertCount(menuDTO.getAlert());
-        TraphoriaPreference.setEmergencyNumber(mActivity, menuDTO.getNumber());
+        menuListAdapter.notifyDataSetChanged();
+
     }
 
+    public void setEmergencyContact(MenuDTO menuDto) {
+        TraphoriaPreference.setEmergencyNumber(mActivity, menuDto.getNumber());
+    }
 
     public static class MenuHandler extends android.os.Handler {
 
@@ -127,7 +135,28 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             Utils.ShowLog(TAG, "handleMessage in MenuHandler");
             NavigationDrawerActivity activity = mActivity.get();
             activity.menuDTO = ((MenuDTO) msg.obj);
-            activity.changeMenuCount();
+            activity.changeMenuCount(((MenuDTO) msg.obj));
+
+
+        }
+    }
+
+
+    public static class CountryHandler extends android.os.Handler {
+
+        private static final String TAG = "CountryHandler";
+        public final WeakReference<NavigationDrawerActivity> mActivity;
+
+        CountryHandler(NavigationDrawerActivity activity) {
+            mActivity = new WeakReference<NavigationDrawerActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Utils.ShowLog(TAG, "handleMessage in MenuHandler");
+            NavigationDrawerActivity activity = mActivity.get();
+            activity.menuDTO = ((MenuDTO) msg.obj);
+            activity.setEmergencyContact(((MenuDTO) msg.obj));
 
 
         }
@@ -136,6 +165,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     private void initViews() {
 
         new Thread(new Handler(getApplicationContext())).start();
+        new Thread(new EmergencyContactHandler(countryHandler,
+                NavigationDrawerActivity.this)).start();
+
         context = this;
         mActivity = this;
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -147,7 +179,30 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open, R.string.drawer_close);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
+        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(View drawerView, float slideOffset) {
+
+
+            }
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                new Thread(new MenuCountHandler(menuHandler,
+                        NavigationDrawerActivity.this)).start();
+            }
+
+            @Override
+            public void onDrawerClosed(View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
         back_btn = (ImageView) mNavigationView.findViewById(R.id.back_btn);
         logout_btn = (ImageView) mNavigationView.findViewById(R.id.logout_btn);
         mListView = (ListView) mNavigationView.findViewById(R.id.side_menu_list);
@@ -194,8 +249,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
 
     private void displayView(int position, int subPosition) {
-        new Thread(new MenuCountHandler(myHandler,
-                NavigationDrawerActivity.this)).start();
+
         mDrawerLayout.closeDrawer(GravityCompat.START);
         Fragment fragment = null;
         String title = getString(R.string.app_name);
@@ -304,34 +358,24 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         ImageLoader.getInstance().displayImage(PreferenceHelp.getUserImage(this), imageView,
                 options);
         Button btnCall = (Button) navigationHeaderView.findViewById(R.id.call_btn);
-        final String phnum = PreferenceHelp.getFamily(NavigationDrawerActivity.this);
-
-        if (!phnum.equalsIgnoreCase("")) {
-            btnCall.setEnabled(true);
-        } else {
-            btnCall.setEnabled(false);
-        }
-
         Button btnEmergencyCall = (Button) navigationHeaderView.findViewById(R.id.call_cancel_btn);
-//        final String emergencyPhnNum = TraphoriaPreference.getEmergencyNumber(NavigationDrawerActivity.this);
-//        if (!emergencyPhnNum.equalsIgnoreCase("")) {
-//            btnEmergencyCall.setEnabled(true);
-//        } else {
-//            btnEmergencyCall.setEnabled(false);
-//        }
+
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
 
                 TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
                 if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT
                         && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
                     // The phone has SIM card
                     // No SIM card on the phone
-                    String emgPhnNum = TraphoriaPreference.getEmergencyNumber(NavigationDrawerActivity.this);
+                    String phnum = PreferenceHelp.getCountryCode(mActivity) +
+                            PreferenceHelp.getFamily(mActivity);
+                    String familyPhnNum =phnum.replace("+","");
 
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + emgPhnNum));
+                    callIntent.setData(Uri.parse("tel:" + familyPhnNum));
                     if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -356,8 +400,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                         && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
                     // The phone has SIM card
                     // No SIM card on the phone
-
-                    String emergencyPhnNum = TraphoriaPreference.getEmergencyNumber(NavigationDrawerActivity.this);
+                    String phnum = PreferenceHelp.getCountryCode(mActivity) +
+                            TraphoriaPreference.getEmergencyNumber(mActivity);
+                    String emergencyPhnNum =phnum.replace("+","");
 
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
                     callIntent.setData(Uri.parse("tel:" + emergencyPhnNum));

@@ -43,9 +43,9 @@ public class Handler implements Runnable {
 
     @Override
     public void run() {
+        getTripCountryValues();
         getRelationValues();
         getMemberValues();
-        getTripCountryValues();
         getNotificationDuration();
         getPassportType();
         getVisaType();
