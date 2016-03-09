@@ -33,6 +33,9 @@ public class AddPassportVisaScreen extends BaseActivity {
     private void init() {
         String id = getIntent().getStringExtra("id");
         String type = getIntent().getStringExtra("type");
+        boolean isEditPassport=getIntent().getBooleanExtra("isEditPassport",false);
+        boolean isEditVisa=getIntent().getBooleanExtra("isEditVisa",false);
+
 
         if ((id != null && !id.equalsIgnoreCase("") && !id.equalsIgnoreCase("0"))
                 && (type != null && !type.equalsIgnoreCase(""))) {
@@ -58,6 +61,16 @@ public class AddPassportVisaScreen extends BaseActivity {
             } else if (type.equalsIgnoreCase("V")) {
                 openFragment(1, "");
             }
+        }
+
+        if(isEditPassport){
+            setViewEnable(R.id.passport_btn, false);
+            setViewEnable(R.id.visa_btn, false);
+
+        }else if(isEditVisa){
+            setViewEnable(R.id.passport_btn, false);
+            setViewEnable(R.id.visa_btn, false);
+
         }
 
     }
@@ -122,11 +135,13 @@ public class AddPassportVisaScreen extends BaseActivity {
 
     private void openFragment(int flag, String id) {
         Fragment fragment = null;
+        boolean isEditPassport=getIntent().getBooleanExtra("isEditPassport",false);
+        boolean isEditVisa=getIntent().getBooleanExtra("isEditVisa",false);
 
         if (flag == 0) {
-            fragment = PassportFragment.newInstance(id);
+            fragment = PassportFragment.newInstance(id, isEditPassport);
         } else {
-            fragment = VisaFragment.newInstance(id);
+            fragment = VisaFragment.newInstance(id, isEditVisa);
         }
 
         if (fragment != null) {

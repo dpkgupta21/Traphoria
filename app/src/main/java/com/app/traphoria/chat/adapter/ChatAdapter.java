@@ -119,8 +119,12 @@ public class ChatAdapter extends BaseAdapter {
 
         holder.msg_tv.setText(chat.getMessage());
         holder.date.setText(Utils.secondsToDate(chat.getTimestamp()));
-        ImageLoader.getInstance().displayImage(chat.getUserImg(), holder.img_user_image,
-                options);
+        try {
+            ImageLoader.getInstance().displayImage(chat.getUserImg(), holder.img_user_image,
+                    options);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return convertView;
     }
 

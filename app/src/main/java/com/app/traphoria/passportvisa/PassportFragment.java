@@ -58,10 +58,12 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
     }
 
 
-    public static PassportFragment newInstance(String id) {
+    public static PassportFragment newInstance(String id, boolean isEditPassportFlag) {
         PassportFragment fragment = new PassportFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
+        bundle.putBoolean("isEditPassportFlag", isEditPassportFlag);
+
         fragment.setArguments(bundle);
 
         return fragment;
@@ -72,6 +74,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
         super.onCreate(savedInstanceState);
 
         passportID = getArguments().getString("id");
+
     }
 
     @Override
@@ -89,6 +92,12 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
 
         if (!passportID.equalsIgnoreCase("")) {
             getPassPortDetails();
+        }
+        boolean isPassportFlag=getArguments().getBoolean("isEditPassportFlag", false);
+        if(isPassportFlag){
+            setViewEnable(R.id.add_btn,view, false);
+        }else{
+            setViewEnable(R.id.add_btn,view, true);
         }
         setClick(R.id.passprt_type, view);
         setClick(R.id.passprt_country, view);

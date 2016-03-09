@@ -227,6 +227,7 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
                             intent = new Intent(getActivity(), AddPassportVisaScreen.class);
                             intent.putExtra("id", passportVisaList.get(position).getId());
                             intent.putExtra("type", passportVisaList.get(position).getType());
+                            intent.putExtra("isEditPassport", true);
                             startActivity(intent);
                             break;
                         case R.id.explore:
@@ -239,6 +240,7 @@ public class ViewPassportVisaScreenFragment extends BaseFragment {
                             intent = new Intent(getActivity(), AddPassportVisaScreen.class);
                             intent.putExtra("id", passportVisaList.get(position).getId());
                             intent.putExtra("type", passportVisaList.get(position).getType());
+                            intent.putExtra("isEditVisa", true);
                             startActivity(intent);
                             break;
 

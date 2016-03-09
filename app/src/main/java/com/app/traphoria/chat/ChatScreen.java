@@ -47,6 +47,7 @@ public class ChatScreen extends BaseActivity {
     private List<MessagesDTO> chatList;
     private String receiverId;
     private String TAG = "CHAT SCREEN";
+    public static boolean isChatScreenOnFlag=false;
 
 
     @Override
@@ -55,6 +56,18 @@ public class ChatScreen extends BaseActivity {
         setContentView(R.layout.chat_screen);
         initView();
         assignClick();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isChatScreenOnFlag=true;
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isChatScreenOnFlag=false;
     }
 
     private void assignClick() {
@@ -183,7 +196,8 @@ public class ChatScreen extends BaseActivity {
                 params.put("message", getViewText(R.id.msg_et));
                 params.put("receiver_id", receiverId);
                 CustomProgressDialog.showProgDialog(this, null);
-                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+                CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                        WebserviceConstant.SERVICE_BASE_URL, params,
                         new Response.Listener<JSONObject>() {
                             @Override
                             public void onResponse(JSONObject response) {

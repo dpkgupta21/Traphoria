@@ -7,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.app.traphoria.R;
+
 import java.util.Arrays;
 import java.util.List;
-
-import com.app.traphoria.R;
 
 
 /**
@@ -19,11 +19,10 @@ import com.app.traphoria.R;
 public class SideMenuListAdapter extends BaseAdapter {
 
 
-    Activity mActivity;
-    LayoutInflater mLayoutInflater;
-
-    List<String> menuItemList;
-
+    private Activity mActivity;
+    private LayoutInflater mLayoutInflater;
+    private List<String> menuItemList;
+    private String alertCount;
 
     public SideMenuListAdapter(Activity mActivity) {
         this.mActivity = mActivity;
@@ -38,6 +37,9 @@ public class SideMenuListAdapter extends BaseAdapter {
         }
     }
 
+    public void setAlertCount(String alertCount) {
+        this.alertCount = alertCount;
+    }
 
     @Override
     public int getCount() {
@@ -95,11 +97,9 @@ public class SideMenuListAdapter extends BaseAdapter {
 
         if (menuItemList != null) {
             holder.menu_item.setText(menuItemList.get(position));
-//            if (menuItemList.get(position).equals("Alert")) {
-//                holder.alert_count.setText("8");
-//
-//            }
-
+            if (menuItemList.get(position).equals("Alert")) {
+                holder.alert_count.setText(alertCount == null ? "" : alertCount);
+            }
         }
 //        if (position == 1) {
 //            holder.alert_count.setText("8");

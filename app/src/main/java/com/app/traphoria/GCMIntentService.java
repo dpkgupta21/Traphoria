@@ -11,6 +11,7 @@ import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
+import com.app.traphoria.chat.ChatScreen;
 import com.app.traphoria.login.LandingScreen;
 import com.app.traphoria.model.UserDTO;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
@@ -68,7 +69,9 @@ public class GCMIntentService extends GCMBaseIntentService {
 
         displayMessage(context, message, type);
         // notifies user
-        generateNotification(context, message, type);
+        if (!ChatScreen.isChatScreenOnFlag) {
+            generateNotification(context, message, type);
+        }
     }
 
     /**

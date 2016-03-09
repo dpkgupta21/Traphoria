@@ -60,10 +60,11 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
 
     }
 
-    public static VisaFragment newInstance(String id) {
+    public static VisaFragment newInstance(String id, boolean isEditVisaFlag) {
         VisaFragment fragment = new VisaFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
+        bundle.putBoolean("isEditVisaFlag", isEditVisaFlag);
         fragment.setArguments(bundle);
 
         return fragment;
@@ -90,6 +91,13 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
 
         if (!visaID.equalsIgnoreCase("")) {
             visaDetails();
+        }
+
+        boolean isVisaFlag=getArguments().getBoolean("isEditVisaFlag", false);
+        if(isVisaFlag){
+            setViewEnable(R.id.add_btn,view, false);
+        }else{
+            setViewEnable(R.id.add_btn, view, true);
         }
         setClick(R.id.visa_type, view);
         setClick(R.id.visa_country, view);

@@ -18,7 +18,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.MyTextView14;
+import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.TripUserDTO;
+import com.app.traphoria.model.VisaDTO;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
@@ -53,7 +55,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
     @Override
     public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         v = LayoutInflater.from(parent.getContext()).inflate(R.layout.trip_member_detail_row, parent, false);
-        addTextView(v);
+        //addPassportVisaTextView(v);
         DetailsViewHolder detailsViewHolder = new DetailsViewHolder(v);
 
         return detailsViewHolder;
@@ -66,21 +68,22 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
         holder.gender_age.setText(tripUserList.get(position).getGender() + " | " + tripUserList.get(position).getAge());
         ImageLoader.getInstance().displayImage(tripUserList.get(position).getImage(), holder.img_user_image,
                 options);
-
+        addPassportVisaTextView(v, position);
 
     }
 
-    private void addTextView(View mView) {
+    private void addPassportVisaTextView(View mView, int position) {
 
 
         LinearLayout linear_detail = (LinearLayout) mView.findViewById(R.id.linear_detail);
 
+
+        List<PassportDTO> listPassportDTO = tripUserList.get(position).getPassport();
+
         int tv_passport_no_id = 0;
+        for (PassportDTO passportDTO : listPassportDTO) {
 
-        for (int i = 0; i < 10; i++) {
-            tv_passport_no_id = i + 1;
-
-
+            tv_passport_no_id = tv_passport_no_id + 1;
             RelativeLayout relativeLayout = new RelativeLayout(context);
             RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams
                     (RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -108,7 +111,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
                     (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
             MyTextView14 tv_pasport_no = new MyTextView14(context);
-            tv_pasport_no.setText("Deepak");
+            tv_pasport_no.setText(passportDTO.getPassport_no());
             tv_pasport_no.setTextSize((float) 14);
             tv_pasport_no.setTextColor(context.getResources().getColor(R.color.black));
             params2.setMargins(convertDpToPixel((float) 20, context), 0, 0, 0);
@@ -124,7 +127,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
             Drawable img = context.getResources().getDrawable(R.drawable.calender_btn);
 
             MyTextView14 tv_passport_time = new MyTextView14(context);
-            tv_passport_time.setText("Ram");
+            tv_passport_time.setText(passportDTO.getExpire_date());
             tv_passport_time.setTextSize((float) 14);
             tv_passport_time.setTextColor(context.getResources().getColor(R.color.black));
             tv_passport_time.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
@@ -136,6 +139,70 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
 
             linear_detail.addView(relativeLayout);
         }
+
+
+        List<VisaDTO> listVisaDTO = tripUserList.get(position).getVisa();
+
+        int tv_visa_id = 0;
+        for (VisaDTO visaDTO : listVisaDTO) {
+            tv_visa_id = tv_visa_id + 1;
+
+            RelativeLayout relativeLayout = new RelativeLayout(context);
+            RelativeLayout.LayoutParams relativeParams = new RelativeLayout.LayoutParams
+                    (RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            relativeLayout.setPadding(convertDpToPixel((float) 20, context),
+                    convertDpToPixel((float) 5, context),
+                    convertDpToPixel((float) 20, context),
+                    convertDpToPixel((float) 5, context));
+
+
+            // Add First textview
+            RelativeLayout.LayoutParams params1 = new RelativeLayout.LayoutParams
+                    (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+            MyTextView14 tv_passport_et = new MyTextView14(context);
+            tv_passport_et.setText("Travel Visa");
+            tv_passport_et.setTextColor(context.getResources().getColor(R.color.black));
+            tv_passport_et.setTextSize((float) 14);
+            tv_passport_et.setId(tv_visa_id);
+            tv_passport_et.setLayoutParams(params1);
+            relativeLayout.addView(tv_passport_et);
+
+
+            // Add Second textview
+            RelativeLayout.LayoutParams params2 = new RelativeLayout.LayoutParams
+                    (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+            MyTextView14 tv_pasport_no = new MyTextView14(context);
+            tv_pasport_no.setText(visaDTO.getEntry_type());
+            tv_pasport_no.setTextSize((float) 14);
+            tv_pasport_no.setTextColor(context.getResources().getColor(R.color.black));
+            params2.setMargins(convertDpToPixel((float) 20, context), 0, 0, 0);
+            params2.addRule(RelativeLayout.RIGHT_OF, tv_passport_et.getId());
+            tv_pasport_no.setLayoutParams(params2);
+            relativeLayout.addView(tv_pasport_no);
+
+
+            // Add Third textview
+            RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams
+                    (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+
+            Drawable img = context.getResources().getDrawable(R.drawable.calender_btn);
+
+            MyTextView14 tv_passport_time = new MyTextView14(context);
+            tv_passport_time.setText(visaDTO.getExpire_date());
+            tv_passport_time.setTextSize((float) 14);
+            tv_passport_time.setTextColor(context.getResources().getColor(R.color.black));
+            tv_passport_time.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+            params3.setMargins(convertDpToPixel((float) 20, context), 0, 0, 0);
+            params3.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            tv_passport_time.setLayoutParams(params3);
+
+            relativeLayout.addView(tv_passport_time);
+
+            linear_detail.addView(relativeLayout);
+        }
+
 
     }
 
@@ -178,10 +245,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
             img_user_image = (CircleImageView) itemView.findViewById(R.id.img_user_image);
             member_name = (TextView) itemView.findViewById(R.id.member_name);
             gender_age = (TextView) itemView.findViewById(R.id.gender_age);
-            pasport_no = (TextView) itemView.findViewById(R.id.pasport_no);
-            passport_time = (TextView) itemView.findViewById(R.id.passport_time);
-            visa = (TextView) itemView.findViewById(R.id.visa);
-            visa_time = (TextView) itemView.findViewById(R.id.visa_time);
+
 
 
         }

@@ -5,9 +5,9 @@ import java.util.List;
 
 public class TripUserDTO implements Serializable {
     private String name;
-    private  String image;
+    private String image;
     private String gender;
-    private  String age;
+    private String age;
     private List<PassportDTO> Passport;
     private List<VisaDTO> Visa;
 

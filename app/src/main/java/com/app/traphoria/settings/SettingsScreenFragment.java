@@ -472,12 +472,10 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
 
     public void showSexDialog() {
         final CharSequence[] items = {"Male", "Female"};
-
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Choose Gender");
         builder.setItems(items, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int item) {
-
                 // Do something with the selection
                 setViewText(R.id.gender, items[item].toString(), view);
             }
@@ -501,6 +499,7 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
             params.put("is_location_service", tgl_location.isChecked() ? "true" : "false");
             params.put("is_trip_tracker", tgl_trip.isChecked() ? "true" : "false");
             params.put("family_contact", getViewText(R.id.edt_number, view));
+            params.put("mobile", getViewText(R.id.edt_mob_number, view));
             if (getViewText(R.id.notification, view).equals("")) {
                 params.put("notification_duration", "");
             } else {

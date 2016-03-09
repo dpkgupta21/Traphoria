@@ -21,6 +21,8 @@ public class TraphoriaPreference {
     public static final String LOCATION_UPLOAD = "add_location";
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
+    public static final String EMERGENCY_NUMBER = "emergency_number";
+
 
 
     /**
@@ -78,6 +80,21 @@ public class TraphoriaPreference {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static String getEmergencyNumber(Context context) {
+        String countryCode = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getString(
+                EMERGENCY_NUMBER, "");
+        return countryCode;
+
+    }
+
+    public static void setEmergencyNumber(Context context, String value) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(EMERGENCY_NUMBER, String.valueOf(value));
+        editor.apply();
     }
 
 

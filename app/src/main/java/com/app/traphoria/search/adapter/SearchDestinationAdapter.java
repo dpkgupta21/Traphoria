@@ -56,16 +56,20 @@ public class SearchDestinationAdapter extends RecyclerView.Adapter<SearchDestina
 
 
         holder.dest_name.setText(searchList.get(position).getName());
-        if (searchList.get(position).getExpire_on()!=null && !searchList.get(position).getExpire_on().equals("")) {
+        if (searchList.get(position).getExpire_on() != null && !searchList.get(position).getExpire_on().equals("")) {
             holder.txt_expire_on_lbl.setVisibility(View.VISIBLE);
         } else {
             holder.txt_expire_on_lbl.setVisibility(View.INVISIBLE);
         }
         holder.txt_expire.setText(searchList.get(position).getExpire_on());
         holder.txt_type.setText(searchList.get(position).getPassportvisatext());
-        ImageLoader.getInstance().displayImage(searchList.get(position).getCountry_image(), holder.thumbnail,
-                options);
 
+        try {
+            ImageLoader.getInstance().displayImage(searchList.get(position).getCountry_image(), holder.thumbnail,
+                    options);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

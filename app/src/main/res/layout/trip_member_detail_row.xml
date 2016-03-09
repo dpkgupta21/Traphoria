@@ -58,84 +58,84 @@
             android:orientation="vertical">
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/margin_5dp"
-                android:paddingLeft="@dimen/margin_20dp"
-                android:paddingRight="@dimen/margin_20dp"
-                android:paddingTop="@dimen/margin_5dp">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingBottom="@dimen/margin_5dp"-->
+                <!--android:paddingLeft="@dimen/margin_20dp"-->
+                <!--android:paddingRight="@dimen/margin_20dp"-->
+                <!--android:paddingTop="@dimen/margin_5dp">-->
 
-                <com.app.traphoria.customViews.MyTextView14
-                    android:id="@+id/pasport_et"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="Passport:"
-                    android:textColor="@color/black" />
+                <!--<com.app.traphoria.customViews.MyTextView14-->
+                    <!--android:id="@+id/pasport_et"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:text="Passport:"-->
+                    <!--android:textColor="@color/black" />-->
 
-                <com.app.traphoria.customViews.MyTextView14
-                    android:id="@+id/pasport_no"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_5dp"
-                    android:layout_toRightOf="@+id/pasport_et"
-                    android:text="000 0000 000 000"
-                    android:textColor="@color/black" />
-
-
-                <com.app.traphoria.customViews.MyTextView14
-                    android:id="@+id/passport_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="@dimen/margin_5dp"
-                    android:drawableLeft="@drawable/calender_btn"
-                    android:drawablePadding="@dimen/margin_10dp"
-                    android:text="2Y 4M 22D"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
+                <!--<com.app.traphoria.customViews.MyTextView14-->
+                    <!--android:id="@+id/pasport_no"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginLeft="@dimen/margin_5dp"-->
+                    <!--android:layout_toRightOf="@+id/pasport_et"-->
+                    <!--android:text="000 0000 000 000"-->
+                    <!--android:textColor="@color/black" />-->
 
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/margin_5dp"
-                android:paddingLeft="@dimen/margin_20dp"
-                android:paddingRight="@dimen/margin_20dp">
-
-                <com.app.traphoria.customViews.MyTextView14
-                    android:id="@+id/visa_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Travel Visa:"
-                    android:textColor="@color/black" />
-
-
-                <com.app.traphoria.customViews.MyTextView14
-                    android:id="@+id/visa"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/pasprt_no"
-                    android:layout_marginLeft="@dimen/margin_5dp"
-                    android:layout_toRightOf="@+id/visa_tv"
-                    android:text="Singe Entry(1 left) "
-                    android:textColor="@color/black" />
+                <!--<com.app.traphoria.customViews.MyTextView14-->
+                    <!--android:id="@+id/passport_time"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginLeft="@dimen/margin_5dp"-->
+                    <!--android:drawableLeft="@drawable/calender_btn"-->
+                    <!--android:drawablePadding="@dimen/margin_10dp"-->
+                    <!--android:text="2Y 4M 22D"-->
+                    <!--android:textColor="@color/black" />-->
+            <!--</RelativeLayout>-->
 
 
-                <com.app.traphoria.customViews.MyTextView14
-                    android:id="@+id/visa_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="@dimen/margin_5dp"
-                    android:drawableLeft="@drawable/calender_btn"
-                    android:drawablePadding="@dimen/margin_10dp"
-                    android:text="5M 26D"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:paddingBottom="@dimen/margin_5dp"-->
+                <!--android:paddingLeft="@dimen/margin_20dp"-->
+                <!--android:paddingRight="@dimen/margin_20dp">-->
+
+                <!--<com.app.traphoria.customViews.MyTextView14-->
+                    <!--android:id="@+id/visa_tv"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="Travel Visa:"-->
+                    <!--android:textColor="@color/black" />-->
+
+
+                <!--<com.app.traphoria.customViews.MyTextView14-->
+                    <!--android:id="@+id/visa"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_below="@+id/pasprt_no"-->
+                    <!--android:layout_marginLeft="@dimen/margin_5dp"-->
+                    <!--android:layout_toRightOf="@+id/visa_tv"-->
+                    <!--android:text="Singe Entry(1 left) "-->
+                    <!--android:textColor="@color/black" />-->
+
+
+                <!--<com.app.traphoria.customViews.MyTextView14-->
+                    <!--android:id="@+id/visa_time"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_marginLeft="@dimen/margin_5dp"-->
+                    <!--android:drawableLeft="@drawable/calender_btn"-->
+                    <!--android:drawablePadding="@dimen/margin_10dp"-->
+                    <!--android:text="5M 26D"-->
+                    <!--android:textColor="@color/black" />-->
+            <!--</RelativeLayout>-->
 
         </LinearLayout>
 

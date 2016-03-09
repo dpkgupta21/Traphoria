@@ -7,8 +7,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Message;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -32,24 +36,33 @@ import com.app.traphoria.R;
 import com.app.traphoria.adapter.SideMenuListAdapter;
 import com.app.traphoria.alert.AlertsScreenFragment;
 import com.app.traphoria.customViews.CustomAlert;
+import com.app.traphoria.gps.GPSTracker;
+import com.app.traphoria.lacaldabase.CountryDataSource;
+import com.app.traphoria.lacaldabase.Handler;
 import com.app.traphoria.lacaldabase.MemberHandler;
 import com.app.traphoria.locationservice.LocationScreenFragment;
-import com.app.traphoria.lacaldabase.Handler;
-import com.app.traphoria.login.LoginScreen;
 import com.app.traphoria.member.MembersScreenFragment;
+import com.app.traphoria.menucount.MenuCountHandler;
+import com.app.traphoria.model.MenuDTO;
+import com.app.traphoria.model.TripCountryDTO;
+import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
 import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.preference.TraphoriaPreference;
-import com.app.traphoria.trip.MyTripListScreenFragment;
 import com.app.traphoria.search.SearchDestinationFragment;
 import com.app.traphoria.settings.SettingsScreenFragment;
 import com.app.traphoria.task.TaskScreenFragment;
-import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
+import com.app.traphoria.trip.MyTripListScreenFragment;
 import com.app.traphoria.utility.SessionManager;
+import com.app.traphoria.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+
+import java.lang.ref.WeakReference;
+import java.util.List;
+import java.util.Locale;
 
 
 public class NavigationDrawerActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -69,6 +82,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
     private SideMenuListAdapter menuListAdapter;
     private DisplayImageOptions options;
+
+    private MenuDTO menuDTO;
+    private final MenuHandler myHandler =
+            new MenuHandler(NavigationDrawerActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +107,31 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
     }
 
+    public void changeMenuCount() {
+        menuListAdapter.setAlertCount(menuDTO.getAlert());
+        TraphoriaPreference.setEmergencyNumber(mActivity, menuDTO.getNumber());
+    }
+
+
+    public static class MenuHandler extends android.os.Handler {
+
+        private static final String TAG = "MenuHandler";
+        public final WeakReference<NavigationDrawerActivity> mActivity;
+
+        MenuHandler(NavigationDrawerActivity activity) {
+            mActivity = new WeakReference<NavigationDrawerActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Utils.ShowLog(TAG, "handleMessage in MenuHandler");
+            NavigationDrawerActivity activity = mActivity.get();
+            activity.menuDTO = ((MenuDTO) msg.obj);
+            activity.changeMenuCount();
+
+
+        }
+    }
 
     private void initViews() {
 
@@ -152,6 +194,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
 
     private void displayView(int position, int subPosition) {
+        new Thread(new MenuCountHandler(myHandler,
+                NavigationDrawerActivity.this)).start();
         mDrawerLayout.closeDrawer(GravityCompat.START);
         Fragment fragment = null;
         String title = getString(R.string.app_name);
@@ -269,12 +313,12 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         }
 
         Button btnEmergencyCall = (Button) navigationHeaderView.findViewById(R.id.call_cancel_btn);
-        final String emergencyPhnNum = PreferenceHelp.getEmergency(NavigationDrawerActivity.this);
-        if (!emergencyPhnNum.equalsIgnoreCase("")) {
-            btnEmergencyCall.setEnabled(true);
-        } else {
-            btnEmergencyCall.setEnabled(false);
-        }
+//        final String emergencyPhnNum = TraphoriaPreference.getEmergencyNumber(NavigationDrawerActivity.this);
+//        if (!emergencyPhnNum.equalsIgnoreCase("")) {
+//            btnEmergencyCall.setEnabled(true);
+//        } else {
+//            btnEmergencyCall.setEnabled(false);
+//        }
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,9 +328,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                         && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
                     // The phone has SIM card
                     // No SIM card on the phone
+                    String emgPhnNum = TraphoriaPreference.getEmergencyNumber(NavigationDrawerActivity.this);
 
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + phnum));
+                    callIntent.setData(Uri.parse("tel:" + emgPhnNum));
                     if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
                             Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                         return;
@@ -312,6 +357,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                     // The phone has SIM card
                     // No SIM card on the phone
 
+                    String emergencyPhnNum = TraphoriaPreference.getEmergencyNumber(NavigationDrawerActivity.this);
 
                     Intent callIntent = new Intent(Intent.ACTION_CALL);
                     callIntent.setData(Uri.parse("tel:" + emergencyPhnNum));
