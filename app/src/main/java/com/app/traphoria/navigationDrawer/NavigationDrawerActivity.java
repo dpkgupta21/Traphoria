@@ -351,9 +351,14 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
     private void setHeaderValues() {
         ((TextView) navigationHeaderView.findViewById(R.id.txt_name)).setText(PreferenceHelp.getUserName(this));
-        String age = PreferenceHelp.getAge(mActivity);
-        if (age != null && !age.equalsIgnoreCase("")) {
-            ((TextView) navigationHeaderView.findViewById(R.id.txt_age)).setText(age + "|");
+
+        try {
+            String age = PreferenceHelp.getAge(mActivity);
+            if (age != null && !age.equalsIgnoreCase("")) {
+                ((TextView) navigationHeaderView.findViewById(R.id.txt_age)).setText(age + " |");
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
         ((TextView) navigationHeaderView.findViewById(R.id.txt_age_gender)).setText(
                 PreferenceHelp.getUserAgeSex(this).equalsIgnoreCase("M") ? "Male" : "Female");

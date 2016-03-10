@@ -1,10 +1,12 @@
 package com.app.traphoria.locationservice;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -17,6 +19,9 @@ import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.locationservice.adapter.EmbassyAdapter;
 import com.app.traphoria.model.EmbassyDTO;
 import com.app.traphoria.preference.TraphoriaPreference;
+import com.app.traphoria.search.CountryDetailScreen;
+import com.app.traphoria.utility.MyOnClickListener;
+import com.app.traphoria.utility.RecyclerTouchListener;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
@@ -119,7 +124,22 @@ public class EmbassyFragment extends Fragment {
                 }
             });
 
+            recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), recyclerView, new MyOnClickListener() {
+                @Override
+                public void onRecyclerClick(View view, int position) {
+                    animateCamera(position);
+                }
 
+                @Override
+                public void onRecyclerLongClick(View view, int position) {
+
+                }
+
+                @Override
+                public void onItemClick(View view, int position) {
+
+                }
+            }));
         }
 
 

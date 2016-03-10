@@ -192,7 +192,6 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                             ((ImageView) view).setImageResource(R.drawable.login_bg);
                             ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
 
                         }
 
@@ -237,7 +236,7 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                             ((ImageView) view).setImageResource(R.drawable.login_bg);
                             ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
+
 
                         }
 

@@ -65,7 +65,7 @@ public class PreferenceHelp {
     public static String getAge(Context context) {
         UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO);
         if (userDTO != null)
-            return userDTO.getDob();
+            return userDTO.getAge();
         else
             return "";
     }

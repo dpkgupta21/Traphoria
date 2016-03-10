@@ -11,6 +11,7 @@ public class UserDTO  implements Serializable{
     public String mobile ="";
     public String gender ="";
     public String dob ="";
+    public String age ="";
     public boolean is_location_service =false;
     public boolean is_trip_tracker = false;
     public String image ="";
@@ -23,6 +24,14 @@ public class UserDTO  implements Serializable{
     public String countrycode="";
     public String notification_duration="";
     public String emergency_number="";
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 
     public String getSociallogin() {
         return sociallogin;
