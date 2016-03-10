@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -21,10 +22,14 @@ import com.app.traphoria.customViews.MyTextView14;
 import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.TripUserDTO;
 import com.app.traphoria.model.VisaDTO;
+import com.app.traphoria.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 
 import java.util.List;
 
@@ -66,8 +71,46 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
 
         holder.member_name.setText(tripUserList.get(position).getName());
         holder.gender_age.setText(tripUserList.get(position).getGender() + " | " + tripUserList.get(position).getAge());
-        ImageLoader.getInstance().displayImage(tripUserList.get(position).getImage(), holder.img_user_image,
-                options);
+        try {
+            ImageLoader.getInstance().displayImage(tripUserList.get(position).getImage(), holder.img_user_image,
+                    options, new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String s, View view) {
+
+                            ((ImageView) view).setImageResource(R.drawable.login_bg);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String s, View view) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                    }, new ImageLoadingProgressListener() {
+                        @Override
+                        public void onProgressUpdate(String s, View view, int i, int i1) {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         addPassportVisaTextView(v, position);
 
     }
@@ -245,7 +288,6 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
             img_user_image = (CircleImageView) itemView.findViewById(R.id.img_user_image);
             member_name = (TextView) itemView.findViewById(R.id.member_name);
             gender_age = (TextView) itemView.findViewById(R.id.gender_age);
-
 
 
         }

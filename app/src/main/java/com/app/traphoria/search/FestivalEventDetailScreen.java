@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,8 +24,11 @@ import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 
 import org.json.JSONObject;
 
@@ -134,13 +138,51 @@ public class FestivalEventDetailScreen extends BaseActivity {
     private void setFestivalEventDetails(FestivalDTO festivalDTO) {
 
         ImageView destinationImage = (ImageView) findViewById(R.id.img_festive_event);
-        ImageLoader.getInstance().displayImage(festivalDTO.getImage(), destinationImage,
-                options);
 
+        try {
+            ImageLoader.getInstance().displayImage(festivalDTO.getImage(), destinationImage,
+                    options, new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String s, View view) {
 
-        TextView textView =(TextView)findViewById(R.id.txt_date);
+                            ((ImageView) view).setImageResource(R.drawable.login_bg);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String s, View view) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                    }, new ImageLoadingProgressListener() {
+                        @Override
+                        public void onProgressUpdate(String s, View view, int i, int i1) {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        TextView textView = (TextView) findViewById(R.id.txt_date);
         textView.setText(festivalDTO.getStart_date() + " to " + festivalDTO.getEnd_date());
-       // setTextViewText(R.id.txt_date, festivalDTO.getStart_date() + " to " + festivalDTO.getEnd_date());
+        // setTextViewText(R.id.txt_date, festivalDTO.getStart_date() + " to " + festivalDTO.getEnd_date());
         setTextViewText(R.id.txt_event_title, festivalDTO.getTitle());
 
         String mimeType = "text/html";

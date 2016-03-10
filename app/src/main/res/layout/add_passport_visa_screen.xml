@@ -1,88 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="3"
     tools:context=".passportvisa.AddPassportVisaScreen">
 
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+
     <LinearLayout
+        android:id="@+id/btn_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".7"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/toolbar"
+        android:layout_marginLeft="@dimen/margin_10dp"
+        android:layout_marginRight="@dimen/margin_10dp"
+        android:layout_marginTop="@dimen/margin_10dp"
+        android:orientation="horizontal"
+        android:weightSum="2.1">
 
-
-        <LinearLayout
-            android:id="@+id/toolbar_ll"
-            android:layout_width="match_parent"
+        <com.app.traphoria.customViews.MyTextView18
+            android:id="@+id/passport_btn"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:orientation="vertical">
+            android:layout_weight="1"
+            android:background="@drawable/grey_background"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/margin_15dp"
+            android:paddingLeft="@dimen/margin_10dp"
+            android:paddingRight="@dimen/margin_10dp"
+            android:paddingTop="@dimen/margin_15dp"
+            android:text="@string/passport"
+            android:textColor="@color/text_color_selector" />
 
-            <include
-                android:id="@+id/toolbar"
-                layout="@layout/toolbar" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/btn_layout"
-            android:layout_width="match_parent"
+        <View
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_10dp"
-            android:layout_marginRight="@dimen/margin_10dp"
-            android:layout_marginTop="@dimen/margin_10dp"
-            android:orientation="horizontal"
-            android:weightSum="2.1">
+            android:layout_weight="0.1" />
 
-            <com.app.traphoria.customViews.MyTextView18
-                android:id="@+id/passport_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/grey_background"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="@dimen/margin_15dp"
-                android:paddingLeft="@dimen/margin_10dp"
-                android:paddingRight="@dimen/margin_10dp"
-                android:paddingTop="@dimen/margin_15dp"
-                android:text="@string/passport"
-                android:textColor="@color/text_color_selector" />
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.1" />
-
-            <com.app.traphoria.customViews.MyTextView18
-                android:id="@+id/visa_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/grey_background"
-                android:clickable="true"
-                android:gravity="center"
-                android:paddingBottom="@dimen/margin_15dp"
-                android:paddingLeft="@dimen/margin_10dp"
-                android:paddingRight="@dimen/margin_10dp"
-                android:paddingTop="@dimen/margin_15dp"
-                android:text="@string/visa"
-                android:textColor="@color/text_color_selector" />
-        </LinearLayout>
+        <com.app.traphoria.customViews.MyTextView18
+            android:id="@+id/visa_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/grey_background"
+            android:clickable="true"
+            android:gravity="center"
+            android:paddingBottom="@dimen/margin_15dp"
+            android:paddingLeft="@dimen/margin_10dp"
+            android:paddingRight="@dimen/margin_10dp"
+            android:paddingTop="@dimen/margin_15dp"
+            android:text="@string/visa"
+            android:textColor="@color/text_color_selector" />
     </LinearLayout>
 
     <FrameLayout
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.3">
+        android:layout_height="wrap_content"
+        android:layout_below="@id/btn_layout">
 
     </FrameLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

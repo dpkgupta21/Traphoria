@@ -13,8 +13,9 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/login_bg" />
+            android:background="@color/image_background_grey"
+            android:scaleType="fitCenter"
+            android:src="@drawable/login_bg"/>
 
 
         <com.app.traphoria.customViews.MyTextView18

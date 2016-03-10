@@ -27,22 +27,23 @@
             android:layout_marginTop="@dimen/margin_10dp"
             android:layout_toRightOf="@id/img_user_image">
 
+            <ImageView
+                android:id="@+id/left"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/left_chet_corner" />
 
             <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/msg_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_20dp"
+                android:layout_toRightOf="@+id/left"
                 android:background="@drawable/left_chat_white_bg"
                 android:padding="@dimen/margin_10dp"
                 android:text="Hi Md,How can I help you?"
-                android:textColor="@color/black"
-                />
+                android:textColor="@color/black" />
 
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/left_chet_corner" />
 
             <com.app.traphoria.customViews.MyTextView10
                 android:id="@+id/date"
@@ -50,37 +51,32 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/msg_tv"
                 android:layout_marginLeft="@dimen/margin_20dp"
-                android:layout_marginTop="@dimen/margin_10dp"
-                android:textSize="@dimen/text_size_10sp"
                 android:gravity="left"
                 android:text="15 Sep"
                 android:textColor="@color/dark_grey"
-                 />
+                android:textSize="@dimen/text_size_10sp" />
 
             <com.app.traphoria.customViews.MyTextView10
                 android:id="@+id/view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_size_10sp"
                 android:layout_below="@+id/msg_tv"
                 android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_toRightOf="@+id/date"
                 android:text=""
                 android:textColor="@color/dark_grey"
-                />
+                android:textSize="@dimen/text_size_10sp" />
 
             <com.app.traphoria.customViews.MyTextView10
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/msg_tv"
-                android:layout_marginTop="@dimen/margin_10dp"
                 android:layout_toRightOf="@+id/view"
                 android:gravity="left"
                 android:text=""
-                android:textSize="@dimen/text_size_10sp"
                 android:textColor="@color/dark_grey"
-                 />
+                android:textSize="@dimen/text_size_10sp" />
 
 
         </RelativeLayout>

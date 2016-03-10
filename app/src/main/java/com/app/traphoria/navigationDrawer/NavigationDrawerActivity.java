@@ -364,30 +364,31 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             @Override
             public void onClick(View v) {
 
+                String checkNumber = PreferenceHelp.getFamily(mActivity);
+                if (!checkNumber.equalsIgnoreCase("")) {
+                    TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                    if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT
+                            && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
+                        // The phone has SIM card
+                        // No SIM card on the phone
+                        String phnum = PreferenceHelp.getCountryCode(mActivity) +
+                                checkNumber;
+                        String familyPhnNum = phnum.replace("+", "");
 
-                TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-                if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT
-                        && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
-                    // The phone has SIM card
-                    // No SIM card on the phone
-                    String phnum = PreferenceHelp.getCountryCode(mActivity) +
-                            PreferenceHelp.getFamily(mActivity);
-                    String familyPhnNum =phnum.replace("+","");
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + familyPhnNum));
+                        if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
+                                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        startActivity(callIntent);
 
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + familyPhnNum));
-                    if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                    } else {
+                        Toast.makeText(NavigationDrawerActivity.this, "No Sim Card",
+                                Toast.LENGTH_SHORT).show();
+
                     }
-                    startActivity(callIntent);
-
-                } else {
-                    Toast.makeText(NavigationDrawerActivity.this, "No Sim Card",
-                            Toast.LENGTH_SHORT).show();
-
                 }
-
             }
         });
 
@@ -395,27 +396,31 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             @Override
             public void onClick(View v) {
 
-                TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-                if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT
-                        && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
-                    // The phone has SIM card
-                    // No SIM card on the phone
-                    String phnum = PreferenceHelp.getCountryCode(mActivity) +
-                            TraphoriaPreference.getEmergencyNumber(mActivity);
-                    String emergencyPhnNum =phnum.replace("+","");
+                String checkNumber = TraphoriaPreference.getEmergencyNumber(mActivity);
+                if (!checkNumber.equalsIgnoreCase("")) {
 
-                    Intent callIntent = new Intent(Intent.ACTION_CALL);
-                    callIntent.setData(Uri.parse("tel:" + emergencyPhnNum));
-                    if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
-                            Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                        return;
+                    TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+                    if (tm.getSimState() != TelephonyManager.SIM_STATE_ABSENT
+                            && tm.getPhoneType() != TelephonyManager.PHONE_TYPE_NONE) {
+                        // The phone has SIM card
+                        // No SIM card on the phone
+                        String phnum = PreferenceHelp.getCountryCode(mActivity) +
+                                checkNumber;
+                        String emergencyPhnNum = phnum.replace("+", "");
+
+                        Intent callIntent = new Intent(Intent.ACTION_CALL);
+                        callIntent.setData(Uri.parse("tel:" + emergencyPhnNum));
+                        if (ActivityCompat.checkSelfPermission(NavigationDrawerActivity.this,
+                                Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                            return;
+                        }
+                        startActivity(callIntent);
+
+                    } else {
+                        Toast.makeText(NavigationDrawerActivity.this, "No Sim Card",
+                                Toast.LENGTH_SHORT).show();
+
                     }
-                    startActivity(callIntent);
-
-                } else {
-                    Toast.makeText(NavigationDrawerActivity.this, "No Sim Card",
-                            Toast.LENGTH_SHORT).show();
-
                 }
             }
         });

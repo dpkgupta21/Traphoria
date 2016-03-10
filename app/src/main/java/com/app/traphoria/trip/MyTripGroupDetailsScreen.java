@@ -26,8 +26,11 @@ import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 
 import org.json.JSONObject;
 
@@ -159,9 +162,47 @@ public class MyTripGroupDetailsScreen extends BaseActivity {
         setTextViewText(R.id.date, tripDetails.getStart_date() + " - " + tripDetails.getEnd_date());
         setTextViewText(R.id.expiry, "Visa Expires on: " + tripDetails.getExpire_date());
         ImageView imageView = (ImageView) findViewById(R.id.thumbnail);
-        ImageLoader.getInstance().displayImage(tripDetails.getCountry_image(), imageView,
-                options);
 
+        try {
+            ImageLoader.getInstance().displayImage(tripDetails.getCountry_image(), imageView,
+                    options, new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String s, View view) {
+
+                            ((ImageView) view).setImageResource(R.drawable.login_bg);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String s, View view) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                    }, new ImageLoadingProgressListener() {
+                        @Override
+                        public void onProgressUpdate(String s, View view, int i, int i1) {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (tripDetails.getTrip_users() != null && tripDetails.getTrip_users().size() > 0) {
             mViewTripGroupDetailsAdapter = new ViewTripGroupDetailsAdapter(tripDetails.getTrip_users(), this);
             recyclerView.setAdapter(mViewTripGroupDetailsAdapter);

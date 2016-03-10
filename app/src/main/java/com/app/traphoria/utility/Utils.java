@@ -5,11 +5,20 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.util.Log;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 
+import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomAlert;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,6 +33,48 @@ import java.util.regex.Pattern;
 
 public class Utils {
 
+//    public static void displayImageLoader(String uri, ImageView imgView, DisplayImageOptions options){
+//        try {
+//            ImageLoader.getInstance().displayImage(uri, imgView,
+//                    options, new ImageLoadingListener() {
+//                        @Override
+//                        public void onLoadingStarted(String s, View view) {
+//
+//                            ((ImageView) view).setImageResource(R.drawable.login_bg);
+//                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+//                            ((ImageView) view).setPadding(0, 20, 0, 20);
+//
+//                        }
+//
+//                        @Override
+//                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+//                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+//                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+//                            ((ImageView) view).setPadding(0, 20, 0, 20);
+//                        }
+//
+//                        @Override
+//                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+//                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
+//                        }
+//
+//                        @Override
+//                        public void onLoadingCancelled(String s, View view) {
+////                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+////                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+////                            ((ImageView) view).setPadding(0, 20, 0, 20);
+//                        }
+//
+//                    }, new ImageLoadingProgressListener() {
+//                        @Override
+//                        public void onProgressUpdate(String s, View view, int i, int i1) {
+//
+//                        }
+//                    });
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     public static final void hideKeyboard(Activity ctx) {
 

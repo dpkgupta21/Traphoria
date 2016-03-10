@@ -13,8 +13,9 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/login_bg"
-            android:scaleType="fitXY" />
+            android:background="@color/image_background_grey"
+            android:scaleType="fitCenter"
+            android:src="@drawable/login_bg"/>
 
         <ImageView
             android:id="@+id/trip_type_icon"

@@ -23,8 +23,11 @@ import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 
 import org.json.JSONObject;
 
@@ -154,8 +157,45 @@ public class CountryDetailScreen extends BaseActivity {
 
         setTextViewText(R.id.place_name, countryDetails.getCountry_name());
         ImageView countryImage = (ImageView) findViewById(R.id.thumbnail);
-        ImageLoader.getInstance().displayImage(countryDetails.getCountry_image(), countryImage,
-                options);
+        try {
+            ImageLoader.getInstance().displayImage(countryDetails.getCountry_image(), countryImage,
+                    options, new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String s, View view) {
 
+                            ((ImageView) view).setImageResource(R.drawable.login_bg);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String s, View view) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                    }, new ImageLoadingProgressListener() {
+                        @Override
+                        public void onProgressUpdate(String s, View view, int i, int i1) {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -15,8 +15,9 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="fitXY" />
+            android:scaleType="fitCenter"
+            android:background="@color/image_background_grey"
+            android:src="@drawable/login_bg" />
 
 
         <ImageView

@@ -11,10 +11,14 @@ import android.widget.TextView;
 
 import com.app.traphoria.R;
 import com.app.traphoria.model.DestinationDTO;
+import com.app.traphoria.utility.Utils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 
 import java.util.List;
 
@@ -49,8 +53,47 @@ public class TopDestinationListAdapter extends RecyclerView.Adapter<TopDestinati
     @Override
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
-        ImageLoader.getInstance().displayImage(destinationList.get(position).getImage(), holder.thumbnail,
-                options);
+        try {
+            ImageLoader.getInstance().displayImage(destinationList.get(position).getImage(), holder.thumbnail,
+                    options, new ImageLoadingListener() {
+                        @Override
+                        public void onLoadingStarted(String s, View view) {
+
+                            ((ImageView) view).setImageResource(R.drawable.login_bg);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+
+                        }
+
+                        @Override
+                        public void onLoadingFailed(String s, View view, FailReason failReason) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                        @Override
+                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
+                        }
+
+                        @Override
+                        public void onLoadingCancelled(String s, View view) {
+                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
+                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                        }
+
+                    }, new ImageLoadingProgressListener() {
+                        @Override
+                        public void onProgressUpdate(String s, View view, int i, int i1) {
+
+                        }
+                    });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         holder.dest_name.setText(destinationList.get(position).getTitle());
 
 
@@ -58,7 +101,7 @@ public class TopDestinationListAdapter extends RecyclerView.Adapter<TopDestinati
 
     @Override
     public int getItemCount() {
-       return   destinationList.size();
+        return destinationList.size();
     }
 
     public static class DetailsViewHolder extends RecyclerView.ViewHolder {
