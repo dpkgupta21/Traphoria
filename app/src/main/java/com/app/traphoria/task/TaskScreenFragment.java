@@ -182,7 +182,7 @@ public class TaskScreenFragment extends BaseFragment {
 
                 switch (v.getId()) {
                     case R.id.status_pin:
-                        if (taskList.get(position).isStatus()) {
+                        if (!taskList.get(position).isStatus()) {
                             new CustomAlert(getActivity(), TaskScreenFragment.this).
                                     doubleButtonAlertDialog("Do you want to complete the task?",
                                             getString(R.string.ok_button),

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -10,8 +10,8 @@
         android:layout_marginLeft="@dimen/margin_10dp"
         android:layout_marginRight="@dimen/margin_10dp"
         android:layout_marginTop="@dimen/margin_10dp"
-        app:cardCornerRadius="@dimen/margin_10dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        app:cardCornerRadius="@dimen/margin_10dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -25,32 +25,42 @@
             <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/txt_title"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:singleLine="true" />
 
 
             <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/txt_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_title" />
+                android:layout_below="@+id/txt_title"
+                android:gravity="center_horizontal"
+                android:singleLine="true" />
 
             <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/txt_tel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_address" />
+                android:layout_below="@+id/txt_address"
+                android:gravity="center_horizontal"
+                android:singleLine="true" />
 
             <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/txt_web"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_tel" />
+                android:layout_below="@+id/txt_tel"
+                android:gravity="center_horizontal"
+                android:singleLine="true" />
 
             <com.app.traphoria.customViews.MyTextView14
                 android:id="@+id/txt_distance"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_web" />
+                android:layout_below="@+id/txt_web"
+                android:gravity="center_horizontal"
+                android:singleLine="true" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".passportvisa.AddPassportVisaScreen">
 
 
@@ -15,14 +16,14 @@
         android:id="@+id/btn_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@+id/toolbar"
         android:layout_marginLeft="@dimen/margin_10dp"
         android:layout_marginRight="@dimen/margin_10dp"
         android:layout_marginTop="@dimen/margin_10dp"
-        android:orientation="horizontal"
-        android:weightSum="2.1">
+        android:weightSum="2"
+        android:orientation="horizontal">
 
-        <com.app.traphoria.customViews.MyTextView18
+        <com.app.traphoria.customViews.MyButtonViewSemi
             android:id="@+id/passport_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -34,15 +35,13 @@
             android:paddingLeft="@dimen/margin_10dp"
             android:paddingRight="@dimen/margin_10dp"
             android:paddingTop="@dimen/margin_15dp"
+            android:singleLine="true"
             android:text="@string/passport"
             android:textColor="@color/text_color_selector" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.1" />
 
-        <com.app.traphoria.customViews.MyTextView18
+
+        <com.app.traphoria.customViews.MyButtonViewSemi
             android:id="@+id/visa_btn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,6 +49,7 @@
             android:background="@drawable/grey_background"
             android:clickable="true"
             android:gravity="center"
+            android:layout_marginLeft="20dp"
             android:paddingBottom="@dimen/margin_15dp"
             android:paddingLeft="@dimen/margin_10dp"
             android:paddingRight="@dimen/margin_10dp"
@@ -58,13 +58,18 @@
             android:textColor="@color/text_color_selector" />
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/frame_layout"
+    <LinearLayout
+        android:id="@+id/linear_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/btn_layout">
+        android:layout_below="@+id/btn_layout">
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
+        </FrameLayout>
+    </LinearLayout>
 
 </RelativeLayout>

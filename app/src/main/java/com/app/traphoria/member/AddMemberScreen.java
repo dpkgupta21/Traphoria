@@ -3,21 +3,16 @@ package com.app.traphoria.member;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,31 +21,21 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.R;
-import com.app.traphoria.customViews.CustomProgressDialog;
-import com.app.traphoria.database.DatabaseHelper;
-import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.lacaldabase.RelationDataSource;
 import com.app.traphoria.member.adapter.RelationAdapter;
 import com.app.traphoria.model.RelationDTO;
-import com.app.traphoria.model.UserDTO;
 import com.app.traphoria.navigationDrawer.NavigationDrawerActivity;
-import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
-import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.settings.adapter.CountryCodeAdapter;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
 import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import com.j256.ormlite.dao.Dao;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -82,7 +67,7 @@ public class AddMemberScreen extends BaseActivity {
     private void init() {
 
         setClick(R.id.btn_add_member);
-        setClick(R.id.relation);
+        //setClick(R.id.relation);
         setClick(R.id.txt_contry_code_val);
     }
 
@@ -122,7 +107,7 @@ public class AddMemberScreen extends BaseActivity {
                 break;
 
             case R.id.relation:
-                openRelationDialog();
+                //openRelationDialog();
                 break;
 
             case R.id.txt_contry_code_val:
@@ -181,7 +166,7 @@ public class AddMemberScreen extends BaseActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", WebserviceConstant.ADD_MEMBER);
                 params.put("name", getEditTextText(R.id.member_name));
-                params.put("relation", getTextViewText(R.id.relation));
+                params.put("relation", getEditTextText(R.id.relation));
                 params.put("mobile", getEditTextText(R.id.register_mbl));
                 params.put("mobilecode", getTextViewText(R.id.txt_contry_code_val));
                 params.put("user_id", PreferenceHelp.getUserId(AddMemberScreen.this));
@@ -207,8 +192,8 @@ public class AddMemberScreen extends BaseActivity {
                                                 sendIntent.putExtra("address", formatMobNumber);
                                                 sendIntent.putExtra("sms_body", response.has("sms"));
                                                 startActivity(sendIntent);
-                                                Toast.makeText(getApplicationContext(), "SMS sent.",
-                                                        Toast.LENGTH_LONG).show();
+//                                                Toast.makeText(getApplicationContext(), "SMS sent.",
+//                                                        Toast.LENGTH_LONG).show();
                                             } catch (Exception e) {
                                                 Toast.makeText(getApplicationContext(),
                                                         "SMS failed, please try again.",
@@ -259,7 +244,7 @@ public class AddMemberScreen extends BaseActivity {
         if (getEditTextText(R.id.member_name).equals("")) {
             Utils.customDialog("Please enter member name", this);
             return false;
-        } else if (getTextViewText(R.id.relation).equals("")) {
+        } else if (getEditTextText(R.id.relation).equals("")) {
             Utils.customDialog("Please enter relation", this);
             return false;
         } else if (getEditTextText(R.id.register_mbl).equals("")) {

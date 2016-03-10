@@ -66,12 +66,11 @@
                 android:textColor="@color/black" />
 
 
-            <com.app.traphoria.customViews.MyTextView18
+            <com.app.traphoria.customViews.MyEditTextView
                 android:id="@+id/relation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/grey_background"
-                android:drawableRight="@drawable/down_btn"
                 android:paddingBottom="@dimen/margin_15dp"
                 android:paddingLeft="@dimen/margin_20dp"
                 android:paddingRight="@dimen/margin_20dp"

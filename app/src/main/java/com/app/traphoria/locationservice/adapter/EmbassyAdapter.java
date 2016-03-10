@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.app.traphoria.R;
@@ -24,10 +25,22 @@ public class EmbassyAdapter extends RecyclerView.Adapter<EmbassyAdapter.EmbassyV
     }
 
 
+//    @Override
+//    public EmbassyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//        LayoutInflater inflater = LayoutInflater.from(context);
+//        View view = inflater.inflate(R.layout.embassy_row_layout, null);
+//        return new EmbassyViewHolder(view);
+//    }
+
     @Override
     public EmbassyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.embassy_row_layout, null);
+        View view = inflater.inflate(R.layout.embassy_row_layout, parent, false);
+        WindowManager windowManager = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        int width = windowManager.getDefaultDisplay().getWidth();
+        view.setLayoutParams(new RecyclerView.LayoutParams(width,
+                RecyclerView.LayoutParams.MATCH_PARENT));
         return new EmbassyViewHolder(view);
     }
 
@@ -37,9 +50,14 @@ public class EmbassyAdapter extends RecyclerView.Adapter<EmbassyAdapter.EmbassyV
         holder.txt_title.setText(embassyBean.getLocation_country() + " Embassy in " + embassyBean.getLocation_city());
         holder.txt_address.setText(embassyBean.getAddress());
         holder.txt_tel.setText("Tel: " + embassyBean.getPhone());
-        holder.txt_web.setText("Web: " + embassyBean.getWeb());
-        holder.txt_distance.setText("Distance :" + embassyBean.getDistance());
-
+        if (embassyBean.getWeb() != null && !embassyBean.getWeb().equalsIgnoreCase(""))
+            holder.txt_web.setText("Web: " + embassyBean.getWeb());
+        else
+            holder.txt_web.setVisibility(View.INVISIBLE);
+        if (embassyBean.getDistance() != null && !embassyBean.getDistance().equalsIgnoreCase(""))
+            holder.txt_distance.setText("Distance :" + embassyBean.getDistance());
+        else
+            holder.txt_web.setVisibility(View.INVISIBLE);
     }
 
     @Override

@@ -62,10 +62,10 @@ public class PreferenceHelp {
     }
 
 
-    public static String getEmergency(Context context) {
+    public static String getAge(Context context) {
         UserDTO userDTO = TraphoriaPreference.getObjectFromPref(context, PreferenceConstant.USER_INFO);
         if (userDTO != null)
-            return userDTO.getEmergency_number();
+            return userDTO.getDob();
         else
             return "";
     }

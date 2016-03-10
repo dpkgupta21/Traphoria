@@ -59,11 +59,6 @@ public class VisaFreeCountryDetails extends BaseActivity {
         mToolbar.setNavigationIcon(R.drawable.back_btn);
         TextView mTitle = (TextView) findViewById(R.id.toolbar_title);
         String type = getIntent().getStringExtra("type");
-        if (type.equalsIgnoreCase("p")) {
-            mTitle.setText("Visa Free Destinations");
-        } else {
-            mTitle.setText("Explore free usage");
-        }
 
 
         mRecyclerView = (RecyclerView) findViewById(R.id.free_visa);
@@ -71,7 +66,13 @@ public class VisaFreeCountryDetails extends BaseActivity {
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
         String countryID = getIntent().getStringExtra("countryId");
-        getFreeVisa(countryID);
+        if (type.equalsIgnoreCase("p")) {
+            mTitle.setText("Visa Free Destinations");
+            getFreeVisa(countryID, false);
+        } else {
+            mTitle.setText("Explore free usage");
+            getFreeVisa(countryID, true);
+        }
 
 
     }
@@ -88,13 +89,16 @@ public class VisaFreeCountryDetails extends BaseActivity {
     }
 
 
-    private void getFreeVisa(String countryId) {
+    private void getFreeVisa(String countryId, boolean isExplorePasses) {
 
         if (Utils.isOnline(this)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.GET_FREE_VISA_COUNTRIES);
             params.put("country_id", countryId);
             params.put("user_id", PreferenceHelp.getUserId(this));
+            if (isExplorePasses) {
+                params.put("passage", "1");
+            }
             CustomProgressDialog.showProgDialog(this, null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
@@ -150,7 +154,7 @@ public class VisaFreeCountryDetails extends BaseActivity {
             mRecyclerView.setAdapter(mAdapter);
         } else {
             mRecyclerView.setVisibility(View.GONE);
-            ((RelativeLayout)findViewById(R.id.search_rl)).setVisibility(View.GONE);
+            ((RelativeLayout) findViewById(R.id.search_rl)).setVisibility(View.GONE);
             TextView txt_free_visa = (TextView) findViewById(R.id.txt_free_visa);
             txt_free_visa.setVisibility(View.VISIBLE);
 

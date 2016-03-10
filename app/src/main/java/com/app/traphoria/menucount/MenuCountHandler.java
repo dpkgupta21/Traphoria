@@ -50,40 +50,40 @@ public class MenuCountHandler implements Runnable {
 
     @Override
     public void run() {
-        String countryId = getLocation();
-        getMenuCount(countryId);
+        String countryName = getLocation();
+        getMenuCount(countryName);
     }
 
     public String getLocation() {
-        String countryId = null;
+        String countryName = null;
         LocationManager manager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
         if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             GPSTracker gpsTracker = new GPSTracker(mActivity);
-            String countryName = getMyLocationAddress(TraphoriaPreference.getLatitude(mActivity),
+            countryName = getMyLocationAddress(TraphoriaPreference.getLatitude(mActivity),
                     TraphoriaPreference.getLongitude(mActivity));
-            countryId = getCountryIdFromList(countryName);
+
         }
 
-        return countryId;
+        return countryName;
 
     }
 
-    private String getCountryIdFromList(String countryName) {
-        String countryId = null;
-        List<TripCountryDTO> listCountryDTO = null;
-        try {
-            listCountryDTO = new CountryDataSource(mActivity).getCountry();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        for (TripCountryDTO countryDTO : listCountryDTO) {
-            if (countryDTO.getName().equalsIgnoreCase(countryName)) {
-                countryId = countryDTO.getId();
-            }
-        }
-        return countryId;
-    }
+//    private String getCountryIdFromList(String countryName) {
+//        String countryId = null;
+//        List<TripCountryDTO> listCountryDTO = null;
+//        try {
+//            listCountryDTO = new CountryDataSource(mActivity).getCountry();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        for (TripCountryDTO countryDTO : listCountryDTO) {
+//            if (countryDTO.getName().equalsIgnoreCase(countryName)) {
+//                countryId = countryDTO.getId();
+//            }
+//        }
+//        return countryId;
+//    }
 
     public String getMyLocationAddress(double latitude, double longitude) {
 
@@ -113,12 +113,12 @@ public class MenuCountHandler implements Runnable {
     }
 
 
-    private void getMenuCount(String countryId) {
+    private void getMenuCount(String countryName) {
 
         if (Utils.isOnline(mActivity)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.GET_EMERGENCY_NUMBER_ALERT_MENU_COUNT);
-            params.put("country_id", countryId);
+            params.put("country_name", countryName);
 
             //CustomProgressDialog.showProgDialog(mActivity, null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
@@ -146,7 +146,7 @@ public class MenuCountHandler implements Runnable {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     // CustomProgressDialog.hideProgressDialog();
-                   // Utils.showExceptionDialog(mActivity);
+                    // Utils.showExceptionDialog(mActivity);
                     //setUpMenu();
                     //       CustomProgressDialog.hideProgressDialog();
                 }

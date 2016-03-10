@@ -123,7 +123,9 @@ public class AddNewTaskScreen extends BaseActivity {
                         ids = ids + memberList.get(i).getId() + ",";
                     }
                 }
-                addTask(ids);
+                String senderId = ids.substring(0, ids.length() - 1);
+
+                addTask(senderId);
                 break;
 
         }

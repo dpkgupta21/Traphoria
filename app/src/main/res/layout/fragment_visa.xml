@@ -7,7 +7,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/bottom_ll"
         android:layout_marginBottom="@dimen/margin_10dp">
 
         <LinearLayout

@@ -59,13 +59,26 @@
                 android:textStyle="normal" />
 
             <com.app.traphoria.customViews.MyTextView16
-                android:id="@+id/txt_age_gender"
+                android:id="@+id/txt_age"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_name"
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:paddingLeft="@dimen/margin_10dp"
-                android:text="25 | M"
+                android:text="25 |"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_16sp"
+                android:textStyle="normal" />
+
+            <com.app.traphoria.customViews.MyTextView16
+                android:id="@+id/txt_age_gender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_name"
+                android:layout_toRightOf="@id/txt_age"
+                android:layout_marginTop="@dimen/margin_5dp"
+                android:paddingLeft="@dimen/margin_10dp"
+                android:text="M"
                 android:textColor="@color/white"
                 android:textSize="@dimen/text_size_16sp"
                 android:textStyle="normal" />

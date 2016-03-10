@@ -94,9 +94,11 @@ public class TraditionScreen extends BaseActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                traditionValues = new Gson().fromJson(response.getJSONObject("Tradition").toString(), TraditionDTO.class);
-                                setTraditionDetails();
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                    traditionValues = new Gson().fromJson(response.getJSONObject("Tradition").toString(), TraditionDTO.class);
+                                    setTraditionDetails();
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -143,7 +145,7 @@ public class TraditionScreen extends BaseActivity {
 
         CustomArrayAdapter adapter = new CustomArrayAdapter(this, mData);
 
-        mListView = (ExpandViewListView)findViewById(R.id.main_list_view);
+        mListView = (ExpandViewListView) findViewById(R.id.main_list_view);
         mListView.setAdapter(adapter);
         mListView.setDivider(null);
     }
@@ -158,7 +160,6 @@ public class TraditionScreen extends BaseActivity {
         return super.onOptionsItemSelected(item);
 
     }
-
 
 
 }
