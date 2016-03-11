@@ -19,15 +19,17 @@
             android:paddingBottom="@dimen/margin_5dp"
             android:paddingLeft="@dimen/margin_5dp"
             android:paddingRight="@dimen/margin_5dp"
-            android:paddingTop="@dimen/margin_5dp">
+            android:paddingTop="@dimen/margin_10dp">
 
 
-            <com.app.traphoria.customViews.MyTextView16
+            <com.app.traphoria.customViews.MyTextView
                 android:id="@+id/txt_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColor="@color/app_color"
+                android:textSize="20sp" />
 
 
             <com.app.traphoria.customViews.MyTextView14
@@ -35,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_title"
+                android:layout_marginTop="@dimen/margin_5dp"
                 android:gravity="center_horizontal"
                 android:singleLine="true" />
 
@@ -60,7 +63,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_web"
                 android:gravity="center_horizontal"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textColor="@color/black" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

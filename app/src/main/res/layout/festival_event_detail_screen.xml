@@ -14,13 +14,11 @@
         android:layout_width="match_parent"
         android:layout_height="150dp">
 
-        <ImageView
-            android:id="@+id/img_festive_event"
+        <include
+            layout="@layout/image_server_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:background="@color/image_background_grey"
-            android:src="@drawable/login_bg" />
+            android:layout_height="match_parent" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -31,22 +29,26 @@
             android:padding="@dimen/margin_10dp">
 
 
-            <com.app.traphoria.customViews.MyTextView14
+            <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/txt_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:singleLine="true"
                 android:text=""
                 android:textColor="@color/white"
                 android:textSize="16sp" />
 
-            <com.app.traphoria.customViews.MyTextView20
+            <com.app.traphoria.customViews.MyTextView
                 android:id="@+id/txt_event_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_5dp"
+                android:maxLines="2"
+                android:minLines="1"
+                android:singleLine="false"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="25sp" />
+                android:textSize="23sp" />
 
         </LinearLayout>
 

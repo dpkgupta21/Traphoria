@@ -18,7 +18,16 @@ public class EmbassyDTO implements Serializable {
     private String created;
     private String modifed;
     private String web;
+    private String country_name;
     private String distance = "";
+
+    public String getCountry_name() {
+        return country_name;
+    }
+
+    public void setCountry_name(String country_name) {
+        this.country_name = country_name;
+    }
 
     public String getId() {
         return id;

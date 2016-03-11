@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,8 +26,11 @@ import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.gson.Gson;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingProgressListener;
 
 import org.json.JSONObject;
 
@@ -73,8 +77,7 @@ public class TraditionScreen extends BaseActivity {
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
                 .showImageOnLoading(R.drawable.login_bg)
-                .showImageOnFail(R.drawable.login_bg)
-                .showImageForEmptyUri(R.drawable.login_bg)
+                .showImageOnFail(R.drawable.loading_fail)
                 .build();
         countryId = getIntent().getStringExtra("CountryId");
         getTraditions();
@@ -129,11 +132,55 @@ public class TraditionScreen extends BaseActivity {
     private void setTraditionDetails() {
         setTextViewText(R.id.txt_country_name, traditionValues.getTitle());
         setTextViewText(R.id.txt_description, traditionValues.getDescription());
-        ImageView imageView = (ImageView) findViewById(R.id.tnumbnail);
+        final ImageView imgThumbnail= (ImageView) findViewById(R.id.thumbnail);
 
-        ImageLoader.getInstance().displayImage(traditionValues.getImage(), imageView,
-                options);
+        try {
+            String imageUrl=traditionValues.getImage();
+            if(!imageUrl.equalsIgnoreCase("")) {
+                ImageLoader.getInstance().displayImage(imageUrl, imgThumbnail,
+                        options, new ImageLoadingListener() {
 
+                            @Override
+                            public void onLoadingStarted(String s, View view) {
+
+                                imgThumbnail.setImageResource(R.drawable.login_bg);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+
+                            }
+
+                            @Override
+                            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
+                            }
+
+                            @Override
+                            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                                imgThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            }
+
+                            @Override
+                            public void onLoadingCancelled(String s, View view) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
+                            }
+
+                        }, new ImageLoadingProgressListener() {
+                            @Override
+                            public void onProgressUpdate(String s, View view, int i, int i1) {
+
+                            }
+                        });
+            }else{
+                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imgThumbnail.setPadding(0, 20, 0, 20);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         accordianList = traditionValues.getAccordian();
 

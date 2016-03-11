@@ -28,13 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="150dp">
 
-            <ImageView
-                android:id="@+id/tnumbnail"
+            <include
+                layout="@layout/image_server_view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitCenter"
-                android:background="@color/image_background_grey"
-                android:src="@drawable/login_bg" />
+                android:layout_height="match_parent" />
 
             <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/txt_country_name"

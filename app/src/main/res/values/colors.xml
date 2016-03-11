@@ -24,4 +24,6 @@
     <color name="app_color">#873B97</color>
     <color name="tab_indicator">#5a965a</color>
     <color name="image_background_grey">#33000000</color>
+    <color name="image_black_alpha_transparency">#80000000</color>
+    <color name="image_white_alpha_transparency">#4Dffffff</color>
 </resources>

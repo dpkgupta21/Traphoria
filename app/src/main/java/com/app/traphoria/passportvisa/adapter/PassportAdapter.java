@@ -43,8 +43,7 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
                 .showImageOnLoading(R.drawable.login_bg)
-                .showImageOnFail(R.drawable.login_bg)
-                .showImageForEmptyUri(R.drawable.login_bg)
+                .showImageOnFail(R.drawable.loading_fail)
                 .build();
     }
 
@@ -185,41 +184,49 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         holder.txt_expires_date.setText("Expires On: " + passportList.get(position).getExpiryDate());
 
         try {
-            ImageLoader.getInstance().displayImage(passportList.get(position).getCountry_image(), holder.thumbnail,
-                    options, new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String s, View view) {
+            final ImageView imgThumbnail = holder.thumbnail;
+            String imageUrl = passportList.get(position).getCountry_image();
+            if (!imageUrl.equalsIgnoreCase("")) {
+                ImageLoader.getInstance().displayImage(imageUrl, imgThumbnail,
+                        options, new ImageLoadingListener() {
+                            @Override
+                            public void onLoadingStarted(String s, View view) {
 
-                            ((ImageView) view).setImageResource(R.drawable.login_bg);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setImageResource(R.drawable.login_bg);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-                        }
+                            }
 
-                        @Override
-                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
+                            }
 
-                        @Override
-                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        }
+                            @Override
+                            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                                imgThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            }
 
-                        @Override
-                        public void onLoadingCancelled(String s, View view) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingCancelled(String s, View view) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
+                            }
 
-                    }, new ImageLoadingProgressListener() {
-                        @Override
-                        public void onProgressUpdate(String s, View view, int i, int i1) {
+                        }, new ImageLoadingProgressListener() {
+                            @Override
+                            public void onProgressUpdate(String s, View view, int i, int i1) {
 
-                        }
-                    });
+                            }
+                        });
+            } else {
+                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imgThumbnail.setPadding(0, 20, 0, 20);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -229,42 +236,50 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private void configureVisaViewHolder(VisaViewHolder holder, int position) {
 
         try {
-            ImageLoader.getInstance().displayImage(passportList.get(position).getCountry_image(), holder.thumbnail,
-                    options, new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String s, View view) {
+            final ImageView iv = holder.thumbnail;
+            String imageUrl = passportList.get(position).getCountry_image();
+            if (!imageUrl.equalsIgnoreCase("")) {
+                ImageLoader.getInstance().displayImage(imageUrl, iv,
+                        options, new ImageLoadingListener() {
+                            @Override
+                            public void onLoadingStarted(String s, View view) {
 
-                            ((ImageView) view).setImageResource(R.drawable.login_bg);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                iv.setImageResource(R.drawable.login_bg);
+                                iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
 
-                        }
+                            }
 
-                        @Override
-                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                                iv.setImageResource(R.drawable.loading_fail);
+                                iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                iv.setPadding(0, 20, 0, 20);
+                            }
 
-                        @Override
-                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        }
+                            @Override
+                            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                                iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            }
 
-                        @Override
-                        public void onLoadingCancelled(String s, View view) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingCancelled(String s, View view) {
+                                iv.setImageResource(R.drawable.loading_fail);
+                                iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                iv.setPadding(0, 20, 0, 20);
+                            }
 
-                    }, new ImageLoadingProgressListener() {
-                        @Override
-                        public void onProgressUpdate(String s, View view, int i, int i1) {
+                        }, new ImageLoadingProgressListener() {
+                            @Override
+                            public void onProgressUpdate(String s, View view, int i, int i1) {
 
-                        }
-                    });
+                            }
+                        });
+            } else {
+                iv.setImageResource(R.drawable.loading_fail);
+                iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                iv.setPadding(0, 20, 0, 20);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

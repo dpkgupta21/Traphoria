@@ -7,9 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
@@ -36,8 +33,6 @@ import com.app.traphoria.R;
 import com.app.traphoria.adapter.SideMenuListAdapter;
 import com.app.traphoria.alert.AlertsScreenFragment;
 import com.app.traphoria.customViews.CustomAlert;
-import com.app.traphoria.gps.GPSTracker;
-import com.app.traphoria.lacaldabase.CountryDataSource;
 import com.app.traphoria.lacaldabase.Handler;
 import com.app.traphoria.lacaldabase.MemberHandler;
 import com.app.traphoria.locationservice.LocationScreenFragment;
@@ -45,9 +40,7 @@ import com.app.traphoria.member.MembersScreenFragment;
 import com.app.traphoria.menucount.EmergencyContactHandler;
 import com.app.traphoria.menucount.MenuCountHandler;
 import com.app.traphoria.model.MenuDTO;
-import com.app.traphoria.model.TripCountryDTO;
 import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
-import com.app.traphoria.preference.PreferenceConstant;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.search.SearchDestinationFragment;
@@ -62,8 +55,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
-import java.util.Locale;
 
 
 public class NavigationDrawerActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -118,7 +109,24 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     }
 
     public void setEmergencyContact(MenuDTO menuDto) {
-        TraphoriaPreference.setEmergencyNumber(mActivity, menuDto.getNumber());
+//        Button btnEmergencyCall = (Button) navigationHeaderView.findViewById(R.id.call_cancel_btn);
+//        Drawable emergencyBtnDrawable = btnEmergencyCall.getBackground();
+//        Button btnFamilyCall = (Button) navigationHeaderView.findViewById(R.id.call_btn);
+//        Drawable familyBtnDrawable = btnFamilyCall.getBackground();
+
+        if (menuDto != null) {
+            TraphoriaPreference.setEmergencyNumber(mActivity, menuDto.getNumber());
+           // emergencyBtnDrawable.setAlpha(000);
+        }
+//        else {
+//            emergencyBtnDrawable.setAlpha(150);
+//            String checkNumber = PreferenceHelp.getFamily(mActivity);
+//            if (!checkNumber.equalsIgnoreCase("")) {
+//                familyBtnDrawable.setAlpha(150);
+//            }else{
+//                familyBtnDrawable.setAlpha(000);
+//            }
+//        }
     }
 
     public static class MenuHandler extends android.os.Handler {
@@ -156,6 +164,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             Utils.ShowLog(TAG, "handleMessage in MenuHandler");
             NavigationDrawerActivity activity = mActivity.get();
             activity.menuDTO = ((MenuDTO) msg.obj);
+
             activity.setEmergencyContact(((MenuDTO) msg.obj));
 
 
@@ -357,7 +366,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             if (age != null && !age.equalsIgnoreCase("")) {
                 ((TextView) navigationHeaderView.findViewById(R.id.txt_age)).setText(age + " |");
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         ((TextView) navigationHeaderView.findViewById(R.id.txt_age_gender)).setText(

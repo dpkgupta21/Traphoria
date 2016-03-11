@@ -33,13 +33,12 @@ public class TopDestinationListAdapter extends RecyclerView.Adapter<TopDestinati
         options = new DisplayImageOptions.Builder()
                 .resetViewBeforeLoading(true)
                 .cacheOnDisk(true)
-                .imageScaleType(ImageScaleType.EXACTLY)
+                .imageScaleType(ImageScaleType.IN_SAMPLE_POWER_OF_2)
                 .bitmapConfig(Bitmap.Config.RGB_565)
                 .considerExifParams(true)
                 .displayer(new SimpleBitmapDisplayer())
                 .showImageOnLoading(R.drawable.login_bg)
-                .showImageOnFail(R.drawable.login_bg)
-                .showImageForEmptyUri(R.drawable.login_bg)
+                .showImageOnFail(R.drawable.loading_fail)
                 .build();
     }
 
@@ -54,41 +53,49 @@ public class TopDestinationListAdapter extends RecyclerView.Adapter<TopDestinati
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
         try {
-            ImageLoader.getInstance().displayImage(destinationList.get(position).getImage(), holder.thumbnail,
-                    options, new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String s, View view) {
+            final ImageView imgThumbnail = holder.thumbnail;
+            String imageUrl = destinationList.get(position).getImage();
+            if (!imageUrl.equalsIgnoreCase("")) {
+                ImageLoader.getInstance().displayImage(imageUrl, imgThumbnail,
+                        options, new ImageLoadingListener() {
+                            @Override
+                            public void onLoadingStarted(String s, View view) {
 
-                            ((ImageView) view).setImageResource(R.drawable.login_bg);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setImageResource(R.drawable.login_bg);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-                        }
+                            }
 
-                        @Override
-                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
+                            }
 
-                        @Override
-                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        }
+                            @Override
+                            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                                imgThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            }
 
-                        @Override
-                        public void onLoadingCancelled(String s, View view) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingCancelled(String s, View view) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
+                            }
 
-                    }, new ImageLoadingProgressListener() {
-                        @Override
-                        public void onProgressUpdate(String s, View view, int i, int i1) {
+                        }, new ImageLoadingProgressListener() {
+                            @Override
+                            public void onProgressUpdate(String s, View view, int i, int i1) {
 
-                        }
-                    });
+                            }
+                        });
+            } else {
+                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imgThumbnail.setPadding(0, 20, 0, 20);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

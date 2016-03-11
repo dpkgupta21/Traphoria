@@ -7,6 +7,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -75,6 +77,16 @@ public class Utils {
 //            e.printStackTrace();
 //        }
 //    }
+
+
+    public static final SpannableString underlineText(String value) {
+
+        SpannableString content = new SpannableString(value);
+        content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+
+        return content;
+    }
+
 
     public static final void hideKeyboard(Activity ctx) {
 
@@ -291,7 +303,6 @@ public class Utils {
 
         return url;
     }
-
 
 
 }

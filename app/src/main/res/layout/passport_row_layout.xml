@@ -9,14 +9,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/thumbnail"
+        <include
+            layout="@layout/image_server_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:background="@android:color/darker_gray"
-            android:src="@drawable/login_bg" />
+            android:layout_height="match_parent" />
+        <!--<FrameLayout-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
 
+        <!--<ImageView-->
+        <!--android:id="@+id/thumbnail"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/image_background_grey"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--android:src="@drawable/login_bg" />-->
+
+        <!--<View-->
+        <!--android:id="@+id/overlay"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:background="#66000000"-->
+        <!--android:layout_height="match_parent"/>-->
+        <!--</FrameLayout>-->
 
         <com.app.traphoria.customViews.MyTextView18
             android:id="@+id/type_tv"

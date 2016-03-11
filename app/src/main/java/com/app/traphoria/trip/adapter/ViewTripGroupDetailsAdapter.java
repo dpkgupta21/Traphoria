@@ -73,40 +73,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
         holder.gender_age.setText(tripUserList.get(position).getGender() + " | " + tripUserList.get(position).getAge());
         try {
             ImageLoader.getInstance().displayImage(tripUserList.get(position).getImage(), holder.img_user_image,
-                    options, new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String s, View view) {
-
-                            ((ImageView) view).setImageResource(R.drawable.login_bg);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-
-                        }
-
-                        @Override
-                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
-
-                        @Override
-                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        }
-
-                        @Override
-                        public void onLoadingCancelled(String s, View view) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
-
-                    }, new ImageLoadingProgressListener() {
-                        @Override
-                        public void onProgressUpdate(String s, View view, int i, int i1) {
-
-                        }
-                    });
+                    options);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,7 +109,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
             MyTextView14 tv_passport_et = new MyTextView14(context);
             tv_passport_et.setText("Passport:");
             tv_passport_et.setTextColor(context.getResources().getColor(R.color.black));
-            tv_passport_et.setTextSize((float) 14);
+            tv_passport_et.setTextSize((float) 12);
             tv_passport_et.setId(tv_passport_no_id);
             tv_passport_et.setLayoutParams(params1);
             relativeLayout.addView(tv_passport_et);
@@ -154,7 +121,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
 
             MyTextView14 tv_pasport_no = new MyTextView14(context);
             tv_pasport_no.setText(passportDTO.getPassport_no());
-            tv_pasport_no.setTextSize((float) 14);
+            tv_pasport_no.setTextSize((float) 12);
             tv_pasport_no.setTextColor(context.getResources().getColor(R.color.black));
             params2.setMargins(convertDpToPixel((float) 20, context), 0, 0, 0);
             params2.addRule(RelativeLayout.RIGHT_OF, tv_passport_et.getId());
@@ -166,13 +133,14 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
             RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams
                     (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-            Drawable img = context.getResources().getDrawable(R.drawable.calender_btn);
+            Drawable img = context.getResources().getDrawable(R.drawable.clock_icon_black);
 
             MyTextView14 tv_passport_time = new MyTextView14(context);
             tv_passport_time.setText(passportDTO.getExpire_date());
-            tv_passport_time.setTextSize((float) 14);
+            tv_passport_time.setTextSize((float) 12);
             tv_passport_time.setTextColor(context.getResources().getColor(R.color.black));
             tv_passport_time.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
+            tv_passport_time.setCompoundDrawablePadding(10);
             params3.setMargins(convertDpToPixel((float) 20, context), 0, 0, 0);
             params3.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             tv_passport_time.setLayoutParams(params3);
@@ -205,7 +173,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
             MyTextView14 tv_passport_et = new MyTextView14(context);
             tv_passport_et.setText("Travel Visa");
             tv_passport_et.setTextColor(context.getResources().getColor(R.color.black));
-            tv_passport_et.setTextSize((float) 14);
+            tv_passport_et.setTextSize((float) 12);
             tv_passport_et.setId(tv_visa_id);
             tv_passport_et.setLayoutParams(params1);
             relativeLayout.addView(tv_passport_et);
@@ -217,7 +185,7 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
 
             MyTextView14 tv_pasport_no = new MyTextView14(context);
             tv_pasport_no.setText(visaDTO.getEntry_type());
-            tv_pasport_no.setTextSize((float) 14);
+            tv_pasport_no.setTextSize((float) 12);
             tv_pasport_no.setTextColor(context.getResources().getColor(R.color.black));
             params2.setMargins(convertDpToPixel((float) 20, context), 0, 0, 0);
             params2.addRule(RelativeLayout.RIGHT_OF, tv_passport_et.getId());
@@ -229,14 +197,15 @@ public class ViewTripGroupDetailsAdapter extends RecyclerView.Adapter<ViewTripGr
             RelativeLayout.LayoutParams params3 = new RelativeLayout.LayoutParams
                     (RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
 
-            Drawable img = context.getResources().getDrawable(R.drawable.calender_btn);
+            Drawable img = context.getResources().getDrawable(R.drawable.clock_icon_black);
 
             MyTextView14 tv_passport_time = new MyTextView14(context);
             tv_passport_time.setText(visaDTO.getExpire_date());
-            tv_passport_time.setTextSize((float) 14);
+            tv_passport_time.setTextSize((float) 12);
             tv_passport_time.setTextColor(context.getResources().getColor(R.color.black));
             tv_passport_time.setCompoundDrawablesWithIntrinsicBounds(img, null, null, null);
             params3.setMargins(convertDpToPixel((float) 20, context), 0, 0, 0);
+            tv_passport_time.setCompoundDrawablePadding(10);
             params3.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
             tv_passport_time.setLayoutParams(params3);
 

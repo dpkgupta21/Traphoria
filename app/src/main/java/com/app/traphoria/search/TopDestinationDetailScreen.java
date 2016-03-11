@@ -142,44 +142,51 @@ public class TopDestinationDetailScreen extends BaseActivity {
         TextView txtDestinationTitle = (TextView) findViewById(R.id.txt_destination_title);
         txtDestinationTitle.setText(destinationDTO.getTitle());
 
-        ImageView destinationImage = (ImageView) findViewById(R.id.img_top_destination);
+        final ImageView imgThumbnail = (ImageView) findViewById(R.id.thumbnail);
         try {
-            ImageLoader.getInstance().displayImage(destinationDTO.getImage(), destinationImage,
-                    options, new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String s, View view) {
+            String imageUrl = destinationDTO.getImage();
+            if (!imageUrl.equalsIgnoreCase("")) {
+                ImageLoader.getInstance().displayImage(imageUrl, imgThumbnail,
+                        options, new ImageLoadingListener() {
+                            @Override
+                            public void onLoadingStarted(String s, View view) {
 
-                            ((ImageView) view).setImageResource(R.drawable.login_bg);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
+                                imgThumbnail.setImageResource(R.drawable.login_bg);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
 
-                        }
+                            }
 
-                        @Override
-                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
+                            }
 
-                        @Override
-                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        }
+                            @Override
+                            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                                imgThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            }
 
-                        @Override
-                        public void onLoadingCancelled(String s, View view) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingCancelled(String s, View view) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
+                            }
 
-                    }, new ImageLoadingProgressListener() {
-                        @Override
-                        public void onProgressUpdate(String s, View view, int i, int i1) {
+                        }, new ImageLoadingProgressListener() {
+                            @Override
+                            public void onProgressUpdate(String s, View view, int i, int i1) {
 
-                        }
-                    });
+                            }
+                        });
+            } else {
+                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imgThumbnail.setPadding(0, 20, 0, 20);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -125,12 +125,15 @@ public class EmergencyContactHandler implements Runnable {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
+                                MenuDTO menuDTO=null;
                                 if (Utils.getWebServiceStatus(response)) {
                                     //CustomProgressDialog.hideProgressDialog();
                                     Utils.ShowLog(TAG, "got Menu count response = " + response.toString());
-                                    MenuDTO menuDTO;
+
                                     menuDTO = new Gson().fromJson(response.
                                             getJSONObject("EmergencyNumber").toString(), MenuDTO.class);
+                                    handleEmergencyResponse(menuDTO);
+                                }else{
                                     handleEmergencyResponse(menuDTO);
                                 }
                             } catch (Exception e) {

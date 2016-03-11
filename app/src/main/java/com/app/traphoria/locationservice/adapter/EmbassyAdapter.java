@@ -47,7 +47,7 @@ public class EmbassyAdapter extends RecyclerView.Adapter<EmbassyAdapter.EmbassyV
     @Override
     public void onBindViewHolder(EmbassyViewHolder holder, int position) {
         EmbassyDTO embassyBean = embassyList.get(position);
-        holder.txt_title.setText(embassyBean.getLocation_country() + " Embassy in " + embassyBean.getLocation_city());
+        holder.txt_title.setText(embassyBean.getCountry_name() + " Embassy in " + embassyBean.getLocation_city());
         holder.txt_address.setText(embassyBean.getAddress());
         holder.txt_tel.setText("Tel: " + embassyBean.getPhone());
         if (embassyBean.getWeb() != null && !embassyBean.getWeb().equalsIgnoreCase(""))
