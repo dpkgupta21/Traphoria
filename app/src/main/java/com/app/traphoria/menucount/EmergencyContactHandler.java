@@ -16,6 +16,7 @@ import com.app.traphoria.gps.GPSTracker;
 import com.app.traphoria.lacaldabase.CountryDataSource;
 import com.app.traphoria.model.MenuDTO;
 import com.app.traphoria.model.TripCountryDTO;
+import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -57,7 +58,7 @@ public class EmergencyContactHandler implements Runnable {
         LocationManager manager = (LocationManager) mActivity.getSystemService(Context.LOCATION_SERVICE);
         if (manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             GPSTracker gpsTracker = new GPSTracker(mActivity);
-             countryName = getMyLocationAddress(TraphoriaPreference.getLatitude(mActivity),
+            countryName = getMyLocationAddress(TraphoriaPreference.getLatitude(mActivity),
                     TraphoriaPreference.getLongitude(mActivity));
 
         }
@@ -117,6 +118,7 @@ public class EmergencyContactHandler implements Runnable {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.GET_EMERGENCY_NUMBER_ALERT_MENU_COUNT);
             params.put("country_name", countryName);
+            params.put("user_id", PreferenceHelp.getUserId(mActivity));
 
             //CustomProgressDialog.showProgDialog(mActivity, null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
@@ -125,7 +127,7 @@ public class EmergencyContactHandler implements Runnable {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                MenuDTO menuDTO=null;
+                                MenuDTO menuDTO = null;
                                 if (Utils.getWebServiceStatus(response)) {
                                     //CustomProgressDialog.hideProgressDialog();
                                     Utils.ShowLog(TAG, "got Menu count response = " + response.toString());
@@ -133,7 +135,7 @@ public class EmergencyContactHandler implements Runnable {
                                     menuDTO = new Gson().fromJson(response.
                                             getJSONObject("EmergencyNumber").toString(), MenuDTO.class);
                                     handleEmergencyResponse(menuDTO);
-                                }else{
+                                } else {
                                     handleEmergencyResponse(menuDTO);
                                 }
                             } catch (Exception e) {
@@ -146,7 +148,7 @@ public class EmergencyContactHandler implements Runnable {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     // CustomProgressDialog.hideProgressDialog();
-                   // Utils.showExceptionDialog(mActivity);
+                    // Utils.showExceptionDialog(mActivity);
                     //setUpMenu();
                     //       CustomProgressDialog.hideProgressDialog();
                 }

@@ -45,7 +45,7 @@ public class TermsandConditionScreen extends BaseActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mToolbar.setNavigationIcon(R.drawable.back_btn);
         TextView mTitle = (TextView) findViewById(R.id.toolbar_title);
-        mTitle.setText(R.string.terms);
+        mTitle.setText(R.string.terms_line);
 
 
         getTermsAndCondition();

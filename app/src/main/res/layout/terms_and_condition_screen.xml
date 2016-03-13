@@ -13,13 +13,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
         <com.app.traphoria.customViews.MyTextView
             android:id="@+id/txt_terms_and_condition"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="10dp"
             android:textColor="@color/black"
             android:textSize="18sp" />
     </ScrollView>

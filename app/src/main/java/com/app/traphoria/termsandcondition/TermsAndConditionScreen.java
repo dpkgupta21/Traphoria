@@ -26,7 +26,7 @@ public class TermsAndConditionScreen extends AppCompatActivity {
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mToolbarTitle = (TextView) findViewById(R.id.toolbar_title);
         setSupportActionBar(mToolbar);
-        mToolbarTitle.setText(R.string.terms);
+        mToolbarTitle.setText(R.string.terms_line);
         getSupportActionBar().setTitle(" ");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mToolbar.setNavigationIcon(R.drawable.back_btn);

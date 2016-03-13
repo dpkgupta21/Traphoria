@@ -24,8 +24,8 @@
     <string name="verify_alert">A verification code has send to your mobile no.</string>
     <string name="signup">Sign Up</string>
     <string name="signup_alert">By signup you agree with our</string>
-    <string name="terms_policy">terms &amp; policy</string>
-    <string name="terms">Terms &amp; Conditions</string>
+    <string name="terms_policy">By signup you agree with our terms &amp; policy</string>
+    <string name="terms_line">Terms &amp; Conditions</string>
     <string name="family_helpline">Family \nHelpline</string>
     <string name="local_helpline">Local \nHelpline</string>
     <string name="drawer_open">Open</string>

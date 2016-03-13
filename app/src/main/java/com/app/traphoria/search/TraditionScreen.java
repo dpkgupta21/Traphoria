@@ -7,9 +7,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -22,6 +25,7 @@ import com.app.traphoria.customViews.ExpandViewListView;
 import com.app.traphoria.model.AccordianDTO;
 import com.app.traphoria.model.TraditionDTO;
 import com.app.traphoria.search.adapter.CustomArrayAdapter;
+import com.app.traphoria.search.adapter.TraditionExpandableAdapter;
 import com.app.traphoria.utility.BaseActivity;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -45,12 +49,13 @@ import java.util.Map;
 
 public class TraditionScreen extends BaseActivity {
 
-    private String TAG = "TRADITION";
+    private final static String TAG = "TraditionScreen";
     private TraditionDTO traditionValues;
     private String countryId;
     private DisplayImageOptions options;
-    List<AccordianDTO> accordianList;
-    private ExpandViewListView mListView;
+    private List<AccordianDTO> accordianList;
+    private ExpandableListView mListView;
+    private TraditionExpandableAdapter adapter;
     private final int CELL_DEFAULT_HEIGHT = 0;
 
 
@@ -191,20 +196,39 @@ public class TraditionScreen extends BaseActivity {
 
         accordianList = traditionValues.getAccordian();
 
-        final List<ExpandListItem> mData = new ArrayList<>();
-        for (int i = 0; i < accordianList.size(); i++) {
-            mData.add(new ExpandListItem(accordianList.get(i).getTitle(), CELL_DEFAULT_HEIGHT, accordianList.get(i).getDescription()));
-        }
+//
+//        final List<ExpandListItem> mData = new ArrayList<>();
+//        for (int i = 0; i < accordianList.size(); i++) {
+//            mData.add(new ExpandListItem(accordianList.get(i).getTitle(),
+//                    CELL_DEFAULT_HEIGHT,
+//                    accordianList.get(i).getDescription()));
+//        }
 
 
-        final CustomArrayAdapter adapter = new CustomArrayAdapter(this, mData);
+        //final CustomArrayAdapter adapter = new CustomArrayAdapter(this, mData);
 
-        mListView = (ExpandViewListView) findViewById(R.id.main_list_view);
+        adapter = new TraditionExpandableAdapter(this, accordianList);
+
+        mListView = (ExpandableListView) findViewById(R.id.main_list_view);
         mListView.setAdapter(adapter);
         mListView.setDivider(null);
-        setListViewHeightBasedOnChildren(mListView);
+        ScrollView scroll_view = (ScrollView) findViewById(R.id.scroll_view);
+        scroll_view.smoothScrollTo(0, 0);
+//        mListView.expandGroup(0);
+        setListViewHeight(mListView);
+        mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v,
+                                        int groupPosition, long id) {
+                setListViewHeight(parent, groupPosition);
+                return false;
+            }
+        });
+        //       setListViewHeightBasedOnChildren(mListView);
 
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -218,22 +242,11 @@ public class TraditionScreen extends BaseActivity {
     }
 
 
-    private void setListViewHeightBasedOnChildren(ListView listView) {
+    private void setListViewHeight(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
-        if (listAdapter == null) {
-            // pre-condition
-            return;
-        }
-
-        int totalHeight = listView.getPaddingTop()
-                + listView.getPaddingBottom();
+        int totalHeight = 0;
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
-            if (listItem instanceof ViewGroup) {
-                listItem.setLayoutParams(new ViewGroup.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT));
-            }
             listItem.measure(0, 0);
             totalHeight += listItem.getMeasuredHeight();
         }
@@ -242,7 +255,131 @@ public class TraditionScreen extends BaseActivity {
         params.height = totalHeight
                 + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
+        listView.requestLayout();
     }
+
+
+    private void setListViewHeight(ExpandableListView listView,
+                                   int group) {
+        ExpandableListAdapter listAdapter = listView.getExpandableListAdapter();
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+                View.MeasureSpec.AT_MOST);
+        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += groupItem.getMeasuredHeight();
+
+            if (((listView.isGroupExpanded(i)) && (i != group))
+                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+                    View listItem = listAdapter.getChildView(i, j, false, null,
+                            listView);
+                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+
+                    totalHeight += listItem.getMeasuredHeight();
+                }
+            }
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        int height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+        if (height < 10)
+            height = 200;
+        params.height = height;
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+
+    }
+
+
+//    public static void setListViewHeight(ExpandableListView listView) {
+//        ExpandableListAdapter listAdapter = (ExpandableListAdapter) listView.getExpandableListAdapter();
+//        if (listAdapter == null)
+//            return;
+//
+//        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.UNSPECIFIED);
+//        int totalHeight = 0;
+//        View view = null;
+//        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+//            view = listAdapter.getView(i, view, listView);
+//            if (i == 0)
+//                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, LayoutParams.WRAP_CONTENT));
+//
+//            view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
+//            totalHeight += view.getMeasuredHeight();
+//        }
+//        ViewGroup.LayoutParams params = listView.getLayoutParams();
+//        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+//        listView.setLayoutParams(params);
+//        listView.requestLayout();
+//    }
+
+
+//    private void setListViewHeight(ExpandableListView listView,
+//                                   int group) {
+//        ExpandableListAdapter listAdapter = (ExpandableListAdapter) listView.getExpandableListAdapter();
+//
+//        int totalHeight = 0;
+//        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(),
+//                View.MeasureSpec.EXACTLY);
+//        for (int i = 0; i < listAdapter.getGroupCount(); i++) {
+//            View groupItem = listAdapter.getGroupView(i, false, null, listView);
+//            groupItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+//
+//            totalHeight += groupItem.getMeasuredHeight();
+//
+//            if (((listView.isGroupExpanded(i)) && (i != group))
+//                    || ((!listView.isGroupExpanded(i)) && (i == group))) {
+//                for (int j = 0; j < listAdapter.getChildrenCount(i); j++) {
+//                    View listItem = listAdapter.getChildView(i, j, false, null,
+//                            listView);
+//                    listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+//
+//                    totalHeight += listItem.getMeasuredHeight();
+//
+//                }
+//            }
+//        }
+//
+//        ViewGroup.LayoutParams params = listView.getLayoutParams();
+//        int height = totalHeight
+//                + (listView.getDividerHeight() * (listAdapter.getGroupCount() - 1));
+//        if (height < 10)
+//            height = 200;
+//        params.height = height;
+//        listView.setLayoutParams(params);
+//        listView.requestLayout();
+//
+//    }
+
+
+//    private void setListViewHeightBasedOnChildren(ListView listView) {
+//        ListAdapter listAdapter = listView.getAdapter();
+//        if (listAdapter == null) {
+//            // pre-condition
+//            return;
+//        }
+//
+//        int totalHeight = listView.getPaddingTop()
+//                + listView.getPaddingBottom();
+//        for (int i = 0; i < listAdapter.getCount(); i++) {
+//            View listItem = listAdapter.getView(i, null, listView);
+//            if (listItem instanceof ViewGroup) {
+//                listItem.setLayoutParams(new ViewGroup.LayoutParams(
+//                        ViewGroup.LayoutParams.WRAP_CONTENT,
+//                        ViewGroup.LayoutParams.WRAP_CONTENT));
+//            }
+//            listItem.measure(0, 0);
+//            totalHeight += listItem.getMeasuredHeight();
+//        }
+//
+//        ViewGroup.LayoutParams params = listView.getLayoutParams();
+//        params.height = totalHeight
+//                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+//        listView.setLayoutParams(params);
+//    }
 
 
 }

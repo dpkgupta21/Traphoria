@@ -109,6 +109,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         TraphoriaPreference.setEmergencyNumber(mActivity, menuDto.getNumber());
         menuListAdapter.setAlertCount(menuDTO.getAlert());
         menuListAdapter.notifyDataSetChanged();
+        setEmergencyContact(menuDto);
 
     }
 

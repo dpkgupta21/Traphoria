@@ -119,7 +119,7 @@ public class MenuCountHandler implements Runnable {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.GET_EMERGENCY_NUMBER_ALERT_MENU_COUNT);
             params.put("country_name", countryName);
-
+            params.put("user_id", PreferenceHelp.getUserId(mActivity));
             //CustomProgressDialog.showProgDialog(mActivity, null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
                     WebserviceConstant.SERVICE_BASE_URL, params,

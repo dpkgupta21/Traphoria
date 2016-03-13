@@ -57,9 +57,9 @@ public class FestivalEventListAdapter extends RecyclerView.Adapter<FestivalEvent
     public void onBindViewHolder(DetailsViewHolder holder, int position) {
 
         try {
-            final ImageView imgThumbnail=holder.thumbnail;
-            String imageUrl=festivalList.get(position).getImage();
-            if(!imageUrl.equalsIgnoreCase("")) {
+            final ImageView imgThumbnail = holder.thumbnail;
+            String imageUrl = festivalList.get(position).getImage();
+            if (!imageUrl.equalsIgnoreCase("")) {
                 ImageLoader.getInstance().displayImage(imageUrl,
                         imgThumbnail, options, new ImageLoadingListener() {
                             @Override
@@ -95,7 +95,7 @@ public class FestivalEventListAdapter extends RecyclerView.Adapter<FestivalEvent
 
                             }
                         });
-            }else{
+            } else {
                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imgThumbnail.setPadding(0, 20, 0, 20);
@@ -103,8 +103,20 @@ public class FestivalEventListAdapter extends RecyclerView.Adapter<FestivalEvent
         } catch (Exception e) {
             e.printStackTrace();
         }
-       holder.date_tv.setText(festivalList.get(position).getStart_date() +
-                " to " + festivalList.get(position).getEnd_date());
+
+        String formattedDateString = festivalList.get(position).getStart_date();
+        if (formattedDateString != null && !formattedDateString.equalsIgnoreCase("")) {
+            if (festivalList.get(position).getEnd_date() != null
+                    && !festivalList.get(position).getEnd_date().equalsIgnoreCase("")) {
+                formattedDateString += " to ";
+                formattedDateString += festivalList.get(position).getEnd_date();
+            }
+        } else {
+            if (festivalList.get(position).getEnd_date() != null && !festivalList.get(position).getEnd_date().equalsIgnoreCase("")) {
+                formattedDateString += festivalList.get(position).getEnd_date();
+            }
+        }
+        holder.date_tv.setText(formattedDateString);
         holder.event_tv.setText(festivalList.get(position).getTitle());
 
 

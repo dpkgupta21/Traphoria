@@ -98,12 +98,18 @@ public class FestivalEventListScreen extends BaseActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<FestivalDTO>>() {
-                                }.getType();
-                                festivalList = new Gson().fromJson(response.getJSONArray("Event").toString(),
-                                        type);
-                                setFestivalList();
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<FestivalDTO>>() {
+                                    }.getType();
+                                    festivalList = new Gson().fromJson(response.getJSONArray("Event").toString(),
+                                            type);
+                                    setFestivalList();
+
+                                } else {
+                                    setViewVisibility(R.id.events_rv, View.INVISIBLE);
+                                    setViewVisibility(R.id.txt_no_events, View.VISIBLE);
+                                }
 
                             } catch (Exception e) {
                                 e.printStackTrace();

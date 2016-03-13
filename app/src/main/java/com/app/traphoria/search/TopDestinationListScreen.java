@@ -97,12 +97,16 @@ public class TopDestinationListScreen extends BaseActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                Type type = new TypeToken<ArrayList<DestinationDTO>>() {
-                                }.getType();
-                                List<DestinationDTO> destinationList = new Gson().fromJson(response.getJSONArray("TopDestination").toString(), type);
-                                setDestinationList(destinationList);
-
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                    Type type = new TypeToken<ArrayList<DestinationDTO>>() {
+                                    }.getType();
+                                    List<DestinationDTO> destinationList = new Gson().fromJson(response.getJSONArray("TopDestination").toString(), type);
+                                    setDestinationList(destinationList);
+                                } else {
+                                    setViewVisibility(R.id.destinations_rv, View.INVISIBLE);
+                                    setViewVisibility(R.id.txt_no_destination, View.VISIBLE);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }

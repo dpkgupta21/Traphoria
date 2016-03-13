@@ -135,7 +135,8 @@ public class CountryInfoDetailScreen extends BaseActivity {
 
         final ViewPager mPager = (ViewPager) findViewById(R.id.pager);
 
-        mPager.setAdapter(new SlidingImageAdapter(CountryInfoDetailScreen.this, countryInfoDetailDTO.getCountry_image()));
+        mPager.setAdapter(new SlidingImageAdapter(mActivity,
+                countryInfoDetailDTO.getCountry_image()));
 
 
         CirclePageIndicator indicator = (CirclePageIndicator)
@@ -167,7 +168,7 @@ public class CountryInfoDetailScreen extends BaseActivity {
             public void run() {
                 handler.post(Update);
             }
-        }, 3000, 3000);
+        }, 0, 2000);
 
         // Pager listener over indicator
         indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
