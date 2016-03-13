@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_LOGS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
-    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.SEND_SMS" />
 
     <!--
@@ -161,6 +161,10 @@
             android:name="io.fabric.ApiKey"
             android:value="75ceb3d016bc093500e9fd37278f0a2f9dfb0cc3" />
 
+
+        <receiver android:name="com.app.traphoria.track.receiver.LocationUpLoadReceiver"></receiver>
+
+
         <!-- Start Push Notification -->
         <receiver
             android:name="com.google.android.gcm.GCMBroadcastReceiver"
@@ -178,7 +182,6 @@
 
         <service android:name=".GCMIntentService" />
 
-        <receiver android:name="com.app.traphoria.track.receiver.LocationUpLoadReceiver"></receiver>
 
         <!-- End Push Notification -->
 

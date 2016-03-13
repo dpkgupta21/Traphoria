@@ -42,6 +42,7 @@ public class CountryDetailScreen extends BaseActivity {
     private String countryID;
     private Activity mActivity;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,11 +123,13 @@ public class CountryDetailScreen extends BaseActivity {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
-                                Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                CountryDetailsDTO countryDetails = new Gson().fromJson(
-                                        response.getJSONObject("trip").toString(),
-                                        CountryDetailsDTO.class);
-                                setCountryDetails(countryDetails);
+                                if (Utils.getWebServiceStatus(response)) {
+                                    Utils.ShowLog(TAG, "got some response = " + response.toString());
+                                    CountryDetailsDTO countryDetails = new Gson().fromJson(
+                                            response.getJSONObject("trip").toString(),
+                                            CountryDetailsDTO.class);
+                                    setCountryDetails(countryDetails);
+                                }
                             } catch (Exception e) {
                                 e.printStackTrace();
                             }
@@ -154,46 +157,63 @@ public class CountryDetailScreen extends BaseActivity {
 
 
     private void setCountryDetails(CountryDetailsDTO countryDetails) {
+        if (countryDetails.getValid_visa() != 0) {
+            setViewVisibility(R.id.info_btn, View.VISIBLE);
+            setViewVisibility(R.id.linear_btn, View.VISIBLE);
+            setTextViewText(R.id.txt_valid_country_name, countryDetails.getCountry_name());
+            setTextViewText(R.id.txt_valid_visa_expires_date, "Expires on: " + countryDetails.getExpire_date());
+        } else {
+            setViewVisibility(R.id.info_btn, View.INVISIBLE);
+            setViewVisibility(R.id.linear_btn, View.INVISIBLE);
+        }
 
         setTextViewText(R.id.place_name, countryDetails.getCountry_name());
-        ImageView countryImage = (ImageView) findViewById(R.id.thumbnail);
+        final ImageView countryImage = (ImageView) findViewById(R.id.thumbnail);
         try {
-            ImageLoader.getInstance().displayImage(countryDetails.getCountry_image(), countryImage,
-                    options, new ImageLoadingListener() {
-                        @Override
-                        public void onLoadingStarted(String s, View view) {
+            String imageUrl = countryDetails.getCountry_image();
+            if (imageUrl != null && !imageUrl.equalsIgnoreCase("")) {
+                ImageLoader.getInstance().displayImage(imageUrl, countryImage,
+                        options, new ImageLoadingListener() {
+                            @Override
+                            public void onLoadingStarted(String s, View view) {
 
-                            ((ImageView) view).setImageResource(R.drawable.login_bg);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            //((ImageView) view).setPadding(0, 20, 0, 20);
+                                countryImage.setImageResource(R.drawable.login_bg);
+                                countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
-                        }
 
-                        @Override
-                        public void onLoadingFailed(String s, View view, FailReason failReason) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            }
 
-                        @Override
-                        public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.CENTER_CROP);
-                        }
+                            @Override
+                            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                                countryImage.setImageResource(R.drawable.loading_fail);
+                                countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                countryImage.setPadding(0, 20, 0, 20);
+                            }
 
-                        @Override
-                        public void onLoadingCancelled(String s, View view) {
-                            ((ImageView) view).setImageResource(R.drawable.loading_fail);
-                            ((ImageView) view).setScaleType(ImageView.ScaleType.FIT_CENTER);
-                            ((ImageView) view).setPadding(0, 20, 0, 20);
-                        }
+                            @Override
+                            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                                countryImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                            }
 
-                    }, new ImageLoadingProgressListener() {
-                        @Override
-                        public void onProgressUpdate(String s, View view, int i, int i1) {
+                            @Override
+                            public void onLoadingCancelled(String s, View view) {
+                                countryImage.setImageResource(R.drawable.loading_fail);
+                                countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                countryImage.setPadding(0, 20, 0, 20);
+                            }
 
-                        }
-                    });
+                        }, new ImageLoadingProgressListener() {
+                            @Override
+                            public void onProgressUpdate(String s, View view, int i, int i1) {
+
+                            }
+                        });
+            } else {
+                countryImage.setImageResource(R.drawable.loading_fail);
+                countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                countryImage.setPadding(0, 20, 0, 20);
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

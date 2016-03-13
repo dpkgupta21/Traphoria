@@ -55,16 +55,20 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
     private View view;
     private String TAG = "ADD_EDIT_VISA";
     private String visaID = "";
+    private String userId;
 
     public VisaFragment() {
 
     }
 
-    public static VisaFragment newInstance(String id, boolean isEditVisaFlag) {
+    public static VisaFragment newInstance(String id, boolean isEditVisaFlag, String userId, boolean isMemberFlag) {
         VisaFragment fragment = new VisaFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
         bundle.putBoolean("isEditVisaFlag", isEditVisaFlag);
+        bundle.putString("userId", userId);
+        bundle.putBoolean("isMember", isMemberFlag);
+
         fragment.setArguments(bundle);
 
         return fragment;
@@ -74,6 +78,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         visaID = getArguments().getString("id");
+        userId = getArguments().getString("userId");
     }
 
     @Override
@@ -93,10 +98,10 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
             visaDetails();
         }
 
-        boolean isVisaFlag=getArguments().getBoolean("isEditVisaFlag", false);
-        if(isVisaFlag){
-            setViewEnable(R.id.add_btn,view, false);
-        }else{
+        boolean isVisaFlag = getArguments().getBoolean("isEditVisaFlag", false);
+        if (isVisaFlag) {
+            setViewEnable(R.id.add_btn, view, false);
+        } else {
             setViewEnable(R.id.add_btn, view, true);
         }
         setClick(R.id.visa_type, view);
@@ -225,7 +230,7 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
             if (validateForm()) {
                 Map<String, String> params = new HashMap<>();
                 params.put("action", WebserviceConstant.ADD_EDIT_VISA);
-                params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+                params.put("user_id", userId);
                 params.put("country_id", new CountryDataSource(getActivity()).getWhereData("name", getViewText(R.id.visa_country, view)).getId());
                 params.put("visa_type_id", new VisaTypeDataSource(getActivity()).getWhereData("name", getViewText(R.id.visa_type, view)).getId());
                 params.put("entry_type", getViewText(R.id.visa_entry_country, view));
@@ -241,14 +246,25 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
 
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
-                                        if(flag) {
-                                            openUserVisaScreen();
-                                        }else{
+                                        if (flag) {
+                                            boolean isMemberFlag = getArguments().getBoolean("isMember");
+                                            if (!isMemberFlag) {
+                                                openUserVisaScreen();
+                                            } else {
+                                                Intent intent = new Intent(getActivity(),
+                                                        NavigationDrawerActivity.class);
+                                                intent.putExtra("fragmentNumber", 5);
+                                                intent.putExtra("memberId", userId);
+                                                startActivity(intent);
+                                            }
+                                        } else {
+
                                             Intent intent = new Intent(getActivity().getApplicationContext(),
                                                     AddPassportVisaScreen.class);
                                             intent.putExtra("id", "");
                                             intent.putExtra("type", "V");
                                             startActivity(intent);
+
                                         }
                                     } else {
                                         Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
@@ -363,10 +379,13 @@ public class VisaFragment extends BaseFragment implements FetchInterface {
 
     private void setVisaDetails(VisaDTO visaDetails) {
 
-        setViewText(R.id.visa_country, new CountryDataSource(getActivity()).getWhereData("id", visaDetails.getCountry_id()).getName(), view);
-        setViewText(R.id.visa_type, new VisaTypeDataSource(getActivity()).getWhereData("id", visaDetails.getVisa_type_id()).getName(), view);
+        setViewText(R.id.visa_country, new CountryDataSource(getActivity()).getWhereData("id",
+                visaDetails.getCountry_id()).getName(), view);
         setViewText(R.id.visa_entry_country, visaDetails.getEntry_type(), view);
         setViewText(R.id.visa_expire_on_tv, visaDetails.getExpire_date(), view);
+        setViewText(R.id.visa_type, new VisaTypeDataSource(getActivity()).getWhereData("id",
+                visaDetails.getVisa_type_id()).getName(), view);
+
 
 
     }

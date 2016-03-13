@@ -1,12 +1,14 @@
 package com.app.traphoria.lacaldabase;
 
 
+import android.app.Activity;
 import android.content.Context;
 
 import com.app.traphoria.database.DatabaseHelper;
 import com.app.traphoria.database.DatabaseManager;
 import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.RelationDTO;
+import com.app.traphoria.preference.PreferenceHelp;
 import com.j256.ormlite.dao.Dao;
 
 import java.util.List;
@@ -62,5 +64,29 @@ public class MemberDataSource {
         }
     }
 
+
+    //4. ----------------------Member Name---------------------------------
+
+    public static String getMemberName(String memberId, Activity mActivity) {
+        String memberName = null;
+        List<MemberDTO> memberList = null;
+        try {
+            memberList = new MemberDataSource(mActivity).getMember();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        for (MemberDTO memberDTO : memberList) {
+            if (memberDTO.getId() == memberId) {
+                memberName = memberDTO.getName();
+
+            }
+            break;
+        }
+        if (memberName == null || memberName.equalsIgnoreCase("")) {
+            memberName = PreferenceHelp.getUserName(mActivity);
+        }
+        return memberName;
+    }
 
 }

@@ -53,16 +53,21 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
 
     private String TAG = "ADD PASSPORT";
     private String passportID = "";
+    private String userId;
 
     public PassportFragment() {
     }
 
 
-    public static PassportFragment newInstance(String id, boolean isEditPassportFlag) {
+    public static PassportFragment newInstance(String id, boolean isEditPassportFlag,
+                                               String userId, boolean isMemberFlag) {
         PassportFragment fragment = new PassportFragment();
         Bundle bundle = new Bundle();
         bundle.putString("id", id);
         bundle.putBoolean("isEditPassportFlag", isEditPassportFlag);
+        bundle.putString("userId", userId);
+        bundle.putBoolean("isMember", isMemberFlag);
+
 
         fragment.setArguments(bundle);
 
@@ -74,6 +79,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
         super.onCreate(savedInstanceState);
 
         passportID = getArguments().getString("id");
+        userId = getArguments().getString("userId");
 
     }
 
@@ -93,11 +99,11 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
         if (!passportID.equalsIgnoreCase("")) {
             getPassPortDetails();
         }
-        boolean isPassportFlag=getArguments().getBoolean("isEditPassportFlag", false);
-        if(isPassportFlag){
-            setViewEnable(R.id.add_btn,view, false);
-        }else{
-            setViewEnable(R.id.add_btn,view, true);
+        boolean isPassportFlag = getArguments().getBoolean("isEditPassportFlag", false);
+        if (isPassportFlag) {
+            setViewEnable(R.id.add_btn, view, false);
+        } else {
+            setViewEnable(R.id.add_btn, view, true);
         }
         setClick(R.id.passprt_type, view);
         setClick(R.id.passprt_country, view);
@@ -209,7 +215,7 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
                 params.put("passport_type_id", new PassportTypeDataSource(getActivity()).getWhereData("name", getViewText(R.id.passprt_type, view)).getId());
                 params.put("passport_no", getViewText(R.id.passport_no_spinner, view));
                 params.put("expire_date", getViewText(R.id.txt_expiry, view));
-                params.put("user_id", PreferenceHelp.getUserId(getActivity()));
+                params.put("user_id", userId);
                 params.put("passport_id", passportID);
 
                 CustomProgressDialog.showProgDialog(getActivity(), null);
@@ -224,13 +230,25 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
                                         if (flag) {
-                                            openUserVisaScreen();
+                                            boolean isMemberFlag = getArguments().getBoolean("isMember");
+                                            if (!isMemberFlag) {
+                                                openUserVisaScreen();
+                                            } else {
+                                                Intent intent = new Intent(getActivity(),
+                                                        NavigationDrawerActivity.class);
+                                                intent.putExtra("fragmentNumber", 5);
+                                                intent.putExtra("memberId", userId);
+                                                startActivity(intent);
+                                            }
                                         } else {
+
+
                                             Intent intent = new Intent(getActivity().getApplicationContext(),
                                                     AddPassportVisaScreen.class);
                                             intent.putExtra("id", "");
                                             intent.putExtra("type", "P");
                                             startActivity(intent);
+
                                         }
                                     } else {
                                         Utils.customDialog(Utils.getWebServiceMessage(response), getActivity());
@@ -348,10 +366,11 @@ public class PassportFragment extends BaseFragment implements FetchInterface {
         setViewText(R.id.passprt_country,
                 new CountryDataSource(getActivity()).
                         getWhereData("id", passportDetails.getCountry_id()).getName(), view);
-        setViewText(R.id.passprt_type, new PassportTypeDataSource(getActivity()).
-                getWhereData("id", passportDetails.getPassport_type_id()).getName(), view);
         setViewText(R.id.passport_no_spinner, passportDetails.getPassport_no(), view);
         setViewText(R.id.txt_expiry, passportDetails.getExpire_date(), view);
+        setViewText(R.id.passprt_type, new PassportTypeDataSource(getActivity()).
+                getWhereData("id", passportDetails.getPassport_type_id()).getName(), view);
+
 
 
     }

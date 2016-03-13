@@ -7,7 +7,24 @@ public class CountryDetailsDTO implements Serializable {
 
     private String country_image;
     private String country_name;
-    private String valid_visa;
+    private int valid_visa;
+    private String expire_date;
+
+    public int getValid_visa() {
+        return valid_visa;
+    }
+
+    public void setValid_visa(int valid_visa) {
+        this.valid_visa = valid_visa;
+    }
+
+    public String getExpire_date() {
+        return expire_date;
+    }
+
+    public void setExpire_date(String expire_date) {
+        this.expire_date = expire_date;
+    }
 
     public String getCountry_image() {
         return country_image;
@@ -25,11 +42,4 @@ public class CountryDetailsDTO implements Serializable {
         this.country_name = country_name;
     }
 
-    public String getValid_visa() {
-        return valid_visa;
-    }
-
-    public void setValid_visa(String valid_visa) {
-        this.valid_visa = valid_visa;
-    }
 }

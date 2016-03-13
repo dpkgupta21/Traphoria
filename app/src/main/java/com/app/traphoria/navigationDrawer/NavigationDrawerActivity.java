@@ -34,11 +34,13 @@ import com.app.traphoria.adapter.SideMenuListAdapter;
 import com.app.traphoria.alert.AlertsScreenFragment;
 import com.app.traphoria.customViews.CustomAlert;
 import com.app.traphoria.lacaldabase.Handler;
+import com.app.traphoria.lacaldabase.MemberDataSource;
 import com.app.traphoria.lacaldabase.MemberHandler;
 import com.app.traphoria.locationservice.LocationScreenFragment;
 import com.app.traphoria.member.MembersScreenFragment;
 import com.app.traphoria.menucount.EmergencyContactHandler;
 import com.app.traphoria.menucount.MenuCountHandler;
+import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.MenuDTO;
 import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
 import com.app.traphoria.preference.PreferenceHelp;
@@ -55,6 +57,7 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
 
 public class NavigationDrawerActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -116,7 +119,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
         if (menuDto != null) {
             TraphoriaPreference.setEmergencyNumber(mActivity, menuDto.getNumber());
-           // emergencyBtnDrawable.setAlpha(000);
+            // emergencyBtnDrawable.setAlpha(000);
         }
 //        else {
 //            emergencyBtnDrawable.setAlpha(150);
@@ -290,8 +293,15 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
             case 5:
                 new Thread(new MemberHandler(getApplicationContext())).start();
                 down_btn.setVisibility(View.VISIBLE);
-                fragment = new MembersScreenFragment();
-                title = PreferenceHelp.getUserName(this);
+                String memberId = getIntent().getStringExtra("memberId");
+
+                if (memberId != null && !memberId.equalsIgnoreCase("")) {
+                    title = MemberDataSource.getMemberName(memberId, mActivity);
+                } else {
+                    memberId=PreferenceHelp.getUserId(mActivity);
+                    title = PreferenceHelp.getUserName(mActivity);
+                }
+                fragment =  MembersScreenFragment.newInstance(memberId);
                 break;
             case 6:
                 fragment = new LocationScreenFragment();

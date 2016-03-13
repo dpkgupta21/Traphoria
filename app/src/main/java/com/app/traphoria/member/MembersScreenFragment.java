@@ -1,5 +1,6 @@
 package com.app.traphoria.member;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -37,6 +38,9 @@ import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportVisaDTO;
 import com.app.traphoria.model.VisaDTO;
+import com.app.traphoria.passportvisa.AddPassportVisaScreen;
+import com.app.traphoria.passportvisa.VisaFreeCountryDetails;
+import com.app.traphoria.passportvisa.adapter.PassportAdapter;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.task.AddNewTaskScreen;
 import com.app.traphoria.track.TrackActivity;
@@ -63,7 +67,7 @@ public class MembersScreenFragment extends BaseFragment {
 
 
     //private Toolbar mToolbar;
-    private String TAG = "Member_Screen";
+    private final static String TAG = "Member_Screen";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -72,9 +76,20 @@ public class MembersScreenFragment extends BaseFragment {
     private List<MemberDTO> memberList;
     private Dialog mDialog = null;
     private TextView toolbarTitle;
+    private Activity mActivity;
     private String memberId;
 
     public MembersScreenFragment() {
+    }
+
+    public static MembersScreenFragment newInstance(String memberId) {
+        MembersScreenFragment fragment = new MembersScreenFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("memberId", memberId);
+
+        fragment.setArguments(bundle);
+
+        return fragment;
     }
 
     @Override
@@ -98,19 +113,21 @@ public class MembersScreenFragment extends BaseFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        mActivity = getActivity();
 
         mRecyclerView = (RecyclerView) view.findViewById(R.id.members_passport_recycler);
         mRecyclerView.setHasFixedSize(true);
-        mLayoutManager = new LinearLayoutManager(getActivity());
+        mLayoutManager = new LinearLayoutManager(mActivity);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        memberId = getArguments().getString("memberId");
         setTitleFragment();
-        getPassportVisaDetails(PreferenceHelp.getUserId(getActivity()));
+        getPassportVisaDetails(memberId);
         setClick(R.id.add_member, view);
         setClick(R.id.message_btn, view);
         setClick(R.id.track_btn, view);
         setClick(R.id.task_btn, view);
-        memberId = PreferenceHelp.getUserId(getActivity());
+        //memberId = PreferenceHelp.getUserId(mActivity);
 
     }
 
@@ -139,20 +156,20 @@ public class MembersScreenFragment extends BaseFragment {
         switch (v.getId()) {
             case R.id.message_btn:
 
-                if (!memberId.equalsIgnoreCase(PreferenceHelp.getUserId(getActivity()))) {
-                    Intent intent = new Intent(getActivity(), ChatScreen.class);
+                if (!memberId.equalsIgnoreCase(PreferenceHelp.getUserId(mActivity))) {
+                    Intent intent = new Intent(mActivity, ChatScreen.class);
                     intent.putExtra("receiverId", memberId);
                     startActivity(intent);
                 } else {
-                    Utils.customDialog("Please select member", getActivity());
+                    Utils.customDialog("Please select member", mActivity);
                 }
 
                 break;
             case R.id.track_btn:
-                startActivity(new Intent(getActivity(), TrackActivity.class));
+                startActivity(new Intent(mActivity, TrackActivity.class));
                 break;
             case R.id.task_btn:
-                startActivity(new Intent(getActivity(), AddNewTaskScreen.class));
+                startActivity(new Intent(mActivity, AddNewTaskScreen.class));
                 break;
             case R.id.add_member:
                 addMember();
@@ -163,18 +180,18 @@ public class MembersScreenFragment extends BaseFragment {
 
 
     private void addMember() {
-        startActivity(new Intent(getActivity(), AddMemberScreen.class));
+        startActivity(new Intent(mActivity, AddMemberScreen.class));
     }
 
 
     private void getPassportVisaDetails(String userID) {
 
-        if (Utils.isOnline(getActivity())) {
+        if (Utils.isOnline(mActivity)) {
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.GET_PASSPORT_VISA_DETAILS);
             params.put("user_id", userID);
 
-            CustomProgressDialog.showProgDialog(getActivity(), null);
+            CustomProgressDialog.showProgDialog(mActivity, null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
@@ -191,8 +208,10 @@ public class MembersScreenFragment extends BaseFragment {
                                     }.getType();
 
 
-                                    passportList = new Gson().fromJson(response.getJSONArray("Passport").toString(), type);
-                                    visaList = new Gson().fromJson(response.getJSONArray("Visa").toString(), type1);
+                                    passportList = new Gson().
+                                            fromJson(response.getJSONArray("Passport").toString(), type);
+                                    visaList = new Gson().
+                                            fromJson(response.getJSONArray("Visa").toString(), type1);
                                     setPassportDetails(passportList, visaList);
                                 } catch (Exception e) {
                                     setPassportDetails(passportList, visaList);
@@ -206,7 +225,7 @@ public class MembersScreenFragment extends BaseFragment {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     CustomProgressDialog.hideProgressDialog();
-                    Utils.showExceptionDialog(getActivity());
+                    Utils.showExceptionDialog(mActivity);
                     //       CustomProgressDialog.hideProgressDialog();
                 }
             });
@@ -214,16 +233,16 @@ public class MembersScreenFragment extends BaseFragment {
             postReq.setRetryPolicy(new DefaultRetryPolicy(
                     30000, 0,
                     DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
-            CustomProgressDialog.showProgDialog(getActivity(), null);
+            CustomProgressDialog.showProgDialog(mActivity, null);
         } else {
-            Utils.showNoNetworkDialog(getActivity());
+            Utils.showNoNetworkDialog(mActivity);
         }
 
 
     }
 
 
-    private void setPassportDetails(List<PassportDTO> passportList, List<VisaDTO> visaList) {
+    private void setPassportDetails(final List<PassportDTO> passportList, List<VisaDTO> visaList) {
 
         if (passportList != null & visaList != null) {
 
@@ -270,8 +289,36 @@ public class MembersScreenFragment extends BaseFragment {
             if (mAdapter != null) {
                 mAdapter = null;
             }
-            mAdapter = new MemberPassportAdapter(passportVisaList, getActivity());
+            mAdapter = new MemberPassportAdapter(passportVisaList, mActivity);
             mRecyclerView.setAdapter(mAdapter);
+
+            ((MemberPassportAdapter) mAdapter).setOnItemClickListener(new MemberPassportAdapter.MyClickListener() {
+                @Override
+                public void onItemClick(int position, View v) {
+                    Intent intent;
+                    switch (v.getId()) {
+                        case R.id.thumbnail:
+                            String type = passportList.get(position).getType();
+                            intent = new Intent(mActivity, AddPassportVisaScreen.class);
+                            intent.putExtra("id", passportVisaList.get(position).getId());
+                            intent.putExtra("type", type);
+                            if (type.equalsIgnoreCase("P")) {
+                                intent.putExtra("isEditPassport", true);
+                            } else if (type.equalsIgnoreCase("V")) {
+                                intent.putExtra("isEditVisa", true);
+                            }
+                            intent.putExtra("userId", memberId);
+                            intent.putExtra("isMember", true);
+
+                            startActivity(intent);
+                            break;
+
+
+                    }
+
+                }
+            });
+
         } else {
             setViewVisibility(R.id.members_passport_recycler, view, View.GONE);
             setViewVisibility(R.id.no_trip_rl, view, View.VISIBLE);
@@ -281,9 +328,9 @@ public class MembersScreenFragment extends BaseFragment {
 
 
     protected void setTitleFragment() {
-        Toolbar mToolbar = (Toolbar) ((AppCompatActivity) getActivity()).findViewById(R.id.tool_bar);
+        Toolbar mToolbar = (Toolbar) ((AppCompatActivity) mActivity).findViewById(R.id.tool_bar);
         toolbarTitle = ((TextView) mToolbar.findViewById(R.id.toolbar_title));
-
+        toolbarTitle.setText(MemberDataSource.getMemberName(memberId, mActivity));
         ImageView downButton = ((ImageView) mToolbar.findViewById(R.id.down_btn));
         downButton.setVisibility(View.VISIBLE);
         downButton.setOnClickListener(memberListDialog);
@@ -308,10 +355,10 @@ public class MembersScreenFragment extends BaseFragment {
             e.printStackTrace();
         }
 
-        if (getActivity() != null) {
-            mDialog = new Dialog(getActivity(), R.style.DialogSlideAnim);
+        if (mActivity != null) {
+            mDialog = new Dialog(mActivity, R.style.DialogSlideAnim);
             mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            LayoutInflater inflater = (LayoutInflater) getActivity()
+            LayoutInflater inflater = (LayoutInflater) mActivity
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             final View view1 = inflater.inflate(R.layout.sliding_dialog, null,
                     false);
@@ -328,9 +375,9 @@ public class MembersScreenFragment extends BaseFragment {
                         .findViewById(R.id.listview);
 
 
-                memberList = new MemberDataSource(getActivity()).getMember();
+                memberList = new MemberDataSource(mActivity).getMember();
                 final MemberListAdapter adapter = new MemberListAdapter(
-                        getActivity(), memberList);
+                        mActivity, memberList);
                 listView.setAdapter(adapter);
 
                 listView.setOnItemClickListener(memberListItemListener);
