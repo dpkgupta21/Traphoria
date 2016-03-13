@@ -60,5 +60,6 @@ public class WebserviceConstant {
     public static String COMPLETE_TASK ="taskcomplete";
     public static String GET_EMERGENCY_NUMBER_ALERT_MENU_COUNT ="getEmergencyNumber";
     public static String GET_TERMS_AND_CONDITIONS ="getpage";
+    public static String GET_COUNTRY_DETAIL_INFO ="countrydetailvisa";
 
 }

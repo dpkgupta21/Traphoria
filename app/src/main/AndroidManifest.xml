@@ -124,6 +124,9 @@
             android:name=".search.CountryDetailScreen"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".search.CountryInfoDetailScreen"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".search.TopDestinationDetailScreen"
             android:screenOrientation="portrait" />
         <activity

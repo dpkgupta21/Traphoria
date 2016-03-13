@@ -388,8 +388,8 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         ImageView imageView = (ImageView) navigationHeaderView.findViewById(R.id.img_user_image);
         ImageLoader.getInstance().displayImage(PreferenceHelp.getUserImage(this), imageView,
                 options);
-        Button btnCall = (Button) navigationHeaderView.findViewById(R.id.call_btn);
-        Button btnEmergencyCall = (Button) navigationHeaderView.findViewById(R.id.call_cancel_btn);
+        ImageView btnCall = (ImageView) navigationHeaderView.findViewById(R.id.call_btn);
+        ImageView btnEmergencyCall = (ImageView) navigationHeaderView.findViewById(R.id.call_cancel_btn);
 
         btnCall.setOnClickListener(new View.OnClickListener() {
             @Override

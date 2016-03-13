@@ -41,7 +41,6 @@ public class CountryDetailScreen extends BaseActivity {
     private DisplayImageOptions options;
     private String countryID;
     private Activity mActivity;
-    private boolean toggleInfoFlag = false;
 
 
     @Override
@@ -84,13 +83,9 @@ public class CountryDetailScreen extends BaseActivity {
                 finish();
                 break;
             case R.id.info_btn:
-                if (toggleInfoFlag) {
-                    setViewVisibility(R.id.linear_info_detail, View.VISIBLE);
-                    toggleInfoFlag = false;
-                } else {
-                    setViewVisibility(R.id.linear_info_detail, View.INVISIBLE);
-                    toggleInfoFlag = true;
-                }
+                intent = new Intent(this, CountryInfoDetailScreen.class);
+                intent.putExtra("countryId", countryID);
+                startActivity(intent);
                 break;
             case R.id.top_dest_tv:
                 intent = new Intent(this, TopDestinationListScreen.class);
@@ -165,16 +160,13 @@ public class CountryDetailScreen extends BaseActivity {
 
     private void setCountryDetails(CountryDetailsDTO countryDetails) {
         if (countryDetails.getValid_visa() != 0) {
-            setViewVisibility(R.id.info_btn, View.VISIBLE);
-            setViewVisibility(R.id.linear_info_detail, View.VISIBLE);
-            setTextViewText(R.id.txt_valid_country_name, countryDetails.getCountry_name());
-            setTextViewText(R.id.txt_valid_visa_expires_date, "Expires on: " + countryDetails.getExpire_date());
-        } else {
-            setViewVisibility(R.id.info_btn, View.INVISIBLE);
-            setViewVisibility(R.id.linear_info_detail, View.INVISIBLE);
+            setViewEnable(R.id.info_btn, true);
+        }else{
+            setViewEnable(R.id.info_btn, false);
         }
 
         setTextViewText(R.id.place_name, countryDetails.getCountry_name());
+
         final ImageView countryImage = (ImageView) findViewById(R.id.thumbnail);
         try {
             String imageUrl = countryDetails.getCountry_image();

@@ -40,14 +40,14 @@ import java.util.Map;
 
 public class ChatScreen extends BaseActivity {
 
-    private Toolbar mToolbar;
-    private TextView mTitle;
+    //private Toolbar mToolbar;
+    // private TextView mTitle;
     private ListView chat_lv;
     private ChatAdapter chatAdapter;
     private List<MessagesDTO> chatList;
     private String receiverId;
     private String TAG = "CHAT SCREEN";
-    public static boolean isChatScreenOnFlag=false;
+    public static boolean isChatScreenOnFlag = false;
 
 
     @Override
@@ -61,13 +61,13 @@ public class ChatScreen extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        isChatScreenOnFlag=true;
+        isChatScreenOnFlag = true;
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        isChatScreenOnFlag=false;
+        isChatScreenOnFlag = false;
     }
 
     private void assignClick() {
@@ -77,12 +77,12 @@ public class ChatScreen extends BaseActivity {
 
     private void initView() {
 
-        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
         getSupportActionBar().setTitle(" ");
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         mToolbar.setNavigationIcon(R.drawable.back_btn);
-        mTitle = (TextView) findViewById(R.id.toolbar_title);
+        TextView mTitle = (TextView) findViewById(R.id.toolbar_title);
         mTitle.setText(R.string.chat);
         chat_lv = (ListView) findViewById(R.id.chat_list);
 
@@ -135,8 +135,10 @@ public class ChatScreen extends BaseActivity {
 
                                     Type type = new TypeToken<ArrayList<MessagesDTO>>() {
                                     }.getType();
-                                    chatList = new Gson().fromJson(response.getJSONArray("messageList").toString(), type);
+                                    chatList = new Gson().fromJson(
+                                            response.getJSONArray("messageList").toString(), type);
                                     setChatList();
+                                    scrollMyListViewToBottom();
                                 } else {
                                     chat_lv.setVisibility(View.GONE);
                                     setViewVisibility(R.id.no_trip_tv, View.VISIBLE);
@@ -206,14 +208,16 @@ public class ChatScreen extends BaseActivity {
                                 try {
                                     if (Utils.getWebServiceStatus(response)) {
                                         chatList.clear();
+                                        chatList = null;
                                         Type type = new TypeToken<ArrayList<MessagesDTO>>() {
                                         }.getType();
                                         chatList = new Gson().
                                                 fromJson(response.getJSONObject("messageList").
                                                         getJSONArray("messageList").toString(), type);
                                         setTextViewText(R.id.msg_et, "");
-                                        chatAdapter.setChatList(chatList);
-                                        chatAdapter.notifyDataSetChanged();
+                                        chatAdapter = null;
+                                        setChatList();
+                                        scrollMyListViewToBottom();
                                     } else {
                                         Utils.customDialog(Utils.getWebServiceMessage(response), ChatScreen.this);
                                     }
@@ -241,5 +245,15 @@ public class ChatScreen extends BaseActivity {
         }
     }
 
+
+    private void scrollMyListViewToBottom() {
+        chat_lv.post(new Runnable() {
+            @Override
+            public void run() {
+                // Select the last row so it will scroll into view...
+                chat_lv.setSelection(chatAdapter.getCount() - 1);
+            }
+        });
+    }
 
 }

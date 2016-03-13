@@ -87,8 +87,8 @@ public class ChatAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
+    public View getView(int position, View mView, ViewGroup parent) {
+        View convertView = mView;
         ViewHolder holder = null;
 
         MessagesDTO chat = chatList.get(position);
@@ -101,11 +101,10 @@ public class ChatAdapter extends BaseAdapter {
                 convertView = (View) li.inflate(R.layout.chat_right_row_layout, parent, false);
 
             } else {
-
                 convertView = (View) li.inflate(R.layout.chat_left_row_layout, parent, false);
-
             }
             holder = new ViewHolder();
+
             holder.msg_tv = (TextView) convertView.findViewById(R.id.msg_tv);
             holder.date = (TextView) convertView.findViewById(R.id.date);
             holder.time = (TextView) convertView.findViewById(R.id.time);
@@ -125,6 +124,8 @@ public class ChatAdapter extends BaseAdapter {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
         return convertView;
     }
 

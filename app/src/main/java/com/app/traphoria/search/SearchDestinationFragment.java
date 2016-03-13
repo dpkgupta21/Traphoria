@@ -80,43 +80,46 @@ public class SearchDestinationFragment extends BaseFragment {
 
         searchText = (EditText) view.findViewById(R.id.edtsearch);
         searchText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                              @Override
+                                              public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-            }
+                                              }
 
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                              @Override
+                                              public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                try {
+                                                  try {
 
-                    Iterator<SerachDTO> iterator = visibleSearchList.iterator();
-                    ArrayList<SerachDTO> temp = new ArrayList<SerachDTO>();
+                                                      Iterator<SerachDTO> iterator = searchList.iterator();
+                                                      ArrayList<SerachDTO> temp = new ArrayList<SerachDTO>();
 
-                    while (iterator.hasNext()) {
-                        while (iterator.hasNext()) {
-                            SerachDTO serachDTOtBean = iterator.next();
-                            String countryTitle = serachDTOtBean.getName();
-                            if (countryTitle.toUpperCase().contains(s.toString().toUpperCase())) {
-                                temp.add(serachDTOtBean);
-                            }
-                        }
-                        if (mSearchDestinationAdapter != null) {
-                            mSearchDestinationAdapter.setSeachList(temp);
-                            mSearchDestinationAdapter.notifyDataSetChanged();
-                        }
-                    }
+                                                      while (iterator.hasNext()) {
 
-                } catch (Exception e) {
+                                                          SerachDTO serachDTOtBean = iterator.next();
+                                                          String countryTitle = serachDTOtBean.getName();
+                                                          if (countryTitle.toUpperCase().contains(s.toString().toUpperCase())) {
+                                                              temp.add(serachDTOtBean);
+                                                          }
+                                                      }
 
-                }
-            }
+                                                      visibleSearchList = temp;
+                                                      if (mSearchDestinationAdapter != null) {
+                                                          mSearchDestinationAdapter.setSeachList(visibleSearchList);
+                                                          mSearchDestinationAdapter.notifyDataSetChanged();
+                                                      }
+                                                  } catch (Exception e) {
+                                                      e.printStackTrace();
+                                                  }
+                                              }
 
-            @Override
-            public void afterTextChanged(Editable s) {
+                                              @Override
+                                              public void afterTextChanged(Editable s) {
 
-            }
-        });
+                                              }
+                                          }
+
+        );
+
         getSearchList();
 
 
@@ -186,7 +189,7 @@ public class SearchDestinationFragment extends BaseFragment {
             @Override
             public void onRecyclerClick(View view, int position) {
                 Intent intent = new Intent(getActivity(), CountryDetailScreen.class);
-                intent.putExtra("countryId", searchList.get(position).getCountry_id());
+                intent.putExtra("countryId", visibleSearchList.get(position).getCountry_id());
                 startActivity(intent);
             }
 
