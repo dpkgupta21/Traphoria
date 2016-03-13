@@ -74,6 +74,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     public static Context context;
     private View navigationHeaderView;
     private boolean backPressedToExitOnce = false;
+    private int selectedPosition = 0;
 
     private SideMenuListAdapter menuListAdapter;
     private DisplayImageOptions options;
@@ -298,10 +299,10 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                 if (memberId != null && !memberId.equalsIgnoreCase("")) {
                     title = MemberDataSource.getMemberName(memberId, mActivity);
                 } else {
-                    memberId=PreferenceHelp.getUserId(mActivity);
+                    memberId = PreferenceHelp.getUserId(mActivity);
                     title = PreferenceHelp.getUserName(mActivity);
                 }
-                fragment =  MembersScreenFragment.newInstance(memberId);
+                fragment = MembersScreenFragment.newInstance(memberId);
                 break;
             case 6:
                 fragment = new LocationScreenFragment();
@@ -332,6 +333,9 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        menuListAdapter.setSelectedPosition(position);
+        menuListAdapter.notifyDataSetChanged();
 
         switch (position) {
             case 0:

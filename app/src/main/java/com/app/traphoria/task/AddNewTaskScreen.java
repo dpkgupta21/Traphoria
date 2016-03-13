@@ -90,7 +90,7 @@ public class AddNewTaskScreen extends BaseActivity {
 
             }
         });
-        getMembersList();
+        getMembersList(getIntent().getStringExtra("memberId"));
 
         setClick(R.id.btn_add_task);
 
@@ -132,9 +132,20 @@ public class AddNewTaskScreen extends BaseActivity {
     }
 
 
-    private void getMembersList() {
+    private void getMembersList(String memberId) {
         try {
             memberList = new MemberDataSource(AddNewTaskScreen.this).getMember();
+            if(memberId!=null && !memberId.equals(""))
+            {
+                for(int i=0;i<memberList.size();i++)
+                {
+                    if(memberList.get(i).getId().equalsIgnoreCase(memberId))
+                    {
+                        memberList.get(i).setSelected("Y");
+                    }
+                }
+            }
+
             setMemberList();
         } catch (Exception e) {
             e.printStackTrace();

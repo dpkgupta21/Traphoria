@@ -169,7 +169,10 @@ public class MembersScreenFragment extends BaseFragment {
                 startActivity(new Intent(mActivity, TrackActivity.class));
                 break;
             case R.id.task_btn:
-                startActivity(new Intent(mActivity, AddNewTaskScreen.class));
+
+                Intent intent = new Intent(mActivity, AddNewTaskScreen.class);
+                intent.putExtra("memberId", memberId);
+                startActivity(intent);
                 break;
             case R.id.add_member:
                 addMember();

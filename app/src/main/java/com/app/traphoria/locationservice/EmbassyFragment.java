@@ -1,12 +1,13 @@
 package com.app.traphoria.locationservice;
 
-import android.content.Intent;
+import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,7 +20,7 @@ import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.locationservice.adapter.EmbassyAdapter;
 import com.app.traphoria.model.EmbassyDTO;
 import com.app.traphoria.preference.TraphoriaPreference;
-import com.app.traphoria.search.CountryDetailScreen;
+import com.app.traphoria.utility.JSONParser;
 import com.app.traphoria.utility.MyOnClickListener;
 import com.app.traphoria.utility.RecyclerTouchListener;
 import com.app.traphoria.utility.Utils;
@@ -33,9 +34,13 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
@@ -50,6 +55,7 @@ public class EmbassyFragment extends Fragment {
     private GoogleMap map;
     private MapView mapview;
     private List<EmbassyDTO> list;
+    private List<Polyline> PolyLinesList;
 
     public EmbassyFragment() {
         // Required empty public constructor
@@ -100,7 +106,8 @@ public class EmbassyFragment extends Fragment {
 
             }
 
-
+            PolyLinesList = new ArrayList<>();
+            animateCamera(0);
             RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.embassy_recycler_view);
             final LinearLayoutManager manager = new LinearLayoutManager(this.getActivity(),
                     LinearLayoutManager.HORIZONTAL, false);
@@ -228,8 +235,132 @@ public class EmbassyFragment extends Fragment {
 
     private void animateCamera(int position) {
         EmbassyDTO embassyDTO = list.get(position);
+        drawPath(TraphoriaPreference.getLatitude(getActivity()), TraphoriaPreference.getLongitude(getActivity()), Double.valueOf(embassyDTO.getLat()), Double.valueOf(embassyDTO.getLng()));
         map.animateCamera(CameraUpdateFactory
                 .newLatLngZoom(new LatLng(Double.valueOf(embassyDTO.getLat()),
                         Double.valueOf(embassyDTO.getLng())), 13));
     }
+
+
+    public void drawPath(double startLat, double startLng, double endLat, double endLng) {
+        StringBuilder urlString = new StringBuilder();
+        try {
+            urlString
+                    .append("http://maps.googleapis.com/maps/api/directions/json");
+            urlString.append("?origin=");
+            urlString.append(startLat);
+            urlString.append(",");
+            urlString.append(startLng);
+            urlString.append("&destination=");// to
+            urlString.append(endLat);
+            urlString.append(",");
+            urlString.append(endLng);
+
+            urlString.append("&sensor=false&mode=driving&alternatives=true");
+            String str = urlString.toString();
+            Log.i("info1", str);
+            connectAsyncTask cat = new connectAsyncTask(str);
+            cat.execute();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class connectAsyncTask extends AsyncTask<Void, Void, String> {
+        String url;
+
+        connectAsyncTask(String urlPass) {
+            url = urlPass;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+        }
+
+        @Override
+        protected String doInBackground(Void... params) {
+            JSONParser jParser = new JSONParser();
+            String json = jParser.getJSONFromUrl(url);
+            return json;
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            super.onPostExecute(result);
+            if (result != null) {
+                drawPath1(result);
+            }
+
+        }
+    }
+
+    public void drawPath1(String result) {
+        try {
+            final JSONObject json = new JSONObject(result);
+            JSONArray routeArray = json.getJSONArray("routes");
+            JSONObject routes = routeArray.getJSONObject(0);
+            JSONObject overviewPolylines = routes
+                    .getJSONObject("overview_polyline");
+            String encodedString = overviewPolylines.getString("points");
+            List<LatLng> list = decodePoly(encodedString);
+
+
+            if (PolyLinesList != null && PolyLinesList.size() > 0) {
+                for (Polyline line : PolyLinesList) {
+                    line.remove();
+                }
+
+                PolyLinesList.clear();
+            }
+
+            for (int z = 0; z < list.size() - 1; z++) {
+                LatLng src = list.get(z);
+                LatLng dest = list.get(z + 1);
+                PolyLinesList.add(map.addPolyline(new PolylineOptions()
+                        .add(new LatLng(src.latitude, src.longitude),
+                                new LatLng(dest.latitude, dest.longitude))
+                        .width(10).color(Color.YELLOW).geodesic(true)));
+                Log.i("info", "src :" + src.latitude + ", " + src.longitude);
+                Log.i("info", "dest:" + dest.latitude + ", " + dest.longitude);
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private List<LatLng> decodePoly(String encoded) {
+        List<LatLng> poly = new ArrayList<>();
+        int index = 0, len = encoded.length();
+        int lat = 0, lng = 0;
+        while (index < len) {
+            int b, shift = 0, result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlat = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lat += dlat;
+
+            shift = 0;
+            result = 0;
+            do {
+                b = encoded.charAt(index++) - 63;
+                result |= (b & 0x1f) << shift;
+                shift += 5;
+            } while (b >= 0x20);
+            int dlng = ((result & 1) != 0 ? ~(result >> 1) : (result >> 1));
+            lng += dlng;
+
+            LatLng p = new LatLng((((double) lat / 1E5)),
+                    (((double) lng / 1E5)));
+            poly.add(p);
+        }
+        return poly;
+    }
+
+
 }

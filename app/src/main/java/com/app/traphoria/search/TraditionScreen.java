@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.DefaultRetryPolicy;
@@ -135,11 +139,11 @@ public class TraditionScreen extends BaseActivity {
     private void setTraditionDetails() {
         setTextViewText(R.id.txt_country_name, traditionValues.getTitle());
         setTextViewText(R.id.txt_description, traditionValues.getDescription());
-        final ImageView imgThumbnail= (ImageView) findViewById(R.id.thumbnail);
+        final ImageView imgThumbnail = (ImageView) findViewById(R.id.thumbnail);
 
         try {
-            String imageUrl=traditionValues.getImage();
-            if(!imageUrl.equalsIgnoreCase("")) {
+            String imageUrl = traditionValues.getImage();
+            if (!imageUrl.equalsIgnoreCase("")) {
                 ImageLoader.getInstance().displayImage(imageUrl, imgThumbnail,
                         options, new ImageLoadingListener() {
 
@@ -176,7 +180,7 @@ public class TraditionScreen extends BaseActivity {
 
                             }
                         });
-            }else{
+            } else {
                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 imgThumbnail.setPadding(0, 20, 0, 20);
@@ -187,17 +191,19 @@ public class TraditionScreen extends BaseActivity {
 
         accordianList = traditionValues.getAccordian();
 
-        List<ExpandListItem> mData = new ArrayList<>();
+        final List<ExpandListItem> mData = new ArrayList<>();
         for (int i = 0; i < accordianList.size(); i++) {
             mData.add(new ExpandListItem(accordianList.get(i).getTitle(), CELL_DEFAULT_HEIGHT, accordianList.get(i).getDescription()));
         }
 
 
-        CustomArrayAdapter adapter = new CustomArrayAdapter(this, mData);
+        final CustomArrayAdapter adapter = new CustomArrayAdapter(this, mData);
 
         mListView = (ExpandViewListView) findViewById(R.id.main_list_view);
         mListView.setAdapter(adapter);
         mListView.setDivider(null);
+        setListViewHeightBasedOnChildren(mListView);
+
     }
 
     @Override
@@ -209,6 +215,33 @@ public class TraditionScreen extends BaseActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+
+
+    private void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+            // pre-condition
+            return;
+        }
+
+        int totalHeight = listView.getPaddingTop()
+                + listView.getPaddingBottom();
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            if (listItem instanceof ViewGroup) {
+                listItem.setLayoutParams(new ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT));
+            }
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight
+                + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
     }
 
 
