@@ -93,6 +93,11 @@ public class DialogAdapter extends BaseAdapter {
         }
 
         holder.textview.setText(menuItemList.get(position).getName());
+//        if (menuItemList.get(position).getSelected().equalsIgnoreCase("N")) {
+//            holder.select_img.setImageResource(R.drawable.unactive_circle);
+//        } else {
+//            holder.select_img.setImageResource(R.drawable.active_circle);
+//        }
         return convertView;
     }
 

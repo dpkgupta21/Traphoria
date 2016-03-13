@@ -169,7 +169,8 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
         }
 
         if (userDTO.getNotification_duration() != null && !userDTO.getNotification_duration().equals("")) {
-            NotificationDurationDTO notificationDurationDTO = new NotificationDataSource(getActivity()).getWhereData("id", userDTO.getNotification_duration());
+            NotificationDurationDTO notificationDurationDTO = new NotificationDataSource(getActivity()).
+                    getWhereData("id", userDTO.getNotification_duration());
             if (notificationDurationDTO != null)
                 setViewText(R.id.notification, notificationDurationDTO.getName(), view);
 
@@ -496,14 +497,16 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
             params.put("gender", getViewText(R.id.gender, view).equals("Male") ? "M" : "F");
             params.put("location", "");
             params.put("country_id", getViewTag(R.id.txt_select_country_dropdown, view));
-            params.put("is_location_service", tgl_location.isChecked() ? "true" : "false");
-            params.put("is_trip_tracker", tgl_trip.isChecked() ? "true" : "false");
+            params.put("is_location_service", tgl_location.isChecked() ? "1" : "0");
+            params.put("is_trip_tracker", tgl_trip.isChecked() ? "1" : "0");
             params.put("family_contact", getViewText(R.id.edt_number, view));
             params.put("mobile", getViewText(R.id.edt_mob_number, view));
             if (getViewText(R.id.notification, view).equals("")) {
                 params.put("notification_duration", "");
             } else {
-                params.put("notification_duration", new NotificationDataSource(getActivity()).getWhereData("name", getViewText(R.id.notification, view)).getId());
+                params.put("notification_duration",
+                        new NotificationDataSource(getActivity()).
+                                getWhereData("name", getViewText(R.id.notification, view)).getId());
             }
             params.put("countrycode", getViewText(R.id.sel, view));
             CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params, file,

@@ -208,7 +208,9 @@ public class ChatScreen extends BaseActivity {
                                         chatList.clear();
                                         Type type = new TypeToken<ArrayList<MessagesDTO>>() {
                                         }.getType();
-                                        chatList = new Gson().fromJson(response.getJSONArray("messageList").toString(), type);
+                                        chatList = new Gson().
+                                                fromJson(response.getJSONObject("messageList").
+                                                        getJSONArray("messageList").toString(), type);
                                         setTextViewText(R.id.msg_et, "");
                                         chatAdapter.setChatList(chatList);
                                         chatAdapter.notifyDataSetChanged();
