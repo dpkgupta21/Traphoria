@@ -83,4 +83,5 @@ dependencies {
     compile 'org.apache.httpcomponents:httpmime:4.3.6'
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.facebook.android:facebook-android-sdk:4.8.2'
+    compile 'fr.avianey.com.viewpagerindicator:library:2.4.1@aar'
 }
