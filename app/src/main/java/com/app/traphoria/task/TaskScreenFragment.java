@@ -21,7 +21,9 @@ import com.app.traphoria.customViews.CustomAlert;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.TaskDTO;
 import com.app.traphoria.preference.PreferenceHelp;
+import com.app.traphoria.preference.TraphoriaPreference;
 import com.app.traphoria.task.adapter.TaskAdapter;
+import com.app.traphoria.track.TrackActivity;
 import com.app.traphoria.utility.BaseFragment;
 import com.app.traphoria.utility.Utils;
 import com.app.traphoria.volley.AppController;
@@ -108,7 +110,10 @@ public class TaskScreenFragment extends BaseFragment {
 
 
     private void addNewTrip() {
-        startActivity(new Intent(getActivity(), AddNewTaskScreen.class));
+
+        Intent intent = new Intent(getActivity(), AddNewTaskScreen.class);
+        intent.putExtra("memberId", PreferenceHelp.getUserId(getActivity()));
+        startActivity(intent);
     }
 
 

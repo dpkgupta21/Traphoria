@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -186,14 +187,17 @@ public class AddMemberScreen extends BaseActivity {
                                     if (Utils.getWebServiceStatus(response)) {
                                         if (response.has("sms")) {
                                             try {
-                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-                                                sendIntent.setData(Uri.parse("smsto:"));
-                                                sendIntent.setType("vnd.android-dir/mms-sms");
-                                                sendIntent.putExtra("address", formatMobNumber);
-                                                sendIntent.putExtra("sms_body", response.has("sms"));
-                                                startActivity(sendIntent);
+//                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+//                                                sendIntent.setData(Uri.parse("smsto:"));
+//                                                sendIntent.setType("vnd.android-dir/mms-sms");
+//                                                sendIntent.putExtra("address", formatMobNumber);
+//                                                sendIntent.putExtra("sms_body", response.has("sms"));
+//                                                startActivity(sendIntent);
 //                                                Toast.makeText(getApplicationContext(), "SMS sent.",
 //                                                        Toast.LENGTH_LONG).show();
+
+                                                SmsManager smsManager = SmsManager.getDefault();
+                                                smsManager.sendTextMessage(formatMobNumber, null, response.getString("sms"), null, null);
                                             } catch (Exception e) {
                                                 Toast.makeText(getApplicationContext(),
                                                         "SMS failed, please try again.",
