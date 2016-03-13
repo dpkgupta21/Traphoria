@@ -79,6 +79,16 @@
             android:text="@string/forget_password"
             android:textColor="@color/white" />
 
+        <com.app.traphoria.customViews.MyTextView
+            android:id="@+id/txt_terms_btn"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_10dp"
+            android:text="@string/terms"
+            android:textColor="@color/white" />
+
     </LinearLayout>
 
 

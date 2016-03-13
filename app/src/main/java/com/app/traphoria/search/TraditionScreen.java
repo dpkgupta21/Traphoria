@@ -92,14 +92,17 @@ public class TraditionScreen extends BaseActivity {
             params.put("country_id", countryId);
 
             CustomProgressDialog.showProgDialog(this, null);
-            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
+            CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST,
+                    WebserviceConstant.SERVICE_BASE_URL, params,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {
                             try {
                                 if (Utils.getWebServiceStatus(response)) {
                                     Utils.ShowLog(TAG, "got some response = " + response.toString());
-                                    traditionValues = new Gson().fromJson(response.getJSONObject("Tradition").toString(), TraditionDTO.class);
+                                    traditionValues = new Gson().
+                                            fromJson(response.getJSONObject("Tradition").toString(),
+                                                    TraditionDTO.class);
                                     setTraditionDetails();
                                 }
                             } catch (Exception e) {

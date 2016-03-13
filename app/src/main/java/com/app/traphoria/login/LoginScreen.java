@@ -10,6 +10,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
@@ -27,15 +28,18 @@ import com.app.traphoria.volley.CustomJsonRequest;
 import com.app.traphoria.webservice.WebserviceConstant;
 import com.google.android.gcm.GCMRegistrar;
 import com.google.gson.Gson;
+
 import org.json.JSONObject;
+
 import java.util.HashMap;
 import java.util.Map;
+
 import static com.app.traphoria.CommonUtilities.DISPLAY_MESSAGE_ACTION;
 import static com.app.traphoria.CommonUtilities.EXTRA_MESSAGE;
 import static com.app.traphoria.CommonUtilities.SENDER_ID;
 
 
-public class LoginScreen extends BaseActivity  {
+public class LoginScreen extends BaseActivity {
 
     private AsyncTask<Void, Void, Void> mRegisterTask;
     private Activity mActivity;
@@ -60,7 +64,7 @@ public class LoginScreen extends BaseActivity  {
         setClick(R.id.btn_login);
         setClick(R.id.back_btn);
         setClick(R.id.btn_forgot);
-
+        setClick(R.id.txt_terms_btn);
     }
 
     @Override
@@ -76,6 +80,9 @@ public class LoginScreen extends BaseActivity  {
 
             case R.id.btn_forgot:
                 startActivity(new Intent(mActivity, ForgetPasswordActivity.class));
+                break;
+            case R.id.txt_terms_btn:
+                startActivity(new Intent(mActivity, TermsandConditionScreen.class));
                 break;
         }
     }
@@ -107,7 +114,7 @@ public class LoginScreen extends BaseActivity  {
                                         UserDTO userDTO = new Gson().fromJson(response.getJSONObject("user").toString(), UserDTO.class);
                                         TraphoriaPreference.putObjectIntoPref(LoginScreen.this, userDTO, PreferenceConstant.USER_INFO);
 
-                                        Intent intent=new Intent(mActivity, NavigationDrawerActivity.class);
+                                        Intent intent = new Intent(mActivity, NavigationDrawerActivity.class);
                                         startActivity(intent);
                                     } else {
                                         Utils.customDialog(Utils.getWebServiceMessage(response), LoginScreen.this);

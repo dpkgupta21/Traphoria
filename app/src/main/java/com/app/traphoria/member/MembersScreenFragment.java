@@ -298,7 +298,7 @@ public class MembersScreenFragment extends BaseFragment {
                     Intent intent;
                     switch (v.getId()) {
                         case R.id.thumbnail:
-                            String type = passportList.get(position).getType();
+                            String type = passportVisaList.get(position).getType();
                             intent = new Intent(mActivity, AddPassportVisaScreen.class);
                             intent.putExtra("id", passportVisaList.get(position).getId());
                             intent.putExtra("type", type);

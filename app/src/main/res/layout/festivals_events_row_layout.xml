@@ -9,19 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <FrameLayout
+        <include
+            layout="@layout/image_bottom_shadow_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                android:id="@+id/thumbnail"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/image_background_grey"
-                android:scaleType="fitCenter"
-                android:src="@drawable/login_bg" />
-
-        </FrameLayout>
+            android:layout_height="match_parent" />
 
         <com.app.traphoria.customViews.MyTextView14
             android:id="@+id/date_tv"

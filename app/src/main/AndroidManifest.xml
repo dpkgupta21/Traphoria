@@ -66,6 +66,10 @@
             android:name=".login.LoginScreen"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+
+        <activity
+            android:name=".login.TermsandConditionScreen"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".login.ForgetPasswordActivity"
             android:screenOrientation="portrait"

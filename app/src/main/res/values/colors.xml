@@ -21,6 +21,7 @@
     <color name="boundary_color">#33000000</color>
     <color name="green">#15B12B</color>
     <color name="faded_black">#59000000</color>
+    <color name="faded_blue">#152292</color>
     <color name="app_color">#873B97</color>
     <color name="tab_indicator">#5a965a</color>
     <color name="image_background_grey">#33000000</color>

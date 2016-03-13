@@ -1,37 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".view.TermsAndConditionScreen">
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/toolbar_ll"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="vertical">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar" />
-    </LinearLayout>
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_ll"
-        android:background="@color/white"
-        android:scrollbars="none">
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
-        <com.app.traphoria.customViews.MyTextView16
+        <com.app.traphoria.customViews.MyTextView
+            android:id="@+id/txt_terms_and_condition"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_20dp"
-            android:layout_marginRight="@dimen/margin_20dp"
-            android:text="@string/terms_condtns"
+            android:layout_height="match_parent"
             android:textColor="@color/black"
-            android:textStyle="normal" />
+            android:textSize="18sp" />
     </ScrollView>
-</RelativeLayout>
+</LinearLayout>

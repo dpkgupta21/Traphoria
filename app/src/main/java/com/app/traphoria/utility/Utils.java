@@ -80,8 +80,8 @@ public class Utils {
 
 
     public static final SpannableString underlineText(String value) {
-
-        SpannableString content = new SpannableString(value);
+        String upperCaseValue=value.toUpperCase();
+        SpannableString content = new SpannableString(upperCaseValue);
         content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
 
         return content;

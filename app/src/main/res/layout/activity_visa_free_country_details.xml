@@ -23,34 +23,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_ll"
         android:layout_margin="@dimen/margin_5dp"
-        android:background="@drawable/faded_grey_background"
         android:orientation="horizontal"
         android:padding="@dimen/margin_10dp">
 
-        <ImageView
-            android:id="@+id/search_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/search_icon" />
 
-        <com.app.traphoria.customViews.MyEditTextView
-            android:id="@+id/edtsearch"
+        <com.app.traphoria.customViews.MyTextView
+            android:id="@+id/txt_dont_need_visa_lbl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/search_btn"
             android:background="@null"
-            android:gravity="center_vertical"
-            android:hint="@string/search_txt"
-            android:paddingLeft="@dimen/margin_10dp"
+            android:gravity="center_horizontal"
             android:singleLine="true"
+            android:text="@string/dont_need_visa_in_countries_lbl"
             android:textColor="@color/black"
             android:textSize="@dimen/text_size_16sp"
             android:textStyle="normal" />
     </RelativeLayout>
-
 
 
     <android.support.v7.widget.RecyclerView
@@ -59,8 +49,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/search_rl"
         android:layout_marginTop="5dp"
-        android:visibility="visible"
-        />
+        android:visibility="visible" />
 
     <com.app.traphoria.customViews.MyTextView16
         android:id="@+id/txt_free_visa"

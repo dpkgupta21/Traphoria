@@ -15,7 +15,7 @@
         android:layout_height="150dp">
 
         <include
-            layout="@layout/image_server_view"
+            layout="@layout/image_full_shadow_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
@@ -45,10 +45,13 @@
                 android:layout_marginTop="@dimen/margin_5dp"
                 android:maxLines="2"
                 android:minLines="1"
+                android:gravity="center_horizontal"
+                android:paddingLeft="@dimen/margin_30dp"
+                android:paddingRight="@dimen/margin_30dp"
                 android:singleLine="false"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 

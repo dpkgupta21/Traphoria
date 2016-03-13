@@ -32,7 +32,7 @@
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentLeft="true"
-                android:src="@drawable/left_chet_corner" />
+                android:src="@drawable/left_white_chat_corner" />
 
             <com.app.traphoria.customViews.MyTextView16
                 android:id="@+id/msg_tv"

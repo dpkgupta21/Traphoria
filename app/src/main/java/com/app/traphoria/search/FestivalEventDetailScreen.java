@@ -187,9 +187,18 @@ public class FestivalEventDetailScreen extends BaseActivity {
             e.printStackTrace();
         }
 
-        TextView textView = (TextView) findViewById(R.id.txt_date);
-        textView.setText(festivalDTO.getStart_date() + " to " + festivalDTO.getEnd_date());
-        // setTextViewText(R.id.txt_date, festivalDTO.getStart_date() + " to " + festivalDTO.getEnd_date());
+        String formattedDateString = festivalDTO.getStart_date();
+        if (formattedDateString != null && !formattedDateString.equalsIgnoreCase("")) {
+            if (festivalDTO.getEnd_date() != null && !festivalDTO.getEnd_date().equalsIgnoreCase("")) {
+                formattedDateString += " to ";
+                formattedDateString += festivalDTO.getEnd_date();
+            }
+        } else {
+            if (festivalDTO.getEnd_date() != null && !festivalDTO.getEnd_date().equalsIgnoreCase("")) {
+                formattedDateString += festivalDTO.getEnd_date();
+            }
+        }
+        setViewText(R.id.txt_date, formattedDateString);
         setTextViewText(R.id.txt_event_title, festivalDTO.getTitle());
 
         String mimeType = "text/html";

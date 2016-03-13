@@ -9,14 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/thumbnail"
+        <include
+            layout="@layout/image_bottom_shadow_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:background="@color/image_background_grey"
-            android:src="@drawable/login_bg"  />
-
+            android:layout_height="match_parent" />
 
         <com.app.traphoria.customViews.MyTextView20
             android:id="@+id/dest_name"
@@ -29,7 +25,6 @@
             android:text="Burj Khalifa"
             android:textColor="@color/white"
             android:textStyle="normal" />
-
 
 
     </RelativeLayout>

@@ -77,11 +77,11 @@ public class MemberDataSource {
         }
 
         for (MemberDTO memberDTO : memberList) {
-            if (memberDTO.getId() == memberId) {
+            if (memberDTO.getId().equalsIgnoreCase(memberId)) {
                 memberName = memberDTO.getName();
-
+                break;
             }
-            break;
+
         }
         if (memberName == null || memberName.equalsIgnoreCase("")) {
             memberName = PreferenceHelp.getUserName(mActivity);

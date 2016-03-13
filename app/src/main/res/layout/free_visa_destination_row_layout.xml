@@ -24,7 +24,7 @@
             android:layout_marginLeft="@dimen/margin_10dp"
             android:layout_marginRight="@dimen/margin_10dp">
 
-            <com.app.traphoria.customViews.MyTextView18
+            <com.app.traphoria.customViews.CountryFontTextView
                 android:id="@+id/dest_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
                 android:singleLine="true"
                 android:text="UNITED ARAB EMIRATES"
                 android:textColor="@color/orange"
-                android:textStyle="bold" />
+                android:textSize="@dimen/text_size_14sp" />
 
         </RelativeLayout>
 

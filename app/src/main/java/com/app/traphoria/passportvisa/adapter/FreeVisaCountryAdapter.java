@@ -47,7 +47,8 @@ public class FreeVisaCountryAdapter extends RecyclerView.Adapter<FreeVisaCountry
 
     @Override
     public DetailsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.free_visa_destination_row_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).
+                inflate(R.layout.free_visa_destination_row_layout, parent, false);
 
         DetailsViewHolder detailsViewHolder = new DetailsViewHolder(v);
         return detailsViewHolder;
@@ -99,7 +100,7 @@ public class FreeVisaCountryAdapter extends RecyclerView.Adapter<FreeVisaCountry
                             public void onLoadingFailed(String s, View view, FailReason failReason) {
                                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                               imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
                             }
 
                             @Override
@@ -111,7 +112,7 @@ public class FreeVisaCountryAdapter extends RecyclerView.Adapter<FreeVisaCountry
                             public void onLoadingCancelled(String s, View view) {
                                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                               imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
                             }
 
                         }, new ImageLoadingProgressListener() {
@@ -128,6 +129,7 @@ public class FreeVisaCountryAdapter extends RecyclerView.Adapter<FreeVisaCountry
         } catch (Exception e) {
             e.printStackTrace();
         }
-        holder.txt_country_name.setText(list.get(position).getName());
+
+        holder.txt_country_name.setText(Utils.underlineText(list.get(position).getName()));
     }
 }
