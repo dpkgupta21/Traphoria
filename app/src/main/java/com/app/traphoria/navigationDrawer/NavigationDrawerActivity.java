@@ -23,7 +23,6 @@ import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -40,7 +39,6 @@ import com.app.traphoria.locationservice.LocationScreenFragment;
 import com.app.traphoria.member.MembersScreenFragment;
 import com.app.traphoria.menucount.EmergencyContactHandler;
 import com.app.traphoria.menucount.MenuCountHandler;
-import com.app.traphoria.model.MemberDTO;
 import com.app.traphoria.model.MenuDTO;
 import com.app.traphoria.passportvisa.ViewPassportVisaScreenFragment;
 import com.app.traphoria.preference.PreferenceHelp;
@@ -57,7 +55,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.display.SimpleBitmapDisplayer;
 
 import java.lang.ref.WeakReference;
-import java.util.List;
 
 
 public class NavigationDrawerActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
@@ -78,31 +75,40 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
     private SideMenuListAdapter menuListAdapter;
     private DisplayImageOptions options;
-
     private MenuDTO menuDTO;
     private final MenuHandler menuHandler =
             new MenuHandler(NavigationDrawerActivity.this);
     private final CountryHandler countryHandler =
             new CountryHandler(NavigationDrawerActivity.this);
+    private final NotificationDurationHandler notificationDurationHandler =
+            new NotificationDurationHandler(NavigationDrawerActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_nav_drawer_activity);
+        mActivity = NavigationDrawerActivity.this;
         initViews();
         assignClickOnView();
 
         int fragmentNumber = getIntent().getIntExtra("fragmentNumber", 0);
         int subFragmentNumber = getIntent().getIntExtra("subFragmentNumber", 0);
 
-        if (PreferenceHelp.getSocialLogin(NavigationDrawerActivity.this).equalsIgnoreCase("1")) {
-            displayView(7, 0);
-        } else {
-            displayView(fragmentNumber, subFragmentNumber);
-        }
+
+        displayView(fragmentNumber, subFragmentNumber);
+
         setHeaderValues();
 
 
+    }
+
+    public void openSettingFragment() {
+        String socialLogin = PreferenceHelp.getSocialLogin(NavigationDrawerActivity.this);
+
+        if (socialLogin.equalsIgnoreCase("1") && !TraphoriaPreference.isSocialLogin(mActivity)) {
+            TraphoriaPreference.setSocialLogin(mActivity, true);
+            displayView(7, 0);
+        }
     }
 
     public void changeMenuCount(MenuDTO menuDto) {
@@ -114,24 +120,12 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
     }
 
     public void setEmergencyContact(MenuDTO menuDto) {
-//        Button btnEmergencyCall = (Button) navigationHeaderView.findViewById(R.id.call_cancel_btn);
-//        Drawable emergencyBtnDrawable = btnEmergencyCall.getBackground();
-//        Button btnFamilyCall = (Button) navigationHeaderView.findViewById(R.id.call_btn);
-//        Drawable familyBtnDrawable = btnFamilyCall.getBackground();
 
         if (menuDto != null) {
             TraphoriaPreference.setEmergencyNumber(mActivity, menuDto.getNumber());
             // emergencyBtnDrawable.setAlpha(000);
         }
-//        else {
-//            emergencyBtnDrawable.setAlpha(150);
-//            String checkNumber = PreferenceHelp.getFamily(mActivity);
-//            if (!checkNumber.equalsIgnoreCase("")) {
-//                familyBtnDrawable.setAlpha(150);
-//            }else{
-//                familyBtnDrawable.setAlpha(000);
-//            }
-//        }
+
     }
 
     public static class MenuHandler extends android.os.Handler {
@@ -176,9 +170,31 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
         }
     }
 
+    public static class NotificationDurationHandler extends android.os.Handler {
+
+        private static final String TAG = "MenuHandler";
+        public final WeakReference<NavigationDrawerActivity> mActivity;
+
+        NotificationDurationHandler(NavigationDrawerActivity activity) {
+            mActivity = new WeakReference<NavigationDrawerActivity>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            Utils.ShowLog(TAG, "handleMessage in MenuHandler");
+            NavigationDrawerActivity activity = mActivity.get();
+            boolean isNotificationInsert = ((boolean) msg.obj);
+            if (isNotificationInsert)
+                activity.openSettingFragment();
+
+        }
+    }
+
+
     private void initViews() {
 
-        new Thread(new Handler(getApplicationContext())).start();
+        new Thread(new Handler(notificationDurationHandler,
+                getApplicationContext())).start();
         new Thread(new EmergencyContactHandler(countryHandler,
                 NavigationDrawerActivity.this)).start();
 
@@ -318,7 +334,7 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
                 break;
         }
 
-
+        menuListAdapter.setSelectedPosition(position);
         if (fragment != null) {
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

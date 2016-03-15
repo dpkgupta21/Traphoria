@@ -22,7 +22,7 @@ public class TraphoriaPreference {
     public static final String USERNAME = "username";
     public static final String PASSWORD = "password";
     public static final String EMERGENCY_NUMBER = "emergency_number";
-
+    public static final String SOCIAL_LOGIN = "social_login";
 
 
     /**
@@ -80,6 +80,21 @@ public class TraphoriaPreference {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static boolean isSocialLogin(Context context) {
+        boolean isSocialLogin = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE).getBoolean(
+                SOCIAL_LOGIN, false);
+        return isSocialLogin;
+
+    }
+
+    public static void setSocialLogin(Context context, boolean value) {
+        SharedPreferences preferences = context.getSharedPreferences(PREF_NAME,
+                Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putBoolean(SOCIAL_LOGIN, value);
+        editor.apply();
     }
 
     public static String getEmergencyNumber(Context context) {

@@ -2,6 +2,7 @@ package com.app.traphoria.lacaldabase;
 
 
 import android.content.Context;
+import android.os.Message;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -9,6 +10,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.MemberDTO;
+import com.app.traphoria.model.MenuDTO;
 import com.app.traphoria.model.NotificationDurationDTO;
 import com.app.traphoria.model.PassportDTO;
 import com.app.traphoria.model.PassportTypeDTO;
@@ -34,19 +36,22 @@ import java.util.Map;
 
 public class Handler implements Runnable {
 
-    private static final String TAG = "MenuCountHandler";
+    public static final int NOTIFICATION_DURATION_HANDLER = 1003;
+    private static final String TAG = "Handler";
     private Context mActivity;
+    private android.os.Handler handler;
 
-    public Handler(Context mActivity) {
+    public Handler(android.os.Handler handler, Context mActivity) {
         this.mActivity = mActivity;
+        this.handler = handler;
     }
 
     @Override
     public void run() {
         getTripCountryValues();
+        getNotificationDuration();
         getRelationValues();
         getMemberValues();
-        getNotificationDuration();
         getPassportType();
         getVisaType();
         getPassportVisa();
@@ -341,6 +346,7 @@ public class Handler implements Runnable {
 
     private void insertNotificationList(List<NotificationDurationDTO> list) {
         new NotificationDataSource(mActivity).insertNotificationDuration(list);
+        handleNotificationtResponse(true);
     }
 
 
@@ -359,5 +365,12 @@ public class Handler implements Runnable {
         if (visaList != null && visaList.size() > 0) {
             new VisaDataSource(mActivity).insertVisa(visaList);
         }
+    }
+
+    private void handleNotificationtResponse(boolean isNotificationInsert) {
+        Utils.ShowLog(TAG, "handleNotificationDurationResponse");
+        Message msg = handler.obtainMessage(NOTIFICATION_DURATION_HANDLER, isNotificationInsert);
+        handler.sendMessage(msg);
+
     }
 }

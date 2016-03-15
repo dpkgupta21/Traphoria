@@ -6,8 +6,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 
@@ -31,6 +35,8 @@ import com.google.gson.Gson;
 
 import org.json.JSONObject;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,9 +58,30 @@ public class LoginScreen extends BaseActivity {
         initViews();
         mActivity = this;
 
+        getKeyHash();
         String pushRegistrationId = TraphoriaPreference.getPushRegistrationId(mActivity);
         if (pushRegistrationId == null || pushRegistrationId.equalsIgnoreCase("")) {
             registrationPushNotification();
+        }
+    }
+
+    private void getKeyHash(){
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "com.app.traphoria",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                String key = new String(Base64.encode(md.digest(), 0));
+
+
+                Log.d("KeyHash:",key);
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+
+        } catch (NoSuchAlgorithmException e) {
+
         }
     }
 

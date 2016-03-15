@@ -215,18 +215,18 @@ public class NotificationFragment extends BaseFragment implements SwipeMenuListV
         switch (menu.getViewType()) {
             case 1:
                 Snackbar.make(view, "Delete Clicked", Snackbar.LENGTH_SHORT).show();
-                doMemberAction(position, 2);
+                doMemberAction(position, 0, false);
                 break;
             case 0:
 
                 switch (index) {
                     case 0:
                         Snackbar.make(view, "Check Clicked", Snackbar.LENGTH_SHORT).show();
-                        doMemberAction(position, 1);
+                        doMemberAction(position, 1, true);
                         break;
                     case 1:
                         Snackbar.make(view, "Cross Clicked", Snackbar.LENGTH_SHORT).show();
-                        doMemberAction(position, 0);
+                        doMemberAction(position, 0, true);
                         break;
                 }
                 break;
@@ -236,14 +236,17 @@ public class NotificationFragment extends BaseFragment implements SwipeMenuListV
     }
 
 
-    private void doMemberAction(int position, int status) {
+    private void doMemberAction(int position, int status, boolean isAddMemberAction) {
         if (Utils.isOnline(getActivity())) {
+            String senderId=notificationList.get(position).getSender_id();
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.DO_APPROVE_DECLINE_MEMBER);
             params.put("user_id", PreferenceHelp.getUserId(getActivity()));
             params.put("notification_id", notificationList.get(position).getNotification_id());
-            if (status == 2) {
-                params.put("sender_id", notificationList.get(position).getSender_id());
+            if (isAddMemberAction) {
+                params.put("sender_id", senderId);
+            }else{
+                params.put("sender_id", "0");
             }
             params.put("status", "" + status);
 
