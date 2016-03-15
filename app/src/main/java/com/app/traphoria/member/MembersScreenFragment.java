@@ -166,7 +166,9 @@ public class MembersScreenFragment extends BaseFragment {
 
                 break;
             case R.id.track_btn:
-                startActivity(new Intent(mActivity, TrackActivity.class));
+                Intent trackIntent = new Intent(mActivity, TrackActivity.class);
+                trackIntent.putExtra("memberId", memberId);
+                startActivity(trackIntent);
                 break;
             case R.id.task_btn:
 

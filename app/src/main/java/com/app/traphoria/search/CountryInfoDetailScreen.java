@@ -1,12 +1,13 @@
 package com.app.traphoria.search;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
 
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
@@ -15,7 +16,7 @@ import com.android.volley.VolleyError;
 import com.app.traphoria.R;
 import com.app.traphoria.customViews.CustomProgressDialog;
 import com.app.traphoria.model.CountryInfoDetailDTO;
-import com.app.traphoria.model.TermsAndConditionsDTO;
+import com.app.traphoria.passportvisa.VisaFreeCountryDetails;
 import com.app.traphoria.preference.PreferenceHelp;
 import com.app.traphoria.search.adapter.SlidingImageAdapter;
 import com.app.traphoria.utility.BaseActivity;
@@ -29,7 +30,6 @@ import com.viewpagerindicator.CirclePageIndicator;
 
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Timer;
@@ -48,6 +48,7 @@ public class CountryInfoDetailScreen extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.country_info_detail_screen);
         mActivity = CountryInfoDetailScreen.this;
+        setClick(R.id.btn_explore_visa);
         init();
     }
 
@@ -65,6 +66,18 @@ public class CountryInfoDetailScreen extends BaseActivity {
         getCountryDetailInfo(countryId);
 
 
+    }
+
+    @Override
+    public void onClick(View view) {
+      switch (view.getId()){
+          case R.id.btn_explore_visa:
+              Intent  intent = new Intent(mActivity, VisaFreeCountryDetails.class);
+              intent.putExtra("type", "p");
+              intent.putExtra("countryId", getIntent().getStringExtra("countryId"));
+              startActivity(intent);
+              break;
+      }
     }
 
     @Override
@@ -129,7 +142,7 @@ public class CountryInfoDetailScreen extends BaseActivity {
 
         setViewText(R.id.toolbar_title, countryInfoDetailDTO.getCountry_name());
         setViewText(R.id.txt_valid_country_name, countryInfoDetailDTO.getCountry_name());
-        setViewText(R.id.txt_description, countryInfoDetailDTO.getCountry_name());
+        setViewText(R.id.txt_description, countryInfoDetailDTO.getDescription());
         setTextViewText(R.id.txt_valid_visa_expires_date, "Expires on: " + countryInfoDetailDTO.getExpire_date());
 
 

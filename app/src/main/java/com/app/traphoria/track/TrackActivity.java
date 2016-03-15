@@ -112,9 +112,13 @@ public class TrackActivity extends BaseActivity implements OnMapReadyCallback {
     private void getUserLocation() {
 
         if (Utils.isOnline(this)) {
+            String memberId = getIntent().getStringExtra("memberId");
+            if (memberId == null || memberId.equalsIgnoreCase("")) {
+                memberId = PreferenceHelp.getUserId(this);
+            }
             Map<String, String> params = new HashMap<>();
             params.put("action", WebserviceConstant.USER_LOCATION);
-            params.put("user_id", PreferenceHelp.getUserId(this));
+            params.put("user_id", memberId);
 
             CustomProgressDialog.showProgDialog(this, null);
             CustomJsonRequest postReq = new CustomJsonRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params,
