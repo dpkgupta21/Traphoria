@@ -187,30 +187,31 @@ public class AddMemberScreen extends BaseActivity {
                                     if (Utils.getWebServiceStatus(response)) {
                                         if (response.has("sms")) {
                                             try {
-//                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
-//                                                sendIntent.setData(Uri.parse("smsto:"));
-//                                                sendIntent.setType("vnd.android-dir/mms-sms");
-//                                                sendIntent.putExtra("address", formatMobNumber);
-//                                                sendIntent.putExtra("sms_body", response.has("sms"));
-//                                                startActivity(sendIntent);
+                                                Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                                                sendIntent.setType("vnd.android-dir/mms-sms");
+                                                sendIntent.putExtra("address", formatMobNumber);
+                                                sendIntent.putExtra("sms_body", response.getString("sms"));
+                                                startActivityForResult(sendIntent, 1001);
 //                                                Toast.makeText(getApplicationContext(), "SMS sent.",
 //                                                        Toast.LENGTH_LONG).show();
 
-                                                SmsManager smsManager = SmsManager.getDefault();
-                                                smsManager.sendTextMessage(formatMobNumber, null, response.getString("sms"), null, null);
+//                                                SmsManager smsManager = SmsManager.getDefault();
+//                                                smsManager.sendTextMessage(formatMobNumber, null, response.getString("sms"), null, null);
                                             } catch (Exception e) {
                                                 Toast.makeText(getApplicationContext(),
                                                         "SMS failed, please try again.",
                                                         Toast.LENGTH_LONG).show();
                                                 e.printStackTrace();
                                             }
+                                        } else {
+                                            openMemberFragment();
                                         }
 //                                        Intent sendIntent = new Intent(Intent.ACTION_VIEW);
 //                                        sendIntent.putExtra("sms_body", "default content");
 //                                        sendIntent.setType("vnd.android-dir/mms-sms");
 //                                        startActivity(sendIntent);
                                         // Toast.makeText(AddMemberScreen.this, "Member added Successfully.", Toast.LENGTH_LONG).show();
-                                        openMemberFragment();
+
                                     } else {
                                         Utils.showDialog(AddMemberScreen.this, "Error", Utils.getWebServiceMessage(response));
                                     }
@@ -241,6 +242,11 @@ public class AddMemberScreen extends BaseActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        openMemberFragment();
     }
 
     public boolean validateForm() {
