@@ -75,6 +75,7 @@ public class MyTripListAdapter extends RecyclerView.Adapter<MyTripListAdapter.De
 
                         imgThumbnail.setImageResource(R.drawable.login_bg);
                         imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                        imgThumbnail.setPadding(0, 20, 0, 20);
                     }
 
                     @Override

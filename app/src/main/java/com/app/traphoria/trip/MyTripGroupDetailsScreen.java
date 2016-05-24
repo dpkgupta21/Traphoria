@@ -172,6 +172,7 @@ public class MyTripGroupDetailsScreen extends BaseActivity {
 
                                 imgThumbnail.setImageResource(R.drawable.login_bg);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, 20, 0, 20);
 
                             }
 

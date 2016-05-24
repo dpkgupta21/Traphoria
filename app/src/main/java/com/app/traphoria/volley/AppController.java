@@ -65,7 +65,7 @@ public class AppController extends Application {
 
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisc(true)
-                .cacheInMemory(true)
+                .cacheInMemory(false)
                 .imageScaleType(ImageScaleType.EXACTLY)
                 .displayer(new SimpleBitmapDisplayer()).build();
 

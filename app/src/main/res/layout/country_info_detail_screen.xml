@@ -34,19 +34,7 @@
             app:pageColor="@color/white"
             app:snap="false" />
 
-        <com.app.traphoria.customViews.MyTextView
-            android:id="@+id/txt_country_name_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:maxLines="2"
-            android:minLines="1"
-            android:paddingLeft="30sp"
-            android:paddingRight="30sp"
-            android:text=""
-            android:textColor="@color/white"
-            android:textSize="30sp" />
+
     </RelativeLayout>
 
     <ScrollView
@@ -111,7 +99,7 @@
                 android:textColor="@color/black"
                 android:textSize="20sp" />
 
-            <com.app.traphoria.customViews.MyTextView16
+            <com.app.traphoria.customViews.MyButtonViewSemi
                 android:id="@+id/btn_explore_visa"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

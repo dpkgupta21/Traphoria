@@ -509,7 +509,8 @@ public class SettingsScreenFragment extends BaseFragment implements FetchInterfa
                                 getWhereData("name", getViewText(R.id.notification, view)).getId());
             }
             params.put("countrycode", getViewText(R.id.sel, view));
-            CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST, WebserviceConstant.SERVICE_BASE_URL, params, file,
+            CustomJsonImageRequest postReq = new CustomJsonImageRequest(Request.Method.POST,
+                    WebserviceConstant.SERVICE_BASE_URL, params, file,
                     new Response.Listener<JSONObject>() {
                         @Override
                         public void onResponse(JSONObject response) {

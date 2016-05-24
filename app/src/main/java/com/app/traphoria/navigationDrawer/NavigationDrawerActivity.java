@@ -502,21 +502,21 @@ public class NavigationDrawerActivity extends AppCompatActivity implements Adapt
 
 
     private void showLogOutDialog() {
-        new CustomAlert(NavigationDrawerActivity.this, NavigationDrawerActivity.this)
-                .doubleButtonAlertDialog(
-                        getString(R.string.you_logout),
-                        getString(R.string.ok_button),
-                        getString(R.string.canceled), "dblBtnCallbackResponse", 1000);
-    }
-
-    public void dblBtnCallbackResponse(Boolean flag, int code) {
-        if (flag) {
-            SessionManager.logoutUser(mActivity);
-//            TraphoriaPreference.removeObjectIntoPref(NavigationDrawerActivity.this, PreferenceConstant.USER_INFO);
-//            Intent intent = new Intent(NavigationDrawerActivity.this, LoginScreen.class);
-//            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            startActivity(intent);
+            new CustomAlert(NavigationDrawerActivity.this, NavigationDrawerActivity.this)
+                    .doubleButtonAlertDialog(
+                            getString(R.string.you_logout),
+                            getString(R.string.ok_button),
+                            getString(R.string.canceled), "dblBtnCallbackResponse", 1000);
         }
 
-    }
+        public void dblBtnCallbackResponse(Boolean flag, int code) {
+            if (flag) {
+                SessionManager.logoutUser(mActivity);
+    //            TraphoriaPreference.removeObjectIntoPref(NavigationDrawerActivity.this, PreferenceConstant.USER_INFO);
+    //            Intent intent = new Intent(NavigationDrawerActivity.this, LoginScreen.class);
+    //            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+    //            startActivity(intent);
+            }
+
+        }
 }

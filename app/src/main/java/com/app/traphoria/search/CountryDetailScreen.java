@@ -178,7 +178,7 @@ public class CountryDetailScreen extends BaseActivity {
 
                                 countryImage.setImageResource(R.drawable.login_bg);
                                 countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
+                                countryImage.setPadding(0, 20, 0, 20);
 
                             }
 
