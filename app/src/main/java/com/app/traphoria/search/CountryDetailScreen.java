@@ -178,7 +178,7 @@ public class CountryDetailScreen extends BaseActivity {
 
                                 countryImage.setImageResource(R.drawable.login_bg);
                                 countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                countryImage.setPadding(0, 20, 0, 20);
+                                countryImage.setPadding(40, 40, 40, 40);
 
                             }
 
@@ -186,7 +186,7 @@ public class CountryDetailScreen extends BaseActivity {
                             public void onLoadingFailed(String s, View view, FailReason failReason) {
                                 countryImage.setImageResource(R.drawable.loading_fail);
                                 countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                countryImage.setPadding(0, 20, 0, 20);
+                                countryImage.setPadding(40, 40, 40, 40);
                             }
 
                             @Override
@@ -198,7 +198,7 @@ public class CountryDetailScreen extends BaseActivity {
                             public void onLoadingCancelled(String s, View view) {
                                 countryImage.setImageResource(R.drawable.loading_fail);
                                 countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                countryImage.setPadding(0, 20, 0, 20);
+                                countryImage.setPadding(40, 40, 40, 40);
                             }
 
                         }, new ImageLoadingProgressListener() {

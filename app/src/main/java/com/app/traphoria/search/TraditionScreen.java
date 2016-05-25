@@ -207,26 +207,27 @@ public class TraditionScreen extends BaseActivity {
 
         //final CustomArrayAdapter adapter = new CustomArrayAdapter(this, mData);
 
-        adapter = new TraditionExpandableAdapter(this, accordianList);
+        if (accordianList.size() != 0) {
+            adapter = new TraditionExpandableAdapter(this, accordianList);
 
-        mListView = (ExpandableListView) findViewById(R.id.main_list_view);
-        mListView.setAdapter(adapter);
-        mListView.setDivider(null);
-        ScrollView scroll_view = (ScrollView) findViewById(R.id.scroll_view);
-        scroll_view.smoothScrollTo(0, 0);
+            mListView = (ExpandableListView) findViewById(R.id.main_list_view);
+            mListView.setAdapter(adapter);
+            mListView.setDivider(null);
+            ScrollView scroll_view = (ScrollView) findViewById(R.id.scroll_view);
+            scroll_view.smoothScrollTo(0, 0);
 //        mListView.expandGroup(0);
-        setListViewHeight(mListView);
-        mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            setListViewHeight(mListView);
+            mListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
 
-            @Override
-            public boolean onGroupClick(ExpandableListView parent, View v,
-                                        int groupPosition, long id) {
-                setListViewHeight(parent, groupPosition);
-                return false;
-            }
-        });
-        //       setListViewHeightBasedOnChildren(mListView);
-
+                @Override
+                public boolean onGroupClick(ExpandableListView parent, View v,
+                                            int groupPosition, long id) {
+                    setListViewHeight(parent, groupPosition);
+                    return false;
+                }
+            });
+            //       setListViewHeightBasedOnChildren(mListView);
+        }
     }
 
 

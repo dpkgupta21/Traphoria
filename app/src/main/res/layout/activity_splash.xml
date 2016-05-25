@@ -12,8 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="100dp"
         android:layout_marginLeft="@dimen/margin_20dp"
         android:layout_marginRight="@dimen/margin_20dp"
-        android:layout_marginBottom="100dp"
-        android:background="@drawable/log_icon" />
+        android:src="@drawable/log_icon" />
 </LinearLayout>

@@ -20,7 +20,7 @@
         android:layout_marginLeft="@dimen/margin_20dp"
         android:layout_marginRight="@dimen/margin_20dp"
         android:layout_marginTop="@dimen/margin_60dp"
-        android:background="@drawable/log_icon" />
+        android:src="@drawable/log_icon" />
 
     <RelativeLayout
         android:id="@+id/mobile_num_form"
