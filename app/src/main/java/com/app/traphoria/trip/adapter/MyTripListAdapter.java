@@ -71,42 +71,43 @@ public class MyTripListAdapter extends RecyclerView.Adapter<MyTripListAdapter.De
             if (!imageUrl.equalsIgnoreCase("")) {
                 ImageLoader.getInstance().displayImage(imageUrl, imgThumbnail,
                         options, new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String s, View view) {
+                            @Override
+                            public void onLoadingStarted(String s, View view) {
 
-                        imgThumbnail.setImageResource(R.drawable.login_bg);
-                        imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
-                                0, WebserviceConstant.IMAGE_MARGIN);
-                    }
+                                imgThumbnail.setImageResource(R.drawable.login_bg);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+                            }
 
-                    @Override
-                    public void onLoadingFailed(String s, View view, FailReason failReason) {
-                        imgThumbnail.setImageResource(R.drawable.loading_fail);
-                        imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
-                                0, WebserviceConstant.IMAGE_MARGIN);
-                    }
+                            @Override
+                            public void onLoadingFailed(String s, View view, FailReason failReason) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+                            }
 
-                    @Override
-                    public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-                        imgThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    }
+                            @Override
+                            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
+                                imgThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                imgThumbnail.setPadding(0, 0, 0, 0);
+                            }
 
-                    @Override
-                    public void onLoadingCancelled(String s, View view) {
-                        imgThumbnail.setImageResource(R.drawable.loading_fail);
-                        imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
-                                0, WebserviceConstant.IMAGE_MARGIN);
-                    }
+                            @Override
+                            public void onLoadingCancelled(String s, View view) {
+                                imgThumbnail.setImageResource(R.drawable.loading_fail);
+                                imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+                            }
 
-                }, new ImageLoadingProgressListener() {
-                    @Override
-                    public void onProgressUpdate(String s, View view, int i, int i1) {
+                        }, new ImageLoadingProgressListener() {
+                            @Override
+                            public void onProgressUpdate(String s, View view, int i, int i1) {
 
-                    }
-                });
+                            }
+                        });
             } else {
                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
