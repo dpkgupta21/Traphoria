@@ -149,7 +149,8 @@ public class FestivalEventDetailScreen extends BaseActivity {
 
                                 destinationImage.setImageResource(R.drawable.login_bg);
                                 destinationImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                destinationImage.setPadding(0, 20, 0, 20);
+                                destinationImage.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
 
                             }
 
@@ -157,7 +158,9 @@ public class FestivalEventDetailScreen extends BaseActivity {
                             public void onLoadingFailed(String s, View view, FailReason failReason) {
                                 destinationImage.setImageResource(R.drawable.loading_fail);
                                 destinationImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                destinationImage.setPadding(0, 20, 0, 20);
+                                destinationImage.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
                             }
 
                             @Override
@@ -169,7 +172,9 @@ public class FestivalEventDetailScreen extends BaseActivity {
                             public void onLoadingCancelled(String s, View view) {
                                 destinationImage.setImageResource(R.drawable.loading_fail);
                                 destinationImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                destinationImage.setPadding(0, 20, 0, 20);
+                                destinationImage.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
                             }
 
                         }, new ImageLoadingProgressListener() {
@@ -181,7 +186,9 @@ public class FestivalEventDetailScreen extends BaseActivity {
             } else {
                 destinationImage.setImageResource(R.drawable.loading_fail);
                 destinationImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                destinationImage.setPadding(0, 20, 0, 20);
+                destinationImage.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                        0, WebserviceConstant.IMAGE_MARGIN);
+
             }
         } catch (Exception e) {
             e.printStackTrace();

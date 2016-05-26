@@ -64,6 +64,7 @@ public class CountryDetailScreen extends BaseActivity {
                 .showImageOnFail(R.drawable.login_bg)
                 .showImageForEmptyUri(R.drawable.login_bg)
                 .build();
+
         countryID = getIntent().getStringExtra("countryId");
         getCountryDetails(countryID);
         setClick(R.id.back_btn);
@@ -178,7 +179,10 @@ public class CountryDetailScreen extends BaseActivity {
 
                                 countryImage.setImageResource(R.drawable.login_bg);
                                 countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                countryImage.setPadding(40, 40, 40, 40);
+                                countryImage.setPadding(WebserviceConstant.COUNTRY_MARGIN,
+                                        WebserviceConstant.COUNTRY_MARGIN,
+                                        WebserviceConstant.COUNTRY_MARGIN, WebserviceConstant.COUNTRY_MARGIN);
+
 
                             }
 
@@ -186,19 +190,24 @@ public class CountryDetailScreen extends BaseActivity {
                             public void onLoadingFailed(String s, View view, FailReason failReason) {
                                 countryImage.setImageResource(R.drawable.loading_fail);
                                 countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                countryImage.setPadding(40, 40, 40, 40);
+                                countryImage.setPadding(WebserviceConstant.COUNTRY_MARGIN,
+                                        WebserviceConstant.COUNTRY_MARGIN,
+                                        WebserviceConstant.COUNTRY_MARGIN, WebserviceConstant.COUNTRY_MARGIN);
                             }
 
                             @Override
                             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
                                 countryImage.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                countryImage.setPadding(0,0,0,0);
                             }
 
                             @Override
                             public void onLoadingCancelled(String s, View view) {
                                 countryImage.setImageResource(R.drawable.loading_fail);
                                 countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                countryImage.setPadding(40, 40, 40, 40);
+                                countryImage.setPadding(WebserviceConstant.COUNTRY_MARGIN,
+                                        WebserviceConstant.COUNTRY_MARGIN,
+                                        WebserviceConstant.COUNTRY_MARGIN, WebserviceConstant.COUNTRY_MARGIN);
                             }
 
                         }, new ImageLoadingProgressListener() {
@@ -210,7 +219,9 @@ public class CountryDetailScreen extends BaseActivity {
             } else {
                 countryImage.setImageResource(R.drawable.loading_fail);
                 countryImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                countryImage.setPadding(0, 20, 0, 20);
+                countryImage.setPadding(WebserviceConstant.COUNTRY_MARGIN,
+                        WebserviceConstant.COUNTRY_MARGIN,
+                        WebserviceConstant.COUNTRY_MARGIN, WebserviceConstant.COUNTRY_MARGIN);
             }
 
         } catch (Exception e) {

@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.app.traphoria.R;
 import com.app.traphoria.model.PassportVisaDTO;
 import com.app.traphoria.utility.Utils;
+import com.app.traphoria.webservice.WebserviceConstant;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -194,7 +195,9 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                                 imgThumbnail.setImageResource(R.drawable.login_bg);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
 
                             }
 
@@ -202,19 +205,24 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             public void onLoadingFailed(String s, View view, FailReason failReason) {
                                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
                             }
 
                             @Override
                             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
                                 imgThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                imgThumbnail.setPadding(0, 0, 0, 0);
                             }
 
                             @Override
                             public void onLoadingCancelled(String s, View view) {
                                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
                             }
 
                         }, new ImageLoadingProgressListener() {
@@ -226,7 +234,9 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else {
                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                imgThumbnail.setPadding(0, 20, 0, 20);
+                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                        0, WebserviceConstant.IMAGE_MARGIN);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -247,7 +257,8 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
                                 iv.setImageResource(R.drawable.login_bg);
                                 iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-
+                                iv.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
 
                             }
 
@@ -255,19 +266,22 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                             public void onLoadingFailed(String s, View view, FailReason failReason) {
                                 iv.setImageResource(R.drawable.loading_fail);
                                 iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                iv.setPadding(0, 20, 0, 20);
+                                iv.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
                             }
 
                             @Override
                             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
                                 iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                iv.setPadding(0, 0, 0, 0);
                             }
 
                             @Override
                             public void onLoadingCancelled(String s, View view) {
                                 iv.setImageResource(R.drawable.loading_fail);
                                 iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                iv.setPadding(0, 20, 0, 20);
+                                iv.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
                             }
 
                         }, new ImageLoadingProgressListener() {
@@ -279,7 +293,8 @@ public class PassportAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             } else {
                 iv.setImageResource(R.drawable.loading_fail);
                 iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                iv.setPadding(0, 20, 0, 20);
+                iv.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                        0, WebserviceConstant.IMAGE_MARGIN);
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.app.traphoria.R;
 import com.app.traphoria.model.TripDTO;
 import com.app.traphoria.utility.Utils;
+import com.app.traphoria.webservice.WebserviceConstant;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -75,14 +76,16 @@ public class MyTripListAdapter extends RecyclerView.Adapter<MyTripListAdapter.De
 
                         imgThumbnail.setImageResource(R.drawable.login_bg);
                         imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        imgThumbnail.setPadding(0, 20, 0, 20);
+                        imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                0, WebserviceConstant.IMAGE_MARGIN);
                     }
 
                     @Override
                     public void onLoadingFailed(String s, View view, FailReason failReason) {
                         imgThumbnail.setImageResource(R.drawable.loading_fail);
                         imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        imgThumbnail.setPadding(0, 20, 0, 20);
+                        imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                0, WebserviceConstant.IMAGE_MARGIN);
                     }
 
                     @Override
@@ -94,7 +97,8 @@ public class MyTripListAdapter extends RecyclerView.Adapter<MyTripListAdapter.De
                     public void onLoadingCancelled(String s, View view) {
                         imgThumbnail.setImageResource(R.drawable.loading_fail);
                         imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                        imgThumbnail.setPadding(0, 20, 0, 20);
+                        imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                0, WebserviceConstant.IMAGE_MARGIN);
                     }
 
                 }, new ImageLoadingProgressListener() {
@@ -106,7 +110,8 @@ public class MyTripListAdapter extends RecyclerView.Adapter<MyTripListAdapter.De
             } else {
                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                imgThumbnail.setPadding(0, 20, 0, 20);
+                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                        0, WebserviceConstant.IMAGE_MARGIN);
             }
         } catch (Exception e) {
             e.printStackTrace();

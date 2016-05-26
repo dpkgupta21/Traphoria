@@ -153,7 +153,9 @@ public class TopDestinationDetailScreen extends BaseActivity {
 
                                 imgThumbnail.setImageResource(R.drawable.login_bg);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
 
                             }
 
@@ -161,19 +163,23 @@ public class TopDestinationDetailScreen extends BaseActivity {
                             public void onLoadingFailed(String s, View view, FailReason failReason) {
                                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
                             }
 
                             @Override
                             public void onLoadingComplete(String s, View view, Bitmap bitmap) {
                                 imgThumbnail.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                                imgThumbnail.setPadding(0, 0,
+                                        0, 0);
                             }
 
                             @Override
                             public void onLoadingCancelled(String s, View view) {
                                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
                             }
 
                         }, new ImageLoadingProgressListener() {
@@ -185,7 +191,8 @@ public class TopDestinationDetailScreen extends BaseActivity {
             } else {
                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                imgThumbnail.setPadding(0, 20, 0, 20);
+                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                        0, WebserviceConstant.IMAGE_MARGIN);
             }
         } catch (Exception e) {
             e.printStackTrace();

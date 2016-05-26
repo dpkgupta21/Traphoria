@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.app.traphoria.R;
+import com.app.traphoria.webservice.WebserviceConstant;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.FailReason;
@@ -78,7 +79,9 @@ public class SlidingImageAdapter extends PagerAdapter {
 
                                 imgThumbnail.setImageResource(R.drawable.login_bg);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
 
                             }
 
@@ -86,7 +89,9 @@ public class SlidingImageAdapter extends PagerAdapter {
                             public void onLoadingFailed(String s, View view, FailReason failReason) {
                                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
                             }
 
                             @Override
@@ -98,7 +103,9 @@ public class SlidingImageAdapter extends PagerAdapter {
                             public void onLoadingCancelled(String s, View view) {
                                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                                imgThumbnail.setPadding(0, 20, 0, 20);
+                                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                                        0, WebserviceConstant.IMAGE_MARGIN);
+
                             }
 
                         }, new ImageLoadingProgressListener() {
@@ -110,7 +117,9 @@ public class SlidingImageAdapter extends PagerAdapter {
             } else {
                 imgThumbnail.setImageResource(R.drawable.loading_fail);
                 imgThumbnail.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                imgThumbnail.setPadding(0, 20, 0, 20);
+                imgThumbnail.setPadding(0, WebserviceConstant.IMAGE_MARGIN,
+                        0, WebserviceConstant.IMAGE_MARGIN);
+
             }
         } catch (Exception e) {
             e.printStackTrace();
